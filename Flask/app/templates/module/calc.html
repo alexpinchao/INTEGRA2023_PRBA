@@ -1,0 +1,1059 @@
+<!--
+
+=========================================================
+* Volt Free - Bootstrap 5 Dashboard
+=========================================================
+
+* Product Page: https://themesberg.com/product/admin-dashboard/volt-bootstrap-5-dashboard
+* Copyright 2021 Themesberg (https://www.themesberg.com)
+* License (https://themesberg.com/licensing)
+
+* Designed and coded by https://themesberg.com
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. Please contact us to request a removal.
+
+-->
+
+{% extends 'base.html' %}
+{% import 'macros.html' as macros %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block head %}
+  {{ super() }}
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!-- Primary Meta Tags -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Themesberg">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Sweet Alert -->
+  <link type="text/css" href="{{url_for('static',filename='vendor/sweetalert2/dist/sweetalert2.min.css')}}" rel="stylesheet">
+  <!-- Notyf -->
+  <link type="text/css" href="{{url_for('static',filename='vendor/notyf/notyf.min.css')}}" rel="stylesheet">
+  <!-- Volt CSS -->
+  <link type="text/css" href="{{url_for('static',filename='css/volt.css')}}" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="//cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block title %}
+{{ super() }}
+Cálculo
+{% endblock %}
+
+{% block content %}
+<body onload ="ActivateSection('calc')">
+  {% block sidebar %}
+  {% include 'module/sidebar.html' %}
+  {% endblock %}
+  
+  <main class="content">
+    {% block nav %}
+    {% include 'module/navbar.html' %}
+    {% endblock %}
+  
+    <section id="main">
+      <div class="row mt-2">
+        <div class="col-12 d-flex flex-column">
+          <div class="card border-0 shadow components-section flex-grow-1">
+            <div class="card-body  mx-3 px-3 mx-xl-5 px-xl-5">
+              <div class="row mt-4 mt-lg-4">
+                <div class="col-12">
+                  <h2 class="h3 fw-extrabold">Bienvenido al cálculo de indicadores</h2>
+                  <p class="mb-0 justified-text">En este módulo se visualiza la tendencia histórica de los indicadores de eficiencia energética del sector eléctrico en Colombia y se pueden generar diferentes escenarios a partir de los datos actuales del país, para evaluar estrategias de eficiencia energética.</p>
+                </div>
+              </div>
+              <div class="row main-row">
+                <div class="col-12 col-sm-6 col-xl-4 mb-4 flex-grow-1">
+                  <a href="#indicators" onclick="ActiveSection('base-line')">
+                    <div class="card border-1 shadow card-effect">
+                      <div class="card-body">
+                        <div class="row d-block d-xl-flex align-items-center">
+                          <div
+                            class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                            <div class="icon-shape icon-shape-primary rounded me-4 me-sm-0 card-effect-icon">
+                              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z">
+                                </path>
+                              </svg>
+                            </div>
+                            <div class="d-sm-none">
+                              <h3 class="fw-extrabold mb-1">Linea base</h3>
+                            </div>
+                          </div>
+                          <div class="col-12 col-xl-7 px-xl-0">
+                            <div class="d-none d-sm-block">
+                              <h3 class="fw-extrabold mb-2">Linea base</h3>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-12 col-sm-6 col-xl-4 mb-4 flex-grow-1">
+                  <a href="#variables" onclick="ActiveSection('calculation')">
+                    <div class="card border-1 shadow card-effect">
+                      <div class="card-body">
+                        <div class="row d-block d-xl-flex align-items-center">
+                          <div
+                            class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                            <div class="icon-shape icon-shape-secondary rounded me-4 me-sm-0 card-effect-icon">
+                              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                  d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2H6zm1 2a1 1 0 000 2h6a1 1 0 100-2H7zm6 7a1 1 0 011 1v3a1 1 0 11-2 0v-3a1 1 0 011-1zm-3 3a1 1 0 100 2h.01a1 1 0 100-2H10zm-4 1a1 1 0 011-1h.01a1 1 0 110 2H7a1 1 0 01-1-1zm1-4a1 1 0 100 2h.01a1 1 0 100-2H7zm2 1a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1zm4-4a1 1 0 100 2h.01a1 1 0 100-2H13zM9 9a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1zM7 8a1 1 0 000 2h.01a1 1 0 000-2H7z"
+                                  clip-rule="evenodd"></path>
+                              </svg>
+                            </div>
+                            <div class="d-sm-none">
+                              <h3 class="fw-extrabold mb-1">Cálculo</h3>
+                              <h2 class="h5">de indicadores de EE</h2>
+                            </div>
+                          </div>
+                          <div class="col-12 col-xl-7 px-xl-0">
+                            <div class="d-none d-sm-block">
+                              <h3 class="fw-extrabold mb-2">Cálculo</h3>
+                              <h2 class="h6 text-gray-400 mb-0">de indicadores de EE</h2>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <section id="base-line" hidden>
+      <!-- section header -->
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+        <div class="d-block">
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+              <li class="breadcrumb-item">
+                <a href="#">
+                  <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                    </path>
+                  </svg>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a href="#" onclick="ActiveSection('main')">Cálculo  de indicadores</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Linea base</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-12">
+          <div class="card border-0 shadow components-section">
+            <div class="card-body">
+              <div class="row mb-2 mb-lg-2">
+                <div class="col-6">
+                  <h2 class="h4">Linea base</h2>
+                  <p class="mb-0">Tándem de indicadores para la industria eléctrica.</p>
+                </div>
+              </div>
+              <div class="card mb-2 border-1 shadow components-section flex-grow-1">
+                <div class="row card-body justify-content-between m-0">
+                  <!-- Dropdown menu-->
+                  <div class="m-0 col-xl-6 col-md-12 d-flex align-items-center justify-content-between">
+                    <span class="h5 fw-bold"> <strong>Indicadores de eficiencia energética</strong> </span>
+                  </div>
+                  <div class="m-0 col-xl-3 col-md-6 d-flex align-items-center justify-content-between">
+                    <span class="h6 fw-bold mr-1"> <strong>Cadena de Valor</strong> </span>
+                    <div class="btn-group me-2">
+                      <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Seleccionar</span>
+                        <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                        </svg>
+                      </button>
+                      <div class="dropdown-menu">
+                        <!--<a class="dropdown-item" href="#">Generación</a>
+                        <a class="dropdown-item" href="#">Distribución</a>
+                        <a class="dropdown-item" href="#">Uso final</a>-->
+                        <a class="dropdown-item" onclick="update_list_ind('generation')" href="#">Generación</a>
+                        <a class="dropdown-item" onclick="update_list_ind('distribution')" href="#">Distribución</a>
+                        <a class="dropdown-item" onclick="update_list_ind('end_use')" href="#">Uso final</a>
+                      </div>
+                    </div>
+                  </div>
+                  <!--<div class="m-0 col-xl-3 col-md-6 d-flex align-items-center justify-content-between">
+                    <span class="h6 fw-bold"> <strong>FNCE</strong> </span>
+                    <div class="btn-group me-2">
+                      <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Seleccionar</span>
+                        <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                        </svg>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Con relación</a>
+                        <a class="dropdown-item" href="#">Sin relación</a>
+                      </div>
+                    </div>
+                  </div>-->
+                  <!-- Accordion -->
+                  <div class="card-body">
+                    <div class="row">
+                      <!-- Section Table -->
+                      <div class="table-responsive table-info" id="table_content_1"></div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="card-body p-0">
+                  <!-- Graph Section -->
+                  <div class="row mb-2 mt-2 m-0">
+                    <div class="col-12 col-xl-12 mb-1 px-0 d-flex align-self-stretch">
+                      <div class="card border-0 flex-fill">
+                        <div class="card-header d-sm-flex flex-row align-items-center flex-0">
+                          <div class="d-block mb-3 mb-sm-0">
+                            <span class="fs-5 fw-extrabold mb-2" id="chart_title_1">Indicador seleccionado</span>
+                            <!-- <span class="fs-3 fw-normal">$10,567</span>
+                            <div class="small mt-2">
+                              <span class="fw-normal me-2">Yesterday</span>
+                              <span class="fas fa-angle-up text-success"></span>
+                              <span class="text-success fw-bold">10.57%</span>
+                            </div> -->
+                          </div>
+      <!--                     <div class="d-flex ms-auto">
+                            <a href="#" class="btn btn-secondary text-dark btn-sm me-2">Month</a>
+                            <a href="#" class="btn btn-dark btn-sm me-3">Week</a>
+                          </div> -->
+                        </div>
+                        <div class="card-body p-2 flex-fill" id="graph-container_1">
+                          <canvas id="line-chart_1" width="100%" height="50%"></canvas>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Configuration buttons for the number of table rows -->
+                  <!-- Extra Buttons -->
+  <!--                 <div class="row d-flex flex-row justify-content-between">
+                    <div class="col-8">
+                      <label for="customRange1" class="form-label">Año</label>
+                      <input type="range" class="form-range" id="customRange1">
+                      <p class="d-flex justify-content-between"><span class="d-flex">1500</span><span class="d-flex">2050</span class="text-end"></p>
+                    </div>
+                    <div class="col-2 btn-group ms-2 ms-lg-3 pt-4 pb-4">
+                      <button type="button" class="btn btn-sm btn-outline-gray-600">Compartir</button>
+                      <button type="button" class="btn btn-sm btn-outline-gray-600">Exportar</button>
+                    </div>
+                  </div>
+                </div> -->
+  <!--               <div class="row card-body justify-content-between m-0">
+  
+                  </div> -->
+              </div>   
+              </div>
+              <!-- Section Table 
+              <div class="card mb-2 border-1 shadow">
+                <div class="card-header d-flex flex-row align-items-center flex-0 border-bottom">
+                  <div class="d-block">
+                    <div class="h5 fw-normal text-gray mb-2">Datos históricos</div>
+                  </div>
+                </div>
+                <div class="card-body p-2">
+                  <div class="row">
+                    <div class="col-9">
+                      <canvas id="mixed-chart" width="100%" height="50%"></canvas>
+                    </div>
+                    <div class="col-3 mt-5">
+                      <h2 class="h3 fw-extrabold">Nombre Indicador</h2>
+                      <div class="small mt-2 justified-text p-1">
+                        <span class="mb-4">Descripción: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                          industry's standard dummy text ever since the 1500s.</span>
+                        <br>
+                      </div>
+                      <h2 class="h5 fw-extrabold text-end">Max. 8</h2>
+                      <h2 class="h5 fw-extrabold text-end">Min. 1</h2>
+                      <div class="d-flex align-items-center text-end m-2">
+                        <span class="dot rounded-circle bg-gray-600 me-2"></span>
+                        <span class="fw-normal small">July</span>
+                      </div>
+                      <div class="d-flex align-items-center text-end m-2">
+                        <span class="dot rounded-circle bg-secondary me-2"></span>
+                        <span class="fw-normal small">August</span>
+                      </div>
+                      <div class="text-center">
+                        <span class="h5 fw-extrabold">Último reporte: </span>
+                        <span class="fas fa-angle-up text-success"></span>
+                        <span class="h5 text-success fw-bold">18.2%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>-->
+              <div class="row mb-2 mt-2">
+
+                <!-- Configuration buttons for the number of table rows -->
+                <!-- Extra Buttons -->
+                <div class="row d-flex flex-row justify-content-between">
+                  <div class="col-4 col-md-2 m-4 ps-md-0">
+                    <div class="dropdown">
+                      <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-1" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd"
+                            d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+                            clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="visually-hidden">Toggle Dropdown</span>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-xs dropdown-menu-end pb-0">
+                        <span class="small ps-3 fw-bold text-dark">Show</span>
+                        <a class="dropdown-item d-flex align-items-center fw-bold" href="#">10 <svg class="icon icon-xxs ms-auto"
+                            fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clip-rule="evenodd"></path>
+                          </svg></a>
+                        <a class="dropdown-item fw-bold" href="#">20</a>
+                        <a class="dropdown-item fw-bold rounded-bottom" href="#">30</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-2 col-md-2 btn-group mt-4 ms-2 ms-lg-3">
+                    <button type="button" class="btn btn-sm btn-outline-gray-600">Compartir</button>
+                    <button type="button" class="btn btn-sm btn-outline-gray-600">Exportar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </section>
+  
+    <section id="calculation" hidden>
+      <!-- section header -->
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+        <div class="d-block">
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+              <li class="breadcrumb-item">
+                <a href="#">
+                  <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                    </path>
+                  </svg>
+                </a>
+              </li>
+              <li class="breadcrumb-item"><a href="#" onclick="ActiveSection('main')">Base de datos</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Variables</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-12">
+          <div class="card border-0 shadow components-section">
+            <div class="card-body">
+              <div class="row mb-2 mb-lg-2">
+                <div class="col-6">
+                  <h2 class="h4">Variables</h2>
+                  <p class="mb-0">Variables de proceso para la industria eléctrica.</p>
+                </div>
+                <div class="col-6">
+                  <div class="btn-toolbar d-flex justify-content-end">
+                    <a href="#" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+                      <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                      </svg>
+                      Cargar información
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="card border-1 shadow components-section flex-grow-1">
+                <div class="row card-body justify-content-between m-0">
+                  <!-- Dropdown menu-->
+                  <div class="m-0 col-xxl-4 col-md-12 d-flex align-items-center justify-content-between">
+                    <span class="h6 fw-bold mr-1"> <strong>Cadena de Valor</strong> </span>
+                    <div class="btn-group me-2">
+                      <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Seleccionar</span>
+                        <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                        </svg>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Generación</a>
+                        <a class="dropdown-item" href="#">Distribución</a>
+                        <a class="dropdown-item" href="#">Uso final</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="m-1 col-xxl-2 col-md-12 d-flex align-items-center justify-content-between">
+                    <span class="h6 fw-bold"> <strong>Tipo</strong> </span>
+                    <div class="btn-group me-2">
+                      <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Seleccionar</span>
+                        <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                        </svg>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Energéticos</a>
+                        <a class="dropdown-item" href="#">Económico-Energéticos</a>
+                        <a class="dropdown-item" href="#">Físico-Energéticos</a>
+                        <a class="dropdown-item" href="#">Energético-Ambientales</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="m-1 col-xxl-2 col-md-12 d-flex align-items-center justify-content-between">
+                    <span class="h6 fw-bold"> <strong>Proceso</strong> </span>
+                    <div class="btn-group me-2">
+                      <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Seleccionar</span>
+                        <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                        </svg>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Entrada</a>
+                        <a class="dropdown-item" href="#">Salida</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="m-1 col-xxl-2 col-md-12 d-flex align-items-center justify-content-between">
+                    <span class="h6 fw-bold"> <strong>FNCE</strong> </span>
+                    <div class="btn-group me-2">
+                      <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Seleccionar</span>
+                        <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                        </svg>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Con relación</a>
+                        <a class="dropdown-item" href="#">Sin relación</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Graph Section -->
+<!--   <div class="row">
+    <div class="col-12 mb-4">
+      <div class="card bg-yellow-100 border-0 shadow">
+        <div class="card-header d-sm-flex flex-row align-items-center flex-0">
+          <div class="d-block mb-3 mb-sm-0">
+            <div class="fs-5 fw-normal mb-2">Sales Value</div>
+            <h2 class="fs-3 fw-extrabold">$10,567</h2>
+            <div class="small mt-2">
+              <span class="fw-normal me-2">Yesterday</span>
+              <span class="fas fa-angle-up text-success"></span>
+              <span class="text-success fw-bold">10.57%</span>
+            </div>
+          </div>
+          <div class="d-flex ms-auto">
+            <a href="#" class="btn btn-secondary text-dark btn-sm me-2">Month</a>
+            <a href="#" class="btn btn-dark btn-sm me-3">Week</a>
+          </div>
+        </div>
+        <div class="card-body p-2">
+          <div class="ct-chart-sales-value ct-double-octave ct-series-g"></div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <!-- Configuration buttons for the number of table rows -->
+  <!-- Extra Buttons -->
+  <div class="row d-flex flex-row justify-content-between">
+    <div class="col-2 col-md-2 btn-group mt-4 ms-2 ms-lg-3">
+      <button type="button" class="btn btn-sm btn-outline-gray-600">Compartir</button>
+      <button type="button" class="btn btn-sm btn-outline-gray-600">Exportar</button>
+    </div>
+  </div>
+    </section>
+
+    {% block footer %}
+    {% include 'module/footer.html' %}
+    {% endblock %}
+  </main>
+</body>
+{% endblock %}
+
+{% block scripts%}
+{{super()}}
+<!-- Vendor JS -->
+<script src="{{url_for('static',filename='/vendor/onscreen/dist/on-screen.umd.min.js')}}"></script>
+<script charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+<!-- Slider -->
+<script src="{{url_for('static',filename='/vendor/nouislider/distribute/nouislider.min.js')}}"></script>
+
+<!-- Smooth scroll -->
+<script src="{{url_for('static',filename='/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js')}}"></script>
+
+<!-- Charts -->
+<script src="{{url_for('static',filename='/vendor/chartist/dist/chartist.min.js')}}"></script>
+<script
+  src="{{url_for('static',filename='/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js')}}"></script>
+
+<!-- Datepicker -->
+<script src="{{url_for('static',filename='/vendor/vanillajs-datepicker/dist/js/datepicker.min.js')}}"></script>
+
+<!-- Sweet Alerts 2 -->
+<script src="{{url_for('static',filename='/vendor/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
+
+<!-- Moment JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js')}}"></script>
+
+<!-- Vanilla JS Datepicker -->
+<script src="{{url_for('static',filename='/vendor/vanillajs-datepicker/dist/js/datepicker.min.js')}}"></script>
+
+<!-- Notyf -->
+<script src="{{url_for('static',filename='/vendor/notyf/notyf.min.js')}}"></script>
+
+<!-- Simplebar -->
+<script src="{{url_for('static',filename='/vendor/simplebar/dist/simplebar.min.js')}}"></script>
+
+<!-- Github buttons -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+<!-- Volt JS -->
+<script src="{{url_for('static',filename='js/volt.js')}}"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+
+<!--<script type="text/javascript">
+  var el = document.getElementById('accordionIndicadores');
+    el.innerHTML= '<div class="mt-3 accordion accordion-flush col-xl-3 col-md-12">'+
+                    '<div class="accordion-item">'+
+                      '<h2 class="accordion-header" id="headingOne">'+
+                        '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"'+
+                          'aria-expanded="false" aria-controls="collapseOne">'+
+                          'Participacion den la generación electrica'+
+                        '</button>'+
+                      '</h2>'+
+                      '<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"'+
+                        'data-bs-parent="#accordionPricing">'+
+                        '<div class="accordion-body">'+
+                          '<div class="form-check">'+
+                            '<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">'+
+                            '<label class="form-check-label" for="flexRadioDefault1">'+
+                              'Participacion de fuentes fosiles xxxxxxxxxxxxx'+
+                            '</label>'+
+                          '</div>'+
+                          '<div class="form-check">'+
+                            '<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>'+
+                            '<label class="form-check-label" for="flexRadioDefault2">'+
+                              'Participacion de fuentes hidricas'+
+                            '</label>'+
+                          '</div>'+
+
+                          '<div class="form-check">'+
+                            '<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">'+
+                            '<label class="form-check-label" for="flexRadioDefault1">'+
+                             'Participacion de FNC matriz energetica'+
+                            '</label>'+
+                          '</div>'+
+
+                          '<div class="form-check">'+
+                            '<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">'+
+                            '<label class="form-check-label" for="flexRadioDefault1">'+
+                              'Participacion de fuentes solares'+
+                            '</label>'+
+                          '</div>'+
+
+                        '</div>'+
+                      '</div>'+
+                    '</div>'+
+                  '</div>';
+</script>-->
+
+
+<script>
+  new Chart(document.getElementById("mixed-chart"), {
+      type: 'bar',
+      data: {
+        labels: ["1900", "1950", "1999", "2050"],
+        datasets: [{
+          label: "Europe",
+          type: "line",
+          borderColor: "#8e5ea2",
+          data: [408, 547, 675, 734],
+          fill: false
+        }, {
+          label: "Africa",
+          type: "line",
+          borderColor: "#3e95cd",
+          data: [133, 221, 783, 2478],
+          fill: false
+        }, {
+          label: "Europe",
+          type: "bar",
+          backgroundColor: "rgba(0,0,0,0.2)",
+          data: [408, 547, 675, 734],
+        }, {
+          label: "Africa",
+          type: "bar",
+          backgroundColor: "rgba(0,0,0,0.2)",
+          backgroundColorHover: "#3e95cd",
+          data: [133, 221, 783, 2478]
+        }
+        ]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Gráfica de ejemplo 2'
+        },
+        legend: { display: false }
+      }
+    });
+</script>
+
+<!-- Variables Datatable.js handler -->
+<!-- Callback for combobox on variable view :) -->
+<script type="text/javascript">
+  (function () 
+    { window.onload = function two(){
+      var list_name = 'generation';
+      var key = 'Factor de Pérdidas';
+      update_list_ind(list_name);
+      /* create_chart(list_name, key); */
+    }
+    })
+  ();
+
+  var _table_ = document.createElement('table'),
+      _tr_ = document.createElement('tr'),
+      _th_ = document.createElement('th'),
+      _td_ = document.createElement('td'),
+      _thead_ = document.createElement('thead'),
+      _tbody_ = document.createElement('tbody'),
+      _i_ = document.createElement('i'),
+      _a_ = document.createElement('a');
+      var last_indicator = '';
+  function update_list_ind(list_name){
+
+    var json_file = JSON.parse('{{data_indicators | tojson | safe}}');
+
+    console.log("update_list_ind");
+    console.log("json_file");
+    console.log(json_file);
+
+    var keys_list = Object.keys(json_file[list_name])
+    var keys_list_2 = []
+    var keys_list_3 = []
+    var json_table = {}
+    //var json_new = {}
+    var json_aux_ind
+    var json_aux_des
+    var json_desagregacion = []
+    var json_desagregacion_completo = []
+
+    keys_list.forEach(function (item, index) {
+      var name = item;
+    });
+
+      keys_list.forEach(function (item, index) {
+        var name = item;
+        if (item === 'Desagregacion'){
+
+          json_aux_des = json_file[list_name][item];
+        }else {
+          json_aux_ind = json_file[list_name][item];
+        }
+      });
+      
+      keys_list_2 = Object.keys(json_aux_ind)
+      
+          keys_list_2.forEach(function (item2, index) {
+
+            keys_list_3 = Object.keys(json_aux_des)
+            keys_list_3.forEach(function (item3, index) {
+
+                  if((json_aux_ind[item2]['INDICADOR_ID'])===(json_aux_des[item3]['REL_VARIABLES_DESAGREGACION'])){
+
+                    json_desagregacion.push(json_aux_des[item3]['DESAGREGACION_NOMBRE'])
+                    //json_desagregacion.push(json_aux_ind[item2]['FORMULA_RELACIONES'])
+                    json_desagregacion_completo.push(json_desagregacion)
+                    json_desagregacion = []
+
+                  }
+              });
+
+              var indicador_nombre = json_aux_ind[item2]['INDICADOR_AGREGADO']
+              json_table[indicador_nombre] = json_desagregacion_completo;
+              json_desagregacion_completo = []
+
+          });
+          loadTable_variables_ind(list_name, json_table);
+  }
+
+  /*
+  funcion que devuelve una vista de los datos en forma de una acordeon desplegable
+  se deja por si en algun momento se tiene que volver a usar
+   */
+
+  /*function loadTable_variables_ind_new(list_name, json_new){
+
+  var list_names = Object.keys(json_new)
+
+  console.log("loadTable_variables_ind_new");
+  console.log("list_names");
+  console.log(list_names);
+
+  var el = document.getElementById('accordionIndicadores');
+  let check = "";
+  el.innerHTML = '';
+  list_names.forEach(function(items,index){
+    var tamanio = index;
+    check         +=' <div class="mt-3 accordion accordion-flush col-xl-6 col-md-6">'
+                  +'    <div class="accordion-item">'
+                  +'        <h2 class="accordion-header" id="headingOne'+tamanio+'">'
+                  +'            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne'+tamanio+'"'
+                  +'              aria-expanded="false" aria-controls="collapseOne'+tamanio+'">'
+                  +               items
+                  +'            </button>'
+                  +'         </h2>'
+                  +'       <div id="collapseOne'+tamanio+'" class="accordion-collapse collapse" aria-labelledby="headingOne'+tamanio+'"'
+                  +'        data-bs-parent="#accordionPricing">'
+                  +'          <div class="accordion-body">';
+
+                  var keys_list = json_new[items];
+                  //var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+                  keys_list.forEach(function (item, index) {
+                  var keys_list_tam = index;
+                  check     +='  <div class="form-check">'
+                                +'      <input class="form-check-input" onclick="create_chart_indic(\''+list_name+'\',\''+items+'\',\''+item+'\')" href="#" type="radio" name="flexRadioDefault" id="flexRadioDefault'+keys_list_tam+'">'
+                                +'        <label class="form-check-label" for="flexRadioDefault'+keys_list_tam+'">'
+                                +           item
+                                +'        </label>'
+                                +'   </div>';
+                  });
+
+          check  +='         </div>'
+                  +'        </div>'
+                  +'    </div>'
+                  +'  </div>';
+    });
+    
+    el.innerHTML += check;
+
+    
+
+      console.log("list_name");
+      console.log(list_name);
+      
+      console.log("child");
+      //console.log(child);
+
+      console.log("row");
+     //console.log(row);
+      //create_chart_indic(list_name, child, row);
+}*/
+
+
+  function loadTable_variables_ind(list_name, json_new){
+
+    var list_names = Object.keys(json_new)
+
+    console.log("loadTable_variables");
+    console.log("list_names");
+    console.log(list_names);
+
+    var table = _table_.cloneNode(false);
+    var tbody = _tbody_.cloneNode(false),
+    columns = addAllColumnHeaders(list_name);
+
+    list_names.forEach(function(items,index){
+
+      console.log("items");
+      console.log(items);
+
+      var tr = _tr_.cloneNode(false);
+      var td = _td_.cloneNode(false);
+      var a = _a_.cloneNode(false);
+      a.appendChild(document.createTextNode(items || ''));
+      td.classList.add('fw-extrabold')
+      td.classList.add('showhr')
+      var i = _i_.cloneNode(false);
+      i.classList.add('fa-solid')
+      //i.classList.add('fa-angle-right') 
+      i.classList.add('fa-caret-down')
+      i.classList.add('pe-1')
+
+      td.appendChild(i);
+      td.appendChild(a);
+      tr.appendChild(td);  
+      tbody.appendChild(tr);
+      var keys_list = json_new[items];
+
+      console.log("keys_list");
+      console.log(keys_list);
+
+      var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+      keys_list.forEach(function (item, index) {
+
+        console.log("item");
+        console.log(item);
+
+        var tr = _tr_.cloneNode(false);
+        var td = _td_.cloneNode(false);
+        var cell_value;
+        if(item in translate_array){
+          cell_value = translate_array[item];
+        } else{
+          cell_value = item;
+        }
+        td.appendChild(document.createTextNode(cell_value|| ''));       
+        td.classList.add('aser')
+        td.classList.add('fw-normal')
+        tr.appendChild(td);  
+        tr.style.display = 'none';
+        tbody.appendChild(tr);
+      })    
+    })
+
+    table.appendChild(tbody);
+    
+    table.id = 'table_variables'
+    table.classList.add('table');
+    table.classList.add('table-centered');
+    table.classList.add('table-nowrap');      
+    table.classList.add('rounded');
+    table.classList.add('mb-0');
+    table.classList.add('border-0');
+    table.classList.add('dt-responsive');
+
+    function addAllColumnHeaders(list_name) {                                                                                                
+      var columnSet = [],
+      thead = _thead_.cloneNode(false);
+      tr = _tr_.cloneNode(false);
+      var th = _th_.cloneNode(false);
+      if (list_name === 'generation'){
+        var key = 'Generación';
+      } else if (list_name === 'distribution'){
+        var key = 'Distribución';
+      } else if (list_name === 'end_use'){ 
+        var key = 'Uso final';
+      }
+      columnSet.push(key)
+      th.appendChild(document.createTextNode(key));
+      th.classList.add('rounded');     
+      th.classList.add('border-0');
+      tr.appendChild(th);
+      thead.appendChild(tr);
+      thead.classList.add('thead-light');
+      table.appendChild(thead);
+      return columnSet;
+    }
+
+    var el = document.getElementById('table_content_1');
+    el.innerHTML= '';
+    el.appendChild(table);
+    const datatablesSimple = document.getElementById('table_variables');
+    if (datatablesSimple) {
+      let tables = new DataTable(datatablesSimple, {
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
+      }, 
+      ordering: false,
+      hover: true,
+      filter: false,
+      responsive:true,
+      pageLength: 200,
+      scrollResize: true,
+      scrollX: false,    
+      scrollY: 300,
+      scrollCollapse:false,
+      dom: 'Bfrtip',
+      aaSorting: [],
+      deferRender: true,
+      paging: false,
+      buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+        ]
+      });
+    }
+
+    var table_handler = $('#table_variables').DataTable();
+    $('#table_variables tbody').on('click', 'tr', function () {
+      var td_select = this.childNodes[0]
+      if(td_select.classList.contains("showhr")){
+        $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
+      }
+      else if(td_select.classList.contains('aser')) {
+        var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
+        var data = table_handler.row(this).data();
+        var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+        var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
+        if (row[0] == null){
+          row = data;
+        }
+
+        console.log("list_name");
+        console.log(list_name);
+        
+        console.log("child");
+        console.log(child);
+
+        console.log("row");
+        console.log(row);
+        create_chart_indic(list_name, child, row);
+      }
+    }
+    );
+  }
+
+  function create_chart_indic(list_name, indicator, key){
+    var row1 = key[0];
+    //var row1 = key;
+    var row = row1.replace(/ /gi,"_");
+    var b_colorslist = ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'];
+    var colorslist = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'];
+    /* const table_name = key; */
+    const table_name = indicator;
+    document.getElementById('chart_title_1').innerHTML = table_name;
+    var json_file = JSON.parse('{{data_indicators | tojson | safe}}');
+    var table = json_file[list_name]['Data'];
+    var keys = Object.keys(table[0]);
+
+    var labels = table.map(function(e) {
+      return e[keys[0]];
+    });
+
+    var data = table.map(function(e) {
+      return e[row];
+    });;
+
+    length = data.length;
+    var array=[];
+    for (var j = 0; j < length; j++){
+      array.push(parseFloat(data[j]));
+    }
+    var unit = '';
+    var units = JSON.parse('{{units | tojson | safe}}');
+
+    if (indicator in units){
+      unit = units[indicator];
+      /*if (unit=='Porcentaje %'){
+        array = array.map(function(x) { return x * 100; });;
+      }*/
+    }
+    if (last_indicator==indicator){
+      if (!(keys_list.includes(row))){
+        keys_list.push(row);
+        const update_dataset = {label: row,  borderColor: colorslist[keys_list.length], backgroundColor: b_colorslist[keys_list.length], data: array, spanGraphs: false, fill: true};
+        chart_element.data.datasets.push(update_dataset);
+        chart_element.update();
+      } else {
+        keys_list = keys_list.filter(data => data != row);;
+        chart_element.data.datasets=  chart_element.data.datasets.filter(data => data.label != row);
+        chart_element.update();
+      }
+      
+    } else {
+    keys_list=[row]
+    var mydatasets = [{label: row,  borderColor: colorslist[0], backgroundColor: b_colorslist[0], data: array, spanGraphs: false, fill: true}];
+    let delayed;
+    $('#line-chart_1').remove(); 
+    $('#graph-container_1').append('<canvas id="line-chart_1" width="100%" height="50%"><canvas>'); 
+    var config = {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: mydatasets
+        },
+        options: {
+          responsive: true,
+          scales: {
+            xAxes: [{
+              stacked: true,
+              scaleLabel: {
+                display: true,
+                labelString: 'Año'
+              }
+            }],
+            yAxes: [{
+              stacked: false,
+              scaleLabel: {
+                display: true,
+                labelString: unit
+              }
+            }]
+          },
+          title: {
+            display: false,
+            text: table_name,
+          },
+          legend: {
+            position: 'bottom',
+          },
+          animation: {
+            onComplete: () => {
+              delayed = true;
+            },
+            delay: (context) => {
+              let delay = 0;
+              if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                delay = context.dataIndex * 300 + context.datasetIndex * 100;
+              }
+              return delay;
+            },
+            }}
+      };
+    chart_element = new Chart(document.getElementById('line-chart_1'), config);
+    }
+    last_indicator = indicator;
+  }
+</script>
+
+{% endblock %}

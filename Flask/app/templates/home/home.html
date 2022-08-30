@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+{% import 'macros.html' as macros %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
+  <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
+{% endblock %}
+
+{% block title %}
+{{ super() }}
+Home
+{% endblock %}
+
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+
+
+{% block content %}
+<main class="content">    
+  <section class="pt-5" id="header">
+    <div id="myCarousel" class="carousel slide h-75" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+          aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="{{url_for('static',filename='/images/windmills-on-the-field-2.jpg')}}" alt="">   
+          <div class="container">
+            <div class="carousel-caption text-start">
+              <h1><i>Nombre de la herramienta</i></h1>
+              <p class="justified-text">El proyecto INTEGRA2023 proporciona una herramienta que permite gestionar indicadores de eficiencia energética asociados a los procesos de generación, distribución y uso final de la energía eléctrica en Colombia, además de evaluar diferentes estrategias de eficiencia bajo criterios energéticos, económicos y ambientales.<br>Regístrese hoy mismo y accede a los distintos servicios de <i>Nombre de la herramienta</i>.</p>
+              <p><a class="btn btn-lg home-btn float-end" href="{{url_for('auth.signup')}}">Registrarse</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="{{url_for('static',filename='/images/image12-1.jpg')}}" alt="">   
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Acerca del proyecto</h1>
+              <p class="justified-text">Llevando como titulo <i>Estrategia para la gestión y utilización de indicadores de eficiencia energética en los procesos de generación distribución y uso final de la energía en Colombia.</i> El proyecto contó con la participación de la Universidad tecnológica de Pereira y la Universidad del Valle para su desarrollo, todo esto en el marco del programa INTEGRA2023 del Ministerio de Ciencia Tecnología e Innovación. 
+              </p>
+              <p><a class="btn btn-lg home-btn" href="#about">Más información</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="{{url_for('static',filename='/images/image6.jpg')}}" alt="">   
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>¿Necesitas información adicional?</h1>
+              <p class="justified-text">Si requiere conocer más sobre <i>Nombre de la herramienta</i> y el proyecto desarrollado en el marco del programa INTEGRA2023, estaremos contentos de atenderle.</p>
+              <p><a class="btn btn-lg home-btn" href="{{url_for('contact')}}">Contacto</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </section>
+    <div class="container marketing">
+  
+      <!-- Three columns of text below the carousel -->
+      <div class="row pt-5" id="services">
+        <div class="col-lg-4">
+          <svg class="icon incon-xs bd-placeholder-img rounded-circle" width="110" height="110" fill="#272727" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
+            <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
+            <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
+          </svg>              
+          <h2>Base <br> de datos</h2>
+          <p>
+            <a class="btn home-btn" data-bs-toggle="collapse" href="#collapseDataBase" role="button" aria-expanded="false"
+            aria-controls="collapseDataBase">
+            Ver detalles &raquo;</a>
+          </p>
+          <div class="collapse" id="collapseDataBase">
+            <p class="justified-text">En este módulo se recopila la información de las variables e indicadores de eficiencia  energética asociados a los procesos de generación, distribución y uso final de la energía eléctrica en Colombia.</p>
+          </div>            
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <svg class="icon incon-xs bd-placeholder-img rounded-circle" width="110" height="110" fill="#272727" viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2H6zm1 2a1 1 0 000 2h6a1 1 0 100-2H7zm6 7a1 1 0 011 1v3a1 1 0 11-2 0v-3a1 1 0 011-1zm-3 3a1 1 0 100 2h.01a1 1 0 100-2H10zm-4 1a1 1 0 011-1h.01a1 1 0 110 2H7a1 1 0 01-1-1zm1-4a1 1 0 100 2h.01a1 1 0 100-2H7zm2 1a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1zm4-4a1 1 0 100 2h.01a1 1 0 100-2H13zM9 9a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1zM7 8a1 1 0 000 2h.01a1 1 0 000-2H7z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <h2>Cálculo de <br> Indicadores</h2>
+            <p>
+              <a class="btn home-btn" data-bs-toggle="collapse" href="#collapseCalc" role="button" aria-expanded="false"
+                aria-controls="collapseCalc">
+                Ver detalles &raquo;</a>
+            </p>
+            <div class="collapse" id="collapseCalc">
+              <p class="justified-text">En este módulo se visualiza la tendencia histórica de los indicadores de eficiencia energética del sector eléctrico en Colombia y se pueden generar diferentes escenarios a partir de los datos actuales del país, para evaluar estrategias de eficiencia energética.</p>
+            </div>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <svg class="icon incon-xs bd-placeholder-img rounded-circle" width="110" height="110" fill="#272727" viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zm9 4a1 1 0 10-2 0v6a1 1 0 102 0V7zm-3 2a1 1 0 10-2 0v4a1 1 0 102 0V9zm-3 3a1 1 0 10-2 0v1a1 1 0 102 0v-1z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <h2>Análisis <br> de Estrategias</h2>
+            <p>
+              <a class="btn home-btn" data-bs-toggle="collapse" href="#collapseAnalysis" role="button" aria-expanded="false"
+                aria-controls="collapseAnalysis">
+                Ver detalles &raquo;</a>
+            </p>
+            <div class="collapse" id="collapseAnalysis">
+              <p class="justified-text">En este módulo se evalúan las estrategias de eficiencia energética mediante criterios económicos, ambientales y energéticos, al ser proyectadas hacia los años de interés, permitiendo definir las estrategias más viables para el país.</p>
+            </div>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+  
+  
+      <!-- START THE FEATURETTES -->
+  
+      <hr class="featurette-divider">
+  
+      <div class="row featurette pt-5" id="about">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Acerca del proyecto</h2>
+          <p class= "justified-text lead"><strong>Problemática: </strong>Las ineficiencias en los procesos de generación, distribución y uso final de la energía eléctrica no solo representan pérdidas económicas, sino una mayor contaminación atmosférica y producción de gases efecto invernadero, asociados a una mayor necesidad de consumo energético para suplir la demanda eléctrica.</p>
+          <p class="justified-text lead"><strong>Alcance: </strong>El proyecto INTEGRA2023 proporciona una herramienta que permite gestionar indicadores de eficiencia energética asociados a los procesos de generación, distribución y uso final de la energía eléctrica en Colombia, además de evaluar diferentes estrategias de eficiencia bajo criterios energéticos, económicos y ambientales.</p>
+        </div>
+        <div class="col-md-5 login-image">
+          <img class=" bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
+            height="500" src="{{url_for('static',filename='/images/image7.jpg')}}" alt="" preserveAspectRatio="xMidYMid slice" focusable="false">
+        </div>
+      </div>
+  
+
+  
+<!--         <div class="row featurette pt-5">
+        <div class="col-md-7 order-md-2">
+          <h2 class="featurette-heading">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
+          <p class=">Another featurette? Of course. More placeholder content here to give you an idea of how this
+            layout would work with some actual real-world content in place.</p>
+        </div>
+        <div class="col-md-5 order-md-1">
+          <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
+            height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
+            preserveAspectRatio="xMidYMid slice" focusable="false">
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
+          </svg>
+        </div>
+      </div> -->
+      <hr class="featurette-divider">
+  
+      <!-- /END THE FEATURETTES -->  
+    </div><!-- /.container -->
+
+
+    <!-- FOOTER -->
+    <footer class="m-4">
+      <div class="card rounded border-1 p-4">
+        <div class="card-body">
+          <div class="bg-white p-4">
+            <div class="row">
+              <div class="col-12 col-md-8 col-xl-12 text-center text-lg-start">
+                <div class="row justify-content-center">
+                  <img src="{{url_for('static',filename='/images/logos2.jpg')}}" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <p class="mb-0 text-center text-lg-center"><small>© 2019- <span class="current-year"></span> </small><a
+                  class="text-primary fw-normal" href="https://themesberg.com" target="_blank"><small>Themesberg</small></a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+</main>
+{% endblock %}

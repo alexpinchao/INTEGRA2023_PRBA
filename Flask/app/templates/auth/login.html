@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% import 'macros.html' as macros %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
+{% endblock %}
+
+
+{% block title %}
+{{ super() }}
+Login
+{% endblock %}
+
+{% block navbar %}
+{% include 'auth/navbar_auth.html' %}
+{% endblock %}
+
+{% block content %}
+  <section class="login-section" id="login">
+    <div class="container login-container w-100">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-6 col-xl-4 login-image d-none d-lg-block">
+          <img src="{{url_for('static',filename='/images/image7.jpg')}}" alt="">
+        </div>
+        <div class="col-lg-6 col-xl-4 login-form">
+          <h3 class="mt-5">Iniciar sesión</h3>
+          <form class="form" role="form" action="{{ url_for('auth.login') }}" method="POST">
+            {{ login_form.csrf_token() }}
+            <div class="form-group">
+              <label class="control-label" for="username">
+                {{login_form.username.label()}}
+              </label>
+              {{login_form.username(class_="form-control")}}
+              {% if val_name %}
+              <div class="error-input">Usuario incorrecto</div>
+              {% endif %}
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="password">
+                {{login_form.password.label()}}
+              </label>
+              {{login_form.password(class_="form-control")}}
+              {% if val_name %}
+              <div class="error-input">Usuario incorrecto</div>
+              {% endif %}
+            </div>
+            <div class="form-group">
+              {% for error in login_form.errors %}
+              <div class="error-input">{{error}}</div>
+              {% endfor %}
+              {{login_form.remember_me(class_="checkbox ")}}
+              <small>{{login_form.remember_me.label()}}</small> <a href="{{url_for('auth.recovery')}}">¿Olvidaste la contraseña?</a>
+            </div>
+            <div class="form-group text-center">
+              {{login_form.submit(class_="button btn login-btn mt-5")}}
+              <a href="{{url_for('auth.signup')}}">¿Registrarse?</a>
+              {% if val_name %}
+              <div class="error-input">Usuario incorrecto</div>
+              {% endif %}
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-12 col-xl-8 login-logos">
+          <img src="{{url_for('static',filename='/images/logos2.jpg')}}" alt="">
+        </div>
+      </div>
+    </div>
+
+  </section>
+{% endblock %}

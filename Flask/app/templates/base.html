@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Themesberg">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap-5.0.0-alpha-2.min.css')}}"> -->
+    <title>
+      {% block title %} INTEGRA2023 |{% endblock %}
+    </title>
+    {% endblock %}
+  </head>
+  <body>
+  {% block body %}
+    {% block navbar %}
+
+    {% endblock %}
+
+    {% for message in get_flashed_messages() %}
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 99999">
+      <div id="liveToast" class="toast show" role="status" aria-live="polite" aria-atomic="false" data-bs-delay="2000">
+        <div class="toast-header">          
+          <span class="dot rounded-circle bg-secondary me-2"></span>
+          <strong class="me-auto">Mensaje</strong>
+          <small>ahora</small>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          {{message}}
+        </div>
+      </div>
+    </div>
+    <script>
+      function load() {
+        setTimeout(function () {
+          $('#liveToast').fadeOut('fast');
+        }, 1000)
+      }
+      window.onload = load;
+    </script>
+    {% endfor %}
+
+    {% block content %}
+
+    {% endblock %}
+
+    {% block scripts%}
+    <!-- Core -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="{{url_for('static',filename='js/popper.min.js')}}"></script>
+<!--     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+    <script src="{{url_for('static',filename='js/scripts.js')}}"></script>
+    <!-- Vendor JS -->
+    <script src="{{url_for('static',filename='js/src/on-screen.umd.min.js')}}"></script>
+
+    <!-- Slider -->
+    <script src="{{url_for('static',filename='js/src/nouislider.min.js')}}"></script>
+
+    <!-- Smooth scroll -->
+    <script src="{{url_for('static',filename='js/src/smooth-scroll.polyfills.min.js')}}"></script>
+
+    <!-- Charts -->
+    <script src="{{url_for('static',filename='js/src/chartist.min.js')}}"></script>
+    <script
+      src="{{url_for('static',filename='js/src/chartist-plugin-tooltip.min.js')}}"></script>
+
+    <!-- Datepicker -->
+    <script src="{{url_for('static',filename='js/src/datepicker.min.js')}}"></script>
+
+    <!-- Sweet Alerts 2 -->
+    <script src="{{url_for('static',filename='js/src/sweetalert2.all.min.js')}}"></script>
+
+    <!-- Moment JS -->
+    <script src="{{url_for('static',filename='js/src/moment.js')}}"></script>
+
+    <!-- Notyf -->
+    <script src="{{url_for('static',filename='js/src/notyf.min.js')}}"></script>
+
+    <!-- Simplebar -->
+    <script src="{{url_for('static',filename='js/src/simplebar.min.js')}}"></script>
+
+    <!-- Volt JS -->
+    <script src="{{url_for('static',filename='js/src/volt.js')}}"></script>
+
+    
+    
+    {% endblock %}
+  {% endblock %}
+  </body>
+
+</html>
