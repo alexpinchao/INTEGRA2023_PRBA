@@ -38,6 +38,7 @@ def login():
                 login_user(user)
                 flash('Bienvenido de Nuevo.')
                 session['username'] = username
+                session['admin_session'] = False
                 return redirect(url_for('dashboard.main'))
             else:
                 context['val_cont'] = False

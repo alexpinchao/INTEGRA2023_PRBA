@@ -22,27 +22,10 @@
 
 {% block head %}
   {{ super() }}
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <!-- Primary Meta Tags -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="author" content="Themesberg">
-  <!-- Favicon -->
-  <link rel="apple-touch-icon" sizes="120x120" href="../../assets/img/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/img/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/img/favicon/favicon-16x16.png">
-  <link rel="manifest" href="../../assets/img/favicon/site.webmanifest">
-  <link rel="mask-icon" href="../../assets/img/favicon/safari-pinned-tab.svg" color="#ffffff">
-  <meta name="msapplication-TileColor" content="#ffffff">
-  <meta name="theme-color" content="#ffffff">
-  <!-- Sweet Alert -->
-  <link type="text/css" href="{{url_for('static',filename='vendor/sweetalert2/dist/sweetalert2.min.css')}}"
-    rel="stylesheet">
-  <!-- Notyf -->
-  <link type="text/css" href="{{url_for('static',filename='vendor/notyf/notyf.min.css')}}" rel="stylesheet">
   <!-- Volt CSS -->
   <link type="text/css" href="{{url_for('static',filename='css/volt.css')}}" rel="stylesheet">
-  <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+  <!-- Datatables CSS -->
+  <link rel="stylesheet" href="//cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
   {% endblock %}
 
 {% block title %}
@@ -52,30 +35,31 @@ Análisis
 
 {% block content %}
 <body onload ="ActivateSection('analysis')">
-  <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->       
   {% block sidebar %}
   {% include 'module/sidebar.html' %}
   {% endblock %}
     
-  <main class="content">
+  <main class="content">  
+  <div class="d-none d-lg-flex justify-content-end">
   {% block nav %}
   {% include 'module/navbar.html' %}
   {% endblock %}
+  </div>
 
     <section id="main">
       <div class="row mt-2">
         <div class="col-12 d-flex flex-column">
-          <div class="card border-0 shadow components-section flex-grow-1">
-            <div class="card-body mx-3 px-3 mx-xl-5 px-xl-5">
+          <div class="card border-0 shadow components-section flex-grow-1 pt-3 px-2 px-md-4 px-xxl-5">
+            <div class="card-body p-0">
               <div class="row mt-4 mt-lg-4">
-                <div class="col-12">
-                  <h2 class="h3 fw-extrabold">Bienvenido al análisis de estrategias</h2>
+                <div class="col-12 px-4 px-md-2">
+                  <h3 class="fw-extrabold">Bienvenido al análisis de estrategias</h3>
                   <p class="mb-0 justified-text">En este módulo se evalúan las estrategias de eficiencia energética mediante criterios económicos, ambientales y
                   energéticos, al ser proyectadas hacia los años de interés, permitiendo definir las estrategias más viables para el país.</p>
                 </div>
               </div>
               <div class="row main-row">
-                <div class="col-12 col-sm-6 col-xl-4 mb-4 flex-grow-1">
+                <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
                   <a href="#stages" onclick="ActiveSection('stages')">
                     <div class="card border-1 shadow card-effect">
                       <div class="card-body">
@@ -105,7 +89,7 @@ Análisis
                     </div>
                   </a>
                 </div>
-                <div class="col-12 col-sm-6 col-xl-4 mb-4 flex-grow-1">
+                <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
                   <a href="#evaluation" onclick="ActiveSection('evaluation')">
                     <div class="card border-1 shadow card-effect">
                       <div class="card-body">

@@ -22,14 +22,10 @@
 
 {% block head %}
   {{ super() }}
-  <!-- Sweet Alert -->
-  <link type="text/css" href="{{url_for('static',filename='vendor/sweetalert2/dist/sweetalert2.min.css')}}" rel="stylesheet">
-  <!-- Notyf -->
-  <link type="text/css" href="{{url_for('static',filename='vendor/notyf/notyf.min.css')}}" rel="stylesheet">
   <!-- Volt CSS -->
   <link type="text/css" href="{{url_for('static',filename='css/volt.css')}}" rel="stylesheet">
+  <!-- Datatables CSS -->
   <link rel="stylesheet" href="//cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet"/>
 {% endblock %}
 
 {% block title %}
@@ -44,23 +40,25 @@ Base de datos
   {% endblock %}
     
   <main class="content">
+  <div class="d-none d-lg-flex justify-content-end">
   {% block nav %}
   {% include 'module/navbar.html' %}
   {% endblock %}
+  </div>
 
   <section id="main">
     <div class="row mt-2">
       <div class="col-12 d-flex flex-column">
-        <div class="card border-0 shadow components-section flex-grow-1">
-          <div class="card-body mx-3 px-3 mx-xl-5 px-xl-5">
+        <div class="card border-0 shadow components-section flex-grow-1 pt-3 px-2 px-md-4 px-xxl-5">
+          <div class="card-body p-0">
             <div class="row mt-4 mt-lg-4">
-              <div class="col-12">
-                <h2 class="h3 fw-extrabold">Bienvenido a la base de datos</h2>
+              <div class="col-12 px-4 px-md-2">
+                <h3 class="fw-extrabold">Bienvenido a la base de datos</h3>
                 <p class="mb-0 justified-text">En este módulo se recopila la información de las variables e indicadores de eficiencia energética asociados a los procesos de generación, distribución y uso final de la energía eléctrica en Colombia.</p>
               </div>
             </div>
             <div class="row main-row">
-              <div class="col-12 col-sm-6 col-xl-4 mb-4 flex-grow-1">
+              <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
                 <a href="#indicators" onclick="ActiveSection('indicators')">
                 <div class="card border-1 shadow card-effect">
                   <div class="card-body">
@@ -89,7 +87,7 @@ Base de datos
                 </div>
                 </a>
               </div>
-              <div class="col-12 col-sm-6 col-xl-4 mb-4 flex-grow-1">
+              <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
                 <a href="#variables" onclick="ActiveSection('variables')">
                 <div class="card border-1 shadow card-effect">
                   <div class="card-body">
@@ -150,7 +148,7 @@ Base de datos
     <div class="row mb-2">
       <div class="col-12">
         <div class="card border-0 shadow components-section flex-grow-1">
-          <div class="card-body">
+          <div class="card-body px-1 px-md-3">
             <div class="row mb-2">
               <div class="col-12 col-md-8">
                 <span class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon">
@@ -165,7 +163,7 @@ Base de datos
               </div>
               <div class="col-0 col-md-4">
                 <div class="btn-toolbar  d-none d-md-flex justify-content-end">
-                  <a href="#" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+                  <a href="{%- if not admin_session -%}#TOP{% else %}#DOWM{% endif %}" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
                     <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -248,14 +246,13 @@ Base de datos
                 </div> -->
               </div>
               </div>
-              <div class="card-body">
+              <div class="card-body px-1 px-md-3">
                 <div class="row">
                   <!-- Section Table -->
                   <div class="table-responsive table-info" id="table_content_1"></div>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -287,7 +284,7 @@ Base de datos
     <div class="row mb-2">
       <div class="col-12">
         <div class="card border-0 shadow components-section flex-grow-1">
-          <div class="card-body">
+          <div class="card-body px-1 px-md-3">
             <div class="row mb-2">
               <div class="col-12 col-md-8">
                 <span class="icon-shape icon-xs icon-shape-secondary rounded me-4 me-sm-0 card-effect-icon">
@@ -346,27 +343,7 @@ Base de datos
                     </div>
                   </div>
                 </div>
-<!--                 <div class="m-1 col-xl-3 col-md-12 d-flex align-items-center justify-content-between justify-content-xl-center">
-                  <span class="h6 fw-bold p-1"><strong>Tipo de variable</strong> </span>
-                  <div class="btn-group p-1">
-                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">
-                      <span>Seleccionar</span>
-                      <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                          clip-rule="evenodd"></path>
-                      </svg>
-                    </button>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">Económica</a>  
-                      <a class="dropdown-item" href="#">Técnica</a>
-                      <a class="dropdown-item" href="#">Ambiental</a>
-                    </div>
-                  </div>
-                </div> -->
                 </div>
-
               </div>
               <div class="card-body p-0">
                 <!-- Graph Section -->
@@ -390,7 +367,7 @@ Base de datos
                     <div class="card border-0 flex-fill">
                       <div class="card-header d-sm-flex flex-row align-items-center flex-0">
                         <div class="d-block mb-3 mb-sm-0">
-                          <span class="fs-5 fw-extrabold mb-2" id="chart_title">Indicador seleccionado</span>
+                          <span class="fs-5 fw-extrabold mb-2" id="chart_title">Variable seleccionada</span>
                           <!-- <span class="fs-3 fw-normal">$10,567</span>
                           <div class="small mt-2">
                             <span class="fw-normal me-2">Yesterday</span>
@@ -403,33 +380,17 @@ Base de datos
                           <a href="#" class="btn btn-dark btn-sm me-3">Week</a>
                         </div> -->
                       </div>
-                      <div class="card-body p-2 flex-fill" id="graph-container">
+                      <div class="card-body p-1 flex-fill" id="graph-container">
                         <canvas id="line-chart" width="100%" height="50%"></canvas>
                       </div>
                     </div>
                   </div>
                 </div>
-                <!-- Configuration buttons for the number of table rows -->
-                <!-- Extra Buttons -->
-<!--                 <div class="row d-flex flex-row justify-content-between">
-                  <div class="col-8">
-                    <label for="customRange1" class="form-label">Año</label>
-                    <input type="range" class="form-range" id="customRange1">
-                    <p class="d-flex justify-content-between"><span class="d-flex">1500</span><span class="d-flex">2050</span class="text-end"></p>
-                  </div>
-                  <div class="col-2 btn-group ms-2 ms-lg-3 pt-4 pb-4">
-                    <button type="button" class="btn btn-sm btn-outline-gray-600">Compartir</button>
-                    <button type="button" class="btn btn-sm btn-outline-gray-600">Exportar</button>
-                  </div>
-                </div>
-              </div> -->
-<!--               <div class="row card-body justify-content-between m-0">
-
-                </div> -->
             </div>              
           </div>
         </div>
       </div>
+    </div>
     </div>
   </section>
 
@@ -472,11 +433,13 @@ MathJax = {
   var colorslist = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'];
   /* const table_name = key; */
   const table_name = indicator;
+  console.log("table namde "+ table_name)
   document.getElementById('chart_title').innerHTML = table_name;
   var json_file = JSON.parse('{{data | tojson | safe}}');
-  
+  console.log(json_file)
+  console.log(list_name)
   var table = json_file[list_name][table_name];
-  //console.log("table")
+  console.log(table)
 
   var keys = Object.keys(table[0]);
 
@@ -936,8 +899,7 @@ MathJax = {
   }
 </script>
 
-<script type="text/javascript">
-  
+<script type="text/javascript">  
   function  loadTable_variables(list_name, json_new){
     var list_names = Object.keys(json_new)
     var table = _table_.cloneNode(false);
@@ -947,6 +909,8 @@ MathJax = {
       var tr = _tr_.cloneNode(false);
       var td = _td_.cloneNode(false);
       var a = _a_.cloneNode(false);
+      
+      console.log("#######sasa "+items)
       a.appendChild(document.createTextNode(items || ''));
       td.classList.add('fw-extrabold')
       td.classList.add('showhr')
@@ -991,7 +955,7 @@ MathJax = {
     table.classList.add('border-0');
     table.classList.add('dt-responsive');
 
-    function addAllColumnHeaders(list_name) {                                                                                                
+    function addAllColumnHeaders(list_name) {                     
       var columnSet = [],
       thead = _thead_.cloneNode(false);
       tr = _tr_.cloneNode(false);

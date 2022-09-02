@@ -1,6 +1,6 @@
 """INTEGRA 2023 Platform Server Init file
 
-this file allows to import all the dependencies for the initialization of the platform.
+this file allows to import all the dependencies for the platform initialization.
 """
 from flask.app import Flask
 from flask_bootstrap import Bootstrap

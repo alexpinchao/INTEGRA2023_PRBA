@@ -22,19 +22,9 @@
 
 {% block head %}
   {{ super() }}
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <!-- Primary Meta Tags -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="author" content="Themesberg">
-  <meta name="msapplication-TileColor" content="#ffffff">
-  <meta name="theme-color" content="#ffffff">
-  <!-- Sweet Alert -->
-  <link type="text/css" href="{{url_for('static',filename='vendor/sweetalert2/dist/sweetalert2.min.css')}}" rel="stylesheet">
-  <!-- Notyf -->
-  <link type="text/css" href="{{url_for('static',filename='vendor/notyf/notyf.min.css')}}" rel="stylesheet">
   <!-- Volt CSS -->
   <link type="text/css" href="{{url_for('static',filename='css/volt.css')}}" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+  <!-- Datatables CSS -->
   <link rel="stylesheet" href="//cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
 {% endblock %}
 
@@ -50,23 +40,25 @@ Cálculo
   {% endblock %}
   
   <main class="content">
+  <div class="d-none d-lg-flex justify-content-end">
     {% block nav %}
     {% include 'module/navbar.html' %}
-    {% endblock %}
+    {% endblock %}    
+  </div>
   
     <section id="main">
       <div class="row mt-2">
         <div class="col-12 d-flex flex-column">
-          <div class="card border-0 shadow components-section flex-grow-1">
-            <div class="card-body  mx-3 px-3 mx-xl-5 px-xl-5">
+          <div class="card border-0 shadow components-section flex-grow-1 pt-3 px-2 px-md-4 px-xxl-5">
+            <div class="card-body p-0">
               <div class="row mt-4 mt-lg-4">
-                <div class="col-12">
-                  <h2 class="h3 fw-extrabold">Bienvenido al cálculo de indicadores</h2>
+                <div class="col-12 px-4 px-md-2">
+                  <h3 class="fw-extrabold">Bienvenido al cálculo de indicadores</h2>
                   <p class="mb-0 justified-text">En este módulo se visualiza la tendencia histórica de los indicadores de eficiencia energética del sector eléctrico en Colombia y se pueden generar diferentes escenarios a partir de los datos actuales del país, para evaluar estrategias de eficiencia energética.</p>
                 </div>
               </div>
               <div class="row main-row">
-                <div class="col-12 col-sm-6 col-xl-4 mb-4 flex-grow-1">
+                <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
                   <a href="#indicators" onclick="ActiveSection('base-line')">
                     <div class="card border-1 shadow card-effect">
                       <div class="card-body">
@@ -94,7 +86,7 @@ Cálculo
                     </div>
                   </a>
                 </div>
-                <div class="col-12 col-sm-6 col-xl-4 mb-4 flex-grow-1">
+                <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
                   <a href="#variables" onclick="ActiveSection('calculation')">
                     <div class="card border-1 shadow card-effect">
                       <div class="card-body">
@@ -132,7 +124,6 @@ Cálculo
     </section>
   
     <section id="base-line" hidden>
-      <!-- section header -->
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
         <div class="d-block">
           <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
@@ -155,186 +146,95 @@ Cálculo
       </div>
       <div class="row mb-2">
         <div class="col-12">
-          <div class="card border-0 shadow components-section">
-            <div class="card-body">
-              <div class="row mb-2 mb-lg-2">
-                <div class="col-6">
-                  <h2 class="h4">Linea base</h2>
-                  <p class="mb-0">Tándem de indicadores para la industria eléctrica.</p>
+          <div class="card border-0 shadow components-section flex-grow-1">
+            <div class="card-body px-1 px-md-3">
+              <div class="row mb-2">
+                <div class="col-12">
+                  <span class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z">
+                      </path>
+                    </svg>
+                  </span>
+                  <span class="h2 fw-extrabold">Linea base</span>
+                  <p class="m-1">Tándem de indicadores para la industria eléctrica.</p>
                 </div>
               </div>
-              <div class="card mb-2 border-1 shadow components-section flex-grow-1">
-                <div class="row card-body justify-content-between m-0">
+              <div class="card border-1 shadow">
+                <div class="card-header p-1">
+                <div class="row justify-content-between m-0">
                   <!-- Dropdown menu-->
-                  <div class="m-0 col-xl-6 col-md-12 d-flex align-items-center justify-content-between">
-                    <span class="h5 fw-bold"> <strong>Indicadores de eficiencia energética</strong> </span>
-                  </div>
-                  <div class="m-0 col-xl-3 col-md-6 d-flex align-items-center justify-content-between">
-                    <span class="h6 fw-bold mr-1"> <strong>Cadena de Valor</strong> </span>
-                    <div class="btn-group me-2">
-                      <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <span class="sr-only">Seleccionar</span>
-                        <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                          <path fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
+                  <div class="m-0 col-xl-6 col-md-12 d-flex align-items-center justify-content-between flex-grow-1">
+                    <div class="d-block mb-3 mb-sm-0 align-items-center">
+                      <span class="sidebar-icon">
+                        <svg class="icon-shape icon-xxs" fill="black" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M88 48C101.3 48 112 58.75 112 72V120C112 133.3 101.3 144 88 144H40C26.75 144 16 133.3 16 120V72C16 58.75 26.75 48 40 48H88zM480 64C497.7 64 512 78.33 512 96C512 113.7 497.7 128 480 128H192C174.3 128 160 113.7 160 96C160 78.33 174.3 64 192 64H480zM480 224C497.7 224 512 238.3 512 256C512 273.7 497.7 288 480 288H192C174.3 288 160 273.7 160 256C160 238.3 174.3 224 192 224H480zM480 384C497.7 384 512 398.3 512 416C512 433.7 497.7 448 480 448H192C174.3 448 160 433.7 160 416C160 398.3 174.3 384 192 384H480zM16 232C16 218.7 26.75 208 40 208H88C101.3 208 112 218.7 112 232V280C112 293.3 101.3 304 88 304H40C26.75 304 16 293.3 16 280V232zM88 368C101.3 368 112 378.7 112 392V440C112 453.3 101.3 464 88 464H40C26.75 464 16 453.3 16 440V392C16 378.7 26.75 368 40 368H88z"/>
                         </svg>
-                      </button>
-                      <div class="dropdown-menu">
-                        <!--<a class="dropdown-item" href="#">Generación</a>
-                        <a class="dropdown-item" href="#">Distribución</a>
-                        <a class="dropdown-item" href="#">Uso final</a>-->
-                        <a class="dropdown-item" onclick="update_list_ind('generation')" href="#">Generación</a>
-                        <a class="dropdown-item" onclick="update_list_ind('distribution')" href="#">Distribución</a>
-                        <a class="dropdown-item" onclick="update_list_ind('end_use')" href="#">Uso final</a>
-                      </div>
+                      </span>
+                      <span class="fs-5 fw-extrabold mb-2">Indicadores de eficiencia energética</span>
+                    </div>                    
+                  </div>
+                <div class="m-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between justify-content-xl-center">
+                  <span class="h6 fw-bold p-1"><strong>Cadena de Valor</strong> </span>
+                  <div class="btn-group p-1">
+                    <button type="button" class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">
+                      <span>Seleccionar</span>
+                      <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"></path>
+                      </svg>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" onclick="update_list_ind('generation')" href="#">Generación</a>
+                      <a class="dropdown-item" onclick="update_list_ind('distribution')" href="#">Distribución</a>
+                      <a class="dropdown-item" onclick="update_list_ind('end_use')" href="#">Uso final</a>
                     </div>
                   </div>
-                  <!--<div class="m-0 col-xl-3 col-md-6 d-flex align-items-center justify-content-between">
-                    <span class="h6 fw-bold"> <strong>FNCE</strong> </span>
-                    <div class="btn-group me-2">
-                      <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <span class="sr-only">Seleccionar</span>
-                        <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                          <path fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                        </svg>
-                      </button>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Con relación</a>
-                        <a class="dropdown-item" href="#">Sin relación</a>
-                      </div>
-                    </div>
-                  </div>-->
-                  <!-- Accordion -->
-                  <div class="card-body">
-                    <div class="row">
-                      <!-- Section Table -->
-                      <div class="table-responsive table-info" id="table_content_1"></div>
-                    </div>
-                  </div>
-
                 </div>
-              </div>
-              <div class="card-body">
-                <div class="card-body p-0">
-                  <!-- Graph Section -->
-                  <div class="row mb-2 mt-2 m-0">
-                    <div class="col-12 col-xl-12 mb-1 px-0 d-flex align-self-stretch">
-                      <div class="card border-0 flex-fill">
-                        <div class="card-header d-sm-flex flex-row align-items-center flex-0">
-                          <div class="d-block mb-3 mb-sm-0">
-                            <span class="fs-5 fw-extrabold mb-2" id="chart_title_1">Indicador seleccionado</span>
-                            <!-- <span class="fs-3 fw-normal">$10,567</span>
-                            <div class="small mt-2">
-                              <span class="fw-normal me-2">Yesterday</span>
-                              <span class="fas fa-angle-up text-success"></span>
-                              <span class="text-success fw-bold">10.57%</span>
-                            </div> -->
+                </div>
+                </div>
+                  <div class="card-body p-0">
+                    <div class="row mb-2 mt-2 m-0">
+                      <div class="col-12 col-xl-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
+                        <div class="card border-0 flex-fill">
+                          <div class="card-body align-self-stretch p-2">
+                          <!-- Section Table -->
+                          <div class="table-responsive info-table" id="table_content_1"></div>
                           </div>
-      <!--                     <div class="d-flex ms-auto">
-                            <a href="#" class="btn btn-secondary text-dark btn-sm me-2">Month</a>
-                            <a href="#" class="btn btn-dark btn-sm me-3">Week</a>
-                          </div> -->
+                          <div class="small m-2 p-2 text-center">
+                          <span class="d-block fs-3 fw-normal">Valor mas reciente</span>
+                          <span class="fw-normal me-2">Promedio</span>
+                          <span class="fas fa-angle-up text-success"></span>
+                          <span class="text-success fw-bold">Variación último año</span>
                         </div>
-                        <div class="card-body p-2 flex-fill" id="graph-container_1">
-                          <canvas id="line-chart_1" width="100%" height="50%"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-12 col-xl-8 mb-1 px-0 d-flex align-self-stretch">
+                      <div class="card border-0 flex-fill">
+                        <div class="card-header p-1 d-sm-flex flex-row align-items-center">
+                          <div class="card-body p-0">
+                            <!-- Graph Section -->
+                            <div class="row mb-2 mt-2 m-0">
+                              <div class="col-12 col-xl-12 mb-1 px-0 d-flex align-self-stretch">
+                                <div class="card border-0 flex-fill">
+                                  <div class="card-header d-sm-flex flex-row align-items-center flex-0">
+                                    <div class="d-block mb-3 mb-sm-0">
+                                      <span class="fs-5 fw-extrabold mb-2" id="chart_title_1">Indicador seleccionado</span>
+                                    </div>
+                                  </div>
+                                  <div class="card-body p-1 flex-fill" id="graph-container_1">
+                                    <canvas id="line-chart_1" width="100%" height="50%"></canvas>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <!-- Configuration buttons for the number of table rows -->
-                  <!-- Extra Buttons -->
-  <!--                 <div class="row d-flex flex-row justify-content-between">
-                    <div class="col-8">
-                      <label for="customRange1" class="form-label">Año</label>
-                      <input type="range" class="form-range" id="customRange1">
-                      <p class="d-flex justify-content-between"><span class="d-flex">1500</span><span class="d-flex">2050</span class="text-end"></p>
-                    </div>
-                    <div class="col-2 btn-group ms-2 ms-lg-3 pt-4 pb-4">
-                      <button type="button" class="btn btn-sm btn-outline-gray-600">Compartir</button>
-                      <button type="button" class="btn btn-sm btn-outline-gray-600">Exportar</button>
-                    </div>
-                  </div>
-                </div> -->
-  <!--               <div class="row card-body justify-content-between m-0">
-  
-                  </div> -->
-              </div>   
-              </div>
-              <!-- Section Table 
-              <div class="card mb-2 border-1 shadow">
-                <div class="card-header d-flex flex-row align-items-center flex-0 border-bottom">
-                  <div class="d-block">
-                    <div class="h5 fw-normal text-gray mb-2">Datos históricos</div>
-                  </div>
-                </div>
-                <div class="card-body p-2">
-                  <div class="row">
-                    <div class="col-9">
-                      <canvas id="mixed-chart" width="100%" height="50%"></canvas>
-                    </div>
-                    <div class="col-3 mt-5">
-                      <h2 class="h3 fw-extrabold">Nombre Indicador</h2>
-                      <div class="small mt-2 justified-text p-1">
-                        <span class="mb-4">Descripción: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                          industry's standard dummy text ever since the 1500s.</span>
-                        <br>
-                      </div>
-                      <h2 class="h5 fw-extrabold text-end">Max. 8</h2>
-                      <h2 class="h5 fw-extrabold text-end">Min. 1</h2>
-                      <div class="d-flex align-items-center text-end m-2">
-                        <span class="dot rounded-circle bg-gray-600 me-2"></span>
-                        <span class="fw-normal small">July</span>
-                      </div>
-                      <div class="d-flex align-items-center text-end m-2">
-                        <span class="dot rounded-circle bg-secondary me-2"></span>
-                        <span class="fw-normal small">August</span>
-                      </div>
-                      <div class="text-center">
-                        <span class="h5 fw-extrabold">Último reporte: </span>
-                        <span class="fas fa-angle-up text-success"></span>
-                        <span class="h5 text-success fw-bold">18.2%</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>-->
-              <div class="row mb-2 mt-2">
-
-                <!-- Configuration buttons for the number of table rows -->
-                <!-- Extra Buttons -->
-                <div class="row d-flex flex-row justify-content-between">
-                  <div class="col-4 col-md-2 m-4 ps-md-0">
-                    <div class="dropdown">
-                      <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-1" data-bs-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                          <path fill-rule="evenodd"
-                            d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
-                            clip-rule="evenodd"></path>
-                        </svg>
-                        <span class="visually-hidden">Toggle Dropdown</span>
-                      </button>
-                      <div class="dropdown-menu dropdown-menu-xs dropdown-menu-end pb-0">
-                        <span class="small ps-3 fw-bold text-dark">Show</span>
-                        <a class="dropdown-item d-flex align-items-center fw-bold" href="#">10 <svg class="icon icon-xxs ms-auto"
-                            fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"></path>
-                          </svg></a>
-                        <a class="dropdown-item fw-bold" href="#">20</a>
-                        <a class="dropdown-item fw-bold rounded-bottom" href="#">30</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-2 col-md-2 btn-group mt-4 ms-2 ms-lg-3">
-                    <button type="button" class="btn btn-sm btn-outline-gray-600">Compartir</button>
-                    <button type="button" class="btn btn-sm btn-outline-gray-600">Exportar</button>
                   </div>
                 </div>
               </div>
@@ -342,7 +242,6 @@ Cálculo
           </div>
         </div>
       </div>
-      
     </section>
   
     <section id="calculation" hidden>
@@ -370,13 +269,13 @@ Cálculo
       <div class="row mb-2">
         <div class="col-12">
           <div class="card border-0 shadow components-section">
-            <div class="card-body">
+            <div class="card-body px-1 px-md-3">
               <div class="row mb-2 mb-lg-2">
-                <div class="col-6">
-                  <h2 class="h4">Variables</h2>
-                  <p class="mb-0">Variables de proceso para la industria eléctrica.</p>
+                <div class="col-12 col-md-8">
+                  <span class="h2 fw-extrabold">Variables</span>
+                  <p class="m-1">Variables de proceso para la industria eléctrica.</p>
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-md-8">
                   <div class="btn-toolbar d-flex justify-content-end">
                     <a href="#" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
                       <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -525,48 +424,11 @@ Cálculo
 
 {% block scripts%}
 {{super()}}
-<!-- Vendor JS -->
-<script src="{{url_for('static',filename='/vendor/onscreen/dist/on-screen.umd.min.js')}}"></script>
-<script charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
-
-<!-- Slider -->
-<script src="{{url_for('static',filename='/vendor/nouislider/distribute/nouislider.min.js')}}"></script>
-
-<!-- Smooth scroll -->
-<script src="{{url_for('static',filename='/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js')}}"></script>
-
-<!-- Charts -->
-<script src="{{url_for('static',filename='/vendor/chartist/dist/chartist.min.js')}}"></script>
-<script
-  src="{{url_for('static',filename='/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js')}}"></script>
-
-<!-- Datepicker -->
-<script src="{{url_for('static',filename='/vendor/vanillajs-datepicker/dist/js/datepicker.min.js')}}"></script>
-
-<!-- Sweet Alerts 2 -->
-<script src="{{url_for('static',filename='/vendor/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
-
-<!-- Moment JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js')}}"></script>
-
-<!-- Vanilla JS Datepicker -->
-<script src="{{url_for('static',filename='/vendor/vanillajs-datepicker/dist/js/datepicker.min.js')}}"></script>
-
-<!-- Notyf -->
-<script src="{{url_for('static',filename='/vendor/notyf/notyf.min.js')}}"></script>
-
-<!-- Simplebar -->
-<script src="{{url_for('static',filename='/vendor/simplebar/dist/simplebar.min.js')}}"></script>
-
-<!-- Github buttons -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-
-<!-- Volt JS -->
-<script src="{{url_for('static',filename='js/volt.js')}}"></script>
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-colreorder/1.5.6/dataTables.colReorder.min.js" integrity="sha512-BA+XWPyIsXxbBMmGU7Acq8vBGWAFldhFLOkoU4dL+B6Fs16RnhCC9ff+vy5GzmB783tyuzYs42QGHRbV73e1ug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!--<script type="text/javascript">
   var el = document.getElementById('accordionIndicadores');
     el.innerHTML= '<div class="mt-3 accordion accordion-flush col-xl-3 col-md-12">'+
@@ -658,16 +520,6 @@ Cálculo
 <!-- Variables Datatable.js handler -->
 <!-- Callback for combobox on variable view :) -->
 <script type="text/javascript">
-  (function () 
-    { window.onload = function two(){
-      var list_name = 'generation';
-      var key = 'Factor de Pérdidas';
-      update_list_ind(list_name);
-      /* create_chart(list_name, key); */
-    }
-    })
-  ();
-
   var _table_ = document.createElement('table'),
       _tr_ = document.createElement('tr'),
       _th_ = document.createElement('th'),
@@ -1054,6 +906,13 @@ Cálculo
     }
     last_indicator = indicator;
   }
+</script>
+
+<script type="text/javascript">
+      var list_name = 'generation';
+      var key = 'Factor de Pérdidas';
+      update_list_ind(list_name);     
+      /* create_chart(list_name, key); */
 </script>
 
 {% endblock %}
