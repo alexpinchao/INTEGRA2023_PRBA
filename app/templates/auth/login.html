@@ -4,7 +4,7 @@
 
 {% block head %}
 {{ super() }}
-<link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
+  <link rel="stylesheet" href="{{url_for('static',filename='css/volt.css')}}">
 {% endblock %}
 
 
@@ -19,56 +19,61 @@ Login
 
 {% block content %}
   <section class="login-section" id="login">
-    <div class="container login-container w-100">
-      <div class="row d-flex justify-content-center">
-        <div class="col-lg-6 col-xl-4 login-image d-none d-lg-block">
-          <img src="{{url_for('static',filename='/images/image7.jpg')}}" alt="">
+    <div class="row pt-2 justify-content-center px-1">
+      <div class="col-xxl-6 col-md-8 col-sm-12 d-flex flex-column m-0">
+        <div class="card border-0 shadow components-section flex-grow-1 mt-2">
+          <div class="card-body p-0">
+            <div class="row d-flex justify-content-center p-0 m-0">
+              <div class="col-10 col-md-6 login-image d-none d-md-block p-0">
+                <img src="{{url_for('static',filename='/images/image7.jpg')}}" alt="">
+              </div>
+              <div class="col-10 col-md-6 login-form px-2 px-md-3 px-lg-2 px-xxl-5">
+                <h3 class="my-5">Iniciar sesión</h3>
+                <form class="form" role="form" action="{{ url_for('auth.login') }}" method="POST">
+                  {{ login_form.csrf_token() }}
+                  <div class="form-group">
+                    <label class="control-label p-0 m-0" for="username">
+                      {{login_form.username.label()}}
+                    </label>
+                    {{login_form.username(class_="form-control p-1")}}
+                    {% if val_name %}
+                    <div class="error-input">Usuario incorrecto</div>
+                    {% endif %}
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label p-0 m-0" for="password">
+                      {{login_form.password.label()}}
+                    </label>
+                    {{login_form.password(class_="form-control p-1")}}
+                    {% if val_name %}
+                    <div class="error-input">Usuario incorrecto</div>
+                    {% endif %}
+                  </div>
+                  <div class="form-group">
+                    {% for error in login_form.errors %}
+                    <div class="error-input">{{error}}</div>
+                    {% endfor %}
+                    {{login_form.remember_me(class_="checkbox ")}}
+                    <small>{{login_form.remember_me.label()}}</small> 
+                    <br><a href="{{url_for('auth.recovery')}}">¿Olvidaste la
+                      contraseña?</a>
+                  </div>
+                  <div class="form-group text-center  p-0 m-0">
+                    {{login_form.submit(class_="button btn login-btn mt-5")}}
+                    <a href="{{url_for('auth.signup')}}">¿Registrarse?</a>
+                    {% if val_name %}
+                    <div class="error-input">Usuario incorrecto</div>
+                    {% endif %}
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-lg-6 col-xl-4 login-form">
-          <h3 class="mt-5">Iniciar sesión</h3>
-          <form class="form" role="form" action="{{ url_for('auth.login') }}" method="POST">
-            {{ login_form.csrf_token() }}
-            <div class="form-group">
-              <label class="control-label" for="username">
-                {{login_form.username.label()}}
-              </label>
-              {{login_form.username(class_="form-control")}}
-              {% if val_name %}
-              <div class="error-input">Usuario incorrecto</div>
-              {% endif %}
-            </div>
-            <div class="form-group">
-              <label class="control-label" for="password">
-                {{login_form.password.label()}}
-              </label>
-              {{login_form.password(class_="form-control")}}
-              {% if val_name %}
-              <div class="error-input">Usuario incorrecto</div>
-              {% endif %}
-            </div>
-            <div class="form-group">
-              {% for error in login_form.errors %}
-              <div class="error-input">{{error}}</div>
-              {% endfor %}
-              {{login_form.remember_me(class_="checkbox ")}}
-              <small>{{login_form.remember_me.label()}}</small> <a href="{{url_for('auth.recovery')}}">¿Olvidaste la contraseña?</a>
-            </div>
-            <div class="form-group text-center">
-              {{login_form.submit(class_="button btn login-btn mt-5")}}
-              <a href="{{url_for('auth.signup')}}">¿Registrarse?</a>
-              {% if val_name %}
-              <div class="error-input">Usuario incorrecto</div>
-              {% endif %}
-            </div>
-          </form>
-        </div>
+        {% block footer %}
+        {% include 'module/footer.html' %}
+        {% endblock %}
       </div>
-      <div class="row justify-content-center">
-        <div class="col-lg-12 col-xl-8 login-logos">
-          <img src="{{url_for('static',filename='/images/logos2.jpg')}}" alt="">
-        </div>
-      </div>
-    </div>
-
+    </div>    
   </section>
 {% endblock %}

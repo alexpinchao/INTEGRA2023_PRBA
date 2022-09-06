@@ -28914,8 +28914,7 @@ article .h1, article .h2, article .h3, article .h4, article .h5, article .h6 {
 }
 
 .login-section {
-    padding-top: 9rem;
-    padding-bottom: 9rem;
+    align-items: center;
 }
 
 /* Styles for login forms */
@@ -28936,6 +28935,7 @@ article .h1, article .h2, article .h3, article .h4, article .h5, article .h6 {
     background-image: linear-gradient(to left, rgba(245, 246, 252, 0.4), rgba(221, 194, 39, 0.6)),
         url("../images/image6.jpg");
     background-size: auto;
+    border-radius: 0.45rem 0 0 0.45rem;
 }
 
 
@@ -28953,7 +28953,6 @@ article .h1, article .h2, article .h3, article .h4, article .h5, article .h6 {
 .login-form {
     max-height: 30rem;
     padding: 3%;
-    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
 }
 
 .login-form h3 {
