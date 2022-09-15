@@ -1,10 +1,14 @@
-<!-- Navigation-->
-<nav class="navbar navbar-expand fixed-top">
-  <div class="container px-4">
-    <a class="navbar-brand" href="{{url_for('home')}}">
-      <!-- <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24"
-        class="d-inline-block align-text-top"> -->
-      Logo | Nombre herramienta
-    </a>
+<nav class="navbar navbar-dark navbar-theme-primary navbar-expand-lg sticky-top" id="mainNav">
+  <div class="col-xxl-8 col-md-10 col-sm-12 container-md">
+    <a class="navbar-brand" href="{{url_for('index')}}">
+      <span class="sidebar-icon">
+        <img src="{{url_for('static',filename='images/LogoApp.png')}}" height="28" alt="Logo">
+      </span>
+      <span class="mt-1 ms-1 sidebar-text fs-6 text-dark">Nombre Herramienta</span></a>
+    <div class="d-flex align-items-center">
+      <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Menu"
+        aria-controls="Menu" aria-expanded="false" aria-label="Toggle navigation">
+      </button>
+    </div>
   </div>
 </nav>

@@ -4,12 +4,12 @@
 
 {% block head %}
 {{ super() }}
-<link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/volt.css')}}">
 {% endblock %}
 
 {% block title %}
 {{ super() }}
-Signup
+Recovery
 {% endblock %}
 
 {% block navbar %}
@@ -18,44 +18,51 @@ Signup
 
 {% block content %}
 <section class="login-section" id="signup">
-  <div class="container login-container w-100">
-    <div class="row d-flex justify-content-center">
-      <div class="col-lg-6 col-xl-4 login-form">
-        <form class="form" role="form" action="{{ url_for('auth.recovery') }}" method="POST">
-          {{ recovery_form.csrf_token() }}
-          <div class="form-group">
-            <h3 class="mt-5 mb-5">Recuperar acceso</h3>
+    <div class="row pt-2 justify-content-center px-1">
+      <div class="col-xxl-6 col-md-8 col-sm-12 d-flex flex-column m-0">
+        <div class="card border-0 shadow components-section flex-grow-1 mt-2">
+          <div class="card-body p-0">
+            <div class="row d-flex justify-content-center p-0 m-0">
+              <div class="col-10 col-md-6 login-form px-2 px-md-3 px-lg-2 px-xxl-5">
+                <form class="form my-5 py-5" role="form" action="{{ url_for('auth.recovery') }}" method="POST">
+                  {{ recovery_form.csrf_token() }}
+                  <div class="form-group">
+                    <h3 class="my-4">Recuperar acceso</h3>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label" for="username">
+                      {{recovery_form.email.label()}}
+                    </label>
+                    {{recovery_form.email(class_="form-control p-1")}}
+                    {% if val_name %}
+                    <div class="error-input">Usuario incorrecto</div>
+                    {% endif %}
+                  </div>
+                  <div class="form-group p-0 text-center">
+                    {% for error in recovery_form.errors %}
+                    <div class="error-input">{{error}}</div>
+                    {% endfor %}
+                    {{recovery_form.submit(class_="button btn login-btn")}}
+                    <a href="{{url_for('home')}}">Volver al inicio</a>
+                    {% if val_name %}
+                    <div class="error-input">Usuario incorrecto</div>
+                    {% endif %}
+                  </div>
+                </form>
+              </div>
+              <div class="col-10 col-md-6 login-image d-none d-md-block p-0">
+                <img src="{{url_for('static',filename='/images/image11.jpg')}}" alt="">
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label class="control-label" for="username">
-              {{recovery_form.email.label()}}
-            </label>
-            {{recovery_form.email(class_="form-control")}}
-            {% if val_name %}
-            <div class="error-input">Usuario incorrecto</div>
-            {% endif %}
-          </div>
-          <div class="form-group p-0 text-center">
-            {% for error in recovery_form.errors %}
-            <div class="error-input">{{error}}</div>
-            {% endfor %}
-            {{recovery_form.submit(class_="button btn login-btn")}}
-            <a href="{{url_for('home')}}">Volver al inicio</a>
-            {% if val_name %}
-            <div class="error-input">Usuario incorrecto</div>
-            {% endif %}
-          </div>
-        </form>
-      </div>
-      <div class="col-lg-6 col-xl-4 login-image d-none d-lg-block">
-        <img src="{{url_for('static',filename='/images/image11.jpg')}}" alt="">
+        </div>
+        {% block footer %}
+        {% include 'module/footer.html' %}
+        {% endblock %}
       </div>
     </div>
-    <div class="row justify-content-center">
-      <div class="col-lg-12 col-xl-8 login-logos login-logos">
-        <img src="{{url_for('static',filename='/images/logos2.jpg')}}" alt="">
-      </div>
-    </div>
-  </div>
+
+
+
 </section>
 {% endblock %}
