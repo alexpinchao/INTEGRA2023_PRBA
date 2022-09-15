@@ -457,7 +457,9 @@ rel_var_indic_table = Table('RELACION_VARIABLES_INDICADORES', metadata_obj,
                    Column('INDICADOR_ID', Integer,
                           nullable=False, unique=True),
                    Column('INDICADOR_AGREGADO', String),
-                   Column('FORMULA_RELACIONES', String)
+                   Column('FORMULA_RELACIONES', String),
+                   Column('DESCRIPCION', String),
+                   Column('VARIABLES', String)
                    )
 
 # Method that returns the table data desagregation of generation
@@ -499,7 +501,9 @@ rel_var_indic_dist_table = Table('RELACION_VARIABLES_INDICADORES_DISTRIBUCION', 
                    Column('INDICADOR_ID', Integer,
                           nullable=False, unique=True),
                    Column('INDICADOR_AGREGADO', String),
-                   Column('FORMULA_RELACIONES', String)
+                   Column('FORMULA_RELACIONES', String),
+                   Column('DESCRIPCION', String),
+                   Column('VARIABLES', String)
                    )
 
 # Method that returns the table data desagregation of distribution
@@ -536,7 +540,9 @@ rel_var_indic_end_use_table = Table('RELACION_VARIABLES_INDICADORES_USO_FINAL', 
                    Column('INDICADOR_ID', Integer,
                           nullable=False, unique=True),
                    Column('INDICADOR_AGREGADO', String),
-                   Column('FORMULA_RELACIONES', String)
+                   Column('FORMULA_RELACIONES', String),
+                   Column('DESCRIPCION', String),
+                   Column('VARIABLES', String)
                    )
 
 # Method that returns the table data desagregation of end use

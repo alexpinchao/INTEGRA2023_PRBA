@@ -681,22 +681,21 @@ MathJax = {
     { window.onload = function one(){ */
   function update_list_ind(list_name){
     var json_file = JSON.parse('{{data_indicators | tojson | safe}}');
-    var keys_list = Object.keys(json_file[list_name])
-    var keys_list_2 = []
-    var keys_list_3 = []
-    var json_table = {}
-    var json_new = {}
-    var json_aux_ind
-    var json_aux_des
-    var json_desagregacion = []
-    var json_desagregacion_completo = []
+    var keys_list = Object.keys(json_file[list_name]);
+    var keys_list_2 = [];
+    var keys_list_3 = [];
+    var json_table = {};
+    var json_datos = [];
+    var json_aux_ind = [];
+    var json_aux_des = [];
+    var json_desagregacion = [];
 
-    keys_list.forEach(function (item, index) {
-      var name = item;
-    });
+    // keys_list.forEach(function (item, index) {
+    //   var name = item;
+    // });
 
       keys_list.forEach(function (item, index) {
-        var name = item;
+        // var name = item;
         if (item === 'Desagregacion'){
 
           json_aux_des = json_file[list_name][item];
@@ -704,9 +703,9 @@ MathJax = {
           json_aux_ind = json_file[list_name][item];
         }
       });
-      
+
       keys_list_2 = Object.keys(json_aux_ind)
-      
+
           keys_list_2.forEach(function (item2, index) {
 
             keys_list_3 = Object.keys(json_aux_des)
@@ -715,16 +714,19 @@ MathJax = {
                   if((json_aux_ind[item2]['INDICADOR_ID'])===(json_aux_des[item3]['REL_VARIABLES_DESAGREGACION'])){
 
                     json_desagregacion.push(json_aux_des[item3]['DESAGREGACION_NOMBRE'])
-                    json_desagregacion.push(json_aux_ind[item2]['FORMULA_RELACIONES'])
-                    json_desagregacion_completo.push(json_desagregacion)
-                    json_desagregacion = []
 
                   }
               });
 
+              json_datos.push(json_aux_ind[item2]['DESCRIPCION'])
+              json_datos.push(json_aux_ind[item2]['FORMULA_RELACIONES'])
+              json_datos.push(json_desagregacion)
+              json_datos.push(json_aux_ind[item2]['VARIABLES'])
+
               var indicador_nombre = json_aux_ind[item2]['INDICADOR_AGREGADO']
-              json_table[indicador_nombre] = json_desagregacion_completo;
-              json_desagregacion_completo = []
+              json_table[indicador_nombre] = json_datos;
+              json_desagregacion = []
+              json_datos = []
 
           });
     loadTable_variables_ind(list_name, json_table);
@@ -733,8 +735,11 @@ MathJax = {
   function  loadTable_variables_ind(list_name, json_new){
 
     var list_names = Object.keys(json_new)
+    console.log("json_new");
+    console.log(json_new);
+
     var table = _table_.cloneNode(false);
-    var tbody = _tbody_.cloneNode(false),
+    var tbody = _tbody_.cloneNode(false);
     columns = addAllColumnHeaders_ind(list_name);
 
     list_names.forEach(function(items,index){
@@ -756,6 +761,8 @@ MathJax = {
       tbody.appendChild(tr);
 
       var keys_list = json_new[items];
+      console.log("keys_list");
+      console.log(keys_list);
       var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
 
       keys_list.forEach(function (item, index) {
@@ -848,26 +855,49 @@ MathJax = {
     }
 
     var table_handler = $('#table_indicators').DataTable();
-    MathJax.typesetPromise().then(() => {  
-      $('#table_indicators tbody').on('click', 'tr', function () {
+     if (contador == 0){
+      // fue necesario agregar el contador para que la primera interaccion con math funcione sin promesas, porque daba error.
+        contador = contador+1;
+        $('#table_indicators tbody').on('click', 'tr', function () {
 
-        var td_select = this.childNodes[0]
-        if(td_select.classList.contains("showhr")){
-          $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
-        }
-        else if(td_select.classList.contains('aser')) {
-          var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
-          var data = table_handler.row(this).data();
-          var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
-          var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
-          if (row[0] == null){
-            row = data;
+          var td_select = this.childNodes[0]
+          if(td_select.classList.contains("showhr")){
+            $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
           }
-          //create_chart_indic(list_name, child, row);
+          else if(td_select.classList.contains('aser')) {
+            var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
+            var data = table_handler.row(this).data();
+            var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+            var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
+            if (row[0] == null){
+              row = data;
+            }
+            //create_chart_indic(list_name, child, row);
+          }
         }
-      }
-    );
-    MathJax.typesetPromise(); }).catch((err) => console.log(err.message));
+      );
+      }else{
+         MathJax.typesetPromise().then(() => {
+          $('#table_indicators tbody').on('click', 'tr', function () {
+
+          var td_select = this.childNodes[0]
+          if(td_select.classList.contains("showhr")){
+            $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
+          }
+            else if(td_select.classList.contains('aser')) {
+              var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
+              var data = table_handler.row(this).data();
+              var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+              var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
+              if (row[0] == null){
+                row = data;
+              }
+              //create_chart_indic(list_name, child, row);
+            }
+          }
+        );
+        MathJax.typesetPromise(); }).catch((err) => console.log(err.message));
+    }
   }
 
 /* $(document).ready(function() {
@@ -1034,6 +1064,8 @@ MathJax = {
       var list_name = 'generation';
       var key = 'Factor de Pérdidas';
       update_list(list_name);     
+      var contador = 0;
+      update_list_ind(list_name);     
       /* create_chart(list_name, key); */
 </script>
 
