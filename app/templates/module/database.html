@@ -675,10 +675,10 @@ MathJax = {
       _thead_ = document.createElement('thead'),
       _tbody_ = document.createElement('tbody'),
       _i_ = document.createElement('i'),
-      _a_ = document.createElement('a');
-    /* function  loadTable(arr){ */
-/*   (function () 
-    { window.onload = function one(){ */
+      _a_ = document.createElement('a'),
+      _ul_ = document.createElement('ul'),      
+      _p_ = document.createElement('p');
+
   function update_list_ind(list_name){
     var json_file = JSON.parse('{{data_indicators | tojson | safe}}');
     var keys_list = Object.keys(json_file[list_name]);
@@ -735,11 +735,8 @@ MathJax = {
   function  loadTable_variables_ind(list_name, json_new){
 
     var list_names = Object.keys(json_new)
-    console.log("json_new");
-    console.log(json_new);
-
     var table = _table_.cloneNode(false);
-    var tbody = _tbody_.cloneNode(false);
+    var tbody = _tbody_.cloneNode(false),
     columns = addAllColumnHeaders_ind(list_name);
 
     list_names.forEach(function(items,index){
@@ -761,33 +758,47 @@ MathJax = {
       tbody.appendChild(tr);
 
       var keys_list = json_new[items];
-      console.log("keys_list");
-      console.log(keys_list);
       var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
-
+      console.log("INDEX array")
+      console.log(keys_list)
+      var titles = ['Descripción:','Formula:','_','Variables:']
+      var tr = _tr_.cloneNode(false);
+      var td = _td_.cloneNode(false);
+      var description_html = _ul_.cloneNode(false);
       keys_list.forEach(function (item, index) {
+        console.log("Item value")
+        console.log(index)
 
-        item[0] = "Desagregación: " + item[0];
-        item[1] = "Formula: " + item[1];
-
-          item.forEach(function (item4, index ){
-              var tr = _tr_.cloneNode(false);
-              var td = _td_.cloneNode(false);
-              var cell_value;
-              if(item4 in translate_array){
-                cell_value = translate_array[item4];
-              }else {
-                cell_value = item4;
-              }
-              td.appendChild(document.createTextNode(cell_value|| ''));       
-              td.classList.add('aser')
-              td.classList.add('fw-normal')
-              tr.appendChild(td);  
-              tr.style.display = 'none';
-              tbody.appendChild(tr);
-
+        if (index==2){
+          item.forEach(function (subitem){
+            var description;
+            if(subitem in translate_array){
+              description = translate_array[subitem];
+            }else {
+              description = subitem;
+            }
+              description_html.innerHTML += '<li>'+description+'</li>';
             })
+          return
+        }
+
+        var p = _p_.cloneNode(false);
+        p.innerHTML = '<small class="fw-extrabold">'+titles[index]+'</small><br><div class="px-1 px-lg-4 text-wrap justified-text">'+item+'</div>';
+        p.classList.add('row')
+        td.appendChild(p);
+        
       })
+      var p = _p_.cloneNode(false);
+      p.innerHTML = '<small class="fw-extrabold">Desagregación:</small><br><div class="px-1 px-lg-4">'+description_html.innerHTML+'</div>';
+      td.appendChild(p);
+
+      td.classList.add('aser')
+      td.classList.add('fw-normal')
+      td.classList.add('px-2')
+      td.classList.add('px-lg-4')
+      tr.appendChild(td);
+      tr.style.display = 'none';
+      tbody.appendChild(tr) 
     })
 
     table.appendChild(tbody);
@@ -855,49 +866,26 @@ MathJax = {
     }
 
     var table_handler = $('#table_indicators').DataTable();
-     if (contador == 0){
-      // fue necesario agregar el contador para que la primera interaccion con math funcione sin promesas, porque daba error.
-        contador = contador+1;
-        $('#table_indicators tbody').on('click', 'tr', function () {
+    MathJax.typesetPromise().then(() => {  
+      $('#table_indicators tbody').on('click', 'tr', function () {
 
-          var td_select = this.childNodes[0]
-          if(td_select.classList.contains("showhr")){
-            $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
-          }
-          else if(td_select.classList.contains('aser')) {
-            var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
-            var data = table_handler.row(this).data();
-            var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
-            var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
-            if (row[0] == null){
-              row = data;
-            }
-            //create_chart_indic(list_name, child, row);
-          }
+        var td_select = this.childNodes[0]
+        if(td_select.classList.contains("showhr")){
+          $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
         }
-      );
-      }else{
-         MathJax.typesetPromise().then(() => {
-          $('#table_indicators tbody').on('click', 'tr', function () {
-
-          var td_select = this.childNodes[0]
-          if(td_select.classList.contains("showhr")){
-            $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
+        else if(td_select.classList.contains('aser')) {
+          var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
+          var data = table_handler.row(this).data();
+          var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+          var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
+          if (row[0] == null){
+            row = data;
           }
-            else if(td_select.classList.contains('aser')) {
-              var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
-              var data = table_handler.row(this).data();
-              var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
-              var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
-              if (row[0] == null){
-                row = data;
-              }
-              //create_chart_indic(list_name, child, row);
-            }
-          }
-        );
-        MathJax.typesetPromise(); }).catch((err) => console.log(err.message));
-    }
+          //create_chart_indic(list_name, child, row);
+        }
+      }
+    );
+    MathJax.typesetPromise(); }).catch((err) => console.log(err.message));
   }
 
 /* $(document).ready(function() {
