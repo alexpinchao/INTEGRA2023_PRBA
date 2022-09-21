@@ -146,7 +146,8 @@ consumption_table = Table('G_Consumo', metadata_obj,
                           Column('C_CAyC_Petroleo_kBL',	String),
                           Column('C_CAyC_Renovables_GWh',	String),
                           Column('C_CAyC_Diesel_kBL', String),
-                          Column('C_CAyC_Gaslicuado_kBL',	String)
+                          Column('C_CAyC_Gaslicuado_kBL',	String),
+                          Column('Total_Consumo_generacion_GWh',	String)
                           )
 
 #Electric generation table schema
@@ -986,8 +987,6 @@ class SQL_connector():
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
         rows = {'Desagregacion':[dict(zip(columns,row)) for row in result.fetchall()]}
-
-        # print(f" rows_desagregacion : {rows}")
         result.close()
 
         return rows
@@ -995,12 +994,9 @@ class SQL_connector():
     def get_rel_var_indic(self):
         #query = "SELECT INDICADOR_AGREGADO,DESAGREGACION_NOMBRE,FORMULA_RELACIONES,DESAGREGACION_ID,INDICADOR_ID FROM RELACION_VARIABLES_INDICADORES INNER JOIN DESAGREGACION ON INDICADOR_ID = REL_VARIABLES_DESAGREGACION;"
         query = select(rel_var_indic_table)
-        # print(f" query_mio : {query}")
-        # print(f" rel_var_indic_table: {rel_var_indic_table}")
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
         rows = {'Indicadores':[dict(zip(columns,row)) for row in result.fetchall()]}
-        # print(f" rows_rel_var_indicadores : {rows}")
         result.close()
 
         return rows
@@ -1008,12 +1004,9 @@ class SQL_connector():
     def get_data_desag_gen(self):
         #query = "SELECT INDICADOR_AGREGADO,DESAGREGACION_NOMBRE,FORMULA_RELACIONES,DESAGREGACION_ID,INDICADOR_ID FROM RELACION_VARIABLES_INDICADORES INNER JOIN DESAGREGACION ON INDICADOR_ID = REL_VARIABLES_DESAGREGACION;"
         query = select(data_desag_gen_table)
-        # print(f" query_mio : {query}")
-        # print(f" rel_var_indic_table: {rel_var_indic_table}")
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
         rows = {'Data':[dict(zip(columns,row)) for row in result.fetchall()]}
-        # print(f" rows_rel_var_indicadores : {rows}")
         result.close()
 
         return rows
@@ -1025,8 +1018,6 @@ class SQL_connector():
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
         rows = {'Desagregacion':[dict(zip(columns,row)) for row in result.fetchall()]}
-
-        # print(f" rows_desagregacion : {rows}")
         result.close()
 
         return rows
@@ -1034,12 +1025,9 @@ class SQL_connector():
     def get_rel_var_indic_dist(self):
         #query = "SELECT INDICADOR_AGREGADO,DESAGREGACION_NOMBRE,FORMULA_RELACIONES,DESAGREGACION_ID,INDICADOR_ID FROM RELACION_VARIABLES_INDICADORES INNER JOIN DESAGREGACION ON INDICADOR_ID = REL_VARIABLES_DESAGREGACION;"
         query = select(rel_var_indic_dist_table)
-        # print(f" query_mio : {query}")
-        # print(f" rel_var_indic_table: {rel_var_indic_table}")
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
         rows = {'Indicadores':[dict(zip(columns,row)) for row in result.fetchall()]}
-        # print(f" rows_rel_var_indicadores : {rows}")
         result.close()
 
         return rows
@@ -1047,12 +1035,9 @@ class SQL_connector():
     def get_data_desag_dist(self):
         #query = "SELECT INDICADOR_AGREGADO,DESAGREGACION_NOMBRE,FORMULA_RELACIONES,DESAGREGACION_ID,INDICADOR_ID FROM RELACION_VARIABLES_INDICADORES INNER JOIN DESAGREGACION ON INDICADOR_ID = REL_VARIABLES_DESAGREGACION;"
         query = select(data_desag_dist_table)
-        # print(f" query_mio : {query}")
-        # print(f" rel_var_indic_table: {rel_var_indic_table}")
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
         rows = {'Data':[dict(zip(columns,row)) for row in result.fetchall()]}
-        # print(f" rows_rel_var_indicadores : {rows}")
         result.close()
 
         return rows
@@ -1064,8 +1049,6 @@ class SQL_connector():
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
         rows = {'Desagregacion':[dict(zip(columns,row)) for row in result.fetchall()]}
-
-        # print(f" rows_desagregacion : {rows}")
         result.close()
 
         return rows
@@ -1073,12 +1056,10 @@ class SQL_connector():
     def get_rel_var_indic_end_use(self):
         #query = "SELECT INDICADOR_AGREGADO,DESAGREGACION_NOMBRE,FORMULA_RELACIONES,DESAGREGACION_ID,INDICADOR_ID FROM RELACION_VARIABLES_INDICADORES INNER JOIN DESAGREGACION ON INDICADOR_ID = REL_VARIABLES_DESAGREGACION;"
         query = select(rel_var_indic_end_use_table)
-        # print(f" query_mio : {query}")
-        # print(f" rel_var_indic_table: {rel_var_indic_table}")
+        # print(f" query : {query}")
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
         rows = {'Indicadores':[dict(zip(columns,row)) for row in result.fetchall()]}
-        # print(f" rows_rel_var_indicadores : {rows}")
         result.close()
 
         return rows
@@ -1086,12 +1067,10 @@ class SQL_connector():
     def get_data_desag_end_use(self):
         #query = "SELECT INDICADOR_AGREGADO,DESAGREGACION_NOMBRE,FORMULA_RELACIONES,DESAGREGACION_ID,INDICADOR_ID FROM RELACION_VARIABLES_INDICADORES INNER JOIN DESAGREGACION ON INDICADOR_ID = REL_VARIABLES_DESAGREGACION;"
         query = select(data_desag_end_use_table)
-        # print(f" query_mio : {query}")
         # print(f" rel_var_indic_table: {rel_var_indic_table}")
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
         rows = {'Data':[dict(zip(columns,row)) for row in result.fetchall()]}
-        # print(f" rows_rel_var_indicadores : {rows}")
         result.close()
 
         return rows
@@ -1170,7 +1149,6 @@ class SQL_connector():
     def get_indicators(self):
         indicators_dict = {}
         _dict = {}
-        #distribution_dict.update(self.get_desagregation())
         indicators_dict.update(self.get_rel_var_indic())
         indicators_dict.update(self.get_desagregation())
         indicators_dict.update(self.get_data_desag_gen())
@@ -1199,10 +1177,8 @@ class SQL_connector():
     def get_data_table(self):
         indicators_dict = {}
         _dict = {}
-        #distribution_dict.update(self.get_desagregation())
         indicators_dict.update(self.get_rel_var_indic())
         indicators_dict.update(self.get_desagregation())
-        # print(f"indicators_dict:  {indicators_dict}")
         _dict.update({'generation':indicators_dict})
         end_use_dict_ind = {}
         end_use_dict_ind.update(self.get_rel_var_indic_end_use())
