@@ -15,7 +15,6 @@ def set_secure_headers(response):
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    return redirect(url_for('dashboard.main'))
     login_form = LoginForm()
     val_name = False
     val_cont = False
@@ -29,7 +28,6 @@ def login():
         username = login_form.username.data
         password = login_form.password.data
         user = app.db_object.get_user(username)
-        print("######USER {}".format(user))
         if user:
             user = user[0]
             password_from_db =user['password']        
@@ -45,7 +43,7 @@ def login():
                 context['val_cont'] = False
                 flash('La información no coincide')
         else:
-            ##Revisar##
+            flash('El usuario es incorrecto')
             context['val_name'] = True
     return render_template('auth/login.html', **context)
 

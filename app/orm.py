@@ -1,5 +1,11 @@
+"""Test file for ORM implementation of SQLAlchemy
 
+Didn't associate to the main project's files.
 
+@Author: Mateo Barrera
+
+@Date: 02-04-2022
+"""
 from sqlalchemy import create_engine
 from sqlalchemy import MetaData, Table, Column, Integer, Text, String
 from sqlalchemy.sql import select

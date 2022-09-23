@@ -17,13 +17,9 @@
 -->
 
 {% extends 'base.html' %}
-{% import 'macros.html' as macros %}
-{% import 'bootstrap/wtf.html' as wtf %}
 
 {% block head %}
   {{ super() }}
-  <!-- Volt CSS -->
-  <link type="text/css" href="{{url_for('static',filename='css/volt.css')}}" rel="stylesheet">
   <!-- Datatables CSS -->
   <link rel="stylesheet" href="//cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
 {% endblock %}
@@ -34,7 +30,8 @@ Base de datos
 {% endblock %}
 
 {% block content %}
-<body onload ="ActivateSection('database')">     
+{{ super() }}
+<body onload ="ActivateLink('database')">     
   {% block sidebar %}
   {% include 'module/sidebar.html' %}
   {% endblock %}
@@ -411,7 +408,7 @@ Base de datos
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
 </script>
 
-<script>
+<script type="text/javascript">
 MathJax = {
   tex: {
     inlineMath: [['$', '$'], ['\\(', '\\)']]
@@ -436,7 +433,6 @@ MathJax = {
   console.log("table namde "+ table_name)
   document.getElementById('chart_title').innerHTML = table_name;
   var json_file = JSON.parse('{{data | tojson | safe}}');
-  console.log("----------------json_file-------------")
   console.log(json_file)
   console.log(list_name)
   var table = json_file[list_name][table_name];
@@ -463,7 +459,9 @@ MathJax = {
       array = array.map(function(x) { return x * 100; });;
     }
   }
+  /* Agregada - Capturar graficas actuales > 2 restablece */
 
+  /* Desagregados - else */
   if (last_indicator==indicator){
     if (!(keys_list.includes(row))){
       keys_list.push(row);
@@ -748,9 +746,9 @@ MathJax = {
       td.classList.add('fw-extrabold')
       td.classList.add('showhr')
       var i = _i_.cloneNode(false);
-      i.classList.add('fa-solid')
+      i.classList.add('fa-solid');
       /* i.classList.add('fa-angle-right') */
-      i.classList.add('fa-caret-down')
+      i.classList.add('fa-caret-right');
       i.classList.add('pe-1')
 
       td.appendChild(i);
@@ -867,28 +865,6 @@ MathJax = {
     }
 
     var table_handler = $('#table_indicators').DataTable();
-    if (contador == 0){
-      // fue necesario agregar el contador para que la primera interaccion con math funcione sin promesas, porque daba error.
-        contador = contador+1;
-        $('#table_indicators tbody').on('click', 'tr', function () {
-
-          var td_select = this.childNodes[0]
-          if(td_select.classList.contains("showhr")){
-            $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
-          }
-          else if(td_select.classList.contains('aser')) {
-            var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
-            var data = table_handler.row(this).data();
-            var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
-            var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
-            if (row[0] == null){
-              row = data;
-            }
-            //create_chart_indic(list_name, child, row);
-          }
-        }
-      );
-      }else{
     MathJax.typesetPromise().then(() => {  
       $('#table_indicators tbody').on('click', 'tr', function () {
 
@@ -909,7 +885,6 @@ MathJax = {
       }
     );
     MathJax.typesetPromise(); }).catch((err) => console.log(err.message));
-    }
   }
 
 /* $(document).ready(function() {

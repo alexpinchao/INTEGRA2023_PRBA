@@ -17,14 +17,6 @@
 -->
 
 {% extends 'base.html' %}
-{% import 'macros.html' as macros %}
-{% import 'bootstrap/wtf.html' as wtf %}
-
-{% block head %}
-{{ super() }}
-<!-- Volt CSS -->
-<link type="text/css" href="{{url_for('static',filename='css/volt.css')}}" rel="stylesheet">
-{% endblock %}
 
 {% block title %}
 {{ super() }}
@@ -35,7 +27,8 @@ Dashboard
 {% include 'navbar.html' %}
 {% endblock %}
 
-{% block content %}
+{% block body %}
+{{ super() }}
   <main>
     <section id="main-home">
       <div class="row pt-2 justify-content-center px-1">

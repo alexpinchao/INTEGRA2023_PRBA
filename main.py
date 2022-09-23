@@ -8,7 +8,7 @@ It integrates the configuration and initialization classes of the server, additi
 @Date: 12-07-2022  
 """
 import unittest
-from flask import Flask, request, make_response, render_template, redirect, session, url_for, flash
+from flask import Flask, request, make_response, render_template, redirect, session, url_for, flash, Response
 from app import create_app
 from flask_login import login_required, current_user
 from app.db import SQL_connector
@@ -49,6 +49,18 @@ def not_found(error):
         server response: template html for error
     """    
     return render_template('404.html', error=error)
+
+@app.errorhandler(500)
+def not_found(error):
+    """HTTP error attention function
+
+    Args:
+        error (flask error Handler): 500 Server error - Raise if a internal server error appears.
+
+    Returns:
+        server response: template html for error
+    """    
+    return render_template('500.html', error=error)
 
 #DONE
 @app.route('/home', methods=['GET', 'POST'])
@@ -97,6 +109,18 @@ def contact():
     }
     return render_template('home/contact.html', **context)
 
+#DONE
+@app.route('/robots.txt')
+def noindex():
+    """This file restricts the activity of search engine crawlers and stops their access to app.
+
+    Returns:
+        HTTP response: text plain response
+    """    
+    r = Response(response="User-Agent: *\nDisallow: /\n",
+                 status=200, mimetype="text/plain")
+    r.headers["Content-Type"] = "text/plain; charset=utf-8"
+    return r
 
 #Código para reciclar 
 """ @app.route('/hello', methods=['GET', 'POST'])

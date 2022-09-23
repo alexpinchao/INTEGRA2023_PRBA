@@ -1,11 +1,19 @@
+"""INTEGRA 2023 Platform Server Forms's File
+
+This file is part of the INTEGRA 2023 platform flask server.
+It integrates the data model for the User's session information required for the server built-in login.
+
+@Author: Mateo Barrera
+
+@Date: 12-07-2022
+"""
 from flask_wtf import FlaskForm
-from wtforms.fields import StringField, PasswordField, SubmitField, HiddenField, BooleanField
-from wtforms.fields.html5 import EmailField
+from wtforms.fields import StringField, PasswordField, SubmitField, HiddenField, BooleanField, EmailField
 from wtforms.validators import DataRequired, EqualTo, InputRequired, Regexp, Length, Optional, Email
 
 
 class LoginForm(FlaskForm):
-    username = StringField('Correo electrónico', validators=[InputRequired(), Email()])
+    username = EmailField('Correo electrónico', validators=[InputRequired(), Email()])
     password = PasswordField('Contraseña', validators=[DataRequired()])
     remember_me = BooleanField("Recuérdame", validators=[Optional()])
     submit = SubmitField('Iniciar sesión')
