@@ -3,16 +3,20 @@
 this file allows to import all the dependencies for the platform initialization.
 """
 from flask.app import Flask
-from flask_bootstrap import Bootstrap
 from .config import Config
 from .auth import auth
 from .dashboard import dashboard
 from flask_login import LoginManager
 from .models import UserModel
 from flask_sqlalchemy import SQLAlchemy
+from flask_compress import Compress
+from flask_sitemap import Sitemap
+from flask_minify import Minify
 
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
+
+ext = Sitemap()
 
 @login_manager.user_loader
 def load_user(username):
@@ -35,7 +39,9 @@ def create_app():
       app: flask server instance
   """  
   app = Flask(__name__)
-  bootstrap = Bootstrap(app)
+  Compress(app)
+  Minify(app=app, html=True, js=True, cssless=True)
+  ext.init_app(app)
   app.config.from_object(Config)
   login_manager.init_app(app)
   app.register_blueprint(auth)

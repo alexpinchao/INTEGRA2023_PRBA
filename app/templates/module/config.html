@@ -17,13 +17,9 @@
 -->
 
 {% extends 'base.html' %}
-{% import 'macros.html' as macros %}
-{% import 'bootstrap/wtf.html' as wtf %}
 
 {% block head %}
   {{ super() }}
-  <!-- Volt CSS -->
-  <link type="text/css" href="{{url_for('static',filename='css/volt.css')}}" rel="stylesheet">
   <!-- Datatables CSS -->
   <link rel="stylesheet" href="//cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
 {% endblock %}
@@ -34,7 +30,8 @@ Configuración
 {% endblock %}
 
 {% block content %}
-<body onload ="ActivateSection('config')">
+{{ super() }}
+<body onload ="ActivateLink('config')">
   <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->       
   {% block sidebar %}
   {% include 'module/sidebar.html' %}

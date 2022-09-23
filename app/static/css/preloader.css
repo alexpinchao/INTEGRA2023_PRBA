@@ -1,0 +1,117 @@
+/* ============================= 
+    PRELOADER CSS
+================================ */
+.preloader {
+  /* Body Overlay */
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: table;
+  height: 100%;
+  width: 100%;
+  /* Change Background Color */
+  background: #fcbf0c;
+  z-index: 99999;
+}
+
+.preloader .loader {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.loader {
+  width: 80px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%);
+}
+
+.duo {
+  vertical-align: middle;
+  height: 20px;
+  width: 50px;
+  background: hsla(0, 0%, 0%, 0.0);
+  position: absolute;
+}
+
+.duo,
+.dott {
+  animation-duration: 0.8s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.duo1 {
+  left: 0;
+}
+
+.duo2 {
+  left: 30px
+}
+
+.dott {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: #333;
+  position: absolute;
+}
+.dott-a {
+  left: 0px;
+}
+.dott-b {
+  right: 0px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg)
+  }
+
+  50% {
+    transform: rotate(180deg)
+  }
+
+  100% {
+    transform: rotate(180deg)
+  }
+}
+
+@keyframes onOff {
+  0% {
+    opacity: 0;
+  }
+
+  49% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.duo1 {
+  animation-name: spin;
+}
+
+.duo2 {
+  animation-name: spin;
+  animation-direction: reverse;
+}
+
+.duo2 .dott-b {
+  animation-name: onOff;
+}
+
+.duo1 .dott-a {
+  opacity: 0;
+  animation-name: onOff;
+  animation-direction: reverse;
+}

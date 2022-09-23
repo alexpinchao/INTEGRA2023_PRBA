@@ -17,13 +17,9 @@
 -->
 
 {% extends 'base.html' %}
-{% import 'macros.html' as macros %}
-{% import 'bootstrap/wtf.html' as wtf %}
 
 {% block head %}
   {{ super() }}
-  <!-- Volt CSS -->
-  <link type="text/css" href="{{url_for('static',filename='css/volt.css')}}" rel="stylesheet">
   <!-- Datatables CSS -->
   <link rel="stylesheet" href="//cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
 {% endblock %}
@@ -34,7 +30,8 @@ Cálculo
 {% endblock %}
 
 {% block content %}
-<body onload ="ActivateSection('calc')">
+{{ super() }}
+<body onload ="ActivateLink('calc')">
   {% block sidebar %}
   {% include 'module/sidebar.html' %}
   {% endblock %}
@@ -191,7 +188,6 @@ Cálculo
                       <a class="dropdown-item" onclick="update_list_ind('generation')" href="#">Generación</a>
                       <a class="dropdown-item" onclick="update_list_ind('distribution')" href="#">Distribución</a>
                       <a class="dropdown-item" onclick="update_list_ind('end_use')" href="#">Uso final</a>
-                      <a class="dropdown-item" onclick="update_list_ind('cross_data')" href="#">Datos_Cruzados</a>
                     </div>
                   </div>
                 </div>
@@ -478,7 +474,7 @@ Cálculo
 
 
 <script>
-  /*new Chart(document.getElementById("mixed-chart"), {
+  new Chart(document.getElementById("mixed-chart"), {
       type: 'bar',
       data: {
         labels: ["1900", "1950", "1999", "2050"],
@@ -515,7 +511,7 @@ Cálculo
         },
         legend: { display: false }
       }
-    });*/
+    });
 </script>
 
 <!-- Variables Datatable.js handler -->
