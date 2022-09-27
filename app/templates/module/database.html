@@ -865,26 +865,49 @@ MathJax = {
     }
 
     var table_handler = $('#table_indicators').DataTable();
-    MathJax.typesetPromise().then(() => {  
-      $('#table_indicators tbody').on('click', 'tr', function () {
+    if (contador == 0){
+      // fue necesario agregar el contador para que la primera interaccion con math funcione sin promesas, porque daba error.
+        contador = contador+1;
+        $('#table_indicators tbody').on('click', 'tr', function () {
 
-        var td_select = this.childNodes[0]
-        if(td_select.classList.contains("showhr")){
-          $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
-        }
-        else if(td_select.classList.contains('aser')) {
-          var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
-          var data = table_handler.row(this).data();
-          var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
-          var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
-          if (row[0] == null){
-            row = data;
+          var td_select = this.childNodes[0]
+          if(td_select.classList.contains("showhr")){
+            $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
           }
-          //create_chart_indic(list_name, child, row);
+          else if(td_select.classList.contains('aser')) {
+            var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
+            var data = table_handler.row(this).data();
+            var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+            var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
+            if (row[0] == null){
+              row = data;
+            }
+            //create_chart_indic(list_name, child, row);
+          }
         }
-      }
-    );
-    MathJax.typesetPromise(); }).catch((err) => console.log(err.message));
+      );
+      }else{
+      MathJax.typesetPromise().then(() => {  
+        $('#table_indicators tbody').on('click', 'tr', function () {
+
+          var td_select = this.childNodes[0]
+          if(td_select.classList.contains("showhr")){
+            $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
+          }
+          else if(td_select.classList.contains('aser')) {
+            var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
+            var data = table_handler.row(this).data();
+            var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+            var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
+            if (row[0] == null){
+              row = data;
+            }
+            //create_chart_indic(list_name, child, row);
+          }
+        }
+      );
+      MathJax.typesetPromise(); }).catch((err) => console.log(err.message));
+    }
   }
 
 /* $(document).ready(function() {

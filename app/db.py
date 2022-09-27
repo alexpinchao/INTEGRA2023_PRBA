@@ -146,7 +146,8 @@ consumption_table = Table('G_Consumo', metadata_obj,
                           Column('C_CAyC_Petroleo_kBL',	String),
                           Column('C_CAyC_Renovables_GWh',	String),
                           Column('C_CAyC_Diesel_kBL', String),
-                          Column('C_CAyC_Gaslicuado_kBL',	String)
+                          Column('C_CAyC_Gaslicuado_kBL',	String),
+                          Column('Total_Consumo_generacion_GWh',	String)
                           )
 
 #Electric generation table schema
