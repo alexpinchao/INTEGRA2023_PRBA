@@ -15,6 +15,7 @@ def set_secure_headers(response):
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    return redirect(url_for('dashboard.main'))
     login_form = LoginForm()
     val_name = False
     val_cont = False
