@@ -131,15 +131,15 @@ def calc():
 
     #carga de indicadores en la generacion
     eficienc_gen_electrica = prepareData(generation_total_generation, generation_consumo, "Eficiencia de la generación eléctrica" , "1" )
-    intens_energ_gen = prepareData(generation_consumo, end_use_pib,"Intensidad energética generación eléctrica", "2")
-    inten_emision_gen_electrica = prepareData(generation_emisiones_SIN, end_use_pib,"Intensidad de emisión generación eléctrica", "3")
+    intens_energ_gen = prepareData(generation_consumo, end_use_pib,"Intensidad energética primaria de la generación eléctrica", "2")
+    inten_emision_gen_electrica = prepareData(generation_emisiones_SIN, end_use_pib,"Intensidad de emisión de la generación eléctrica", "3")
     emisiones_co2_sin_total = prepareData(generation_emisiones_SIN, array_default,"Emisiones de CO2eq de la generación eléctrica SIN", "3")
     emisiones_co2_total = prepareData(generation_emisiones_total, array_default,"Emisiones de CO2eq de la generación eléctrica Total", "3")
 
     dict_generacion = {}
     dict_generacion.update({"Eficiencia de la generación eléctrica":eficienc_gen_electrica})
-    dict_generacion.update({"Intensidad energética generación eléctrica" :intens_energ_gen})
-    dict_generacion.update({"Intensidad de emisión generación eléctrica":inten_emision_gen_electrica})
+    dict_generacion.update({"Intensidad energética primaria de la generación eléctrica" :intens_energ_gen})
+    dict_generacion.update({"Intensidad de emisión de la generación eléctrica":inten_emision_gen_electrica})
     dict_generacion.update({"Emisiones de CO2eq de la generación eléctrica SIN":emisiones_co2_sin_total})
     dict_generacion.update({"Emisiones de CO2eq de la generación eléctrica Total":emisiones_co2_total})
 

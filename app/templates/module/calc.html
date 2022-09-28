@@ -185,7 +185,7 @@ Cálculo
                         </svg>
                       </button>
                       <div class="dropdown-menu">
-                        <a class="dropdown-item" onclick="update_list_agregados('Agregados')" href="#">Agregados </a>
+                        <a class="dropdown-item" onclick="update_list_agregados('Agregados')" href="#">Agregados</a>
                         <a class="dropdown-item" onclick="update_list_ind('generation')" href="#">Desagregados</a>
                       </div>
                     </div>
@@ -193,7 +193,7 @@ Cálculo
                 <div class="m-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between justify-content-xl-center">
                   <span class="h6 fw-bold p-1"><strong>Cadena de Valor</strong> </span>
                   <div class="btn-group p-1">
-                    <button type="button" class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
+                    <button type="button" id="cadena_valor" class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
                       <span>Seleccionar</span>
                       <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -544,19 +544,17 @@ Cálculo
       _i_ = document.createElement('i'),
       _a_ = document.createElement('a');
       var last_indicator = '';
+      var limite_graficas = false;
+
   function update_list_ind(list_name){
 
+    document.getElementById("cadena_valor").disabled = false;
+
     var json_file = JSON.parse('{{data_indicators | tojson | safe}}');
-
-    console.log("update_list_ind");
-    console.log("json_file");
-    console.log(json_file);
-
     var keys_list = Object.keys(json_file[list_name])
     var keys_list_2 = []
     var keys_list_3 = []
     var json_table = {}
-    //var json_new = {}
     var json_aux_ind
     var json_aux_des
     var json_desagregacion = []
@@ -564,77 +562,46 @@ Cálculo
 
     keys_list.forEach(function (item, index) {
       var name = item;
+      if (item === 'Desagregacion'){
+        json_aux_des = json_file[list_name][item];
+      }else {
+        json_aux_ind = json_file[list_name][item];
+      }
     });
 
-      keys_list.forEach(function (item, index) {
-        var name = item;
-        if (item === 'Desagregacion'){
+    keys_list_2 = Object.keys(json_aux_ind)
 
-          json_aux_des = json_file[list_name][item];
-        }else {
-          json_aux_ind = json_file[list_name][item];
-        }
-      });
-      
-      keys_list_2 = Object.keys(json_aux_ind)
-      
-          keys_list_2.forEach(function (item2, index) {
-
-            keys_list_3 = Object.keys(json_aux_des)
-            keys_list_3.forEach(function (item3, index) {
-
-                  if((json_aux_ind[item2]['INDICADOR_ID'])===(json_aux_des[item3]['REL_VARIABLES_DESAGREGACION'])){
-
-                    json_desagregacion.push(json_aux_des[item3]['DESAGREGACION_NOMBRE'])
-                    //json_desagregacion.push(json_aux_ind[item2]['FORMULA_RELACIONES'])
-                    json_desagregacion_completo.push(json_desagregacion)
-                    json_desagregacion = []
-
-                  }
-              });
-
-              var indicador_nombre = json_aux_ind[item2]['INDICADOR_AGREGADO']
-              json_table[indicador_nombre] = json_desagregacion_completo;
-              json_desagregacion_completo = []
-
+      keys_list_2.forEach(function (item2, index) {
+        keys_list_3 = Object.keys(json_aux_des)
+          keys_list_3.forEach(function (item3, index) {
+            if((json_aux_ind[item2]['INDICADOR_ID'])===(json_aux_des[item3]['REL_VARIABLES_DESAGREGACION'])){
+              json_desagregacion.push(json_aux_des[item3]['DESAGREGACION_NOMBRE'])
+              json_desagregacion_completo.push(json_desagregacion)
+              json_desagregacion = []
+            }
           });
-          loadTable_variables_ind(list_name, json_table);
-  }
+        var indicador_nombre = json_aux_ind[item2]['INDICADOR_AGREGADO']
+        json_table[indicador_nombre] = json_desagregacion_completo;
+        json_desagregacion_completo = []
+      });
+      loadTable_variables_ind(list_name, json_table);
+    }
 
     function update_list_agregados(list_name){
 
+      document.getElementById("cadena_valor").disabled = true;
       var json_file = JSON.parse('{{data_total_indicators | tojson | safe}}');
-
-      console.log("update_list_agregados");
-      console.log("json_file");
-      console.log(json_file);
-
       var keys_list_2 = []
       var json_table = {}
+      limite_graficas = true;
 
       var keys_list = Object.keys(json_file)
-      console.log("keys_list-------------------");
-      console.log(keys_list);
 
       keys_list.forEach(function (item, index) {
-        console.log("keys_list recorrido-------------------");
-        console.log(item);
         var json_aux = json_file[item];
-
         keys_list_2 = Object.keys(json_aux);
-
-        console.log("json_aux recorrido-------------------");
-        console.log(json_aux);
-
-        console.log("keys_list_2 recorrido-------------------");
-        console.log(keys_list_2);
-
         json_table[item] = keys_list_2;
       });
-
-      // json_table debe tener la clase y los indicadores por cada clase
-      // ejemplo : end_use:{ consumo per capita, intensidad del consumo energetico final}
-
       loadTable_variables_ind(list_name, json_table);
     }
 
@@ -705,19 +672,11 @@ Cálculo
   function loadTable_variables_ind(list_name, json_new){
 
     var list_names = Object.keys(json_new)
-
-    console.log("loadTable_variables");
-    console.log("json_new");
-    console.log(json_new);
-
     var table = _table_.cloneNode(false);
     var tbody = _tbody_.cloneNode(false),
+
     columns = addAllColumnHeaders(list_name);
-
     list_names.forEach(function(items,index){
-
-      console.log("items");
-      console.log(items);
 
       var tr = _tr_.cloneNode(false);
       var td = _td_.cloneNode(false);
@@ -737,14 +696,8 @@ Cálculo
       tbody.appendChild(tr);
       var keys_list = json_new[items];
 
-      console.log("keys_list");
-      console.log(keys_list);
-
       var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
       keys_list.forEach(function (item, index) {
-
-        console.log("item");
-        console.log(item);
 
         var tr = _tr_.cloneNode(false);
         var td = _td_.cloneNode(false);
@@ -754,27 +707,27 @@ Cálculo
         } else{
           cell_value = item;
         }
-        td.appendChild(document.createTextNode(cell_value|| ''));       
+        td.appendChild(document.createTextNode(cell_value|| ''));
         td.classList.add('aser')
         td.classList.add('fw-normal')
-        tr.appendChild(td);  
+        tr.appendChild(td);
         tr.style.display = 'none';
         tbody.appendChild(tr);
-      })    
+      })
     })
 
     table.appendChild(tbody);
-    
+
     table.id = 'table_variables'
     table.classList.add('table');
     table.classList.add('table-centered');
-    table.classList.add('table-nowrap');      
+    table.classList.add('table-nowrap');
     table.classList.add('rounded');
     table.classList.add('mb-0');
     table.classList.add('border-0');
     table.classList.add('dt-responsive');
 
-    function addAllColumnHeaders(list_name) {                                                                                                
+    function addAllColumnHeaders(list_name) {
       var columnSet = [],
       thead = _thead_.cloneNode(false);
       tr = _tr_.cloneNode(false);
@@ -783,14 +736,14 @@ Cálculo
         var key = 'Generación';
       } else if (list_name === 'distribution'){
         var key = 'Distribución';
-      } else if (list_name === 'end_use'){ 
+      } else if (list_name === 'end_use'){
         var key = 'Uso final';
-      } else if (list_name === 'Agregados'){ 
+      } else if (list_name === 'Agregados'){
         var key = 'Agregados';
       }
       columnSet.push(key)
       th.appendChild(document.createTextNode(key));
-      th.classList.add('rounded');     
+      th.classList.add('rounded');
       th.classList.add('border-0');
       tr.appendChild(th);
       thead.appendChild(tr);
@@ -807,14 +760,14 @@ Cálculo
       let tables = new DataTable(datatablesSimple, {
       language: {
         url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
-      }, 
+      },
       ordering: false,
       hover: true,
       filter: false,
       responsive:true,
       pageLength: 200,
       scrollResize: true,
-      scrollX: false,    
+      scrollX: false,
       scrollY: 300,
       scrollCollapse:false,
       dom: 'Bfrtip',
@@ -844,15 +797,6 @@ Cálculo
         if (row[0] == null){
           row = data;
         }
-
-        console.log("list_name------");
-        console.log(list_name);
-        
-        console.log("child-----");
-        console.log(child);
-
-        console.log("row-----");
-        console.log(row);
         create_chart_indic(list_name, child, row);
       }
     }
@@ -861,7 +805,6 @@ Cálculo
 
   function create_chart_indic(list_name, indicator, key){
     var row1 = key[0];
-    //var row1 = key;
     var row = row1.replace(/ /gi,"_");
     var b_colorslist = ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'];
     var colorslist = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'];
@@ -871,40 +814,24 @@ Cálculo
     if (list_name == "Agregados"){
       var json_file = JSON.parse('{{data_total_indicators | tojson | safe}}');
       var table = json_file[indicator][row1];
-      console.log("table ---------------")
-      console.log(table)
     }else{
       var json_file = JSON.parse('{{data_indicators | tojson | safe}}');
       var table = json_file[list_name]['Data'];
-      console.log("table ---------------")
-      console.log(table)
     }
     var keys = Object.keys(table[0]);
-
-    console.log("keys ---------------")
-      console.log(keys)
-
-
     var labels = table.map(function(e) {
       return e[keys[0]];
     });
-
-    console.log("labels ---------------")
-      console.log(labels)
 
     if (list_name == "Agregados"){
       var data = table.map(function(e) {
         return e[row1];
       });;
     }else {
-
       var data = table.map(function(e) {
         return e[row];
       });;
     }
-
-    console.log("data ---------------")
-    console.log(data)
 
     length = data.length;
     var array=[];
@@ -914,22 +841,58 @@ Cálculo
     var unit = '';
     var units = JSON.parse('{{units | tojson | safe}}');
 
-    console.log("units ---------------")
-    console.log(units)
-
-    if (indicator in units){
-      unit = units[indicator];
-
-      console.log("unit ---------------")
-      console.log(unit)
-      /*if (unit=='Porcentaje %'){
-        array = array.map(function(x) { return x * 100; });;
-      }*/
+    if (list_name == "Agregados"){
+      if (row1 in units){
+        unit = units[row1];
+        /*if (unit=='Porcentaje %'){
+          array = array.map(function(x) { return x * 100; });;
+        }*/
+      }
+    }else {
+      if (indicator in units){
+        unit = units[indicator];
+        /*if (unit=='Porcentaje %'){
+          array = array.map(function(x) { return x * 100; });;
+        }*/
+      }
     }
-    if (last_indicator==indicator){
+
+    if ((last_indicator==indicator || (list_name == "Agregados" && last_indicator != "") ) && !limite_graficas){
       if (!(keys_list.includes(row))){
         keys_list.push(row);
-        const update_dataset = {label: row,  borderColor: colorslist[keys_list.length], backgroundColor: b_colorslist[keys_list.length], data: array, spanGraphs: false, fill: true};
+        var update_dataset = {}
+          if (list_name == "Agregados"){
+            update_dataset = {
+            label: row,  
+            borderColor: colorslist[keys_list.length], 
+            backgroundColor: b_colorslist[keys_list.length], 
+            data: array,
+            spanGraphs: false, 
+            fill: true,
+            yAxisID: 'y1'
+            };
+
+            chart_element.options.scales.yAxes.push(
+              {
+                stacked: false,
+                scaleLabel: {
+                  display: true,
+                  labelString: unit
+                },
+                id: "y1",
+                position: "right"
+              })
+              limite_graficas = true;
+          }else{
+              update_dataset = {
+              label: row,
+              borderColor: colorslist[keys_list.length],
+              backgroundColor: b_colorslist[keys_list.length],
+              data: array,
+              spanGraphs: false,
+              fill: true
+              };
+          }
         chart_element.data.datasets.push(update_dataset);
         chart_element.update();
       } else {
@@ -940,7 +903,17 @@ Cálculo
       
     } else {
     keys_list=[row]
-    var mydatasets = [{label: row,  borderColor: colorslist[0], backgroundColor: b_colorslist[0], data: array, spanGraphs: false, fill: true}];
+    var mydatasets = [{
+      label: row,  
+      borderColor: colorslist[0], 
+      backgroundColor: b_colorslist[0], 
+      data: array, 
+      spanGraphs: false,
+      fill: true,
+      yAxisID: 'y'
+    }];
+
+
     let delayed;
     $('#line-chart_1').remove(); 
     $('#graph-container_1').append('<canvas id="line-chart_1" width="100%" height="50%"><canvas>'); 
@@ -965,7 +938,8 @@ Cálculo
               scaleLabel: {
                 display: true,
                 labelString: unit
-              }
+              },
+              id: "y"
             }]
           },
           title: {
@@ -989,6 +963,7 @@ Cálculo
             }}
       };
     chart_element = new Chart(document.getElementById('line-chart_1'), config);
+    limite_graficas = false;
     }
     last_indicator = indicator;
   }
