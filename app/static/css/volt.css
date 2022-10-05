@@ -8060,10 +8060,24 @@ nav .container a {
 .card-effect:hover .card-effect-icon {
     bottom: 0;
     background: #fcbf0c;
-    animation: all 0.3s ease-in
+    animation: all 0.5s ease-in
 }
 
 .card-effect:hover .card-effect-icon svg {
+    fill: #000;
+}
+
+.a-effect-home:hover h2{
+    color:#000;
+    text-shadow: 1px 1px 1px #1F2937;
+}
+.a-effect-home:hover .effect-icon-home{
+    bottom: 0;
+    background: #fcbf0c;
+    animation: all 0.5s ease-in
+}
+
+.a-effect-home:hover .effect-icon-home svg {
     fill: #000;
 }
 
