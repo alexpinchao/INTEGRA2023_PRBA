@@ -8053,18 +8053,27 @@ nav .container a {
 
 .card-effect:hover {
     color: #fff;
+    z-index: 99;
     transform: scale(1.05);
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 5px 10px
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 5px 10px,
 }
 
 .card-effect:hover .card-effect-icon {
     bottom: 0;
     background: #fcbf0c;
-    animation: all 0.5s ease-in
+    animation: all 0.5s ease-in,
 }
 
 .card-effect:hover .card-effect-icon svg {
     fill: #000;
+}
+
+.card-effect:hover .card-effect-text{
+    color: #000 !important;
+}
+
+.card-effect:hover .dot{
+    background-color: #000!important;
 }
 
 .a-effect-home:hover h2{
@@ -23649,7 +23658,7 @@ nav .container a {
 @media (min-width: 768px) {
     .sidebar {
         width: 100%;
-        max-width: 260px;
+        max-width: 250px;
     }
 }
 
@@ -30496,4 +30505,10 @@ article .h6 {
 
 .range {
     color: #fcbf0c;
+}
+
+.comming-soon {
+    position: absolute;
+    transform: translate(1rem,-1rem);
+    z-index: 99;
 }

@@ -73,22 +73,22 @@ Dashboard
                             <div class="col-7 px-lg-0">
                               <div class="d-sm-none">
                                 <div class="d-flex align-items-center m-2">
-                                  <span class="dot rounded-circle bg-gray-400 me-2"></span>
-                                  <span class="fw-normal small">Indicadores</span>
+                                  <span class="dot rounded-circle bg-gray-400 me-2 card-effect-text"></span>
+                                  <span class="fw-normal small card-effect-text">Indicadores</span>
                                 </div>
                                 <div class="d-flex align-items-center m-2">
-                                  <span class="dot rounded-circle bg-gray-400 me-2"></span>
-                                  <span class="fw-normal small">Variables</span>
+                                  <span class="dot rounded-circle bg-gray-400 me-2 card-effect-text"></span>
+                                  <span class="fw-normal small card-effect-text">Variables</span>
                                 </div>
                               </div>
                               <div class="d-none d-sm-block">
                                 <div class="d-flex align-items-center m-2">
                                   <span class="dot rounded-circle bg-gray-400 me-2"></span><span
-                                    class="fw-normal text-gray-400 small">Indicadores</span>
+                                    class="fw-normal text-gray-400 small card-effect-text">Indicadores</span>
                                 </div>
                                 <div class="d-flex align-items-center m-2">
                                   <span class="dot rounded-circle bg-gray-400 me-2"></span><span
-                                    class="fw-normal text-gray-400 small">Variables</span>
+                                    class="fw-normal text-gray-400 small card-effect-text">Variables</span>
                                 </div>
                               </div>
                             </div>
@@ -102,12 +102,15 @@ Dashboard
                   <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h2 class="h6 modal-title fw-extrabold">Información</h2>
+                        <span>
+                          <img class="icon icon-xs" src="{{url_for('static',filename='images/Integration.svg')}}" height="54" width="54"
+                            alt="Logo IntegraAPP ">
+                        </span>
+                        <span><h2 class="h4 modal-title fw-extrabold">Información</h2></span>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-                        <p class="justified-text">En el módulo de base de datos se recopila la información de las variables e indicadores de eficiencia energética asociados a los
-                        procesos de generación, distribución y uso final de la energía eléctrica en Colombia.</p>
+                        <p class="justified-text">En el módulo de base de datos se recopila la información de las variables e indicadores de eficiencia energética asociados a los procesos de generación, distribución y uso final de la energía eléctrica en Colombia.</p>
                       </div>
                     </div>
                   </div>
@@ -126,7 +129,8 @@ Dashboard
                             <path fill-rule="evenodd"
                               d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
                               clip-rule="evenodd"></path>
-                          </svg></button>
+                          </svg>
+                        </button>
                         </div>
                         <a href="{{url_for('dashboard.calc')}}">
                           <div class="row">
@@ -153,11 +157,11 @@ Dashboard
                               <div class="d-none d-sm-block">
                                 <div class="d-flex align-items-center m-2">
                                   <span class="dot rounded-circle bg-gray-400 me-2"></span><span
-                                    class="fw-normal text-gray-400 small">Linea base</span>
+                                    class="fw-normal text-gray-400 small card-effect-text">Linea base</span>
                                 </div>
                                 <div class="d-flex align-items-center m-2">
                                   <span class="dot rounded-circle bg-gray-400 me-2"></span><span
-                                    class="fw-normal text-gray-400 small">Indicadores de EE</span>
+                                    class="fw-normal text-gray-400 small card-effect-text">Indicadores de EE</span>
                                 </div>
                               </div>
                             </div>
@@ -224,11 +228,11 @@ Dashboard
                               <div class="d-none d-sm-block">
                                 <div class="d-flex align-items-center m-2">
                                   <span class="dot rounded-circle bg-gray-400 me-2"></span><span
-                                    class="fw-normal text-gray-400 small">Escenarios</span>
+                                    class="fw-normal text-gray-400 small card-effect-text">Escenarios</span>
                                 </div>
                                 <div class="d-flex align-items-center m-2">
                                   <span class="dot rounded-circle bg-gray-400 me-2"></span><span
-                                    class="fw-normal text-gray-400 small">Resultados</span>
+                                    class="fw-normal text-gray-400 small card-effect-text">Resultados</span>
                                 </div>
                               </div>
                             </div>
@@ -277,7 +281,6 @@ Dashboard
                                   clip-rule="evenodd"></path>
                               </svg>
                             </div>
-
                           </div>
                           <div class="col-7 px-0">
                             <div class="d-sm-none">
@@ -292,11 +295,11 @@ Dashboard
                             </div>                            
                             <div class="d-none d-sm-block">
                               <div class="d-flex align-items-center m-2">
-                                <span class="dot rounded-circle bg-gray-400 me-2"></span><span class="fw-normal text-gray-400 small">Información
+                                <span class="dot rounded-circle bg-gray-400 me-2"></span><span class="fw-normal text-gray-400 small card-effect-text">Información
                                   de Usuario</span>
                               </div>
                               <div class="d-flex align-items-center m-2">
-                                <span class="dot rounded-circle bg-gray-400 me-2"></span><span class="fw-normal text-gray-400 small">Ajustes de acceso</span>
+                                <span class="dot rounded-circle bg-gray-400 me-2"></span><span class="fw-normal text-gray-400 small card-effect-text">Ajustes de acceso</span>
                               </div>
                             </div>
                           </div>

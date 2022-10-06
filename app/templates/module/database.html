@@ -158,6 +158,7 @@ Base de datos
                 <span class="h2 fw-extrabold">Indicadores</span>
                 <p class="m-1">Tándem de indicadores para la industria eléctrica.</p>
               </div>
+              {% if admin_session %}
               <div class="col-0 col-md-4">
                 <div class="btn-toolbar  d-none d-md-flex justify-content-end">
                   <a href="{%- if not admin_session -%}#TOP{% else %}#DOWM{% endif %}" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
@@ -170,6 +171,7 @@ Base de datos
                   </a>
                 </div>
               </div>
+              {% endif %}
             </div> 
             <div class="card border-1 shadow">
               <div class="card-header p-0">
@@ -294,6 +296,7 @@ Base de datos
                 <span class="h2 fw-extrabold">Variables</span>
                 <p class="m-1">Variables de proceso para la industria eléctrica.</p>
               </div>
+              {% if admin_session %}
               <div class="col-0 col-md-4">
                 <div class="btn-toolbar d-none d-md-flex justify-content-end">
                   <a href="#" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
@@ -306,6 +309,7 @@ Base de datos
                   </a>
                 </div>
               </div>
+              {% endif %}
             </div>
             <div class="card border-1 shadow">
               <div class="card-header p-1">

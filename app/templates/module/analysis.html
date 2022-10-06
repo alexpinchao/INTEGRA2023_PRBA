@@ -57,9 +57,17 @@ Análisis
               </div>
               <div class="row main-row">
                 <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
+                  {% if admin_session %}
                   <a href="#stages" onclick="ActiveSection('stages')">
+                  {% else %}
+                  <a href="#stages" data-bs-toggle="modal" data-bs-target="#modal-analysis-1">
+                  {% endif %}
                     <div class="card border-1 shadow card-effect">
-                      <div class="card-body">
+                      <div class="card-body position-relative">
+                        {% if not admin_session %}
+                        <img class="image comming-soon top-0 end-0" src="{{url_for('static',filename='images/proximamente.png')}}" height="84"
+                          width="104" alt="Próximamente logo.">
+                        {% endif %}
                         <div class="row d-block d-xl-flex align-items-center">
                           <div
                             class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
@@ -86,10 +94,32 @@ Análisis
                     </div>
                   </a>
                 </div>
+                <div class="modal fade" id="modal-analysis-1" tabindex="-1" role="dialog" aria-labelledby="modal-analysis-1" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h2 class="h6 modal-title fw-extrabold">Información</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <p class="justified-text">En el módulo de análisis se evalúan las estrategias de eficiencia energética mediante criterios económicos, ambientales y energéticos, al ser proyectadas hacia los años de interés, permitiendo definir las estrategias más viables para el
+                        país.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
+                  {% if admin_session %}
                   <a href="#evaluation" onclick="ActiveSection('evaluation')">
+                  {% else %}
+                  <a href="#evaluation" data-bs-toggle="modal" data-bs-target="#modal-analysis-2">
+                  {% endif %}
                     <div class="card border-1 shadow card-effect">
-                      <div class="card-body">
+                      <div class="card-body position-relative">
+                        {% if not admin_session %}
+                        <img class="image comming-soon top-0 end-0" src="{{url_for('static',filename='images/proximamente.png')}}" height="84"
+                          width="104" alt="Próximamente logo.">
+                        {% endif %}
                         <div class="row d-block d-xl-flex align-items-center">
                           <div
                             class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
@@ -116,6 +146,21 @@ Análisis
                       </div>
                     </div>
                   </a>
+                </div>
+                <div class="modal fade" id="modal-analysis-2" tabindex="-1" role="dialog" aria-labelledby="modal-analysis-2"
+                  aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h2 class="h6 modal-title fw-extrabold">Información</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <p class="justified-text">En el módulo de análisis se evalúan las estrategias de eficiencia energética mediante criterios económicos, ambientales y energéticos, al ser proyectadas hacia los años de interés, permitiendo definir las estrategias más viables para el
+                        país.</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
