@@ -1,9 +1,10 @@
 <nav class="navbar navbar-dark navbar-theme-primary navbar-expand-lg sticky-top px-4 col-12 d-lg-none">
-  <a class="navbar-brand me-lg-5" href="{{url_for('index')}}">
-      <span class="sidebar-icon">
-        <img src="{{url_for('static',filename='images/LogoApp.svg')}}" height="48" width="180" alt="Logo IntegraAPP">
-      </span>      
-      <span class="mt-1 ms-1 sidebar-text fs-6 text-dark"></span></a>
+  <a class="navbar-brand d-flex align-items-center" href="{{url_for('index')}}">
+    <span class="sidebar-icon px-0">
+      <img class="icon" src="{{url_for('static',filename='images/Integration.svg')}}" height="54" width="54"
+        alt="Logo IntegraAPP ">
+    </span>
+    <span class="px-1 fs-4 text-black fw-extrabold">Integra</span>
   </a>
   <div class="d-flex align-items-center">
     <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">

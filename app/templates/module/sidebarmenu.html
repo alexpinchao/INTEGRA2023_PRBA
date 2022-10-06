@@ -21,11 +21,12 @@
     </div>
     <ul class="nav flex-column pt-3 pt-lg-2">
       <li class="nav-item d-none d-lg-flex">
-        <a href="{{url_for('home')}}" class="nav-link d-flex align-items-center p-0">
-          <span class="sidebar-icon">
-            <img src="{{url_for('static',filename='images/LogoApp.svg')}}" height="48" width="252" alt="Logo">
+        <a class="navbar-brand d-flex px-4" href="{{url_for('index')}}">
+          <span class="sidebar-icon px-0">
+            <img class="icon" src="{{url_for('static',filename='images/Integration.svg')}}" height="54" width="54"
+              alt="Logo IntegraAPP ">
           </span>
-          <span class="mt-1 ms-1 sidebar-text fs-5"></span>
+          <span class="px-1 fs-4 text-black fw-extrabold">Integra</span>
         </a>
       </li>
     <li role="separator" class="dropdown-divider mt-3 mb-3 border-gray-700 d-none d-md-flex"></li>
@@ -80,6 +81,7 @@
           <span class="sidebar-text fs-6">Configuración</span>
         </a>
       </li>
+      {% if admin_session %}
       <li class="nav-item">
         <a href="#" class="nav-link">
           <span class="sidebar-icon">
@@ -92,6 +94,7 @@
           <span class="sidebar-text fs-6">Documentación</span>
         </a>
       </li>
+      {% endif %}
       <li class="nav-item d-none d-md-block d-lg-none">
         <a href="{{ url_for('auth.logout')}}" class="nav-link">
           <span class="sidebar-icon">

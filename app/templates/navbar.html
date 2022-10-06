@@ -2,24 +2,26 @@
 {% if anonymous %}
 <nav class="navbar navbar-dark navbar-theme-primary navbar-expand-lg sticky-top" id="mainNav">
   <div class="col-xxl-8 col-md-10 col-sm-12 container-md">
-    <a class="navbar-brand" href="{{url_for('index')}}">
-      <span class="sidebar-icon">
-        <img src="{{url_for('static',filename='images/LogoApp.svg')}}" height="48" width="180" alt="Logo IntegraAPP ">
+    <a class="navbar-brand d-flex align-items-center" href="{{url_for('index')}}">
+      <span class="sidebar-icon px-0">
+        <img class="icon" src="{{url_for('static',filename='images/Integration.svg')}}" height="54" width="54"
+          alt="Logo IntegraAPP ">
       </span>
-      <span class="mt-1 ms-1 sidebar-text fs-6 text-dark"></span></a>
-      <div class="d-flex align-items-center">
-        <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Menu" aria-controls="Menu" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </div>
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link text-dark" href="#header">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link text-dark" href="#about">Acerca de</a></li>
-          <li class="nav-item"><a class="nav-link text-dark" href="{{url_for('contact')}}">Contacto</a></li>
-          <li class="nav-item"><a class="nav-link text-dark" href="{{url_for('auth.login')}}"><strong>Iniciar Sesión</strong></a></li>
-        </ul>
-      </div>
+      <span class="px-1 fs-4 text-black fw-extrabold">Integra</span>
+    </a>
+    <div class="d-flex align-items-center">
+      <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Menu" aria-controls="Menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link text-dark" href="#header">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link text-dark" href="#about">Acerca de</a></li>
+        <li class="nav-item"><a class="nav-link text-dark" href="{{url_for('contact')}}">Contacto</a></li>
+        <li class="nav-item"><a class="nav-link text-dark" href="{{url_for('auth.login')}}"><strong>Iniciar Sesión</strong></a></li>
+      </ul>
+    </div>
   </div>
 </nav>
 <nav id="Menu" class="sidebar d-lg-none text-white collapse" data-simplebar>
@@ -41,11 +43,13 @@
 {% else %}
 <nav class="navbar navbar-dark navbar-theme-primary navbar-expand-lg sticky-top m-auto p-auto"  id="mainNav">
   <div class="col-xxl-8 col-md-10 col-sm-12 container-md">
-    <a class="navbar-brand" href="{{url_for('index')}}">
-    <span class="sidebar-icon">
-      <img src="{{url_for('static',filename='images/LogoApp.svg')}}" height="48" width="180" alt="Logo">
-    </span>
-    <span class="mt-1 ms-1 sidebar-text fs-6 text-dark"></span></a>
+    <a class="navbar-brand d-flex align-items-center" href="{{url_for('index')}}">
+      <span class="sidebar-icon px-0">
+        <img class="icon" src="{{url_for('static',filename='images/Integration.svg')}}" height="54" width="54"
+          alt="Logo IntegraAPP ">
+      </span>
+      <span class="px-1 fs-4 text-black fw-extrabold">Integra</span>
+    </a>
     <div class="d-flex align-items-center">
       <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

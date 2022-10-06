@@ -173,7 +173,8 @@ def calc():
         'data_total_indicators':dict_total_indicadores,
         'translating_dict':translating_dict,
         'data_indicators':data_indicators,
-        'units':units
+        'units':units,
+        'admin_session':session.get('admin_session'),
     }
     return render_template('module/calc.html', **context)
 
@@ -189,7 +190,7 @@ def config():
 #@login_required
 @dashboard.route('/', methods=['GET', 'POST'])
 def main():
-    admin_user = True
+    admin_user = (False, True)[(session.get('username') == 'mateo.barrera@correounivalle.edu.co')]
     admin_session = session.get('admin_session')
     if request.method == 'POST':
         admin_session = eval(request.form['admin-session'])

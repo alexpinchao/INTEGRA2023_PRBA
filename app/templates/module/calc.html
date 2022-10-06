@@ -84,12 +84,18 @@ Cálculo
                   </a>
                 </div>
                 <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
+                  {% if admin_session %}
                   <a href="#variables" onclick="ActiveSection('calculation')">
+                  {% else %}
+                  <a href="#variables" data-bs-toggle="modal" data-bs-target="#modal-calc">
+                  {% endif %}
                     <div class="card border-1 shadow card-effect">
-                      <div class="card-body">
+                      <div class="card-body position-relative">
+                        {% if not admin_session %}
+                        <img class="image comming-soon top-0 end-0" src="{{url_for('static',filename='images/proximamente.png')}}" height="84" width="104" alt="Próximamente logo.">
+                        {% endif %}
                         <div class="row d-block d-xl-flex align-items-center">
-                          <div
-                            class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                          <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
                             <div class="icon-shape icon-shape-secondary rounded me-4 me-sm-0 card-effect-icon">
                               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -112,6 +118,22 @@ Cálculo
                       </div>
                     </div>
                   </a>
+                </div>
+                <div class="modal fade" id="modal-calc" tabindex="-1" role="dialog" aria-labelledby="modal-calc" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h2 class="h6 modal-title fw-extrabold">Información</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <p class="justified-text">En el módulo de cálculo de indicadores se visualiza la tendencia histórica de los
+                          indicadores de eficiencia energética del sector eléctrico en Colombia y se pueden generar diferentes
+                          escenarios a partir de los datos actuales del país, para evaluar estrategias de
+                          eficiencia energética.</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -275,8 +297,8 @@ Cálculo
                   </svg>
                 </a>
               </li>
-              <li class="breadcrumb-item"><a href="#" onclick="ActiveSection('main')">Base de datos</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Variables</li>
+              <li class="breadcrumb-item"><a href="#" onclick="ActiveSection('main')">Cálculo de indicadores</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Cálculo</li>
             </ol>
           </nav>
         </div>
