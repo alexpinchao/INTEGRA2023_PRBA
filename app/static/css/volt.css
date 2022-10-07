@@ -9679,6 +9679,7 @@ nav .container a {
     align-items: center;
     justify-content: space-between;
     padding: 1rem 1rem;
+    background-color: #fcbf0c;
     border-bottom: 0.0625rem solid #E5E7EB;
     border-top-left-radius: 0.4375rem;
     border-top-right-radius: 0.4375rem;
