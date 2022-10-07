@@ -51,13 +51,14 @@ Dashboard
                           <a href="{{url_for('dashboard.database')}}"><h4 class="fw-extrabold mb-1">Base de datos</h4></a>
                         </div>
                         <div class="col-2 d-flex justify-content-center">
-                          <button type="button" class="btn btn btn-link text-dark p-1" data-bs-toggle="modal" data-bs-target="#modal-database">
+                          <button type="button" aria-label="info base de datos" class="btn btn btn-link text-dark p-1" data-bs-toggle="modal" data-bs-target="#modal-database">
                             <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20"
                               xmlns="http://www.w3.org/2000/svg">
                               <path fill-rule="evenodd"
                                 d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
                                 clip-rule="evenodd"></path>
-                            </svg></button>                            
+                            </svg>
+                          </button>                            
                         </div>
                         <a href="{{url_for('dashboard.database')}}">
                           <div class="row">
@@ -124,7 +125,7 @@ Dashboard
                           <a href="{{url_for('dashboard.calc')}}"><h4 class="fw-extrabold mb-1">Cálculo de indicadores</h4></a>
                         </div>
                         <div class="col-2 d-flex justify-content-center">
-                        <button type="button" class="btn btn btn-link text-dark p-1" data-bs-toggle="modal" data-bs-target="#modal-calc">
+                        <button type="button" aria-label="info calculo" class="btn btn btn-link text-dark p-1" data-bs-toggle="modal" data-bs-target="#modal-calc">
                           <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
                               d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
@@ -200,7 +201,7 @@ Dashboard
                           <a href="{{url_for('dashboard.analysis')}}"><h4 class="fw-extrabold mb-1">Análisis de estrategias</h4></a>
                         </div>
                         <div class="col-2 d-flex justify-content-center">
-                          <button type="button" class="btn btn btn-link text-dark p-1" data-bs-toggle="modal" data-bs-target="#modal-analysis">
+                          <button type="button" aria-label="info analisis" class="btn btn btn-link text-dark p-1" data-bs-toggle="modal" data-bs-target="#modal-analysis">
                             <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                               <path fill-rule="evenodd"
                                 d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
@@ -272,7 +273,7 @@ Dashboard
                           <a href="{{url_for('dashboard.config')}}"><h4 class="fw-extrabold mb-1">Configuración</h4></a>
                         </div>
                         <div class="col-2 d-flex justify-content-center">
-                          <button type="button" class="btn btn btn-link text-dark p-1" data-bs-toggle="modal" data-bs-target="#modal-config">
+                          <button type="button" aria-label="info configuracion" class="btn btn btn-link text-dark p-1" data-bs-toggle="modal" data-bs-target="#modal-config">
                             <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                               <path fill-rule="evenodd"
                                 d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
@@ -345,24 +346,24 @@ Dashboard
                 <div>
                   <h4 class="fw-extrabold">Ajustes de desarrollo</h4>
                 </div> 
-                  <div class="row">
-                    <div class="col-4">
-                      <p class="form-check-label">Usuario</p>
-                    </div>
-                    <div class="col-4 justify-content-center d-flex form-check form-switch">
-                      <form action="{{ url_for('dashboard.main') }}" enctype="multipart/form-data" method="POST">
+                <div class="row align-items-center justify-content-center">
+                  <div class="col-4 justify-content-center d-flex form-check form-switch justify-content-between">
+                    <form action="{{ url_for('dashboard.main') }}" enctype="multipart/form-data" method="POST">
+                      <div class="form-group row">
+                        <span class="fw-normal">Admin</span>
                         {% if admin_session %}
-                          <input class="form-check-input" type="checkbox" id="admin-switch" checked name="admin-switch" onclick="clickFn(event)">
+                        <input class="form-check-input mx-4" type="checkbox" id="admin-switch" checked name="admin-switch" onclick="clickFn(event)">
+                        <label for="admin-switch">Admin</label>
                         {% else %}
-                          <input class="form-check-input" type="checkbox" id="admin-switch" name="admin-switch" onclick="clickFn(event)">
+                        <input class="form-check-input mx-4" type="checkbox" id="admin-switch" name="admin-switch" onclick="clickFn(event)">
+                        <label for="admin-switch">Admin</label>
                         {% endif %}
-                        <input type="text" name="admin-session" id="admin-session-text" hidden>
-                      </form>
-                    </div>  
-                    <div class="col-4">
-                       <p class="form-check-label" for="admin-switch">Admin</p>
-                    </div>
-                  </div>
+                      </div>
+
+                      <input type="text" name="admin-session" id="admin-session-text" hidden>
+                    </form>
+                  </div>  
+                </div>
                 </div>
               </div>
             </div>
