@@ -8,12 +8,16 @@ It integrates the configuration and initialization classes of the server, additi
 @Date: 12-07-2022  
 """
 import unittest
+
+from jinja2 import UndefinedError
 from flask import Flask, request, make_response, render_template, redirect, session, url_for, flash, Response
 from app import create_app
 from flask_login import login_required, current_user
 from app.db import SQL_connector
+
 app = create_app()
 app.db_object = SQL_connector()
+
 
 @app.cli.command()
 def test():
@@ -23,19 +27,18 @@ def test():
     tests = unittest.TestLoader().discover('test')
     unittest.TextTestRunner().run(tests)
 
+#Si se require inicializar datos de cookies de pueden establecer desde este punto
+""" @app.before_first_request
+def initialize():
+    session.clear() """
 
 @app.context_processor
 def inject_template_scope():
     injections = dict()
-    print(injections)
-
     def cookies_check():
         value = request.cookies.get('cookie_consent')
-        print(value)
-        print("cookie")
         return value == 'true'
     injections.update(cookies_check=cookies_check)
-
     return injections
 
 #DONE
@@ -98,6 +101,8 @@ def home():
         'anonymous': True,
         'user_ip': "UserIp",
     }
+    if request.cookies.get('cookie_consent'):
+        pass
     return render_template('home/home.html', **context)
 
 

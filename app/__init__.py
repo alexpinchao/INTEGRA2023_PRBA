@@ -12,7 +12,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_compress import Compress
 from flask_sitemap import Sitemap
 from flask_minify import Minify
-from flask_consent import Consent
 
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
@@ -47,8 +46,8 @@ def create_app():
   login_manager.init_app(app)
   app.register_blueprint(auth)
   app.register_blueprint(dashboard)
+
   SQLAlchemy(app)
-  #consent = Consent(app)
-  #consent.add_standard_categories()
+
 
   return app

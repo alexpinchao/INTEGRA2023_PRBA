@@ -510,7 +510,6 @@ rel_var_indic_dist_table = Table('RELACION_VARIABLES_INDICADORES_DISTRIBUCION', 
 # Method that returns the table data desagregation of distribution
 # DATE: 29/07/2022
 # data for end use table schema
-
 data_desag_dist_table = Table('DATOS_DESAGREGACION_DISTRIBUCION', metadata_obj,
                    Column('Año', Integer,
                           nullable=False, unique=True),
@@ -549,7 +548,6 @@ rel_var_indic_end_use_table = Table('RELACION_VARIABLES_INDICADORES_USO_FINAL', 
 # Method that returns the table data desagregation of end use
 # DATE: 29/07/2022
 # data for end use table schema
-
 data_desag_end_use_table = Table('DATOS_DESAGREGACION_USO_FINAL', metadata_obj,
                    Column('Año', Integer,
                           nullable=False, unique=True),

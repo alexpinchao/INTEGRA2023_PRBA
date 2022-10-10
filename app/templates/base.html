@@ -73,36 +73,27 @@
           <div class="dott dott-b"></div>
         </div>
       </div>
-    </div>
-    <!-- cookiieeeeeessss -->
+    </div>   
+
     {% block cookies %}
-    {% if False %}
+    {% if cookies_check() %}
+    {# then user has already consented so no requirement for consent banner #}
     {% else %}
-    <div class="fixed-bottom p-4" id="cookie-consent-container">
-      <div class="toast bg-dark text-white w-100 mw-100" role="alert">
-        <div class="toast-body p-4 d-flex flex-column">
-          <h4>Cookie Warning</h4>
-          <p>
-            This website stores data such as cookies to enable site functionality including analytics and personalization.
-            By using this website, you automatically accept that we use cookies.
-          </p>
-          <div class="ml-auto">
-            <button type="button" class="btn btn-outline-light mr-3" id="btnDeny">
-              Deny
-            </button>
-            <button type="button" class="btn btn-light" id="btnAccept">
-              Accept
-            </button>
-          </div>
-        </div>
-      </div>
+    {# show a cookie consent banner #}
+    <div id="cookie-consent-container">
+      {% include 'consent.html' %}
     </div>
-    <script>
-      var fn = function () {
-        document.cookie = "cookie_consent=true";
-        document.getElementById('cookie-consent-container').hidden = true;
+
+    <script type="text/javascript">
+      function fn_cookies(user_select) {
+        if(user_select){
+          document.cookie = "cookie_consent=true; Secure; SameSite=Strict";
+          document.getElementById('cookie-consent-container').hidden = true;
+        }
+        else{
+          document.cookie = "cookie_consent=false; Secure; SameSite=Strict";
+        }
       };
-      document.getElementById('btnAccept').onclick = fn;
     </script>
     {% endif %}
     {% endblock %}
@@ -119,11 +110,6 @@
     <script type="text/javascript" src="{{url_for('static',filename='js/scripts.js')}}"></script>
     
     <script type="text/javascript">
-/*       (function () {
-        window.onload = function () {
-          $('.preloader').fadeOut('fast');        
-        }
-      })(); */
       function preloaderFn() {
           $('.preloader').fadeOut('fast'); 
       };

@@ -17,6 +17,7 @@
 -->
 
 {% extends 'base.html' %}
+{% import 'module/modals.html' as modals %}
 
 {% block title %}
 {{ super() }}
@@ -98,24 +99,26 @@ Dashboard
                       </div>
                     </div>
                   </div>
-                  <div class="modal fade" id="modal-database" tabindex="-1" role="dialog" aria-labelledby="modal-database"
-                            aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <span>
-                          <img class="icon icon-xxs p-0" src="{{url_for('static',filename='images/Integration.svg')}}" height="54" width="54"
-                            alt="Logo IntegraAPP ">
-                        </span>
-                        <span><h2 class="h5 modal-title fw-extrabold">Información</h2></span>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <p class="justified-text">En el módulo de base de datos se recopila la información de las variables e indicadores de eficiencia energética asociados a los procesos de generación, distribución y uso final de la energía eléctrica en Colombia.</p>
+                  <button type="button" class="btn btn-block btn-gray-800 mb-3" data-bs-toggle="modal"
+                    data-bs-target="#modal-notification">Notification</button>
+                  {{modals.render_modal('info','Texto de prueba Texto de prueba Texto de prueba Texto de prueba Texto de prueba')}}
+                  <div class="modal fade" id="modal-database" tabindex="-1" role="dialog" aria-labelledby="modal-database" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <span>
+                            <img class="icon icon-xxs p-0" src="{{url_for('static',filename='images/Integration.svg')}}" height="54" width="54"
+                              alt="Logo IntegraAPP ">
+                          </span>
+                          <span><h2 class="h5 modal-title fw-extrabold">Información</h2></span>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <p class="justified-text">En el módulo de base de datos se recopila la información de las variables e indicadores de eficiencia energética asociados a los procesos de generación, distribución y uso final de la energía eléctrica en Colombia.</p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
                 </div>
                 <div class="col-12 col-lg-6 flex-grow-1 p-2">
                   <div class="card border-1 shadow card-effect">
