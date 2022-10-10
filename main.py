@@ -23,6 +23,21 @@ def test():
     tests = unittest.TestLoader().discover('test')
     unittest.TextTestRunner().run(tests)
 
+
+@app.context_processor
+def inject_template_scope():
+    injections = dict()
+    print(injections)
+
+    def cookies_check():
+        value = request.cookies.get('cookie_consent')
+        print(value)
+        print("cookie")
+        return value == 'true'
+    injections.update(cookies_check=cookies_check)
+
+    return injections
+
 #DONE
 @app.route('/')
 def index():

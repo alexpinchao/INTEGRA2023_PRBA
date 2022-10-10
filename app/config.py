@@ -17,3 +17,6 @@ class Config:
   SQLALCHEMY_TRACK_MODIFICATIONS = False
 
   SITEMAP_INCLUDE_RULES_WITHOUT_PARAMS = True
+
+  """   CONSENT_FULL_TEMPLATE = 'consent.html'
+  CONSENT_BANNER_TEMPLATE = 'consent_banner.html' """
