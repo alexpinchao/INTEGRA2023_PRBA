@@ -17,6 +17,7 @@
 -->
 
 {% extends 'base.html' %}
+{% import 'module/modals.html' as modals %}
 
 {% block head %}
   {{ super() }}
@@ -94,20 +95,8 @@ Análisis
                     </div>
                   </a>
                 </div>
-                <div class="modal fade" id="modal-analysis-1" tabindex="-1" role="dialog" aria-labelledby="modal-analysis-1" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h2 class="h6 modal-title fw-extrabold">Información</h2>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <p class="justified-text">En el módulo de análisis se evalúan las estrategias de eficiencia energética mediante criterios económicos, ambientales y energéticos, al ser proyectadas hacia los años de interés, permitiendo definir las estrategias más viables para el
-                        país.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                {% set text_module1 = 'En el módulo de análisis se evalúan las estrategias de eficiencia energética mediante criterios económicos, ambientales y energéticos, al ser proyectadas hacia los años de interés, permitiendo definir las estrategias más viables para el país.'%}
+                {{modals.render_modal('coming','analysis-1','Resultados de evaluación', text_module1)}}
                 <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
                   {% if admin_session %}
                   <a href="#evaluation" onclick="ActiveSection('evaluation')">
@@ -147,21 +136,8 @@ Análisis
                     </div>
                   </a>
                 </div>
-                <div class="modal fade" id="modal-analysis-2" tabindex="-1" role="dialog" aria-labelledby="modal-analysis-2"
-                  aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h2 class="h6 modal-title fw-extrabold">Información</h2>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <p class="justified-text">En el módulo de análisis se evalúan las estrategias de eficiencia energética mediante criterios económicos, ambientales y energéticos, al ser proyectadas hacia los años de interés, permitiendo definir las estrategias más viables para el
-                        país.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                {% set text_module2 = 'En el módulo de análisis se evaluarán las estrategias de eficiencia energética mediante criterios económicos, ambientales y energéticos, al ser proyectadas hacia los años de interés, permitiendo definir las estrategias más viables para el país.'%}
+                {{modals.render_modal('coming','analysis-2','Resultados de evaluación', text_module2)}}
               </div>
             </div>
           </div>

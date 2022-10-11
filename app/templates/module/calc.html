@@ -17,6 +17,7 @@
 -->
 
 {% extends 'base.html' %}
+{% import 'module/modals.html' as modals %}
 
 {% block head %}
   {{ super() }}
@@ -119,22 +120,11 @@ Cálculo
                     </div>
                   </a>
                 </div>
-                <div class="modal fade" id="modal-calc" tabindex="-1" role="dialog" aria-labelledby="modal-calc" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h2 class="h6 modal-title fw-extrabold">Información</h2>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <p class="justified-text">En el módulo de cálculo de indicadores se visualiza la tendencia histórica de los
-                          indicadores de eficiencia energética del sector eléctrico en Colombia y se pueden generar diferentes
-                          escenarios a partir de los datos actuales del país, para evaluar estrategias de
-                          eficiencia energética.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                {% set text_module = 'En el módulo de cálculo de indicadores se visualizará la tendencia histórica de los
+                indicadores de eficiencia energética del sector eléctrico en Colombia y se pueden generar diferentes
+                escenarios a partir de los datos actuales del país, para evaluar estrategias de
+                eficiencia energética.'%}
+                {{modals.render_modal('coming','calc','Cálculo de indicadores de EE', text_module)}}
               </div>
             </div>
           </div>

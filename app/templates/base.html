@@ -76,9 +76,7 @@
     </div>   
 
     {% block cookies %}
-    {% if cookies_check() %}
-    {# then user has already consented so no requirement for consent banner #}
-    {% else %}
+    {% if not cookies_check() %}
     {# show a cookie consent banner #}
     <div id="cookie-consent-container">
       {% include 'consent.html' %}
@@ -89,9 +87,6 @@
         if(user_select){
           document.cookie = "cookie_consent=true; Secure; SameSite=Strict";
           document.getElementById('cookie-consent-container').hidden = true;
-        }
-        else{
-          document.cookie = "cookie_consent=false; Secure; SameSite=Strict";
         }
       };
     </script>

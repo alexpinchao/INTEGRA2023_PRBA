@@ -8025,7 +8025,7 @@ nav .container a {
 }
 
 .navbar-dark .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 .navbar-dark .navbar-text {
@@ -9679,7 +9679,6 @@ nav .container a {
     align-items: center;
     justify-content: space-between;
     padding: 1rem 1rem;
-    background-color: #fcbf0c;
     border-bottom: 0.0625rem solid #E5E7EB;
     border-top-left-radius: 0.4375rem;
     border-top-right-radius: 0.4375rem;
@@ -26215,7 +26214,7 @@ label {
 }
 
 .btn-close.theme-settings-close {
-    background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+    background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
     border: 0;
     border-radius: 0.5rem;
     opacity: 0.5;
@@ -27100,6 +27099,7 @@ label {
 
 .modal-info .modal-title {
     color: color-yiq(#2361ce);
+    color: #f0c256;
 }
 
 .modal-info .modal-header,
@@ -27108,7 +27108,7 @@ label {
 }
 
 .modal-info .modal-content {
-    background-color: #2361ce;
+    background-color: #fcbf0c;
     color: color-yiq(#2361ce);
 }
 

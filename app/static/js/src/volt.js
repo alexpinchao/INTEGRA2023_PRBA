@@ -34,9 +34,9 @@ d.addEventListener("DOMContentLoaded", function(event) {
 
         var themeSettingsCollapse = new bootstrap.Collapse(themeSettingsEl, {
             show: true,
-            toggle: false
+            toggle: true
         });
-
+        window.localStorage.setItem("settings_expanded", true);
         if (window.localStorage.getItem('settings_expanded') === 'true') {
             themeSettingsCollapse.show();
             themeSettingsExpandEl.classList.remove('show');
