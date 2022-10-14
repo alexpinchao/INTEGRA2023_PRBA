@@ -440,6 +440,19 @@ iaad_table = Table('D_IAAD', metadata_obj,
                    Column('Total', String)
                    )
 
+#D_Saidi_Saifi table schema
+saidi_table = Table('D_Saidi', metadata_obj,
+                   Column('Año', Integer,
+                          nullable=False, unique=True),
+                   Column('Saidi', String)
+                   )
+
+#D_Saidi_Saifi table schema
+saifi_table = Table('D_Saifi', metadata_obj,
+                   Column('Año', Integer,
+                          nullable=False, unique=True),
+                   Column('Saifi', String)
+                   )
 # Method that returns the table DESAGREGACION
 # DATE: 14/06/2022
 
@@ -472,7 +485,7 @@ data_desag_gen_table = Table('DATOS_DESAGREGACION_GENERACION', metadata_obj,
                           nullable=False, unique=True),
                    Column('Participación_de_fuentes_fósiles', String),
                    Column('Participación_de_fuentes_hídricas', String),
-                   Column('Participación_de_FNCE_en_matriz_energética', String),
+                   Column('Participación_de_FNCER_en_matriz_energética', String),
                    Column('Eficiencia_de_centrales_hidroeléctricas', String),
                    Column('Eficiencia_de_centrales_térmicas', String),
                    Column('Eficiencia_de_centrales_de_auto_y_cogeneración', String),
@@ -484,7 +497,8 @@ data_desag_gen_table = Table('DATOS_DESAGREGACION_GENERACION', metadata_obj,
                    Column('Emisiones_de_CO2eq_de_centrales_térmicas', String),
                    Column('Emisiones_de_CO2eq_de_centrales_de_auto_y_cogeneración', String),
                    Column('Intensidad_de_emisiones_de_centrales_térmicas', String),
-                   Column('Intensidad_de_emisiones_de_centrales_de_auto_y_cogeneración', String)
+                   Column('Intensidad_de_emisiones_de_centrales_de_auto_y_cogeneración', String),
+                   Column('Emisiones_de_CO2eq_de_la_generación_eléctrica_SIN', String)
                    )
 
 #distribution desagregation table schema
@@ -596,45 +610,46 @@ _translating_dict = {'NT1': 'Nivel de tensión 1',
                      'Generacion_SIN_Total': 'Generación SIN total',
                      'Generacion_Total': 'Generación total',
                      
-                     'C_CH_Agua_GWh': 'Consumo centrales hidroeléctricas',
-                     'C_CT_carbon_kTon': 'Consumo centrales térmicas de Carbón',
-                     'C_CT_Gas_Mpc': 'Consumo centrales térmicas de Gas',
-                     'C_CT_Diesel_kBL': 'Consumo centrales térmicas de Diesel',
-                     'C_CT_Fueloil_kBL': 'Consumo centrales térmicas de Fueloil',
-                     'C_CT_kerosene_kBL': 'Consumo centrales térmicas de Kerosene',
-                     'C_CE_Viento_GWh': 'Consumo centrales eólicas',
-                     'C_CS_Sol_GWh': 'Consumo centrales solares',
-                     'C_CAyC_Bagazo_kTon': 'Consumo centrales AyC con Bagazo',
-                     'C_CAyC_Carbon_kTon': 'Consumo centrales AyC con Carbón',
-                     'C_CAyC_Gas_Mpc': 'Consumo centrales AyC con Gas',
-                     'C_CAyC_Hidro_GWh': 'Consumo centrales AyC con Hidro',
-                     'C_CAyC_Petroleo_kBL': 'Consumo centrales AyC con Petróleo',
-                     'C_CAyC_Renovables_GWh': 'Consumo centrales AyC con Renovables',
-                     'C_CAyC_Diesel_kBL': 'Consumo centrales AyC con Diesel',
-                     'C_CAyC_Gaslicuado_kBL': 'Consumo centrales AyC con Gaslicuado',
+                     'C_CH_Agua_GWh': 'Consumo en centrales hidroeléctricas',
+                     'C_CT_carbon_kTon': 'Consumo en centrales térmicas de Carbón',
+                     'C_CT_Gas_Mpc': 'Consumo en centrales térmicas de Gas',
+                     'C_CT_Diesel_kBL': 'Consumo en centrales térmicas de Diesel',
+                     'C_CT_Fueloil_kBL': 'Consumo en centrales térmicas de Fueloil',
+                     'C_CT_kerosene_kBL': 'Consumo en centrales térmicas de Kerosene',
+                     'C_CE_Viento_GWh': 'Consumo en centrales eólicas',
+                     'C_CS_Sol_GWh': 'Consumo en centrales solares',
+                     'C_CAyC_Bagazo_kTon': 'Consumo de Bagazo en centrales AyC',
+                     'C_CAyC_Carbon_kTon': 'Consumo de Carbón en centrales AyC',
+                     'C_CAyC_Gas_Mpc': 'Consumo de Gas en centrales AyC',
+                     'C_CAyC_Hidro_GWh': 'Consumo de Hidro en centrales AyC',
+                     'C_CAyC_Petroleo_kBL': 'Consumo de Petróleo en centrales AyC',
+                     'C_CAyC_Renovables_GWh': 'Consumo de Renovables en centrales AyC',
+                     'C_CAyC_Diesel_kBL': 'Consumo de Diesel en centrales AyC',
+                     'C_CAyC_Gaslicuado_kBL': 'Consumo de Gaslicuado en centrales AyC',
+                     'Total_Consumo_generacion_GWh':'Consumo total de la generación eléctrica',
                      
-                     'ECO2_CT_Carbon': 'ECO2 Centrales Térmicas de Carbón',
-                     'ECO2_CT_Gas': 'ECO2 Centrales Térmicas de Gas',
-                     'ECO2_CT_Diesel': 'ECO2 Centrales Térmicas de Diesel',
-                     'ECO2_CT_Fueloil': 'ECO2 Centrales Térmicas de Fueloil',
-                     'ECO2_CT_Kerosene': 'ECO2 Centrales Térmicas de Kerosene',
-                     'ECO2_CAyC_Bagazo': 'ECO2 Centrales auto y cogeneración con Bagazo',
-                     'ECO2_CAyC_Carbon': 'ECO2 Centrales auto y cogeneración con Carbón',
-                     'ECO2_CAyC_Gas': 'ECO2 Centrales auto y cogeneración con Gas',
-                     'ECO2_CAyC_Petroleo': 'ECO2 Centrales auto y cogeneración con Petróleo',
-                     'ECO2_CAyC_Diesel': 'ECO2 Centrales auto y cogeneración con Diesel',
-                     'ECO2_CAyC_Gaslicuado': 'ECO2 Centrales auto y cogeneración con Gas licuado',
-                     'EmisionCO2_Total': 'Emisiones CO2eq Total',
-                     'EmisionCO2_SIN_Total': 'Emisión CO2eq SIN Total',
-                     'EmisionCO2_CT_Total': 'Emisión CO2eq Centrales Térmicas Total',
-                     'EmisionCO2_CAyC_Total': 'Emisión CO2eq Centrales Auto y Cogeneración Total',
-                     'EmisionCO2_Carbon': 'Emisiones CO2eq por Carbón',
-                     'EmisionesCO2_Gas': 'Emisiones CO2eq por Gas',
-                     'EmisionesCO2_Diesel': 'Emisiones CO2eq por Diesel',
-                     'EmisionesCO2_Fueloil': 'Emisiones CO2eq por Fueloil',
-                     'EmisionesCO2_Petroleo': 'Emisiones CO2eq por Petróleo',
-                     'EmisionesCO2_Gaslicuado': 'Emisiones CO2eq por Gas licuado',
-                     'EmisionesCO2_Bagazo': 'Emisiones CO2eq por Bagazo',
+                     'ECO2_CT_Carbon': 'Emisiones $CO_2$ Centrales Térmicas de Carbón',
+                     'ECO2_CT_Gas': 'Emisiones $CO_2$ Centrales Térmicas de Gas',
+                     'ECO2_CT_Diesel': 'Emisiones $CO_2$ Centrales Térmicas de Diesel',
+                     'ECO2_CT_Fueloil': 'Emisiones $CO_2$ Centrales Térmicas de Fueloil',
+                     'ECO2_CT_Kerosene': 'Emisiones $CO_2$ Centrales Térmicas de Kerosene',
+                     'ECO2_CAyC_Bagazo': 'Emisiones $CO_2$ Centrales auto y cogeneración con Bagazo',
+                     'ECO2_CAyC_Carbon': 'Emisiones $CO_2$ Centrales auto y cogeneración con Carbón',
+                     'ECO2_CAyC_Gas': 'Emisiones $CO_2$ Centrales auto y cogeneración con Gas',
+                     'ECO2_CAyC_Petroleo': 'Emisiones $CO_2$ Centrales auto y cogeneración con Petróleo',
+                     'ECO2_CAyC_Diesel': 'Emisiones $CO_2$ Centrales auto y cogeneración con Diesel',
+                     'ECO2_CAyC_Gaslicuado': 'Emisiones $CO_2$ Centrales auto y cogeneración con Gas licuado',
+                     'EmisionCO2_Total': 'Emisiones $CO_2eq$ Total',
+                     'EmisionCO2_SIN_Total': 'Emisión $CO_2eq$ SIN Total',
+                     'EmisionCO2_CT_Total': 'Emisión $CO_2eq$ Centrales Térmicas Total',
+                     'EmisionCO2_CAyC_Total': 'Emisión $CO_2eq$ Centrales Auto y Cogeneración Total',
+                     'EmisionCO2_Carbon': 'Emisiones $CO_2eq$ por Carbón',
+                     'EmisionesCO2_Gas': 'Emisiones $CO_2eq$ por Gas',
+                     'EmisionesCO2_Diesel': 'Emisiones $CO_2eq$ por Diesel',
+                     'EmisionesCO2_Fueloil': 'Emisiones $CO_2eq$ por Fueloil',
+                     'EmisionesCO2_Petroleo': 'Emisiones $CO_2eq$ por Petróleo',
+                     'EmisionesCO2_Gaslicuado': 'Emisiones $CO_2eq$ por Gas licuado',
+                     'EmisionesCO2_Bagazo': 'Emisiones $CO_2eq$ por Bagazo',
                      
                      'PIB_Total': 'PIB Total',
                      'PIB_Agro': 'Agro',
@@ -842,29 +857,31 @@ _translating_dict = {'NT1': 'Nivel de tensión 1',
                      'INDICADOR_ID': 'ID Ind. Agregado'
                      }
 
-_unit_dict = {'Consumo eléctrico por fuente generación': 'GWh',
-              'Emisiones CO2 equivalentes': 'gCO2eq/Wh',
-              'Generación por fuente primaria': 'GWh',
+_unit_dict = {'Consumo de fuentes primarias por tipo de central eléctrica': 'GWh',
+              'Emisiones de CO2 equivalentes': 'gCO2eq/Wh',
+              'Generación eléctrica por fuente primaria': 'GWh',
               'Costo de Pérdidas': 'Millones de USD',
               'Factor de Pérdidas': 'Porcentaje %',
               'Pérdidas Equivalentes': 'GWh/año',
               'IAAD': 'IAAD',
               'PIB' : 'Miles de Millones de COP [base 2015]',
               'PIB en USD': 'Billones de USD [base 2015]',
-              'Población': 'N° de personas',
+              'Población': 'N° de personas (Millones)',
               'Uso final de la energía': 'GWh',
-              'Viviendas': 'N° de viviendas',
+              'Viviendas': 'N° de viviendas (Millones)',
               'Participación en la generación eléctrica': 'Porcentaje %',
               'Eficiencia de la generación eléctrica': 'Porcentaje %',
               'Intensidad energética primaria de la generación eléctrica': 'kWh/USD',
-              'Emisiones de CO2eq de la generación eléctrica SIN':'MtCO2eq',
-              'Emisiones de CO2eq de la generación eléctrica Total':'MtCO2eq',
+              'Emisiones de CO2eq de la generación eléctrica':'MtCO2eq',
+              'Emisiones de $CO_2eq$ de la generación eléctrica Total':'MtCO2eq',
               'Intensidad de emisión de la generación eléctrica':'gCO2eq/USD',
               'Consumo per cápita': 'MWh/persona',
               'Intensidad energética del uso final de la energía eléctrica':'kWh/USD',
               'Factor de pérdidas en distribución (SOLO ADD)':'Porcentaje %',
               'Costo de pérdidas equivalentes en distribución (SOLO ADD)': 'Millones USD',
-              'Ínidice Anual Acumulado de Discontinuidad - IAAD': 'Porcentaje %'
+              'Índice Anual Acumulado de Discontinuidad - IAAD': 'Porcentaje %',
+              'Saidi' : 'h / año',
+              'Saifi' : '# ocurrencia / año'
             }
 class SQL_connector():
     """Platform server connection class
@@ -948,7 +965,7 @@ class SQL_connector():
         query = select(emission_table)
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Emisiones CO2 equivalentes':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'Emisiones de CO2 equivalentes':[dict(zip(columns,row)) for row in result.fetchall()]}
         result.close()
         return rows
     
@@ -956,7 +973,7 @@ class SQL_connector():
         query = select(generation_table)
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Generación por fuente primaria': [
+        rows = {'Generación eléctrica por fuente primaria': [
             dict(zip(columns, row)) for row in result.fetchall()]}
         result.close()
         return rows
@@ -965,7 +982,7 @@ class SQL_connector():
         query = select(consumption_table)
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Consumo eléctrico por fuente generación': [
+        rows = {'Consumo de fuentes primarias por tipo de central eléctrica': [
             dict(zip(columns, row)) for row in result.fetchall()]}
         result.close()
         return rows
@@ -975,6 +992,22 @@ class SQL_connector():
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
         rows = {'IAAD':[dict(zip(columns,row)) for row in result.fetchall()]}
+        result.close()
+        return rows
+    
+    def get_saidi(self):
+        query = select(saidi_table)
+        result = self.engine.execute(query)
+        columns = [col for col in result.keys()]
+        rows = {'Saidi':[dict(zip(columns,row)) for row in result.fetchall()]}
+        result.close()
+        return rows
+    
+    def get_saifi(self):
+        query = select(saifi_table)
+        result = self.engine.execute(query)
+        columns = [col for col in result.keys()]
+        rows = {'Saifi':[dict(zip(columns,row)) for row in result.fetchall()]}
         result.close()
         return rows
 
@@ -1141,6 +1174,7 @@ class SQL_connector():
 
     def get_population(self):
         query = select(population_table)
+        #query = "SELECT INDICADOR_AGREGADO,DESAGREGACION_NOMBRE,FORMULA_RELACIONES,DESAGREGACION_ID,INDICADOR_ID FROM RELACION_VARIABLES_INDICADORES INNER JOIN DESAGREGACION ON INDICADOR_ID = REL_VARIABLES_DESAGREGACION;"
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
         rows = {'Población': [
@@ -1217,6 +1251,8 @@ class SQL_connector():
         distribution_dict.update(self.get_loss())
         distribution_dict.update(self.get_loss_cost())
         distribution_dict.update(self.get_equivalent_losses())
+        distribution_dict.update(self.get_saidi())
+        distribution_dict.update(self.get_saifi())
         _dict.update({'distribution':distribution_dict})
         generation_dict = {}
         generation_dict.update(self.get_generation())

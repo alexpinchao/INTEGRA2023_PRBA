@@ -71,12 +71,12 @@ Cálculo
                               </svg>
                             </div>
                             <div class="d-sm-none">
-                              <h3 class="fw-extrabold mb-1">Linea base</h3>
+                              <h3 class="fw-extrabold mb-1">Línea base</h3>
                             </div>
                           </div>
                           <div class="col-12 col-xl-7 px-xl-0">
                             <div class="d-none d-sm-block">
-                              <h3 class="fw-extrabold mb-2">Linea base</h3>
+                              <h3 class="fw-extrabold mb-2">Línea base</h3>
                             </div>
                           </div>
                         </div>
@@ -148,7 +148,7 @@ Cálculo
                 </a>
               </li>
               <li class="breadcrumb-item"><a href="#" onclick="ActiveSection('main')">Cálculo  de indicadores</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Linea base</li>
+              <li class="breadcrumb-item active" aria-current="page">Línea base</li>
             </ol>
           </nav>
         </div>
@@ -166,7 +166,7 @@ Cálculo
                       </path>
                     </svg>
                   </span>
-                  <span class="h2 fw-extrabold">Linea base</span>
+                  <span class="h2 fw-extrabold">Línea base</span>
                   <p class="m-1">Tándem de indicadores para la industria eléctrica.</p>
                 </div>
               </div>
@@ -456,6 +456,7 @@ Cálculo
 <script charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-colreorder/1.5.6/dataTables.colReorder.min.js" integrity="sha512-BA+XWPyIsXxbBMmGU7Acq8vBGWAFldhFLOkoU4dL+B6Fs16RnhCC9ff+vy5GzmB783tyuzYs42QGHRbV73e1ug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <!--<script type="text/javascript">
   var el = document.getElementById('accordionIndicadores');
     el.innerHTML= '<div class="mt-3 accordion accordion-flush col-xl-3 col-md-12">'+
@@ -501,7 +502,13 @@ Cálculo
                     '</div>'+
                   '</div>';
 </script>-->
-
+<script type="text/javascript">
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    }
+  };
+  </script>
 
 <script>
   /*new Chart(document.getElementById("mixed-chart"), {
@@ -784,6 +791,7 @@ Cálculo
       scrollCollapse:false,
       dom: 'Bfrtip',
       aaSorting: [],
+      info:false,
       deferRender: true,
       paging: false,
       buttons: [
@@ -796,28 +804,57 @@ Cálculo
     }
 
     var table_handler = $('#table_variables').DataTable();
-    $('#table_variables tbody').on('click', 'tr', function () {
-      var td_select = this.childNodes[0]
-      if(td_select.classList.contains("showhr")){
-        $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
-      }
-      else if(td_select.classList.contains('aser')) {
-        var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
-        var data = table_handler.row(this).data();
-        var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
-        var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
-        if (row[0] == null){
-          row = data;
+    if (contador == 0){
+      // fue necesario agregar el contador para que la primera interaccion con math funcione sin promesas, porque daba error.
+        contador = contador+1;
+        $('#table_variables tbody').on('click', 'tr', function () {
+          var td_select = this.childNodes[0]
+          if(td_select.classList.contains("showhr")){
+            $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
+          }
+          else if(td_select.classList.contains('aser')) {
+            var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
+            var data = table_handler.row(this).data();
+            var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+            var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
+            if (row[0] == null){
+              row = data;
+            }
+            create_chart_indic(list_name, child, row);
+          }
         }
-        create_chart_indic(list_name, child, row);
-      }
+        );
+    }else{
+      MathJax.typesetPromise().then(() => {
+      $('#table_variables tbody').on('click', 'tr', function () {
+          var td_select = this.childNodes[0]
+          if(td_select.classList.contains("showhr")){
+            $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
+          }
+          else if(td_select.classList.contains('aser')) {
+            var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
+            var data = table_handler.row(this).data();
+            var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+            var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
+            if (row[0] == null){
+              row = data;
+            }
+            create_chart_indic(list_name, child, row);
+          }
+        }
+        );
+        MathJax.typesetPromise(); }).catch((err) => console.log(err.message));
     }
-    );
   }
 
-  function create_chart_indic(list_name, indicator, key){
-    var row1 = key[0];
-    var row = row1.replace(/ /gi,"_");
+  function create_chart_indic(list_name, indicator2, key){
+    var row1 = key[0];    
+    var row2 = row1.replace("$CO_2eq$","CO2eq");
+    var row = row2.replace(/ /gi,"_");
+    //hubo necesidad de quitar los saltos de linea que se crean cuando se hace el replace para matjax
+    var indicador3 = indicator2.replace(/\n/gi,"");
+    console.log(indicador3)
+    indicator = indicador3
     var b_colorslist = ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'];
     var colorslist = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'];
     /* const table_name = key; */
@@ -837,7 +874,7 @@ Cálculo
 
     if (list_name == "Agregados"){
       var data = table.map(function(e) {
-        return e[row1];
+        return e[row2];
       });;
     }else {
       var data = table.map(function(e) {
@@ -870,12 +907,12 @@ Cálculo
     }
 
     if ((last_indicator==indicator || (list_name == "Agregados" && last_indicator != "") ) && !limite_graficas){
-      if (!(keys_list.includes(row))){
-        keys_list.push(row);
+      if (!(keys_list.includes(row2))){
+        keys_list.push(row2);
         var update_dataset = {}
           if (list_name == "Agregados"){
             update_dataset = {
-            label: row,  
+            label: row2,  
             borderColor: colorslist[keys_list.length], 
             backgroundColor: b_colorslist[keys_list.length], 
             data: array,
@@ -897,7 +934,7 @@ Cálculo
               limite_graficas = true;
           }else{
               update_dataset = {
-              label: row,
+              label: row2,
               borderColor: colorslist[keys_list.length],
               backgroundColor: b_colorslist[keys_list.length],
               data: array,
@@ -908,15 +945,15 @@ Cálculo
         chart_element.data.datasets.push(update_dataset);
         chart_element.update();
       } else {
-        keys_list = keys_list.filter(data => data != row);;
-        chart_element.data.datasets=  chart_element.data.datasets.filter(data => data.label != row);
+        keys_list = keys_list.filter(data => data != row2);;
+        chart_element.data.datasets=  chart_element.data.datasets.filter(data => data.label != row2);
         chart_element.update();
       }
       
     } else {
-    keys_list=[row]
+    keys_list=[row2]
     var mydatasets = [{
-      label: row,  
+      label: row2,  
       borderColor: colorslist[0], 
       backgroundColor: b_colorslist[0], 
       data: array, 
@@ -984,6 +1021,7 @@ Cálculo
 <script type="text/javascript">
       var list_name = 'generation';
       var key = 'Factor de Pérdidas';
+      var contador = 0;
       update_list_ind(list_name);     
       /* create_chart(list_name, key); */
 </script>

@@ -428,32 +428,47 @@ MathJax = {
   var keys_list = [];
   var old_dataset = [];
   function create_chart(list_name, indicator, key){
-    var row = key[0];
+    var row1 = key[0];
+
+    var row = row1.replace("$CO_2eq$","CO2eq");
+
+    var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+    var row_table;
+    if(row in translate_array){
+      row_table = translate_array[row];
+    }else{
+      row_table = row;
+    }
 
   var b_colorslist = ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'];
   var colorslist = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'];
   /* const table_name = key; */
   const table_name = indicator;
-  console.log("table namde "+ table_name)
+
   document.getElementById('chart_title').innerHTML = table_name;
   var json_file = JSON.parse('{{data | tojson | safe}}');
-  console.log(json_file)
-  console.log(list_name)
+
   var table = json_file[list_name][table_name];
-  console.log(table)
 
   var keys = Object.keys(table[0]);
 
   var labels = table.map(function(e) {
     return e[keys[0]];
   });
+
+  labels = labels.slice(0,11);
+
   var data = table.map(function(e) {
     return e[row];
   });;
   length = data.length;
   var array=[];
   for (var j = 0; j < length; j++){
+    if (row == "Poblacion_Total" || row == "P_Urbano" || row == "P_Rural" || row == "V_Rural"|| row == "V_Urbano" || row == "Vivienda_Total"){
+      array.push(parseFloat(data[j])/1000000);
+    }else{
     array.push(parseFloat(data[j]));
+    }
   }
   var unit = '';
   var units = JSON.parse('{{units | tojson | safe}}');
@@ -467,20 +482,35 @@ MathJax = {
 
   /* Desagregados - else */
   if (last_indicator==indicator){
-    if (!(keys_list.includes(row))){
-      keys_list.push(row);
-      const update_dataset = {label: row,  borderColor: colorslist[keys_list.length], backgroundColor: b_colorslist[keys_list.length], data: array, spanGraphs: false, fill: true};
+    if (!(keys_list.includes(row_table))){
+      keys_list.push(row_table);
+      const update_dataset = 
+      {
+        label: row_table,  
+        borderColor: colorslist[keys_list.length],
+        backgroundColor: b_colorslist[keys_list.length],
+        data: array, spanGraphs: false,
+        fill: true
+      };
       chart_element.data.datasets.push(update_dataset);
       chart_element.update();
     } else {
-      keys_list = keys_list.filter(data => data != row);;
-      chart_element.data.datasets=  chart_element.data.datasets.filter(data => data.label != row);
+      keys_list = keys_list.filter(data => data != row_table);;
+      chart_element.data.datasets=  chart_element.data.datasets.filter(data => data.label != row_table);
       chart_element.update();
     }
     
   } else {
-  keys_list=[row]
-  var mydatasets = [{label: row,  borderColor: colorslist[0], backgroundColor: b_colorslist[0], data: array, spanGraphs: false, fill: true}];
+  keys_list=[row_table]
+  var mydatasets = [
+    {
+      label: row_table,
+        borderColor: colorslist[0],
+        backgroundColor: b_colorslist[0], 
+        data: array, 
+        spanGraphs: false,
+        fill: true
+      }];
   let delayed;
   $('#line-chart').remove(); 
   $('#graph-container').append('<canvas id="line-chart" width="100%" height="50%"><canvas>'); 
@@ -762,15 +792,12 @@ MathJax = {
 
       var keys_list = json_new[items];
       var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
-      console.log("INDEX array")
-      console.log(keys_list)
+
       var titles = ['Descripción:','Formula:','_','Variables:']
       var tr = _tr_.cloneNode(false);
       var td = _td_.cloneNode(false);
       var description_html = _ul_.cloneNode(false);
       keys_list.forEach(function (item, index) {
-        console.log("Item value")
-        console.log(index)
 
         if (index==2){
           item.forEach(function (subitem){
@@ -783,6 +810,10 @@ MathJax = {
               description_html.innerHTML += '<li>'+description+'</li>';
             })
           return
+        }
+
+        if (index==3){
+          item = item.replace(/-/gi,"<br>");
         }
 
         var p = _p_.cloneNode(false);
@@ -857,6 +888,7 @@ MathJax = {
       scrollCollapse:false,
       dom: 'Bfrtip',
       aaSorting: [],
+      info:false,
       deferRender: true,
       paging: false,
       buttons: [
@@ -929,6 +961,16 @@ MathJax = {
   function update_list(list_name){
     var json_file = JSON.parse('{{data | tojson | safe}}');
     var keys_list = Object.keys(json_file[list_name])
+
+    if(list_name == "end_use"){
+      keys_list = keys_list.filter(function (key_l){
+        return key_l !== ('PIB en USD')
+      } )
+      keys_list = keys_list.filter(function (key_l){
+        return key_l !== ('PIB')
+      } )
+    }
+
     var keys_list_2 = []
     var json_new = {}
     keys_list.forEach(function (item, index) {
@@ -979,6 +1021,7 @@ MathJax = {
         } else{
           cell_value = item;
         }
+        //cell_value = cell_value.replace("CO2eq","$CO_2eq$");
         td.appendChild(document.createTextNode(cell_value|| ''));       
         td.classList.add('aser')
         td.classList.add('fw-normal')
@@ -1042,6 +1085,7 @@ MathJax = {
       scrollCollapse:false,
       dom: 'Bfrtip',
       aaSorting: [],
+      info:false,
       deferRender: true,
       paging: false,
       buttons: [
@@ -1054,29 +1098,53 @@ MathJax = {
     }
 
     var table_handler = $('#table_variables').DataTable();
-    $('#table_variables tbody').on('click', 'tr', function () {
-      var td_select = this.childNodes[0]
-      if(td_select.classList.contains("showhr")){
-        $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
-      }
-      else if(td_select.classList.contains('aser')) {
-        var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
-        var data = table_handler.row(this).data();
-        var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
-        var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
-        if (row[0] == null){
-          row = data;
+    if(variable_mathjax){
+      variable_mathjax = false;
+      $('#table_variables tbody').on('click', 'tr', function () {
+        var td_select = this.childNodes[0]
+        if(td_select.classList.contains("showhr")){
+          $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
         }
-        create_chart(list_name, child, row);
-      }     
-  } 
-  );
-  }      
+        else if(td_select.classList.contains('aser')) {
+          var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
+          var data = table_handler.row(this).data();
+          var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+          var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
+          if (row[0] == null){
+            row = data;
+          }
+          create_chart(list_name, child, row);
+        }
+      }
+      );
+    }else{
+      MathJax.typesetPromise().then(() => {
+      $('#table_variables tbody').on('click', 'tr', function () {
+        var td_select = this.childNodes[0]
+        if(td_select.classList.contains("showhr")){
+          $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
+        }
+        else if(td_select.classList.contains('aser')) {
+          var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
+          var data = table_handler.row(this).data();
+          var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+          var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
+          if (row[0] == null){
+            row = data;
+          }
+          create_chart(list_name, child, row);
+        }
+      }
+      );
+      MathJax.typesetPromise(); }).catch((err) => console.log(err.message));
+    }
+  }
 </script>
 
 <script type="text/javascript">
       var list_name = 'generation';
       var key = 'Factor de Pérdidas';
+      var variable_mathjax = true;
       update_list(list_name);     
       var contador = 0;
       update_list_ind(list_name);     

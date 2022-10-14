@@ -48,14 +48,16 @@ def calc():
     array_default.append(array_default1)
     array_default.append(array_default1)
 
-    data_generation_total_generation = data["generation"]["Generación por fuente primaria"]
-    data_generation_consumo = data["generation"]["Consumo eléctrico por fuente generación"]
-    data_generation_emisiones_total = data["generation"]["Emisiones CO2 equivalentes"]
-    data_generation_emisiones_SIN = data["generation"]["Emisiones CO2 equivalentes"]
+    data_generation_total_generation = data["generation"]["Generación eléctrica por fuente primaria"]
+    data_generation_consumo = data["generation"]["Consumo de fuentes primarias por tipo de central eléctrica"]
+    data_generation_emisiones_total = data["generation"]["Emisiones de CO2 equivalentes"]
+    data_generation_emisiones_SIN = data["generation"]["Emisiones de CO2 equivalentes"]
 
     data_distribution_factor_perdidas = data["distribution"]["Factor de Pérdidas"]
     data_distribution_costo_perdidas = data["distribution"]["Costo de Pérdidas"]
     data_distribution_iaad = data["distribution"]["IAAD"]
+    data_distribution_saidi_table = data["distribution"]["Saidi"]
+    data_distribution_saifi_table = data["distribution"]["Saifi"]
     
     data_end_use_pib = data["end_use"]["PIB en USD"]
     data_end_use_population = data["end_use"]["Población"]
@@ -104,6 +106,9 @@ def calc():
                 elif(tipo == "3"):
                     salida_dict.update({"Año": anio_input_1[i], nombre:input_1[i]/input_2[i]})
                     salida.append(salida_dict)
+                elif(tipo == "4"):
+                    salida_dict.update({"Año": anio_input_1[i], nombre:input_1[i]})
+                    salida.append(salida_dict)
                 i +=1
         return salida
     
@@ -124,6 +129,9 @@ def calc():
     generation_consumo = loopData(data_generation_consumo,"Total_Consumo_generacion_GWh")
     generation_emisiones_total = loopData(data_generation_emisiones_total,"EmisionCO2_Total")
     generation_emisiones_SIN = loopData(data_generation_emisiones_SIN,"EmisionCO2_SIN_Total")
+    
+    data_distribution_saidi = loopData(data_distribution_saidi_table, "Saidi")
+    data_distribution_saifi = loopData(data_distribution_saifi_table, "Saifi")
 
     end_use_pib = loopData(data_end_use_pib, "PIBUSD_Total")
     end_use_population = loopData(data_end_use_population, "Poblacion_Total")
@@ -133,25 +141,30 @@ def calc():
     eficienc_gen_electrica = prepareData(generation_total_generation, generation_consumo, "Eficiencia de la generación eléctrica" , "1" )
     intens_energ_gen = prepareData(generation_consumo, end_use_pib,"Intensidad energética primaria de la generación eléctrica", "2")
     inten_emision_gen_electrica = prepareData(generation_emisiones_SIN, end_use_pib,"Intensidad de emisión de la generación eléctrica", "3")
-    emisiones_co2_sin_total = prepareData(generation_emisiones_SIN, array_default,"Emisiones de CO2eq de la generación eléctrica SIN", "3")
+    #emisiones_co2_sin_total = prepareData(generation_emisiones_SIN, array_default,"Emisiones de CO2eq de la generación eléctrica SIN", "3")
     emisiones_co2_total = prepareData(generation_emisiones_total, array_default,"Emisiones de CO2eq de la generación eléctrica Total", "3")
 
     dict_generacion = {}
     dict_generacion.update({"Eficiencia de la generación eléctrica":eficienc_gen_electrica})
     dict_generacion.update({"Intensidad energética primaria de la generación eléctrica" :intens_energ_gen})
     dict_generacion.update({"Intensidad de emisión de la generación eléctrica":inten_emision_gen_electrica})
-    dict_generacion.update({"Emisiones de CO2eq de la generación eléctrica SIN":emisiones_co2_sin_total})
-    dict_generacion.update({"Emisiones de CO2eq de la generación eléctrica Total":emisiones_co2_total})
+    #dict_generacion.update({"Emisiones de CO2eq de la generación eléctrica SIN":emisiones_co2_sin_total})
+    dict_generacion.update({"Emisiones de $CO_2eq$ de la generación eléctrica Total":emisiones_co2_total})
 
-    #carga de indicadores en la generacion
+    #carga de indicadores en la distribucion
     distribution_factor_perdida = prepareDataTwo(data_distribution_factor_perdidas , "Factor de pérdidas en distribución (SOLO ADD)")
     distribution_costo_perdidas = prepareDataTwo(data_distribution_costo_perdidas, "Costo de pérdidas equivalentes en distribución (SOLO ADD)")
-    distribution_iaad  = prepareDataTwo(data_distribution_iaad, "Ínidice Anual Acumulado de Discontinuidad - IAAD")
+    distribution_iaad  = prepareDataTwo(data_distribution_iaad, "Índice Anual Acumulado de Discontinuidad - IAAD")
+
+    distribution_saidi = prepareData(data_distribution_saidi, array_default,"Saidi", "4")
+    distribution_saifi = prepareData(data_distribution_saifi, array_default,"Saifi", "4")
 
     dict_distribuciones = {}
     dict_distribuciones.update({"Factor de pérdidas en distribución (SOLO ADD)":distribution_factor_perdida})
     dict_distribuciones.update({"Costo de pérdidas equivalentes en distribución (SOLO ADD)" :distribution_costo_perdidas})
-    dict_distribuciones.update({"Ínidice Anual Acumulado de Discontinuidad - IAAD":distribution_iaad})
+    dict_distribuciones.update({"Índice Anual Acumulado de Discontinuidad - IAAD":distribution_iaad})
+    dict_distribuciones.update({"Saidi":distribution_saidi})
+    dict_distribuciones.update({"Saifi":distribution_saifi})
 
     #carga de indicadores en la uso final
     consumo_per_capita = prepareData(end_use_total_consumption, end_use_population,"Consumo per cápita" ,"1")
