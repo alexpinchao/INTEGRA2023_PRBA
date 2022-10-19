@@ -209,11 +209,20 @@ def main():
         admin_session = eval(request.form['admin-session'])
         session['admin_session'] = admin_session
         
+    text_module_db = 'En el módulo de base de datos se recopila información de las variables e indicadores de eficiencia energética asociados a los procesos de generación, distribución y uso final de la energía eléctrica en Colombia.'
+    text_module_calc = 'En el módulo de cálculo de indicadores se visualiza la tendencia histórica de los indicadores de eficiencia energética del sector eléctrico en Colombia y se pueden generar diferentes escenarios a partir de los datos actuales del país, para evaluar estrategias de eficiencia energética.'
+    text_module_anl = 'En el módulo de cálculo de indicadores se visualiza la tendencia histórica de los indicadores de eficiencia energética del sector eléctrico en Colombia y se pueden generar diferentes escenarios a partir de los datos actuales del país, para evaluar estrategias de eficiencia energética.'
+    text_module_conf = 'En el apartado de Configuración se puede acceder a la información del usuario y ajustes referentes a las credenciales empleadas en el acceso a la herramienta.'
+
     context = {
         'anonymous': False,
         'user': 'UserIp',
         'admin_session': admin_session,
         'admin_user':admin_user,
+        'text_module_db': text_module_db,
+        'text_module_calc': text_module_calc,
+        'text_module_anl': text_module_anl,
+        'text_module_conf': text_module_conf,
     }
 
     return render_template('module/main.html', **context)

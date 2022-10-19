@@ -88,6 +88,10 @@ def home():
     Returns:
         server response: Home-page for platform welcome
     """    
+    text_module_db = 'En el módulo de base de datos se recopila información de las variables e indicadores de eficiencia energética asociados a los procesos de generación, distribución y uso final de la energía eléctrica en Colombia.'
+    text_module_calc = 'En el módulo de cálculo de indicadores se visualiza la tendencia histórica de los indicadores de eficiencia energética del sector eléctrico en Colombia y se pueden generar diferentes escenarios a partir de los datos actuales del país, para evaluar estrategias de eficiencia energética.'
+    text_module_anl = 'En el módulo de cálculo de indicadores se visualiza la tendencia histórica de los indicadores de eficiencia energética del sector eléctrico en Colombia y se pueden generar diferentes escenarios a partir de los datos actuales del país, para evaluar estrategias de eficiencia energética.'
+
     if current_user.is_authenticated:
         user_ip = session.get('user_ip')
         username = current_user.id
@@ -95,11 +99,17 @@ def home():
             'user_ip': user_ip,
             'username': username,
             'anonymous': False,
+            'text_module_db': text_module_db,
+            'text_module_calc': text_module_calc,
+            'text_module_anl': text_module_anl,
         }
         return render_template('module/main.html', **context)
     context = {
         'anonymous': True,
         'user_ip': "UserIp",
+        'text_module_db': text_module_db,
+        'text_module_calc': text_module_calc,
+        'text_module_anl': text_module_anl,
     }
     if request.cookies.get('cookie_consent'):
         pass

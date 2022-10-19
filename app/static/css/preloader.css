@@ -14,7 +14,7 @@
   z-index: 99999;
 }
 
-.preloader .loader {
+.preloader .loader, .preloader .text-loader {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
@@ -52,10 +52,10 @@
 }
 
 .dott {
-  width: 20px;
-  height: 20px;
-  border-radius: 10px;
-  background: #333;
+  width: 15px;
+  height: 15px;
+  border-radius: 7.5px;
+  background: #373737;
   position: absolute;
 }
 .dott-a {
