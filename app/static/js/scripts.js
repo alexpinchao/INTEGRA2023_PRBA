@@ -48,3 +48,20 @@ function ActiveSection(sectionId) {
     preSectionId = sectionId;
     }
 };
+
+function SetSelectName(button, list_name) {
+    let select_name ;
+	if (list_name === "generation") {
+		select_name = "Generación";
+	} else if (list_name === "distribution") {
+		select_name = "Distribución";
+    } else if (list_name === "end-use") {
+		select_name = "Uso final";
+    } else if (list_name === "Agregados") {
+		select_name = "Agregados";
+	} else {
+		select_name = "Desagregados";
+	};
+    document.getElementById(button).firstElementChild.innerHTML = select_name;
+};
+    

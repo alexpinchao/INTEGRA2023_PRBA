@@ -190,7 +190,7 @@ Base de datos
                 <div class="m-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between justify-content-xl-center">
                   <span class="h6 fw-bold p-1"> <strong>Cadena de Valor</strong> </span>
                   <div class="btn-group p-1">
-                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
+                    <button id="select-dropdown" type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
                       <span>Seleccionar</span>
                       <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -328,7 +328,7 @@ Base de datos
                 <div class="m-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between justify-content-xl-center">
                   <span class="h6 fw-bold p-1"><strong>Cadena de Valor</strong> </span>
                   <div class="btn-group p-1">
-                    <button type="button" class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
+                    <button id="select-dropdown-var" type="button" class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
                       <span>Seleccionar</span>
                       <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -713,6 +713,8 @@ MathJax = {
       _p_ = document.createElement('p');
 
   function update_list_ind(list_name){
+    SetSelectName('select-dropdown',list_name);
+
     var json_file = JSON.parse('{{data_indicators | tojson | safe}}');
     var keys_list = Object.keys(json_file[list_name]);
     var keys_list_2 = [];
@@ -958,7 +960,8 @@ MathJax = {
 <!-- Variables Datatable.js handler -->
 <!-- Callback for combobox on variable view :) -->
 <script type="text/javascript">
-  function update_list(list_name){
+  function update_list(list_name){    
+    SetSelectName('select-dropdown-var', list_name);
     var json_file = JSON.parse('{{data | tojson | safe}}');
     var keys_list = Object.keys(json_file[list_name])
 

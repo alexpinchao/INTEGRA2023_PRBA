@@ -187,7 +187,7 @@ Cálculo
                   <div class="m-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between justify-content-xl-center">
                     <span class="h6 fw-bold p-1"><strong>Nivel de desagregación</strong> </span>
                     <div class="btn-group p-1">
-                      <button type="button" class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
+                      <button id="select-dropdown" type="button" class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <span>Seleccionar</span>
                         <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -198,7 +198,7 @@ Cálculo
                       </button>
                       <div class="dropdown-menu">
                         <a class="dropdown-item" onclick="update_list_agregados('Agregados')" href="#">Agregados</a>
-                        <a class="dropdown-item" onclick="update_list_ind('generation')" href="#">Desagregados</a>
+                        <a class="dropdown-item" onclick="update_list_desagregados('generation')" href="#">Desagregados</a>
                       </div>
                     </div>
                   </div>
@@ -566,6 +566,7 @@ Cálculo
       var limite_graficas = false;
 
   function update_list_ind(list_name){
+    SetSelectName('cadena_valor', list_name);
 
     document.getElementById("cadena_valor").disabled = false;
 
@@ -606,7 +607,13 @@ Cálculo
       loadTable_variables_ind(list_name, json_table);
     }
 
+    function update_list_desagregados(list_name) {
+      SetSelectName('select-dropdown', 'desagregados');
+      update_list_ind(list_name);
+    }
     function update_list_agregados(list_name){
+      
+      SetSelectName('select-dropdown', list_name);
 
       document.getElementById("cadena_valor").disabled = true;
       var json_file = JSON.parse('{{data_total_indicators | tojson | safe}}');
