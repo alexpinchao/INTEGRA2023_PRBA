@@ -142,12 +142,12 @@ def contact():
 #DONE
 @app.route('/robots.txt')
 def noindex():
-    """This file restricts the activity of search engine crawlers and stops their access to app.
+    """This file restricts the activity of search engine crawlers and stop their access to app.
 
     Returns:
         HTTP response: text plain response
     """    
-    r = Response(response="User-Agent: *\nDisallow: /\n",
+    r = Response(response="User-Agent: *\nAllow: /\nDisallow: /dashboard/",
                  status=200, mimetype="text/plain")
     r.headers["Content-Type"] = "text/plain; charset=utf-8"
     return r

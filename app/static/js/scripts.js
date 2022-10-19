@@ -55,7 +55,7 @@ function SetSelectName(button, list_name) {
 		select_name = "Generación";
 	} else if (list_name === "distribution") {
 		select_name = "Distribución";
-    } else if (list_name === "end-use") {
+    } else if (list_name === "end_use") {
 		select_name = "Uso final";
     } else if (list_name === "Agregados") {
 		select_name = "Agregados";

@@ -23,6 +23,7 @@
       rel="preload" as="style" onload="this.rel = 'stylesheet'">
     <!-- Notyf -->
     <link type="text/css" href="{{url_for('static',filename='vendor/notyf/notyf.min.css')}}" rel="preload" as="style" onload="this.rel = 'stylesheet'">
+    <link rel="icon" href="{{url_for('static',filename='images/Integration.ico')}}" sizes="32x32">
 
     <title>
       {% block title %} INTEGRA2023 |{% endblock %}
@@ -59,9 +60,9 @@
     {% block content %}
     <div class="preloader">
       <div class="text-loader pb-5">
+        <p class="h1 fw-extrabold text-dark">INTEGRA</p>
         <span class="sidebar-icon p-2">
-          <img class="icon icon-lg" src="{{url_for('static',filename='images/Integration.svg')}}" height="128" width="128"
-            alt="Logo IntegraAPP ">
+          <img class="icon icon-md" src="{{url_for('static',filename='images/Integration.svg')}}" height="128" width="128" alt="Logo IntegraAPP ">
         </span>        
       </div>
       <div class="loader my-5">

@@ -26550,6 +26550,10 @@ label {
     height: 1.5rem;
 }
 
+.icon.icon-md {
+    height: 2.25rem;
+}
+
 .icon.icon-lg {
     height: 3.5rem;
 }
