@@ -26198,7 +26198,7 @@ label {
 }
 
 .theme-settings {
-    z-index: 99;
+    z-index: 999;
     position: fixed;
     left: 15px;
     bottom: 0;
@@ -26266,7 +26266,6 @@ label {
 
 .carousel-indicators .active {
     opacity: 1;
-    background: #ffffff;
 }
 
 .carousel-control-prev-icon,

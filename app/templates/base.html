@@ -50,13 +50,8 @@
       </div>
     </div>
     <script>
-      function load() {
-        setTimeout(function () {
-          $('#liveToast').fadeOut('fast');
-        }, 3000)
-      };
       window.addEventListener("load", toastClose, true); function toastClose() {
-        load();
+        $('#liveToast').fadeOut('fast');
       };
     </script>
     {% endfor %}
