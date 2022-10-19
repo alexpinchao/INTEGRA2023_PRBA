@@ -45,7 +45,7 @@ Dashboard
               <div class="p-2">
               <div class="row align-middle mt-2">
                 <div class="col-12 col-lg-6 flex-grow-1 p-2">
-                  <div class="card border-1 shadow card-effect">
+                  <div class="card border-1 shadow card-effect" id="card-base-datos">
                     <div class="card-body px-auto">
                       <div class="row d-flex align-items-center">
                         <div class="col-10 text-center justify-content-between">
@@ -99,9 +99,7 @@ Dashboard
                       </div>
                     </div>
                   </div>
-                  {% set text_module = 'En el módulo de base de datos se recopila la información de las variables e indicadores de eficiencia energética
-                  asociados a los procesos de generación, distribución y uso final de la energía eléctrica en Colombia.'%}
-                  {{modals.render_modal('info','database','Base de datos', text_module)}}
+                  {{modals.render_modal('info','database','Base de datos', text_module_db)}}
                 </div>
                 <div class="col-12 col-lg-6 flex-grow-1 p-2">
                   <div class="card border-1 shadow card-effect">
@@ -157,9 +155,7 @@ Dashboard
                       </div>
                     </div>
                   </div>
-                  {% set text_module2 = 'En el módulo de cálculo de indicadores se visualiza la tendencia histórica de los indicadores de eficiencia energética del sector eléctrico en Colombia y se pueden generar diferentes escenarios a partir de los datos actuales del país, para
-                  evaluar estrategias de eficiencia energética.'%}
-                  {{modals.render_modal('info','calc','Cálculo de indicadores', text_module2)}}
+                  {{modals.render_modal('info','calc','Cálculo de indicadores', text_module_calc)}}
                 </div>
               </div>
               <div class="row align-middle">
@@ -216,11 +212,7 @@ Dashboard
                       </div>
                     </div>
                   </div>
-                  {% set text_module3 = 'En el módulo de cálculo de indicadores se visualiza la tendencia histórica de los indicadores de
-                  eficiencia energética del sector eléctrico en Colombia y se pueden generar diferentes escenarios a partir de los datos
-                  actuales del país, para
-                  evaluar estrategias de eficiencia energética.'%}
-                  {{modals.render_modal('info','analysis','Análisis de estrategias', text_module3)}}
+                  {{modals.render_modal('info','analysis','Análisis de estrategias', text_module_anl)}}
                 </div>
                 <div class="col-12 col-lg-6 flex-grow-1 p-2">
                   <div class="card border-1 shadow card-effect">
@@ -274,9 +266,7 @@ Dashboard
                       </div>
                     </div>
                   </div>
-                  {% set text_module4 = 'En el apartado de Configuración se puede acceder a la información del usuario y ajustes referentes a las credenciales
-                  empleadas en el acceso a la herramienta.'%}
-                  {{modals.render_modal('info','config','Configuración', text_module4)}}
+                  {{modals.render_modal('info','config','Configuración', text_module_conf)}}
                 </div>
               </div>
               </div>

@@ -1,9 +1,25 @@
 {% extends 'base.html' %}
+{% import 'module/modals.html' as modals %}
 
 {% block head %}
   {{ super() }}
   <!-- Carousel for bootstarp -->
   <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
+  <!-- Copy into the head of all HTML pages you wish to display the widget -->
+  
+  <!-- stonly-widget - copy into the head -->
+  <script>window.STONLY_WID = "557476f0-4f0d-11ed-871a-0a52ff1ec764";</script>
+  <script>
+    !function (s, t, o, n, l, y, w, g) {
+      s.StonlyWidget || ((w = s.StonlyWidget = function () {
+        w._api ? w._api.apply(w, arguments) : w.queue.push(arguments)
+      }).scriptPath = n, w.queue = [], (y = t.createElement(o)).async = !0,
+        (g = new XMLHttpRequest).open("GET", n + "version?v=" + Date.now(), !0), g.onreadystatechange = function () {
+          4 === g.readyState && (y.src = n + "stonly-widget.js?v=" + (200 === g.status ? g.responseText : Date.now()),
+            (l = t.getElementsByTagName(o)[0]).parentNode.insertBefore(y, l))
+        }, g.send())
+    }(window, document, "script", "https://stonly.com/js/widget/v2/");
+  </script>
 {% endblock %}
 
 {% block title %}
@@ -38,8 +54,8 @@ Home
                       <img class="d-block h-100" src="{{url_for('static',filename='/images/image12-1.jpg')}}" alt="Background image - thermoelectric plant.">   
                       <div class="container p-0">
                         <div class="carousel-caption text-start">
-                          <h1 class="text-white"><i>Nombre de la herramienta</i></h1>
-                            <p class="justified-text d-none d-lg-block m-0">Herramienta que permite gestionar indicadores de eficiencia energética asociados a los procesos de generación, distribución y uso final de la energía eléctrica en Colombia, además de evaluar diferentes estrategias de eficiencia bajo criterios energéticos, económicos y ambientales.<br>Regístrese hoy mismo y acceda a los distintos servicios que tenemos disponibles para usted.</p>
+                          <h1 class="text-white text-center">INTEGRA</h1>
+                            <p class="justified-text d-none d-lg-block m-0">Permite gestionar indicadores de eficiencia energética asociados a los procesos de generación, distribución y uso final de la energía eléctrica en Colombia, además de evaluar diferentes estrategias de eficiencia bajo criterios energéticos, económicos y ambientales.<br>Regístrese hoy mismo y acceda a los distintos servicios que tenemos disponibles para usted.</p>
                             <p class="justified-text d-lg-none">Regístrese hoy mismo y acceda a los distintos servicios que tenemos disponibles para usted.</p>
                           <div class="d-flex justify-content-center justify-content-md-end"><a class="btn btn-lg home-btn" href="{{url_for('auth.signup')}}">Registrarse</a></div>
                         </div>
@@ -83,7 +99,7 @@ Home
           <div class="card-body p-0">
             <div class="container marketing">
               <!-- Three columns of text below the carousel -->
-              <div class="row py-3 d-flex justify-content-center" id="services">
+              <div class="row py-3 d-flex justify-content-center services-setion-block" id="services">
                 <h1 class="fw-extrabold text-center">Servicios</h1>
                 <div class="col-12 col-lg-4 flex-grow-1 p-2">
                   <a class="a-effect-home" href="{{url_for('dashboard.database')}}">
@@ -97,13 +113,11 @@ Home
                     <h2 class="fw-bold h4">Base<br> de datos</h2>
                   </a>
                   <p>
-                    <a class="btn home-btn w-75" data-bs-toggle="collapse" href="#collapseDataBase" role="button" aria-expanded="false"
-                    aria-controls="collapseDataBase">
-                    Ver detalles &raquo;</a>
+                    <a class="btn home-btn w-75" data-bs-toggle="modal" href="#modal-database" role="button" aria-expanded="false"
+                    aria-controls="modal-database">
+                    Ver detalles</a>
                   </p>
-                  <div class="collapse" id="collapseDataBase">
-                    <p class="justified-text">Allí encontraras información de las variables e indicadores de eficiencia energética asociados a los procesos de generación, distribución y uso final de la energía eléctrica en Colombia.</p>
-                  </div>            
+                  {{modals.render_modal('info','database','Base de datos', text_module_db)}}         
                 </div>
                 <div class="col-12 col-lg-4 flex-grow-1 p-2">
                   <a class="a-effect-home" href="{{url_for('dashboard.calc')}}">
@@ -117,13 +131,11 @@ Home
                     <h2 class="fw-bold h4">Cálculo de <br> Indicadores</h2>
                   </a>
                   <p>
-                    <a class="btn home-btn w-75" data-bs-toggle="collapse" href="#collapseCalc" role="button" aria-expanded="false"
-                      aria-controls="collapseCalc">
-                      Ver detalles &raquo;</a>
+                    <a class="btn home-btn w-75" data-bs-toggle="modal" href="#modal-calc" role="button" aria-expanded="false"
+                      aria-controls="modal-calc">
+                      Ver detalles</a>
                   </p>
-                  <div class="collapse" id="collapseCalc">
-                    <p class="justified-text">Allí encontraras la línea base para indicadores de eficiencia energética del sector eléctrico colombiano y herramientas de proyección de indicadores a partir de la iniciativas presentadas.</p>
-                  </div>
+                  {{modals.render_modal('info','calc','Cálculo de indicadores', text_module_calc)}}
                 </div>
                 <div class="col-12 col-lg-4 flex-grow-1 p-2">
                   <a class="a-effect-home" href="{{url_for('dashboard.analysis')}}">
@@ -137,18 +149,16 @@ Home
                     <h2 class="fw-bold h4">Análisis <br> de Estrategias</h2>
                   </a>
                   <p>
-                    <a class="btn home-btn w-75" data-bs-toggle="collapse" href="#collapseAnalysis" role="button" aria-expanded="false"
-                      aria-controls="collapseAnalysis">
-                      Ver detalles &raquo;</a>
+                    <a class="btn home-btn w-75" data-bs-toggle="modal" href="#modal-analysis" role="button" aria-expanded="false"
+                      aria-controls="modal-analysis">
+                      Ver detalles</a>
                   </p>
-                  <div class="collapse" id="collapseAnalysis">
-                    <p class="justified-text">Allí podrás evaluar estrategias de eficiencia energética mediante criterios económicos, ambientales y energéticos, estudiando los posibles escenarios e iniciativas de presentadas para el sector.</p>
-                  </div>
+                  {{modals.render_modal('info','analysis','Análisis de estrategias', text_module_anl)}}
                 </div>
               </div>
               <!-- START THE FEATURETTES -->
               <hr class="featurette-divider">
-              <div class="row py-3 d-flex justify-content-center featurette pt-5" id="about">
+              <div class="row py-3 d-flex justify-content-center featurette pt-5 about-setion-block" id="about">
                 <h1 class="fw-extrabold text-center pb-2">Acerca del proyecto</h1>
                 <div class="col-10 col-md-4 card m-0 login-image home">
                     <img class="img-fluid mx-auto" src="{{url_for('static',filename='/images/image7.jpg')}}" alt="Context image - Image about the project team." preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -159,7 +169,7 @@ Home
                 </div>
               </div>  
               <hr class="featurette-divider">
-              <div class="row py-3 d-flex justify-content-center featurette" id="news">
+              <div class="row py-3 d-flex justify-content-center featurette news-setion-block" id="news">
                 <div class="col-12 order-1">
                   <div class="card-body p-0">
                     <div id="myCarousel-news" class="carousel slide p-0 m-0" data-bs-ride="carousel">
@@ -169,7 +179,7 @@ Home
                           <div class="d-flex align-items-center">
                             <div class="carousel-caption">                             
                               <h1 class="fw-extrabold text-center text-white">Noticias</h1>                      
-                              <h5 class="text-white">Nuevas estrategias disponibles en la herramienta</h5>
+                              <h2 class="text-white h5">Nuevas estrategias disponibles en la herramienta</h2>
                             </div>
                           </div>
                         </div>
@@ -178,7 +188,7 @@ Home
                           <div class="container">
                             <div class="carousel-caption">      
                               <h1 class="fw-extrabold text-center text-white">Noticias</h1> 
-                              <h5 class="text-white">!El módulo de proyecciones ya esta aquí!</h5>
+                              <h2 class="text-white h5">!El módulo de proyecciones ya esta aquí!</h2>
                             </div>
                           </div>
                         </div>
@@ -187,7 +197,7 @@ Home
                           <div class="container">
                             <div class="carousel-caption">      
                               <h1 class="fw-extrabold text-center text-white">Noticias</h1> 
-                              <h6 class="text-white d-block">¿Encontraste un fallo al interior de la herramienta? <br> Comprártelo cuanto antes con nosotros y ayúdanos a mejorar.</h6>
+                              <h2 class="text-white d-block h6">¿Encontraste un fallo al interior de la herramienta? <br> Comprártelo cuanto antes con nosotros y ayúdanos a mejorar.</h2>
                             </div>
                           </div>
                         </div>
