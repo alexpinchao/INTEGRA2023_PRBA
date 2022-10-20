@@ -440,8 +440,11 @@ MathJax = {
       row_table = row;
     }
 
-  var b_colorslist = ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'];
-  var colorslist = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'];
+  var al= Math.floor((Math.random()* (255)));
+  var al2= Math.floor((Math.random()* (255)));
+
+  var b_colorslist = ['rgba('+al+', 99, 132, 0.2)', 'rgba('+al+', 162, 235, 0.2)', 'rgba('+al+', 206, 86, 0.2)', 'rgba('+al+', 192, 192, 0.2)', 'rgba('+al+', 102, 255, 0.2)', 'rgba('+al+', 159, 64, 0.2)'];
+  var colorslist = ['rgba('+al+', 99, 132, 1)', 'rgba('+al+', 162, 235, 1)', 'rgba('+al+', 206, 86, 1)', 'rgba('+al+', 192, 192, 1)', 'rgba('+al+', 102, 255, 1)', 'rgba('+al+', 159, 64, 1)'];
   /* const table_name = key; */
   const table_name = indicator;
 
