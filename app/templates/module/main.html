@@ -32,8 +32,8 @@ Dashboard
 {{ super() }}
   <main>
     <section id="main-home">
-      <div class="row pt-2 justify-content-center px-1">
-        <div class="col-xxl-8 col-md-10 col-sm-12 d-flex flex-column">
+      <div class="d-flex pt-2 justify-content-center px-1 vh-100">
+        <div class="col-xxl-8 col-md-10 col-sm-12 container-md">
           <div class="card border-0 shadow components-section flex-grow-1 px-2 px-md-5 px-lg-2 px-xxl-5">
             <div class="card-body px-2">
               <div class="row mt-4 text-center">
@@ -301,9 +301,9 @@ Dashboard
               </div>
             </div>
           {% endif %}
-            {% block footer %}
-            {% include 'module/footer.html' %}
-            {% endblock %}
+          {% block footer %}
+          {% include 'module/footer.html' %}
+          {% endblock %}
         </div>
       </div>
     </section>

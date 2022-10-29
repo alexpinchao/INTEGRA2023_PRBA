@@ -11,6 +11,7 @@ def analysis():
     context = {
         'anonymous': False,
         'user_ip': "UserIp",
+        'admin_session': session.get('admin_session'),
     }
     return render_template('module/analysis.html', **context)
 

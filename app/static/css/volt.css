@@ -1750,6 +1750,9 @@ progress {
     margin-right: auto;
     margin-left: auto;
 }
+#main-column {
+    max-width: 66.666%;
+}
 
 @media (min-width: 576px) {
 
@@ -11268,6 +11271,10 @@ nav .container a {
 
 .vh-100 {
     height: 100vh !important;
+}
+
+.min-vh-85 {
+    min-height: 78vh !important;
 }
 
 .min-vh-100 {
@@ -23662,7 +23669,7 @@ footer{
 @media (min-width: 768px) {
     .sidebar {
         width: 100%;
-        max-width: 250px;
+        max-width: 245px;
     }
 }
 
@@ -23827,7 +23834,7 @@ footer{
 
 @media (min-width: 992px) {
     .content {
-        margin-left: 265px;
+        margin-left: 245px;
     }
 }
 

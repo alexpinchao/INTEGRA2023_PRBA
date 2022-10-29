@@ -23,6 +23,20 @@
   {{ super() }}
   <!-- Datatables CSS -->
   <link rel="stylesheet" href="//cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
+
+  <!-- stonly-widget - copy into the head -->
+  <script>window.STONLY_WID = "557476f0-4f0d-11ed-871a-0a52ff1ec764";</script>
+  <script>
+    !function (s, t, o, n, l, y, w, g) {
+      s.StonlyWidget || ((w = s.StonlyWidget = function () {
+        w._api ? w._api.apply(w, arguments) : w.queue.push(arguments)
+      }).scriptPath = n, w.queue = [], (y = t.createElement(o)).async = !0,
+        (g = new XMLHttpRequest).open("GET", n + "version?v=" + Date.now(), !0), g.onreadystatechange = function () {
+          4 === g.readyState && (y.src = n + "stonly-widget.js?v=" + (200 === g.status ? g.responseText : Date.now()),
+            (l = t.getElementsByTagName(o)[0]).parentNode.insertBefore(y, l))
+        }, g.send())
+    }(window, document, "script", "https://stonly.com/js/widget/v2/");
+  </script>
 {% endblock %}
 
 {% block title %}
@@ -57,7 +71,7 @@ Cálculo
               </div>
               <div class="row main-row">
                 <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
-                  <a href="#indicators" onclick="ActiveSection('base-line')">
+                  <a href="#base-line" onclick="ActiveSection('base-line')">
                     <div class="card border-1 shadow card-effect">
                       <div class="card-body">
                         <div class="row d-block d-xl-flex align-items-center">
@@ -86,9 +100,9 @@ Cálculo
                 </div>
                 <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
                   {% if admin_session %}
-                  <a href="#variables" onclick="ActiveSection('calculation')">
+                  <a href="#calculation" onclick="ActiveSection('calculation')">
                   {% else %}
-                  <a href="#variables" data-bs-toggle="modal" data-bs-target="#modal-calc">
+                  <a href="#calculation" data-bs-toggle="modal" data-bs-target="#modal-calc">
                   {% endif %}
                     <div class="card border-1 shadow card-effect">
                       <div class="card-body position-relative">
@@ -133,12 +147,13 @@ Cálculo
     </section>
   
     <section id="base-line" hidden>
+      <!-- section header -->
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
         <div class="d-block">
           <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
             <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
               <li class="breadcrumb-item">
-                <a href="#">
+                <a href="{{url_for('dashboard.main')}}">
                   <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -153,10 +168,10 @@ Cálculo
           </nav>
         </div>
       </div>
-      <div class="row mb-2">
+      <div class="row mb-2 min-vh-85">
         <div class="col-12">
-          <div class="card border-0 shadow components-section flex-grow-1">
-            <div class="card-body px-1 px-md-3">
+          <div class="card border-0 shadow h-100">
+            <div class="card-body px-1 px-md-3 d-flex flex-column">
               <div class="row mb-2">
                 <div class="col-12">
                   <span class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon">
@@ -170,90 +185,95 @@ Cálculo
                   <p class="m-1">Tándem de indicadores para la industria eléctrica.</p>
                 </div>
               </div>
-              <div class="card border-1 shadow">
-                <div class="card-header p-1">
-                <div class="row justify-content-between m-0">
-                  <!-- Dropdown menu-->
-                  <div class="m-0 col-xl-2 col-md-12 d-flex align-items-center justify-content-between flex-grow-1">
-                    <div class="d-block mb-3 mb-sm-0 align-items-center">
-                      <span class="sidebar-icon">
-                        <svg class="icon-shape icon-xxs" fill="black" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M88 48C101.3 48 112 58.75 112 72V120C112 133.3 101.3 144 88 144H40C26.75 144 16 133.3 16 120V72C16 58.75 26.75 48 40 48H88zM480 64C497.7 64 512 78.33 512 96C512 113.7 497.7 128 480 128H192C174.3 128 160 113.7 160 96C160 78.33 174.3 64 192 64H480zM480 224C497.7 224 512 238.3 512 256C512 273.7 497.7 288 480 288H192C174.3 288 160 273.7 160 256C160 238.3 174.3 224 192 224H480zM480 384C497.7 384 512 398.3 512 416C512 433.7 497.7 448 480 448H192C174.3 448 160 433.7 160 416C160 398.3 174.3 384 192 384H480zM16 232C16 218.7 26.75 208 40 208H88C101.3 208 112 218.7 112 232V280C112 293.3 101.3 304 88 304H40C26.75 304 16 293.3 16 280V232zM88 368C101.3 368 112 378.7 112 392V440C112 453.3 101.3 464 88 464H40C26.75 464 16 453.3 16 440V392C16 378.7 26.75 368 40 368H88z"/>
-                        </svg>
-                      </span>
-                      <span class="fs-5 fw-extrabold mb-2">Indicadores de eficiencia energética</span>
-                    </div>                    
-                  </div>
-                  <div class="m-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between justify-content-xl-center">
-                    <span class="h6 fw-bold p-1"><strong>Nivel de desagregación</strong> </span>
-                    <div class="btn-group p-1">
-                      <button id="select-dropdown" type="button" class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <span>Seleccionar</span>
-                        <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                          <path fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                        </svg>
-                      </button>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item" onclick="update_list_agregados('Agregados')" href="#">Agregados</a>
-                        <a class="dropdown-item" onclick="update_list_desagregados('generation')" href="#">Desagregados</a>
+              <div class="row flex-fill px-1">
+                <div class="card border-1 shadow mx-2 mx-md-0">
+                  <div class="card-header p-0">
+                    <div class="row justify-content-between m-0">
+                      <!-- Dropdown menu-->
+                      <div class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between flex-grow-1">
+                        <div class="d-block mb-3 mb-sm-0 align-items-center">
+                          <span class="sidebar-icon">
+                            <svg class="icon-shape icon-xxs" fill="black" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M88 48C101.3 48 112 58.75 112 72V120C112 133.3 101.3 144 88 144H40C26.75 144 16 133.3 16 120V72C16 58.75 26.75 48 40 48H88zM480 64C497.7 64 512 78.33 512 96C512 113.7 497.7 128 480 128H192C174.3 128 160 113.7 160 96C160 78.33 174.3 64 192 64H480zM480 224C497.7 224 512 238.3 512 256C512 273.7 497.7 288 480 288H192C174.3 288 160 273.7 160 256C160 238.3 174.3 224 192 224H480zM480 384C497.7 384 512 398.3 512 416C512 433.7 497.7 448 480 448H192C174.3 448 160 433.7 160 416C160 398.3 174.3 384 192 384H480zM16 232C16 218.7 26.75 208 40 208H88C101.3 208 112 218.7 112 232V280C112 293.3 101.3 304 88 304H40C26.75 304 16 293.3 16 280V232zM88 368C101.3 368 112 378.7 112 392V440C112 453.3 101.3 464 88 464H40C26.75 464 16 453.3 16 440V392C16 378.7 26.75 368 40 368H88z" />
+                            </svg>
+                          </span>
+                          <span class="fs-5 fw-extrabold mb-2">Indicadores de eficiencia energética</span>
+                        </div>
+                      </div>
+                      <div class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between justify-content-xl-center">
+                        <span class="h6 fw-bold p-1"><strong>Nivel de desagregación</strong> </span>
+                        <div class="btn-group p-1">
+                          <button id="select-dropdown" type="button"
+                            class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <span>Seleccionar</span>
+                            <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                            </svg>
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" onclick="update_list_agregados('Agregados')" href="#">Agregados</a>
+                            <a class="dropdown-item" onclick="update_list_desagregados('generation')" href="#">Desagregados</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between justify-content-xl-center">
+                        <span class="h6 fw-bold p-1"><strong>Cadena de Valor</strong> </span>
+                        <div class="btn-group p-1">
+                          <button type="button" id="cadena_valor"
+                            class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <span>Seleccionar</span>
+                            <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                            </svg>
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" onclick="update_list_ind('generation')">Generación</a>
+                            <a class="dropdown-item" onclick="update_list_ind('distribution')">Distribución</a>
+                            <a class="dropdown-item" onclick="update_list_ind('end_use')">Uso final</a>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                <div class="m-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between justify-content-xl-center">
-                  <span class="h6 fw-bold p-1"><strong>Cadena de Valor</strong> </span>
-                  <div class="btn-group p-1">
-                    <button type="button" id="cadena_valor" class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">
-                      <span>Seleccionar</span>
-                      <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                          clip-rule="evenodd"></path>
-                      </svg>
-                    </button>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" onclick="update_list_ind('generation')" href="#">Generación</a>
-                      <a class="dropdown-item" onclick="update_list_ind('distribution')" href="#">Distribución</a>
-                      <a class="dropdown-item" onclick="update_list_ind('end_use')" href="#">Uso final</a>
-                    </div>
-                  </div>
-                </div>
-                </div>
-                </div>
-                  <div class="card-body p-0">
+                  <div class="card-body px-1 px-md-3 py-1">
                     <div class="row mb-2 mt-2 m-0">
                       <div class="col-12 col-xl-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
                         <div class="card border-0 flex-fill">
                           <div class="card-body align-self-stretch p-2">
-                          <!-- Section Table -->
-                          <div class="table-responsive info-table" id="table_content_1"></div>
+                            <!-- Section Table -->
+                            <div class="table-responsive info-table" id="table_content_1"></div>
                           </div>
                           <div class="small m-2 p-2 text-center">
-                          <span class="d-block fs-3 fw-normal">Valor mas reciente</span>
-                          <span class="fw-normal me-2">Promedio</span>
-                          <span class="fas fa-angle-up text-success"></span>
-                          <span class="text-success fw-bold">Variación último año</span>
+                            <span class="d-block fs-3 fw-normal">Valor mas reciente</span>
+                            <span class="fw-normal me-2">Promedio</span>
+                            <span class="fas fa-angle-up text-success"></span>
+                            <span class="text-success fw-bold">Variación último año</span>
+                          </div>
                         </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-xl-8 mb-1 px-0 d-flex align-self-stretch">
-                      <div class="card border-0 flex-fill">
-                        <div class="card-header p-1 d-sm-flex flex-row align-items-center">
-                          <div class="card-body p-0">
-                            <!-- Graph Section -->
-                            <div class="row mb-2 mt-2 m-0">
-                              <div class="col-12 col-xl-12 mb-1 px-0 d-flex align-self-stretch">
-                                <div class="card border-0 flex-fill">
-                                  <div class="card-header d-sm-flex flex-row align-items-center flex-0">
-                                    <div class="d-block mb-3 mb-sm-0">
-                                      <span class="fs-5 fw-extrabold mb-2" id="chart_title_1">Indicador seleccionado</span>
+                      </div>
+                      <div class="col-12 col-xl-8 mb-1 px-0 d-flex align-self-stretch">
+                        <div class="card border-0 flex-fill">
+                          <div class="card-header p-1 d-sm-flex flex-row align-items-center">
+                            <div class="card-body p-0">
+                              <!-- Graph Section -->
+                              <div class="row mb-2 mt-2 m-0">
+                                <div class="col-12 col-xl-12 mb-1 px-0 d-flex align-self-stretch">
+                                  <div class="card border-0 flex-fill">
+                                    <div class="card-header d-sm-flex flex-row align-items-center flex-0">
+                                      <div class="d-block mb-3 mb-sm-0">
+                                        <span class="fs-5 fw-extrabold mb-2" id="chart_title_1">Indicador seleccionado</span>
+                                      </div>
                                     </div>
-                                  </div>
-                                  <div class="card-body p-1 flex-fill" id="graph-container_1">
-                                    <canvas id="line-chart_1" width="100%" height="50%"></canvas>
+                                    <div class="card-body p-1 flex-fill" id="graph-container_1">
+                                      <canvas id="line-chart_1" width="100%" height="50%"></canvas>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -278,7 +298,7 @@ Cálculo
           <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
             <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
               <li class="breadcrumb-item">
-                <a href="#">
+                <a href="{{url_for('dashboard.main')}}">
                   <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -293,10 +313,10 @@ Cálculo
           </nav>
         </div>
       </div>
-      <div class="row mb-2">
+      <div class="row mb-2 min-vh-85">
         <div class="col-12">
-          <div class="card border-0 shadow components-section">
-            <div class="card-body px-1 px-md-3">
+          <div class="card border-0 shadow h-100">
+            <div class="card-body px-1 px-md-3 d-flex flex-column">
               <div class="row mb-2 mb-lg-2">
                 <div class="col-12 col-md-8">
                   <span class="h2 fw-extrabold">Variables</span>
@@ -509,47 +529,6 @@ Cálculo
     }
   };
   </script>
-
-<script>
-  /*new Chart(document.getElementById("mixed-chart"), {
-      type: 'bar',
-      data: {
-        labels: ["1900", "1950", "1999", "2050"],
-        datasets: [{
-          label: "Europe",
-          type: "line",
-          borderColor: "#8e5ea2",
-          data: [408, 547, 675, 734],
-          fill: false
-        }, {
-          label: "Africa",
-          type: "line",
-          borderColor: "#3e95cd",
-          data: [133, 221, 783, 2478],
-          fill: false
-        }, {
-          label: "Europe",
-          type: "bar",
-          backgroundColor: "rgba(0,0,0,0.2)",
-          data: [408, 547, 675, 734],
-        }, {
-          label: "Africa",
-          type: "bar",
-          backgroundColor: "rgba(0,0,0,0.2)",
-          backgroundColorHover: "#3e95cd",
-          data: [133, 221, 783, 2478]
-        }
-        ]
-      },
-      options: {
-        title: {
-          display: true,
-          text: 'Gráfica de ejemplo 2'
-        },
-        legend: { display: false }
-      }
-    });*/
-</script>
 
 <!-- Variables Datatable.js handler -->
 <!-- Callback for combobox on variable view :) -->

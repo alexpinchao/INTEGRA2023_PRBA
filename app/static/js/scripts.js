@@ -65,3 +65,23 @@ function SetSelectName(button, list_name) {
     document.getElementById(button).firstElementChild.innerHTML = select_name;
 };
     
+var datatable_config = {
+	language: {
+		url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json",
+	},
+	ordering: false,
+	hover: true,
+	filter: false,
+	responsive: true,
+	pageLength: 200,
+	scrollResize: true,
+	scrollX: false,
+	scrollY: '50vh',
+	scrollCollapse: false,
+	dom: "Bfrtip",
+	aaSorting: [],
+	info: false,
+	deferRender: true,
+	paging: false,
+	buttons: ["copyHtml5", "excelHtml5", "csvHtml5", "pdfHtml5"],
+};

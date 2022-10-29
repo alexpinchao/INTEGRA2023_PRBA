@@ -23,7 +23,13 @@
       rel="preload" as="style" onload="this.rel = 'stylesheet'">
     <!-- Notyf -->
     <link type="text/css" href="{{url_for('static',filename='vendor/notyf/notyf.min.css')}}" rel="preload" as="style" onload="this.rel = 'stylesheet'">
-    <link rel="icon" href="{{url_for('static',filename='images/Integration.ico')}}" sizes="32x32">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{url_for('static',filename='images/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{url_for('static',filename='images/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{url_for('static',filename='images/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{url_for('static',filename='images/site.webmanifest')}}">
+    <link rel="mask-icon" href="{{url_for('static',filename='images/safari-pinned-tab.svg')}}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
 
     <title>
       {% block title %} INTEGRA2023 |{% endblock %}
@@ -51,8 +57,13 @@
       </div>
     </div>
     <script>
+      function load() {
+        setTimeout(function () {
+          $('#liveToast').fadeOut('fast');
+        }, 3000)
+      };
       window.addEventListener("load", toastClose, true); function toastClose() {
-        $('#liveToast').fadeOut('fast');
+        load();
       };
     </script>
     {% endfor %}
@@ -60,7 +71,7 @@
     {% block content %}
     <div class="preloader">
       <div class="text-loader pb-5">
-        <p class="h1 fw-extrabold text-dark">INTEGRA</p>
+        <p class="h1 fw-extrabold text-black">INTEGRA</p>
         <span class="sidebar-icon p-2">
           <img class="icon icon-md" src="{{url_for('static',filename='images/Integration.svg')}}" height="128" width="128" alt="Logo IntegraAPP ">
         </span>        

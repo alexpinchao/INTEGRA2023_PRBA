@@ -862,7 +862,7 @@ _unit_dict = {'Consumo de fuentes primarias por tipo de central eléctrica': 'GW
               'Generación eléctrica por fuente primaria': 'GWh',
               'Costo de Pérdidas': 'Millones de USD',
               'Factor de Pérdidas': 'Porcentaje %',
-              'Pérdidas Equivalentes': 'GWh/año',
+              'Pérdidas Equivalentes': 'MWh/año',
               'IAAD': 'IAAD',
               'PIB' : 'Miles de Millones de COP [base 2015]',
               'PIB en USD': 'Billones de USD [base 2015]',

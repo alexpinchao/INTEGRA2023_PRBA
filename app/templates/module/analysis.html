@@ -59,9 +59,9 @@ Análisis
               <div class="row main-row">
                 <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
                   {% if admin_session %}
-                  <a href="#stages" onclick="ActiveSection('stages')">
+                  <a href="#scenarios" onclick="ActiveSection('scenarios')">
                   {% else %}
-                  <a href="#stages" data-bs-toggle="modal" data-bs-target="#modal-analysis-1">
+                  <a href="#scenarios" data-bs-toggle="modal" data-bs-target="#modal-analysis-1">
                   {% endif %}
                     <div class="card border-1 shadow card-effect">
                       <div class="card-body position-relative">
@@ -145,14 +145,14 @@ Análisis
       </div>
     </section>
 
-<section id="stages" hidden>
+<section id="scenarios" hidden>
     <!-- section header -->
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
       <div class="d-block">
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
           <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
             <li class="breadcrumb-item">
-              <a href="#">
+              <a href="{{url_for('dashboard.main')}}">
                 <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -167,10 +167,10 @@ Análisis
         </nav>
       </div>
     </div>
-    <div class="row mb-2">
+    <div class="row mb-2 min-vh-85">
       <div class="col-12">
-        <div class="card border-0 shadow components-section">
-          <div class="card-body">
+        <div class="card border-0 shadow h-100">
+          <div class="card-body px-1 px-md-3 d-flex flex-column">
             <div class="row mb-2 mb-lg-2">
               <div class="col-12">
                 <h2 class="h4">Modelos de escenarios</h2>
@@ -537,7 +537,7 @@ Análisis
       <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
         <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
           <li class="breadcrumb-item">
-            <a href="#">
+            <a href="{{url_for('dashboard.main')}}">
               <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -552,7 +552,7 @@ Análisis
       </nav>
     </div>
   </div>
-  <div class="row mb-2">
+  <div class="row mb-2 min-vh-85">
     <div class="col-12">
       <div class="card border-0 shadow components-section">
         <div class="card-body">
