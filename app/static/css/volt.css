@@ -1745,8 +1745,8 @@ progress {
 .container-md,
 .container-sm {
     width: 100%;
-    padding-right: var(--bs-gutter-x, 1rem);
-    padding-left: var(--bs-gutter-x, 1rem);
+    padding-right: auto;
+    padding-left: auto;
     margin-right: auto;
     margin-left: auto;
 }
@@ -11276,6 +11276,18 @@ nav .container a {
 .min-vh-85 {
     min-height: 78vh !important;
 }
+
+#table_variables_wrapper *.dataTables_scrollBody {
+    max-height: 50vh !important;
+    height: 50vh;
+}
+
+@media (max-width: 1200px){
+    #table_variables_wrapper *.dataTables_scrollBody{
+        max-height: 25vh !important;
+    }
+}
+
 
 .min-vh-100 {
     min-height: 100vh !important;
@@ -23514,8 +23526,15 @@ nav .container a {
  * = Footers
  */
 footer{
-    max-height: 15vh;
+    max-height: 25vh;
 }
+
+@media (min-width: 576px){
+    footer{
+        max-height: 25vh;
+    }
+}
+
 
 .footer ul {
     margin-bottom: 0;

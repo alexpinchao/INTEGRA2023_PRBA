@@ -345,8 +345,15 @@ Base de datos
                       <div class="card border-0 flex-fill">
                         <div class="card-body p-1 flex-fill" id="graph-container">
                           <div class="d-block mb-3 mb-sm-0">
-                            <span class="fs-5 fw-extrabold mb-2" id="chart_title">Variable seleccionada</span>
+                            <span class="fs-5 fw-extrabold mb-4" id="chart_title">Variable seleccionada</span>
                           </div>
+<!-- OPTIONAL NO BORRAR -->
+<!--                           <div class="small text-center">
+                            <span class="fw-normal me-2">Max:121432/2012</span>
+                            <span class="fw-normal me-2">Min:101432/2012</span>
+                            <span class="fas fa-angle-up text-success"></span>
+                            <span class="text-success fw-bold">Variación último año</span>
+                          </div> -->
                           <canvas id="line-chart" width="100%" height="50%"></canvas>
                         </div>
                       </div>
@@ -482,7 +489,7 @@ MathJax = {
       }];
   let delayed;
   $('#line-chart').remove(); 
-  $('#graph-container').append('<canvas id="line-chart" width="100%" height="50vh"><canvas>'); 
+  $('#graph-container').append('<canvas id="line-chart" width="100%" height="48vh"><canvas>'); 
   var config = {
       type: 'line',
       data: {
@@ -525,7 +532,7 @@ MathJax = {
             }
             return delay;
           },
-          }}
+          },}
     };
   chart_element = new Chart(document.getElementById('line-chart'), config);
   }

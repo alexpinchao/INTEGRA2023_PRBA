@@ -76,7 +76,7 @@ var datatable_config = {
 	pageLength: 200,
 	scrollResize: true,
 	scrollX: false,
-	scrollY: '50vh',
+	scrollY: true,
 	scrollCollapse: false,
 	dom: "Bfrtip",
 	aaSorting: [],

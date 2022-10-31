@@ -150,7 +150,7 @@ Cálculo
       <!-- section header -->
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
         <div class="d-block">
-          <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block pt-2">
             <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
               <li class="breadcrumb-item">
                 <a href="{{url_for('dashboard.main')}}">
@@ -250,12 +250,6 @@ Cálculo
                             <!-- Section Table -->
                             <div class="table-responsive info-table" id="table_content_1"></div>
                           </div>
-                          <div class="small m-2 p-2 text-center">
-                            <span class="d-block fs-3 fw-normal">Valor mas reciente</span>
-                            <span class="fw-normal me-2">Promedio</span>
-                            <span class="fas fa-angle-up text-success"></span>
-                            <span class="text-success fw-bold">Variación último año</span>
-                          </div>
                         </div>
                       </div>
                       <div class="col-12 col-xl-8 mb-1 px-0 d-flex align-self-stretch">
@@ -295,7 +289,7 @@ Cálculo
       <!-- section header -->
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
         <div class="d-block">
-          <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block pt-2">
             <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
               <li class="breadcrumb-item">
                 <a href="{{url_for('dashboard.main')}}">
@@ -762,31 +756,7 @@ Cálculo
     el.appendChild(table);
     const datatablesSimple = document.getElementById('table_variables');
     if (datatablesSimple) {
-      let tables = new DataTable(datatablesSimple, {
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'
-      },
-      ordering: false,
-      hover: true,
-      filter: false,
-      responsive:true,
-      pageLength: 200,
-      scrollResize: true,
-      scrollX: false,
-      scrollY: 300,
-      scrollCollapse:false,
-      dom: 'Bfrtip',
-      aaSorting: [],
-      info:false,
-      deferRender: true,
-      paging: false,
-      buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
-        ]
-      });
+      let tables = new DataTable(datatablesSimple, datatable_config);
     }
 
     var table_handler = $('#table_variables').DataTable();
@@ -954,7 +924,7 @@ Cálculo
 
     let delayed;
     $('#line-chart_1').remove(); 
-    $('#graph-container_1').append('<canvas id="line-chart_1" width="100%" height="50%"><canvas>'); 
+    $('#graph-container_1').append('<canvas id="line-chart_1" width="100%" height="50vh"><canvas>'); 
     var config = {
         type: 'line',
         data: {
