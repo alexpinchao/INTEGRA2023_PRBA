@@ -11,7 +11,11 @@
 from flask import render_template, redirect, flash, url_for, session, request, current_app as app
 
 def return_indicators_calculation():
-    
+    """generates a dictionary that contains the energy indicators taken into account by the platform between the years 2010 and 2020.
+
+    Returns:
+        dict_total_indicadores: dictionary of energy indicators
+    """
     data, translating_dict = app.db_object.get_distribution()
     array_default = []
     array_default1 = [1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000]
@@ -33,12 +37,17 @@ def return_indicators_calculation():
     data_end_use_population = data["end_use"]["Población"]
     data_end_use_total_consumption = data["end_use"]["Uso final de la energía"]
 
-    # function
-    # function that returns a dictionary with year and the variable of interest for the calculation of the indicator
-    # @params: loop_data : array table
-    # @params: variable : name of variable of interest to search
-    # return: anio,varible_return
     def loopData(loop_data, variable):
+        """function that returns a dictionary with year and the value of the variable of interest for the calculation of the indicator.
+
+        Args:
+            loop_data (array): array data
+            variable (string): name of variable of interest to search
+
+        Returns:
+            anio (array): current year
+            varible_return (array) : variable value
+        """
         anio = []
         varible_return = []
         for n in loop_data:
@@ -49,14 +58,18 @@ def return_indicators_calculation():
                 varible_return.append(y)
         return anio,varible_return
 
-    # function
-    # function that returns a dictionary with year and calculation of the value of the indicator
-    # @params: data_input_1 : array variable one
-    # @params: data_input_2 : array variable two
-    # @params: nombre : dictionary key name
-    # @params: tipo : type of operation
-    # return: salida
     def prepareData(data_input_1, data_input_2, nombre, tipo):
+        """function that returns a dictionary with year and calculation of the value of the indicator
+
+        Args:
+            data_input_1 (array): variable data 1
+            data_input_2 (array): variable data 2
+            nombre (string): indicator name
+            tipo (number): type of operation
+
+        Returns:
+            salida (array): array containing the value of the indicator between the years 2010 to 2020
+        """
         input_1 = data_input_1[1]
         anio_input_1 = data_input_1[0]
         input_2 = data_input_2[1]
@@ -81,12 +94,16 @@ def return_indicators_calculation():
                     salida.append(salida_dict)
                 i +=1
         return salida
-    
-    # function
-    # function that returns a dictionary with year and total of the input array
-    # @params: data_input_1
-    # return: variable_return
+
     def prepareDataTwo(data_input_1, nombre_variable):
+        """function that returns a dictionary with year and total of the input array
+
+        Args:
+            data_input_1 (array): array input
+            nombre_variable (string): variable name
+        Returns:
+            variable_return (array): array containing the value of the indicator between the years 2010 to 2020
+        """
         varible_return = []
         for n in data_input_1:
             if(len(varible_return)<11):
@@ -108,7 +125,7 @@ def return_indicators_calculation():
     end_use_total_consumption = loopData(data_end_use_total_consumption, "ConsumoFinal_Total")
 
     #carga de indicadores en la generacion
-    eficienc_gen_electrica = prepareData(generation_total_generation, generation_consumo, "Eficiencia de la generación eléctrica" , "1" )
+    eficienc_gen_electrica = prepareData(generation_total_generation, generation_consumo, "Eficiencia de la generación eléctrica" , "3" )
     intens_energ_gen = prepareData(generation_consumo, end_use_pib,"Intensidad energética primaria de la generación eléctrica", "2")
     inten_emision_gen_electrica = prepareData(generation_emisiones_SIN, end_use_pib,"Intensidad de emisión de la generación eléctrica", "3")
     #emisiones_co2_sin_total = prepareData(generation_emisiones_SIN, array_default,"Emisiones de CO2eq de la generación eléctrica SIN", "3")

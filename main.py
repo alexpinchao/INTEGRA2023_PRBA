@@ -89,8 +89,8 @@ def home():
         server response: Home-page for platform welcome
     """    
     text_module_db = 'En el módulo de base de datos se recopila información de las variables e indicadores de eficiencia energética asociados a los procesos de generación, distribución y uso final de la energía eléctrica en Colombia.'
-    text_module_calc = 'En el módulo de cálculo de indicadores se visualiza la tendencia histórica de los indicadores de eficiencia energética del sector eléctrico en Colombia y se pueden generar diferentes escenarios a partir de los datos actuales del país, para evaluar estrategias de eficiencia energética.'
-    text_module_anl = 'En el módulo de cálculo de indicadores se visualiza la tendencia histórica de los indicadores de eficiencia energética del sector eléctrico en Colombia y se pueden generar diferentes escenarios a partir de los datos actuales del país, para evaluar estrategias de eficiencia energética.'
+    text_module_calc = 'En el módulo de escenario base .....'
+    text_module_anl = 'En el módulo de escenario base ......'
 
     if current_user.is_authenticated:
         user_ip = session.get('user_ip')

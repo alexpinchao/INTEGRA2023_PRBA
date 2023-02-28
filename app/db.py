@@ -573,6 +573,24 @@ data_desag_end_use_table = Table('DATOS_DESAGREGACION_USO_FINAL', metadata_obj,
                    Column('Intensidad_energética_del_sector_comercial_y_público', String)
                    )
 
+projections_generation_table = Table('proyeccion_escenario_bau_generacion', metadata_obj,
+                   Column('Año', Integer,
+                          nullable=False, unique=True),
+                   Column('Generacion_Total', String)
+                   )
+
+projections_distribution_table = Table('proyeccion_escenario_bau_distribucion', metadata_obj,
+                   Column('Año', Integer,
+                          nullable=False, unique=True),
+                   Column('Factor_de_pérdidas', String)
+                   )
+
+projections_end_use_table = Table('proyeccion_escenario_bau_uso_final', metadata_obj,
+                   Column('Año', Integer,
+                          nullable=False, unique=True),
+                   Column('Consumo_eléctrico_total', String)
+                   )
+
 ##END eschema definition##
 
 _translating_dict = {'NT1': 'Nivel de tensión 1',
@@ -609,6 +627,8 @@ _translating_dict = {'NT1': 'Nivel de tensión 1',
                      'Generacion_FNCE_Total': 'Generación FNCE total',
                      'Generacion_SIN_Total': 'Generación SIN total',
                      'Generacion_Total': 'Generación total',
+                     'Consumo_eléctrico_total':'Consumo eléctrico total',
+                     'Factor_de_pérdidas':'Factor de pérdidas',
                      
                      'C_CH_Agua_GWh': 'Consumo en centrales hidroeléctricas',
                      'C_CT_carbon_kTon': 'Consumo en centrales térmicas de Carbón',
@@ -881,16 +901,19 @@ _unit_dict = {'Consumo de fuentes primarias por tipo de central eléctrica': 'GW
               'Costo de pérdidas equivalentes en distribución (SOLO ADD)': 'Millones USD',
               'Índice Anual Acumulado de Discontinuidad - IAAD': 'Porcentaje %',
               'Saidi' : 'h / año',
-              'Saifi' : '# ocurrencia / año'
+              'Saifi' : '# ocurrencia / año',
+              'Consumo eléctrico total': 'Gwh',
+              'Factor de pérdidas': 'Porcentaje %',
+              'Generación total': 'Gwh',
             }
 class SQL_connector():
     """Platform server connection class
 
     Contains the constructor for the connection and execution methods for requests to the database.
-    """    
+    """
     def __init__(self) -> None:
         """Parameterized constructor
-        """        
+        """
         self.engine = create_engine('sqlite:///app/sqlite/NewDB.db')
         self.connetion = self.engine.connect()
 
@@ -1128,6 +1151,30 @@ class SQL_connector():
 
         return rows
 
+    def get_projections_gen(self):
+        query = select(projections_generation_table)
+        result = self.engine.execute(query)
+        columns = [col for col in result.keys()]
+        rows = {'Generación':[dict(zip(columns,row)) for row in result.fetchall()]}
+        result.close()
+        return rows
+
+    def get_projections_dist(self):
+        query = select(projections_distribution_table)
+        result = self.engine.execute(query)
+        columns = [col for col in result.keys()]
+        rows = {'Distribución':[dict(zip(columns,row)) for row in result.fetchall()]}
+        result.close()
+        return rows
+
+    def get_projections_end_use(self):
+        query = select(projections_end_use_table)
+        result = self.engine.execute(query)
+        columns = [col for col in result.keys()]
+        rows = {'Uso final':[dict(zip(columns,row)) for row in result.fetchall()]}
+        result.close()
+        return rows
+
     def get_loss(self):
         query = select(loss_table)
         result = self.engine.execute(query)
@@ -1209,22 +1256,39 @@ class SQL_connector():
         indicators_dict.update(self.get_data_desag_gen())
         # print(f"indicators_dict:  {indicators_dict}")
         _dict.update({'generation':indicators_dict})
-        
+
         end_use_dict_dist = {}
         end_use_dict_dist.update(self.get_rel_var_indic_dist())
         end_use_dict_dist.update(self.get_desagregation_dist())
         end_use_dict_dist.update(self.get_data_desag_dist())
-        
+
         _dict.update({'distribution':end_use_dict_dist})
-        
+
         end_use_dict_ind = {}
         end_use_dict_ind.update(self.get_rel_var_indic_end_use())
         end_use_dict_ind.update(self.get_desagregation_end_use())
         end_use_dict_ind.update(self.get_data_desag_end_use())
-        
+
         _dict.update({'end_use':end_use_dict_ind})
         return _dict
-    
+
+    def get_projections(self):
+
+        _dict = {}
+        projections_gen_dict = {}
+        projections_gen_dict.update(self.get_projections_gen())
+        _dict.update({'generation':projections_gen_dict})
+
+        projections_dist_dict = {}
+        projections_dist_dict.update(self.get_projections_dist())
+        _dict.update({'distribution':projections_dist_dict})
+
+        projections_end_use_dict = {}
+        projections_end_use_dict.update(self.get_projections_end_use())
+        _dict.update({'end_use':projections_end_use_dict})
+
+        return _dict
+
     #function return dictionary data table information for calc interface
     #date: 27/07/2022
     #dev: Alex Pinchao

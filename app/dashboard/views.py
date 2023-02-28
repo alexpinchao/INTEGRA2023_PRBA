@@ -22,6 +22,8 @@ def database():
     data, translating_dict = app.db_object.get_distribution()
     data_indicators = app.db_object.get_indicators()
     units = app.db_object.get_units()
+    
+    dict_total_indicadores = return_indicators_calculation()
     print("------------entra a database-------")
     # print(data)
     #print(data)
@@ -32,6 +34,7 @@ def database():
         'anonymous': False,
         'user': "UserIp",
         'data':data,
+        'data_total_indicators':dict_total_indicadores,
         'translating_dict':translating_dict,
         'data_indicators':data_indicators,
         'units':units,
@@ -44,6 +47,7 @@ def database():
 def calc():
     data, translating_dict = app.db_object.get_distribution()
     data_indicators = app.db_object.get_indicators()
+    data_projections = app.db_object.get_projections()
     units = app.db_object.get_units()
 
     dict_total_indicadores = return_indicators_calculation()
@@ -54,6 +58,7 @@ def calc():
         'data_total_indicators':dict_total_indicadores,
         'translating_dict':translating_dict,
         'data_indicators':data_indicators,
+        'data_projections':data_projections,
         'units':units,
         'admin_session':session.get('admin_session'),
     }
@@ -78,8 +83,8 @@ def main():
         session['admin_session'] = admin_session
         
     text_module_db = 'En el módulo de base de datos se recopila información de las variables e indicadores de eficiencia energética asociados a los procesos de generación, distribución y uso final de la energía eléctrica en Colombia.'
-    text_module_calc = 'En el módulo de cálculo de indicadores se visualiza la tendencia histórica de los indicadores de eficiencia energética del sector eléctrico en Colombia y se pueden generar diferentes escenarios a partir de los datos actuales del país, para evaluar estrategias de eficiencia energética.'
-    text_module_anl = 'En el módulo de cálculo de indicadores se visualiza la tendencia histórica de los indicadores de eficiencia energética del sector eléctrico en Colombia y se pueden generar diferentes escenarios a partir de los datos actuales del país, para evaluar estrategias de eficiencia energética.'
+    text_module_calc = 'En el módulo de escenario base '
+    text_module_anl = 'En el módulo de escenario base ....'
     text_module_conf = 'En el apartado de Configuración se puede acceder a la información del usuario y ajustes referentes a las credenciales empleadas en el acceso a la herramienta.'
 
     context = {
