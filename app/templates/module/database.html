@@ -586,6 +586,10 @@ MathJax = {
     SetSelectName('select-dropdown',list_name);
 
     var json_file = JSON.parse('{{data_indicators | tojson | safe}}');
+
+     console.log("json_file--")
+     console.log(json_file)
+
     var keys_list = Object.keys(json_file[list_name]);
     var keys_list_2 = [];
     var keys_list_3 = [];
@@ -639,6 +643,8 @@ MathJax = {
 
   function  loadTable_variables_ind(list_name, json_new){
 
+    console.log('json_new_descripcion',json_new)
+
     var list_names = Object.keys(json_new)
     var table = _table_.cloneNode(false);
     var tbody = _tbody_.cloneNode(false),
@@ -664,12 +670,13 @@ MathJax = {
 
       var keys_list = json_new[items];
       var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
-
+      console.log('keys_list_que_necesito',keys_list)
       var titles = ['Descripción:','Formula:','_','Variables:']
       var tr = _tr_.cloneNode(false);
       var td = _td_.cloneNode(false);
       var description_html = _ul_.cloneNode(false);
       keys_list.forEach(function (item, index) {
+        console.log('item_que_necesito',item)
 
         if (index==2){
           item.forEach(function (subitem){
@@ -813,6 +820,10 @@ function update_list(list_name){
     var json_file = JSON.parse('{{data | tojson | safe}}');
     var keys_list = Object.keys(json_file[list_name])
 
+    console.log("---variables---")
+    console.log("json_file",json_file)
+    console.log("keys_list",keys_list)
+
     if(list_name == "end_use"){
       keys_list = keys_list.filter(function (key_l){
         return key_l !== ('PIB en USD')
@@ -832,6 +843,10 @@ function update_list(list_name){
       keys_list_2.shift()
       json_new[item] = keys_list_2;
     });
+
+    console.log("list_name",list_name)
+    console.log("json_new",json_new)
+
     loadTable_variables(list_name, json_new);
   }
 
@@ -847,7 +862,7 @@ function update_list(list_name){
       var td = _td_.cloneNode(false);
       var a = _a_.cloneNode(false);
       
-      console.log("#######sasa "+items)
+      console.log("items "+items)
       a.appendChild(document.createTextNode(items || ''));
       td.classList.add('fw-extrabold')
       td.classList.add('showhr')
@@ -873,27 +888,27 @@ function update_list(list_name){
           cell_value = item;
         }
         //cell_value = cell_value.replace("CO2eq","$CO_2eq$");
-        td.appendChild(document.createTextNode(cell_value|| ''));       
+        td.appendChild(document.createTextNode(cell_value|| ''));
         td.classList.add('aser')
         td.classList.add('fw-normal')
-        tr.appendChild(td);  
+        tr.appendChild(td);
         tr.style.display = 'none';
         tbody.appendChild(tr);
-      })    
+      })
     })
 
     table.appendChild(tbody);
-    
+
     table.id = 'table_variables'
     table.classList.add('table');
     table.classList.add('table-centered');
-    table.classList.add('table-nowrap');      
+    table.classList.add('table-nowrap');
     table.classList.add('rounded');
     table.classList.add('mb-0');
     table.classList.add('border-0');
     table.classList.add('dt-responsive');
 
-    function addAllColumnHeaders(list_name) {                     
+    function addAllColumnHeaders(list_name) {
       var columnSet = [],
       thead = _thead_.cloneNode(false);
       tr = _tr_.cloneNode(false);

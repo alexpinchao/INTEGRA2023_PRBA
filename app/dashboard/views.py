@@ -8,10 +8,21 @@ import json
 #@login_required
 @dashboard.route('/analysis', methods=['GET', 'POST'])
 def analysis():
+    admin_session = session.get('admin_session')
+    # translating_dict = app.db_object.get_distribution()
+    strategies = app.db_object.get_Strategies()
+    description_strategies = app.db_object.get_description_Strategies()
+    data, translating_dict = app.db_object.get_distribution()
+    units = app.db_object.get_units()
     context = {
         'anonymous': False,
         'user_ip': "UserIp",
-        'admin_session': session.get('admin_session'),
+        'data':data,
+        'strategies':strategies,
+        'description_strategies':description_strategies,
+        'units':units,
+        'translating_dict':translating_dict,
+        'admin_session':admin_session,
     }
     return render_template('module/analysis.html', **context)
 
