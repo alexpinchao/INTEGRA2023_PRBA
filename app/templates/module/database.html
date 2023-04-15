@@ -22,6 +22,7 @@
   {{ super() }}
   <!-- Datatables CSS -->
   <link rel="stylesheet" href="//cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/progress.css')}}">
   <!-- Copy into the head of all HTML pages you wish to display the widget -->
   
   <!-- stonly-widget - copy into the head -->
@@ -69,102 +70,104 @@ Base de datos
                 <p class="mb-0 justified-text">En este módulo se recopila la información de los indicadores y las variables de eficiencia energética asociados a los procesos de generación, distribución y uso final de la energía eléctrica en Colombia.</p>
               </div>
             </div>
-            <div class="container" style="margin-top: 5%;">
-            <div class="row">
-              <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
-                <a href="#indicators" onclick="ActiveSection('indicators')">
-                <div class="card border-1 shadow card-effect">
-                  <div class="card-body">
-                    <div class="row d-block d-xl-flex align-items-center">
-                      <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
-                        <div class="icon-shape icon-shape-primary rounded me-4 me-sm-0 card-effect-icon">
-                          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                              d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z"
-                              clip-rule="evenodd"></path>
-                          </svg>
-                        </div>
-                        <div class="d-sm-none">
-                          <h3 class="fw-extrabold mb-1">Descripción</h3>
-                          <h2 class="h5">de indicadores y variables</h2>
-                        </div>
-                      </div>
-                      <div class="col-12 col-xl-7 px-xl-0">
-                        <div class="d-none d-sm-block">
-                          <h3 class="fw-extrabold mb-2">Descripción</h3>
-                          <h2 class="h6 text-gray-400 mb-0">de indicadores y variables</h2>
+            <div class="container steps" style="margin-top: 5%;">
+              <div class="row step">
+                <div class="step-title">Descripción</div>
+                <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
+                  <a href="#indicators" onclick="ActiveSection('indicators')">
+                    <div class="card border-1 shadow card-effect">
+                      <div class="card-body">
+                        <div class="row d-block d-xl-flex align-items-center">
+                          <div
+                            class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                            <div class="icon-shape icon-shape-primary rounded me-4 me-sm-0 card-effect-icon">
+                              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                  d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z"
+                                  clip-rule="evenodd"></path>
+                              </svg>
+                            </div>
+                            <div class="d-sm-none">
+                              <h3 class="fw-extrabold mb-1">Tabla</h3>
+                              <h2 class="h5">de indicadores y variables</h2>
+                            </div>
+                          </div>
+                          <div class="col-12 col-xl-7 px-xl-0">
+                            <div class="d-none d-sm-block">
+                              <h3 class="fw-extrabold mb-2">Tabla</h3>
+                              <h2 class="h6 text-gray-400 mb-0">de indicadores y variables</h2>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </a>
                 </div>
-                </a>
               </div>
-              <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
-                <a href="#variables" onclick="ActiveSection('variables')">
-                <div class="card border-1 shadow card-effect">
-                  <div class="card-body">
-                    <div class="row d-block d-xl-flex align-items-center">
-                      <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
-                        <div class="icon-shape icon-shape-secondary rounded me-4 me-sm-0 card-effect-icon">
-                          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                              d="M4.649 3.084A1 1 0 015.163 4.4 13.95 13.95 0 004 10c0 1.993.416 3.886 1.164 5.6a1 1 0 01-1.832.8A15.95 15.95 0 012 10c0-2.274.475-4.44 1.332-6.4a1 1 0 011.317-.516zM12.96 7a3 3 0 00-2.342 1.126l-.328.41-.111-.279A2 2 0 008.323 7H8a1 1 0 000 2h.323l.532 1.33-1.035 1.295a1 1 0 01-.781.375H7a1 1 0 100 2h.039a3 3 0 002.342-1.126l.328-.41.111.279A2 2 0 0011.677 14H12a1 1 0 100-2h-.323l-.532-1.33 1.035-1.295A1 1 0 0112.961 9H13a1 1 0 100-2h-.039zm1.874-2.6a1 1 0 011.833-.8A15.95 15.95 0 0118 10c0 2.274-.475 4.44-1.332 6.4a1 1 0 11-1.832-.8A13.949 13.949 0 0016 10c0-1.993-.416-3.886-1.165-5.6z"
-                              clip-rule="evenodd"></path>
-                          </svg>
-                        </div>
-                        <div class="d-sm-none">
-                          <h3 class="fw-extrabold mb-1">Variables</h3>
-                          <h2 class="h5">de los procesos</h2>
-                        </div>
-                      </div>
-                      <div class="col-12 col-xl-7 px-xl-0">
-                        <div class="d-none d-sm-block">
-                          <h3 class="fw-extrabold mb-2">Variables</h3>
-                          <h2 class="h6 text-gray-400 mb-0">de los procesos</h2>
+              <div class="row step">
+                <div class="step-title">Visualización</div>
+                <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
+                  <a href="#base-line" onclick="ActiveSection('base-line')">
+                    <div class="card border-1 shadow card-effect">
+                      <div class="card-body">
+                        <div class="row d-block d-xl-flex align-items-center">
+                          <div
+                            class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                            <div class="icon-shape icon-shape-primary rounded me-4 me-sm-0 card-effect-icon">
+                              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z">
+                                </path>
+                              </svg>
+                            </div>
+                            <div class="d-sm-none">
+                              <h3 class="fw-extrabold mb-1">Indicadores</h3>
+                              <h2 class="h5">de los procesos</h2>
+                            </div>
+                          </div>
+                          <div class="col-12 col-xl-7 px-xl-0">
+                            <div class="d-none d-sm-block">
+                              <h3 class="fw-extrabold mb-2">Indicadores</h3>
+                              <h2 class="h6 text-gray-400 mb-0">de los procesos</h2>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </a>
                 </div>
-                </a>
+                <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
+                  <a href="#variables" onclick="ActiveSection('variables')">
+                    <div class="card border-1 shadow card-effect">
+                      <div class="card-body">
+                        <div class="row d-block d-xl-flex align-items-center">
+                          <div
+                            class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                            <div class="icon-shape icon-shape-secondary rounded me-4 me-sm-0 card-effect-icon">
+                              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                  d="M4.649 3.084A1 1 0 015.163 4.4 13.95 13.95 0 004 10c0 1.993.416 3.886 1.164 5.6a1 1 0 01-1.832.8A15.95 15.95 0 012 10c0-2.274.475-4.44 1.332-6.4a1 1 0 011.317-.516zM12.96 7a3 3 0 00-2.342 1.126l-.328.41-.111-.279A2 2 0 008.323 7H8a1 1 0 000 2h.323l.532 1.33-1.035 1.295a1 1 0 01-.781.375H7a1 1 0 100 2h.039a3 3 0 002.342-1.126l.328-.41.111.279A2 2 0 0011.677 14H12a1 1 0 100-2h-.323l-.532-1.33 1.035-1.295A1 1 0 0112.961 9H13a1 1 0 100-2h-.039zm1.874-2.6a1 1 0 011.833-.8A15.95 15.95 0 0118 10c0 2.274-.475 4.44-1.332 6.4a1 1 0 11-1.832-.8A13.949 13.949 0 0016 10c0-1.993-.416-3.886-1.165-5.6z"
+                                  clip-rule="evenodd"></path>
+                              </svg>
+                            </div>
+                            <div class="d-sm-none">
+                              <h3 class="fw-extrabold mb-1">Variables</h3>
+                              <h2 class="h5">de los procesos</h2>
+                            </div>
+                          </div>
+                          <div class="col-12 col-xl-7 px-xl-0">
+                            <div class="d-none d-sm-block">
+                              <h3 class="fw-extrabold mb-2">Variables</h3>
+                              <h2 class="h6 text-gray-400 mb-0">de los procesos</h2>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
               </div>
             </div>
-
-            <div class="row">
-              <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
-                <a href="#base-line" onclick="ActiveSection('base-line')">
-                  <div class="card border-1 shadow card-effect">
-                    <div class="card-body">
-                      <div class="row d-block d-xl-flex align-items-center">
-                        <div
-                          class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
-                          <div class="icon-shape icon-shape-primary rounded me-4 me-sm-0 card-effect-icon">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z">
-                              </path>
-                            </svg>
-                          </div>
-                          <div class="d-sm-none">
-                            <h3 class="fw-extrabold mb-1">Indicadores</h3>
-                            <h2 class="h5">de los procesos</h2>
-                          </div>
-                        </div>
-                        <div class="col-12 col-xl-7 px-xl-0">
-                          <div class="d-none d-sm-block">
-                            <h3 class="fw-extrabold mb-2">Indicadores</h3>
-                            <h2 class="h6 text-gray-400 mb-0">de los procesos</h2>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
-
-              </div>
           </div>
         </div>
       </div>
