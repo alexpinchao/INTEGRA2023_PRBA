@@ -16,7 +16,7 @@
   margin-bottom: auto;
 }
 
-.steps .step .step-title{
+.steps .step .step-title {
   font-size: medium;
   font-weight: bold;
 }
@@ -51,13 +51,17 @@
 }
 
 @media (min-width: 576px) {
-  .step-title:after, .step-title:before{
+
+  .step-title:after,
+  .step-title:before {
     display: none;
   }
 }
 
 @media (min-width: 768px) {
-  .step-title:after, .step-title:before {
+
+  .step-title:after,
+  .step-title:before {
     display: flex;
   }
 }
@@ -292,6 +296,7 @@
 .dark .done.current:before {
   background: lightgreen !important;
 }
+
 /* 
 < !-- <div class="progress">
 <div class="right"><div>Descripción</div>
