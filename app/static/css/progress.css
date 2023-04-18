@@ -51,21 +51,27 @@
 }
 
 @media (min-width: 576px) {
-
   .step-title:after,
   .step-title:before {
     display: none;
   }
 }
 
-@media (min-width: 768px) {
-
+@media (min-width: 992px) {
   .step-title:after,
   .step-title:before {
     display: flex;
   }
+  .step{
+    margin-left: 1.25rem;
+  }
 }
 
+@media (min-width: 1400px) {
+  .step {
+    margin-left: auto;
+  }
+}
 
 .progress>div {
   display: flex;
