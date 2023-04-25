@@ -13,15 +13,16 @@ from app.models import UserData, UserModel
 from flask_login import login_required, login_user, logout_user
 import json
 
-### ONLY TEST
+# ONLY TEST
 strategies_definition = {
     "process": "distribución",
     "models": [
         {
+            "id": "d001",
             "name": "Integración AMI",
             "strategies": [
                 {
-                    "name": "estategia 1",
+                    "name": "Estrategia1",
                     "description": "ejemplo 1",
                     "variable": "CU",
                     "upper_value": 100,
@@ -30,9 +31,9 @@ strategies_definition = {
                     "unit": "%",
                 },
                 {
-                    "name": "Estrategia 2",
+                    "name": "Estrategia2",
                     "description": "ejemplo 2",
-                    "variable": "CU",
+                    "variable": "Otra",
                     "upper_value": 300,
                     "lower_value": 100,
                     "value": 180,

@@ -21,20 +21,67 @@
 					<span class="h4 fw-extrabold">Estrategias de {{ strategies.process }}</span>
 				</div>
 			</div>
-			{% for model in strategies.models %}
-			<div class="col-12">
-				<div class="row">
-					<p class="h5">Modelo {{ model.name }}</p>
+			<div class="accordion" id="accordionStrategies">
+				{% for model in strategies.models %}
+				<div class="accordion-item" id="{{ model.id }}">
+					<h2 class="accordion-header" id="headingOne">
+						<button
+							class="accordion-button"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseOne"
+							aria-expanded="true"
+							aria-controls="collapseOne"
+						>
+							Modelo {{ model.name }}
+						</button>
+					</h2>
+					<div
+						id="collapseOne"
+						class="accordion-collapse collapse show"
+						aria-labelledby="headingOne"
+						data-bs-parent="#accordionExample"
+					>
+						<div class="accordion-body">
+							{% for strategy in model.strategies %} {{ render_strategy(strategy) }} {% endfor %}
+						</div>
+					</div>
 				</div>
-				{% for strategy in model.strategies %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endmacro %} {% macro render_strategy(strategy) %}
+
+<div class="accordion" id="{{strategy.name}}">
+	<div class="accordion-item">
+		<h2 class="accordion-header" id="headingOne">
+			<button
+				class="accordion-button"
+				type="button"
+				data-bs-toggle="collapse"
+				data-bs-target="#collapseOne"
+				aria-expanded="true"
+				aria-controls="{{strategy.name}}"
+			>
+				Accordion Item #1
+			</button>
+		</h2>
+		<div
+			id="{{strategy.name}}"
+			class="accordion-collapse collapse show"
+			aria-labelledby="headingOne"
+			data-bs-parent="#{{strategy.name}}"
+		>
+			<div class="accordion-body">
 				<div class="row">
 					<div class="col-6">{{ strategy.variable}}</div>
 					<div class="col-6">{{ strategy.description}}</div>
 				</div>
-				{% endfor %}
 			</div>
-			{% endfor %}
 		</div>
 	</div>
 </div>
+
 {% endmacro %}
