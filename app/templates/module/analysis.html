@@ -18,6 +18,7 @@
 
 {% extends 'base.html' %}
 {% import 'module/modals.html' as modals %}
+{% import 'macros.html' as macros %}
 
 {% block head %}
   {{ super() }}
@@ -133,6 +134,15 @@ Análisis
             </div>
         </div>
     </div>
+
+    <section id="test-macros">
+      <div class="card border-0 shadow components-section flex-grow-1 my-1">
+        <div class="card-body p-0">
+          <h1 class="h3">Test de macros</h1>
+          {{ macros.render_strategies(strategies_definition)}}
+        </div>
+      </div>
+    </section>    
 </section>
 
 <section id="scenarios" hidden>
