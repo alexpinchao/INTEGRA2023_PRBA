@@ -1,5 +1,5 @@
 {% macro render_strategies(strategies) %}
-<div class="col-12">
+<div class="col-4">
 	<div class="card border-0 shadow h-100">
 		<div class="card-body px-1 px-md-3 d-flex flex-column">
 			<div class="row mb-2">
@@ -21,26 +21,26 @@
 					<span class="h4 fw-extrabold">Estrategias de {{ strategies.process }}</span>
 				</div>
 			</div>
-			<div class="accordion" id="accordionStrategies">
+			<div class="accordion accordion-flush" id="accordionStrategies">
 				{% for model in strategies.models %}
-				<div class="accordion-item" id="{{ model.id }}">
-					<h2 class="accordion-header" id="headingOne">
+				<div class="accordion-item" id="item{{ model.id }}">
+					<h2 class="accordion-header" id="heading{{ model.id }}">
 						<button
 							class="accordion-button"
 							type="button"
 							data-bs-toggle="collapse"
-							data-bs-target="#collapseOne"
+							data-bs-target="#collapse{{ model.id }}"
 							aria-expanded="true"
-							aria-controls="collapseOne"
+							aria-controls="collapse{{ model.id }}"
 						>
 							Modelo {{ model.name }}
 						</button>
 					</h2>
 					<div
-						id="collapseOne"
+						id="collapse{{ model.id }}"
 						class="accordion-collapse collapse show"
-						aria-labelledby="headingOne"
-						data-bs-parent="#accordionExample"
+						aria-labelledby="heading{{ model.id }}"
+						data-bs-parent="#accordionStrategies"
 					>
 						<div class="accordion-body">
 							{% for strategy in model.strategies %} {{ render_strategy(strategy) }} {% endfor %}
@@ -54,34 +54,66 @@
 </div>
 {% endmacro %} {% macro render_strategy(strategy) %}
 
-<div class="accordion" id="{{strategy.name}}">
-	<div class="accordion-item">
-		<h2 class="accordion-header" id="headingOne">
+<div class="accordion" id="{{strategy.id}}">
+	<div class="accordion-item mb-1">
+		<h2 class="accordion-header rounded bg-gray-200" id="heading{{strategy.id}}">
 			<button
-				class="accordion-button"
+				class="accordion-button collapsed p-2"
 				type="button"
 				data-bs-toggle="collapse"
-				data-bs-target="#collapseOne"
-				aria-expanded="true"
-				aria-controls="{{strategy.name}}"
+				data-bs-target="#collapse{{strategy.id}}"
+				aria-expanded="false"
+				aria-controls="collapse{{strategy.id}}"
 			>
-				Accordion Item #1
+				{{ strategy.name }}
 			</button>
 		</h2>
 		<div
-			id="{{strategy.name}}"
-			class="accordion-collapse collapse show"
-			aria-labelledby="headingOne"
-			data-bs-parent="#{{strategy.name}}"
+			id="collapse{{strategy.id}}"
+			class="accordion-collapse collapse"
+			aria-labelledby="collapse{{strategy.id}}"
+			data-bs-parent="#{{strategy.id}}"
 		>
-			<div class="accordion-body">
-				<div class="row">
-					<div class="col-6">{{ strategy.variable}}</div>
-					<div class="col-6">{{ strategy.description}}</div>
+			<div class="accordion-body border-0 shadow rounded-bottom">
+				<div class="row d-block d-xl-flex align-items-center">
+					<div class="d-flex col justify-content-end align-items-center">
+						<p class="h5">
+							<span>
+								<svg
+									class="icon icon-xs text-gray-500 ms-1"
+									fill="currentColor"
+									viewBox="0 0 20 20"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z"
+										clip-rule="evenodd"
+									></path>
+								</svg>
+							</span>
+							{{ strategy.value}}{{ strategy.unit }}
+							<small> año {{ strategy.year }} </small>
+						</p>
+					</div>
+				</div>
+				<div class="row d-block d-xl-flex align-items-center">
+					<div class="d-flex col justify-content-center align-items-center m-2 p-2">
+						<label for="range{{strategy.id}}" class="form-label">{{ strategy.variable }}</label>
+						<input
+							type="range"
+							class="form-range mx-2"
+							min="{{ strategy.lower_value }}"
+							max="{{ strategy.upper_value }}"
+							value="{{ strategy.value }}"
+							id="range{{strategy.id}}"
+							onload="sliderUpdate('{{strategy.id}}')"
+						/>
+						<strong id="range{{strategy.id}}Val">{{ strategy.value}}</strong>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
 {% endmacro %}
