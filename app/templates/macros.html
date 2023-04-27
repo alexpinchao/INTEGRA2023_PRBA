@@ -100,16 +100,20 @@
 				<div class="row d-block d-xl-flex align-items-center">
 					<div class="d-flex col justify-content-center align-items-center m-2 p-2">
 						<label for="range{{strategy.id}}" class="form-label">{{ strategy.variable }}</label>
-						<input
-							type="range"
-							class="form-range mx-2"
-							min="{{ strategy.lower_value }}"
-							max="{{ strategy.upper_value }}"
-							value="{{ strategy.value }}"
-							id="range{{strategy.id}}"
-							onload="sliderUpdate('{{strategy.id}}')"
-						/>
-						<strong id="range{{strategy.id}}Val">{{ strategy.value}}</strong>
+						<div class="group-form-range">
+							<input
+								type="range"
+								class="form-range mx-2"
+								data-slider-min="{{ strategy.lower_value }}"
+								data-slider-max="{{ strategy.upper_value }}"
+								data-slider-value="{{ strategy.value }}"
+								data-slider-id="range{{strategy.id}}"
+								data-slider-tooltip="always"
+							/>
+							<strong id="range{{strategy.id}}Val" class="form-range-value"
+								>{{ strategy.value}}</strong
+							>
+						</div>
 					</div>
 				</div>
 			</div>

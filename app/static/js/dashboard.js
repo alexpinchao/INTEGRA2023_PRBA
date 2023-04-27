@@ -1,6 +1,11 @@
-/* globals Chart:false, feather:false */
-
-function sliderUpdate(id) {
-	let value = document.getElementById("range" + id).value
-	document.getElementById("range" + id + "Val").innerHTML = value
-}
+$( document ).ready( function() {
+	$(".form-range").each(function(){
+		$(this).bootstrapSlider();
+		$(this).on("change", function(slideEvt) {
+			console.log(slideEvt)
+			$(this).parents(".group-form-range").find(".form-range-value").text(slideEvt.value.newValue);
+		});
+		
+	});
+	
+ } );
