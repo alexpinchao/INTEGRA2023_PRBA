@@ -30595,3 +30595,7 @@ article .h6 {
 .news-setion-block {
 	display: flex;
 }
+
+.slider-volt{
+	width: 100% !important;
+}

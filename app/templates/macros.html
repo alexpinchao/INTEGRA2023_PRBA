@@ -18,7 +18,9 @@
 							></path>
 						</svg>
 					</span>
-					<span class="h4 fw-extrabold">Estrategias de {{ strategies.process }}</span>
+					<span class="h4 fw-extrabold"
+						><i class="fa-solid fa-sliders-simple"></i>Estrategias de {{ strategies.process }}</span
+					>
 				</div>
 			</div>
 			<div class="accordion accordion-flush" id="accordionStrategies">
@@ -33,7 +35,7 @@
 							aria-expanded="true"
 							aria-controls="collapse{{ model.id }}"
 						>
-							Modelo {{ model.name }}
+							<strong class="fs-5 fw-bolder">{{ model.name }}</strong>
 						</button>
 					</h2>
 					<div
@@ -42,8 +44,11 @@
 						aria-labelledby="heading{{ model.id }}"
 						data-bs-parent="#accordionStrategies"
 					>
-						<div class="accordion-body">
-							{% for strategy in model.strategies %} {{ render_strategy(strategy) }} {% endfor %}
+						<div class="accordion-body p-1">
+							<div class="accordion accordion-flush" id="strategies-{{model.id}}">
+								{% for strategy in model.strategies %} {{ render_strategy_v2(strategy, model.id) }}
+								{% endfor %}
+							</div>
 						</div>
 					</div>
 				</div>
@@ -52,68 +57,158 @@
 		</div>
 	</div>
 </div>
-{% endmacro %} {% macro render_strategy(strategy) %}
-
-<div class="accordion" id="{{strategy.id}}">
-	<div class="accordion-item mb-1">
-		<h2 class="accordion-header rounded bg-gray-200" id="heading{{strategy.id}}">
-			<button
-				class="accordion-button collapsed p-2"
-				type="button"
-				data-bs-toggle="collapse"
-				data-bs-target="#collapse{{strategy.id}}"
-				aria-expanded="false"
-				aria-controls="collapse{{strategy.id}}"
-			>
-				{{ strategy.name }}
-			</button>
-		</h2>
-		<div
-			id="collapse{{strategy.id}}"
-			class="accordion-collapse collapse"
-			aria-labelledby="collapse{{strategy.id}}"
-			data-bs-parent="#{{strategy.id}}"
+{% endmacro %} {% macro render_strategy(strategy, model) %}
+<div class="accordion-item mb-1">
+	<h2 class="accordion-header rounded bg-gray-100" id="heading{{strategy.id}}">
+		<button
+			class="accordion-button collapsed p-2"
+			type="button"
+			data-bs-toggle="collapse"
+			data-bs-target="#collapse{{strategy.id}}"
+			aria-expanded="false"
+			aria-controls="collapse{{strategy.id}}"
 		>
-			<div class="accordion-body border-0 shadow rounded-bottom">
-				<div class="row d-block d-xl-flex align-items-center">
-					<div class="d-flex col justify-content-end align-items-center">
-						<p class="h5">
-							<span>
-								<svg
-									class="icon icon-xs text-gray-500 ms-1"
-									fill="currentColor"
-									viewBox="0 0 20 20"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										fill-rule="evenodd"
-										d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z"
-										clip-rule="evenodd"
-									></path>
-								</svg>
-							</span>
-							{{ strategy.value}}{{ strategy.unit }}
-							<small> año {{ strategy.year }} </small>
-						</p>
+			<i class="fa-duotone fa-period"></i>{{ strategy.name }}
+		</button>
+	</h2>
+	<div
+		id="collapse{{strategy.id}}"
+		class="accordion-collapse collapse"
+		aria-labelledby="collapse{{strategy.id}}"
+		data-bs-parent="#strategies-{{model}}"
+	>
+		<div class="accordion-body border-0 shadow rounded-bottom">
+			<div class="row d-block d-xl-flex align-items-center">
+				<div class="d-flex col justify-content-end align-items-center">
+					<p class="h5">
+						<span>
+							<svg
+								class="icon icon-xs text-gray-500 ms-1"
+								fill="currentColor"
+								viewBox="0 0 20 20"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									fill-rule="evenodd"
+									d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z"
+									clip-rule="evenodd"
+								></path>
+							</svg>
+						</span>
+						{{ strategy.value}}{{ strategy.unit }}
+						<small> año {{ strategy.year }} </small>
+					</p>
+				</div>
+			</div>
+			<div class="row d-block d-xl-flex align-items-center">
+				<div class="col-1 icon-shape icon-shape-tertiary rounded me-4 me-sm-0">
+					<svg
+						class="icon icon-sm"
+						fill="currentColor"
+						viewBox="0 0 20 20"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							fill-rule="evenodd"
+							d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z"
+							clip-rule="evenodd"
+						></path>
+					</svg>
+				</div>
+				<div class="d-flex col-11 justify-content-center align-items-center m-2 p-2">
+					<label for="range{{strategy.id}}" class="form-label">{{ strategy.variable }}</label>
+					<div class="group-form-range">
+						<input
+							type="range"
+							class="form-range mx-2"
+							data-slider-min="{{ strategy.lower_value }}"
+							data-slider-max="{{ strategy.upper_value }}"
+							data-slider-value="{{ strategy.value }}"
+							data-slider-id="range{{strategy.id}}"
+							data-slider-tooltip="always"
+						/>
+						<strong id="range{{strategy.id}}Val" class="form-range-value"
+							>{{ strategy.value}}</strong
+						>
 					</div>
 				</div>
-				<div class="row d-block d-xl-flex align-items-center">
-					<div class="d-flex col justify-content-center align-items-center m-2 p-2">
-						<label for="range{{strategy.id}}" class="form-label">{{ strategy.variable }}</label>
-						<div class="group-form-range">
-							<input
-								type="range"
-								class="form-range mx-2"
-								data-slider-min="{{ strategy.lower_value }}"
-								data-slider-max="{{ strategy.upper_value }}"
-								data-slider-value="{{ strategy.value }}"
-								data-slider-id="range{{strategy.id}}"
-								data-slider-tooltip="always"
-							/>
-							<strong id="range{{strategy.id}}Val" class="form-range-value"
-								>{{ strategy.value}}</strong
+			</div>
+		</div>
+	</div>
+</div>
+{% endmacro %} {% macro render_strategy_v2(strategy, model) %}
+<div class="accordion-item mb-1">
+	<h2 class="accordion-header rounded bg-gray-100" id="heading{{strategy.id}}">
+		<button
+			class="accordion-button collapsed p-2"
+			type="button"
+			data-bs-toggle="collapse"
+			data-bs-target="#collapse{{strategy.id}}"
+			aria-expanded="false"
+			aria-controls="collapse{{strategy.id}}"
+		>
+			{{ strategy.name }}
+		</button>
+	</h2>
+	<div
+		id="collapse{{strategy.id}}"
+		class="accordion-collapse collapse"
+		aria-labelledby="collapse{{strategy.id}}"
+		data-bs-parent="#strategies-{{model}}"
+	>
+		<div class="accordion-body border-0 shadow rounded-bottom group-form-range">
+			<div class="row d-flex align-items-center py-1">
+				<div class="col-12 h6">
+					<svg
+						class="icon icon-xs text-gray-500 me-2"
+						fill="currentColor"
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+					>
+						<path
+							d="M7.5 14.5c-1.58 0-2.903 1.06-3.337 2.5H2v2h2.163c.434 1.44 1.757 2.5 3.337 2.5s2.903-1.06 3.337-2.5H22v-2H10.837c-.434-1.44-1.757-2.5-3.337-2.5zm0 5c-.827 0-1.5-.673-1.5-1.5s.673-1.5 1.5-1.5S9 17.173 9 18s-.673 1.5-1.5 1.5zm9-11c-1.58 0-2.903 1.06-3.337 2.5H2v2h11.163c.434 1.44 1.757 2.5 3.337 2.5s2.903-1.06 3.337-2.5H22v-2h-2.163c-.434-1.44-1.757-2.5-3.337-2.5zm0 5c-.827 0-1.5-.673-1.5-1.5s.673-1.5 1.5-1.5 1.5.673 1.5 1.5-.673 1.5-1.5 1.5z"
+						></path>
+						<path
+							d="M12.837 5C12.403 3.56 11.08 2.5 9.5 2.5S6.597 3.56 6.163 5H2v2h4.163C6.597 8.44 7.92 9.5 9.5 9.5s2.903-1.06 3.337-2.5h9.288V5h-9.288zM9.5 7.5C8.673 7.5 8 6.827 8 6s.673-1.5 1.5-1.5S11 5.173 11 6s-.673 1.5-1.5 1.5z"
+						></path>
+					</svg>
+					{{ strategy.variable }}
+				</div>
+				<div class="col-12">
+					<h2 class="h6 text-gray-400 mb-0"><small>Nuevo valor</small></h2>
+					<h3 class="fw-extrabold mb-2">
+						<span id="range{{strategy.id}}Val" class="form-range-value">{{ strategy.value}}</span>
+						{{ strategy.unit }}
+					</h3>
+					<small class="text-gray-500">
+						<span>
+							<svg
+								class="icon icon-xs text-gray-500 ms-1"
+								fill="currentColor"
+								viewBox="0 0 20 20"
+								xmlns="http://www.w3.org/2000/svg"
 							>
-						</div>
+								<path
+									fill-rule="evenodd"
+									d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z"
+									clip-rule="evenodd"
+								></path>
+							</svg>
+						</span>
+						{{ strategy.value }}{{ strategy.unit }} año {{ strategy.year }}
+					</small>
+					<div class="col-12">
+						<input
+							type="range"
+							class="form-range mx-2"
+							data-slider-min="{{ strategy.lower_value }}"
+							data-slider-max="{{ strategy.upper_value }}"
+							data-slider-value="{{ strategy.value }}"
+							data-slider-id="range{{strategy.id}}"
+							data-slider-tooltip="always"
+						/>
 					</div>
 				</div>
 			</div>
