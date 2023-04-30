@@ -30599,3 +30599,35 @@ article .h6 {
 .slider-volt{
 	width: 100% !important;
 }
+
+.slider-volt .slider-track{
+	height: 7px !important;
+}
+
+.slider-volt .slider-selection{
+	background: currentColor;
+	transition: all 150ms cubic-bezier(0.17, 0.01, 0.28, 1.06);
+}
+
+.slider-volt .slider-handle{
+	background: white;
+	border: 1px solid #1F2937;
+	translate: 0 -2px;
+	box-shadow: 0 2px 5px rgba(140,152,164,0.2);
+	transition: all 150ms cubic-bezier(0.17, 0.01, 0.28, 1.06);
+}
+
+.slider-volt .slider-handle:focus {
+	box-shadow: 0 0 0 0.2rem rgba(69,77,103,0.5);
+	background-color: #9CA3AF;
+}
+
+.slider-volt .slider-handle:hover {
+    cursor: grab;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    background-color: #9CA3AF;
+}
+.slider-volt .slider-handle:active {
+	transform: scale(1.2);
+}

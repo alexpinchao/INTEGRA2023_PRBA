@@ -1,5 +1,5 @@
 {% macro render_strategies(strategies) %}
-<div class="col-4">
+<div class="col-3">
 	<div class="card border-0 shadow h-100">
 		<div class="card-body px-1 px-md-3 d-flex flex-column">
 			<div class="row mb-2">
@@ -158,58 +158,65 @@
 	>
 		<div class="accordion-body border-0 shadow rounded-bottom group-form-range">
 			<div class="row d-flex align-items-center py-1">
-				<div class="col-12 h6">
-					<svg
-						class="icon icon-xs text-gray-500 me-2"
-						fill="currentColor"
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-					>
-						<path
-							d="M7.5 14.5c-1.58 0-2.903 1.06-3.337 2.5H2v2h2.163c.434 1.44 1.757 2.5 3.337 2.5s2.903-1.06 3.337-2.5H22v-2H10.837c-.434-1.44-1.757-2.5-3.337-2.5zm0 5c-.827 0-1.5-.673-1.5-1.5s.673-1.5 1.5-1.5S9 17.173 9 18s-.673 1.5-1.5 1.5zm9-11c-1.58 0-2.903 1.06-3.337 2.5H2v2h11.163c.434 1.44 1.757 2.5 3.337 2.5s2.903-1.06 3.337-2.5H22v-2h-2.163c-.434-1.44-1.757-2.5-3.337-2.5zm0 5c-.827 0-1.5-.673-1.5-1.5s.673-1.5 1.5-1.5 1.5.673 1.5 1.5-.673 1.5-1.5 1.5z"
-						></path>
-						<path
-							d="M12.837 5C12.403 3.56 11.08 2.5 9.5 2.5S6.597 3.56 6.163 5H2v2h4.163C6.597 8.44 7.92 9.5 9.5 9.5s2.903-1.06 3.337-2.5h9.288V5h-9.288zM9.5 7.5C8.673 7.5 8 6.827 8 6s.673-1.5 1.5-1.5S11 5.173 11 6s-.673 1.5-1.5 1.5z"
-						></path>
-					</svg>
-					{{ strategy.variable }}
+				<div class="col-12 h6">{{ strategy.variable }}</div>
+				<div class="col-4 justify-content-center d-flex">
+					<div class="icon-shape icon-shape-tertiary rounded">
+						<svg
+							class="w-6 h-6"
+							fill="currentColor"
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+						>
+							<path
+								d="M7.5 14.5c-1.58 0-2.903 1.06-3.337 2.5H2v2h2.163c.434 1.44 1.757 2.5 3.337 2.5s2.903-1.06 3.337-2.5H22v-2H10.837c-.434-1.44-1.757-2.5-3.337-2.5zm0 5c-.827 0-1.5-.673-1.5-1.5s.673-1.5 1.5-1.5S9 17.173 9 18s-.673 1.5-1.5 1.5zm9-11c-1.58 0-2.903 1.06-3.337 2.5H2v2h11.163c.434 1.44 1.757 2.5 3.337 2.5s2.903-1.06 3.337-2.5H22v-2h-2.163c-.434-1.44-1.757-2.5-3.337-2.5zm0 5c-.827 0-1.5-.673-1.5-1.5s.673-1.5 1.5-1.5 1.5.673 1.5 1.5-.673 1.5-1.5 1.5z"
+							></path>
+							<path
+								d="M12.837 5C12.403 3.56 11.08 2.5 9.5 2.5S6.597 3.56 6.163 5H2v2h4.163C6.597 8.44 7.92 9.5 9.5 9.5s2.903-1.06 3.337-2.5h9.288V5h-9.288zM9.5 7.5C8.673 7.5 8 6.827 8 6s.673-1.5 1.5-1.5S11 5.173 11 6s-.673 1.5-1.5 1.5z"
+							></path>
+						</svg>
+					</div>
+				</div>
+				<div class="col-8 justify-content-center d-flex">
+					<div class="d-block">
+						<h2 class="h6 text-gray-400 mb-o"><small>Nuevo valor</small></h2>
+						<h3 class="fw-extrabold mb-2">
+							<span id="range{{strategy.id}}Val" class="form-range-value">{{ strategy.value}}</span>
+							{{ strategy.unit }}
+						</h3>
+						<small class="text-gray-500">
+							<span>
+								<svg
+									class="icon icon-xs text-gray-500"
+									fill="currentColor"
+									viewBox="0 0 20 20"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z"
+										clip-rule="evenodd"
+									></path>
+								</svg>
+							</span>
+							{{ strategy.value }}{{ strategy.unit }} año {{ strategy.year }}
+						</small>
+					</div>
 				</div>
 				<div class="col-12">
-					<h2 class="h6 text-gray-400 mb-0"><small>Nuevo valor</small></h2>
-					<h3 class="fw-extrabold mb-2">
-						<span id="range{{strategy.id}}Val" class="form-range-value">{{ strategy.value}}</span>
-						{{ strategy.unit }}
-					</h3>
+					<input
+						type="range"
+						class="form-range mx-2"
+						data-slider-min="{{ strategy.lower_value }}"
+						data-slider-max="{{ strategy.upper_value }}"
+						data-slider-value="{{ strategy.value }}"
+						data-slider-id="range{{strategy.id}}"
+						data-slider-tooltip="always"
+					/>
 					<small class="text-gray-500">
-						<span>
-							<svg
-								class="icon icon-xs text-gray-500 ms-1"
-								fill="currentColor"
-								viewBox="0 0 20 20"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									fill-rule="evenodd"
-									d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z"
-									clip-rule="evenodd"
-								></path>
-							</svg>
-						</span>
-						{{ strategy.value }}{{ strategy.unit }} año {{ strategy.year }}
-					</small>
-					<div class="col-12">
-						<input
-							type="range"
-							class="form-range mx-2"
-							data-slider-min="{{ strategy.lower_value }}"
-							data-slider-max="{{ strategy.upper_value }}"
-							data-slider-value="{{ strategy.value }}"
-							data-slider-id="range{{strategy.id}}"
-							data-slider-tooltip="always"
-						/>
-					</div>
+						{{ strategy.lower_value }} - {{ strategy.upper_value }} {{ strategy.unit }}</small
+					>
 				</div>
 			</div>
 		</div>
