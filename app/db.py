@@ -584,7 +584,7 @@ strategies_table = Table('ESTRATEGIAS', metadata_obj,
                    Column('VARIABLES', String)
                    )
 
-# Method that returns the table SUB_ESTRATEGIAS
+# Method that returns the table SUB_ESTRATEGIAS by update
 # DATE: 16/03/2023
 #Variables relation for end use indicators table schema
 sub_strategies_table = Table('SUB_ESTRATEGIA_GEN', metadata_obj,
@@ -594,7 +594,7 @@ sub_strategies_table = Table('SUB_ESTRATEGIA_GEN', metadata_obj,
                    Column('ESTRATEGIA_ID', String)
                    )
 
-# Method that returns the table SUB_ESTRATEGIAS
+# Method that returns the table SUB_ESTRATEGIAS by expansion
 # DATE: 16/03/2023
 #Variables relation for end use indicators table schema
 sub_strategies_table_exp = Table('SUB_ESTRATEGIA_GEN_EXP', metadata_obj,
@@ -612,6 +612,27 @@ var_sub_strategies_table = Table('VARIABLES_SUB_ESTRATEGIA_GEN', metadata_obj,
                    Column('NOMBRE_VARIABLE', String),
                    Column('SUB_ESTRATEGIA_ID', String)
                    )
+
+# Method that returns the table SUB_ESTRATEGIAS by update for end use
+# DATE: 16/03/2023
+#Variables relation for end use indicators table schema
+sub_strategies_end_use_table = Table('SUB_ESTRATEGIA_END_USE', metadata_obj,
+                   Column('SUB_ESTRATEGIA_ID', Integer,
+                          nullable=False, unique=True),
+                   Column('NOMBRE_SUB_ESTRATEGIA', String),
+                   Column('ESTRATEGIA_ID', String)
+                   )
+
+# Method that returns the table SUB_ESTRATEGIAS by expansion for end use
+# DATE: 16/03/2023
+#Variables relation for end use indicators table schema
+sub_strategies_end_use_update_table = Table('SUB_ESTRATEGIA_END_USE_UPDATE', metadata_obj,
+                   Column('SUB_ESTRATEGIA_ID', Integer,
+                          nullable=False, unique=True),
+                   Column('NOMBRE_SUB_ESTRATEGIA', String),
+                   Column('ESTRATEGIA_ID', String)
+                   )
+
 
 projections_generation_table = Table('proyeccion_escenario_bau_generacion', metadata_obj,
                    Column('Año', Integer,
@@ -945,6 +966,11 @@ _unit_dict = {'Consumo de fuentes primarias por tipo de central eléctrica': 'GW
               'Consumo eléctrico total': 'Gwh',
               'Factor de pérdidas': 'Porcentaje %',
               'Generación total': 'Gwh',
+              'Modelo de actualización': 'Gwh',
+              'Modelo de expansión': 'Gwh',
+              'Indicador de eficiencia energética': 'Porcentaje %',
+              'Indicador intensidad energética primaria': 'Gwh',
+              'Indicador intensidad de emisiones de carbono': 'Gwh',
             }
 class SQL_connector():
     """Platform server connection class
@@ -1247,6 +1273,34 @@ class SQL_connector():
         result.close()
 
         return rows
+    
+    def get_end_use_sub_strategies(self):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """
+        query = select(sub_strategies_end_use_table)
+        result = self.engine.execute(query)
+        columns = [col for col in result.keys()]
+        rows = {'Estrategias de electrificación en el transporte':[dict(zip(columns,row)) for row in result.fetchall()]}
+        result.close()
+
+        return rows
+    
+    def get_end_use_sub_strategies_update(self):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """
+        query = select(sub_strategies_end_use_update_table)
+        result = self.engine.execute(query)
+        columns = [col for col in result.keys()]
+        rows = {'Estrategias de actualización tecnológica':[dict(zip(columns,row)) for row in result.fetchall()]}
+        result.close()
+
+        return rows
 
     def get_projections_gen(self):
         query = select(projections_generation_table)
@@ -1391,12 +1445,13 @@ class SQL_connector():
 
         # _dict_strategies.update({'distribution':_dist_dist_strategies})
 
-        # _dict_end_use_strategies = {}
-        # _dict_end_use_strategies.update(self.)
+        _dict_end_use_strategies = {}
+        _dict_end_use_strategies.update(self.get_end_use_sub_strategies())
+        _dict_end_use_strategies.update(self.get_end_use_sub_strategies_update())
         # _dict_end_use_strategies.update(self.)
         # _dict_end_use_strategies.update(self.)
 
-        # _dict_strategies.update({'end_use':_dict_end_use_strategies})
+        _dict_strategies.update({'end_use':_dict_end_use_strategies})
         return _dict_strategies
     
     def get_description_Strategies(self):
@@ -1410,7 +1465,7 @@ class SQL_connector():
         _dict_gen_strategies.update(self.get_gen_strategies())
         _dict_gen_strategies.update(self.get_gen_var_sub_strategies())
 
-        _dict_desc_strategies.update({'generation':_dict_gen_strategies})
+        _dict_desc_strategies.update({'description_strategies':_dict_gen_strategies})
 
         # _dist_dist_strategies = {}
         # _dist_dist_strategies.update(self.)

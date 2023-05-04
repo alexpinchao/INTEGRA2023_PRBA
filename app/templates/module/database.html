@@ -987,6 +987,10 @@ function update_list(list_name){
   var keys_list = [];
   var old_dataset = [];
   function create_chart(list_name, indicator, key){
+    console.log("create_chart variabls" )
+    console.log("create_chart variabls list_name",list_name )
+    console.log("create_chart variabls indicator",indicator )
+    console.log("create_chart variabls key",key )
     var row1 = key[0];
 
     var row = row1.replace("$CO_2eq$","CO2eq");
@@ -1010,19 +1014,26 @@ function update_list(list_name){
   document.getElementById('chart_title').innerHTML = table_name;
   var json_file = JSON.parse('{{data | tojson | safe}}');
 
+  console.log("json file variables", json_file)
+  
   var table = json_file[list_name][table_name];
-
+  
+  console.log("table variables", table)
   var keys = Object.keys(table[0]);
-
+  console.log("keys variables", keys)
+  
   var labels = table.map(function(e) {
     return e[keys[0]];
   });
 
+  console.log("labels variables", labels)
   labels = labels.slice(0,12);
 
   var data = table.map(function(e) {
     return e[row];
   });;
+
+  console.log("data variables", data)
   length = data.length;
   var array=[];
   for (var j = 0; j < length; j++){

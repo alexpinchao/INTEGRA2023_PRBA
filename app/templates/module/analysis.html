@@ -501,6 +501,26 @@ Análisis
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-12 col-xl-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
+                                  <!-- <div class="card border-0 flex-fill">
+                                      <div class="card-body align-self-stretch p-2">
+                                           Section Table 
+                                          <div class="table-responsive info-table" ></div>
+                                      </div>
+                                  </div> -->
+                                </div>
+                                <!-- Graph Section -->
+                                <div class="col-12 col-xl-8 mb-1 px-0 d-flex align-self-stretch">
+                                  <div class="card border-0 flex-fill">
+                                      <div class="card-body p-1 flex-fill" id="graph-container-4">
+                                          <div class="d-block mb-3 mb-sm-0">
+                                              <span class="fs-5 fw-extrabold mb-4" id="chart_title_4">Variable
+                                                  seleccionada</span>
+                                          </div>
+                                          <canvas id="line-chart-4" width="100%" height="50%"></canvas>
+                                      </div>
+                                  </div>
+                              </div>
                             </div>
                         </div>
                     </div>
@@ -612,8 +632,7 @@ Análisis
                                         </button>
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item" onclick="update_list_4('generation')">Generación</a>
-                                            <a class="dropdown-item"
-                                                onclick="update_list_4('distribution')">Distribución</a>
+                                            <a class="dropdown-item" onclick="update_list_4('distribution')">Distribución</a>
                                             <a class="dropdown-item" onclick="update_list_4('end_use')">Uso final</a>
                                         </div>
                                     </div>
@@ -622,26 +641,50 @@ Análisis
                         </div>
                         <div class="card-body px-1 px-md-3 py-1">
                             <div class="row mb-2 mt-2 m-0">
-                                <div class="col-12 col-xl-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
+                                <!-- <div class="col-12 col-xl-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
                                     <div class="card border-0 flex-fill">
                                         <div class="card-body align-self-stretch p-2">
-                                            <!-- Section Table -->
+                                             Section Table 
                                             <div class="table-responsive info-table" id="table_content_4"></div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!-- Graph Section -->
+                                <div class="col-12 col-xl-8 mb-1 px-0 d-flex align-self-stretch">
+                                    <div class="card border-0 flex-fill">
+                                        <div class="card-body p-1 flex-fill" id="graph-container-5">
+                                            <div class="d-block mb-3 mb-sm-0">
+                                                <span class="fs-5 fw-extrabold mb-4" id="chart_title_5">Variable
+                                                    seleccionada</span>
+                                            </div>
+                                            <canvas id="line-chart-5" width="100%" height="50%"></canvas>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Graph Section -->
                                 <div class="col-12 col-xl-8 mb-1 px-0 d-flex align-self-stretch">
-                                    <div class="card border-0 flex-fill">
-                                        <div class="card-body p-1 flex-fill" id="graph-container-4">
-                                            <div class="d-block mb-3 mb-sm-0">
-                                                <span class="fs-5 fw-extrabold mb-4" id="chart_title_4">Variable
-                                                    seleccionada</span>
-                                            </div>
-                                            <canvas id="line-chart-4" width="100%" height="50%"></canvas>
+                                  <div class="card border-0 flex-fill">
+                                      <div class="card-body p-1 flex-fill" id="graph-container-6">
+                                          <div class="d-block mb-3 mb-sm-0">
+                                              <span class="fs-5 fw-extrabold mb-4" id="chart_title_6">Variable
+                                                  seleccionada</span>
+                                          </div>
+                                          <canvas id="line-chart-6" width="100%" height="50%"></canvas>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Graph Section -->
+                              <div class="col-12 col-xl-8 mb-1 px-0 d-flex align-self-stretch">
+                                <div class="card border-0 flex-fill">
+                                    <div class="card-body p-1 flex-fill" id="graph-container-7">
+                                        <div class="d-block mb-3 mb-sm-0">
+                                            <span class="fs-5 fw-extrabold mb-4" id="chart_title_7">Variable
+                                                seleccionada</span>
                                         </div>
+                                        <canvas id="line-chart-7" width="100%" height="50%"></canvas>
                                     </div>
                                 </div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -865,11 +908,11 @@ Análisis
                     </a>
                   </div>
                 </div>
-               
+
               </div>
             </div>
           </div>
-  
+
         </div>
       </div>
     </div>
@@ -1944,6 +1987,7 @@ Análisis
 
   function update_list(list_name) {
 
+    // loadTable_strategies_desc("undifined", "undifinied");
     SetSelectName('select-dropdown-var', list_name);
     let json_file_strategies = JSON.parse('{{strategies | tojson | safe}}');
     let keys_list_strategies = Object.keys(json_file_strategies[list_name])
@@ -1964,6 +2008,7 @@ Análisis
         json_new[item] = json_strategies;
     });
     loadTable_variables(list_name, json_new);
+    loadTable_strategies_desc(list_name, json_new);
   }
     // Variables Datatable.js handler
     // Callback for combobox on variable view :)
@@ -1999,8 +2044,28 @@ Análisis
         let cell_value;
         cell_value = item;
 
+        let div = document.createElement('div');
+        let inp = document.createElement('input');
+        let label = document.createElement('label');
+
+        label.classList.add('form-check-label');
+        inp.classList.add('form-check-input');
+        inp.type = 'checkbox';
+        inp.checked = false
+        // inp.disable = 'disabled';
+        div.classList.add('form-check')
+        // let h1 = document.createElement('h1');
+        // h1.innerHTML= cell_value;
+
+        // label.appendChild(h1);
+        label.innerHTML = cell_value
+
+        div.appendChild(label);
+        div.appendChild(inp);
+
+
         //cell_value = cell_value.replace("CO2eq","$CO_2eq$");
-        td.appendChild(document.createTextNode(cell_value|| ''));
+        td.appendChild(div);
         td.classList.add('aser')
         td.classList.add('fw-normal')
         tr.appendChild(td);
@@ -2055,7 +2120,8 @@ Análisis
     let table_handler = $('#table_variables').DataTable();
     // var json_var = {}
       $('#table_variables tbody').on('click', 'tr', function () {
-        let td_select = this.childNodes[0]
+        let td_select = this.childNodes[0];
+        console.log("td_select",td_select)
         if(td_select.classList.contains("showhr")){
           $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
         }
@@ -2065,9 +2131,7 @@ Análisis
           var data = table_handler.row(this).data();
           // var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
           console.log("data",data)
-          loadTable_strategies_desc(list_name, json_new);
-          
-          
+          // loadTable_strategies_desc(list_name, json_new);
         }
       }
     );
@@ -2083,37 +2147,261 @@ Análisis
     // json_var["Estrategias de expansión"]= json_aux_var_exp
     // console.log("json_var_1",json_var)
 
+    // descomentar despues
+    function validarChecks (){
+      var data = {};
+      var data_upgrade = []
+        var data_expans = []
+        var flaga = false;
+        var flagb = false;
+      $("#table_variables tbody tr").each(function(i, v) {
+
+        //$(this).find(".form-check-input").prop('checked', true);
+
+        if ($(this).find(".form-check-input").is(':checked') == true){
+
+            var strategie_name = $(this).prevAll('tr:has(.showhr)')[0].innerText;
+            console.log("strategie_name");
+            console.log(strategie_name);
+
+            var sub_strategie_name= $(this).text();
+            console.log("sub_strategie_name");
+            console.log(sub_strategie_name);
+            if (strategie_name == "Estrategias de actualización"){
+
+              data_upgrade.push(sub_strategie_name)
+              flaga = true
+            }else if(strategie_name =="Estrategias de expansión") {
+
+              data_expans.push(sub_strategie_name)
+              flagb = true
+            }
+          }
+        });
+
+      if (flaga){
+        data["Estrategias de actualización"] = data_upgrade;
+      }
+      
+      if(flagb){
+        data["Estrategias de expansión"] = data_expans;
+      }
+        console.log("data");
+        console.log(data);
+
+        //en data esta toda la info de las estrategias y las subestrategias, es un json muy simple
+        loadTable3(list_name, data)
+    }
     const button = document.getElementById('activar_scenario')
-    loadTable3(list_name)
-    button.addEventListener("click", loadTable3);
+    //loadTable3(list_name)
+    button.addEventListener("click", validarChecks);
   }
 
-  function loadTable3(list_name) {
 
-    var json_var = {}
-    let json_aux_var_ac=[]
-    let json_aux_var_exp=[]
-    json_aux_var_ac.push("Porcentaje de incorporación de las mejoras de eficiencia en parque térmico")
-    json_aux_var_ac.push("Eficiencia que se desea alcanzar")
-    json_aux_var_exp.push("Capacidad instalada de gas combustible")
-    json_aux_var_exp.push("Capacidad instalada de recurso hidráhulico")
+  function loadTable_strategies_desc(list_name, json_new) {
+    console.log("json_new malo", json_new)
+    let list_names = Object.keys(json_new)
+    let table = _table_.cloneNode(false);
+    let tbody = _tbody_.cloneNode(false),
+        columns = addAllColumnHeaders_1(list_name);
+    let json_descripcion_final = {}
+    list_names.forEach(function (item, index) {
+        let description_strategies = JSON.parse('{{description_strategies | tojson | safe}}');
 
-    json_var["Estrategias de actualización"]= json_aux_var_ac
-    json_var["Estrategias de expansión"]= json_aux_var_exp
-    console.log("json_var_1",json_var)
+        console.log("item", item)
+        console.log("description_strategies", description_strategies)
+        console.log("list_name", list_name)
+        let json_aux = description_strategies['description_strategies']['estrategias']
+        let json_description = []
+        json_aux.forEach(function (item2, index) {
+            if (item2['ESTRATEGIA_NOMBRE'] === item) {
+                json_description.push(item2['MODELO_MATEMATICO']);
+                json_description.push(item2['VARIABLES']);
+            }
+        })
+        json_descripcion_final[item] = json_description;
+    })
+    list_names.forEach(function (items, index) {
+        let tr1 = _tr_.cloneNode(false);
+        let td1 = _td_.cloneNode(false);
+        let a1 = _a_.cloneNode(false);
 
-    let n = 5
-    let valorObjetivo= 15
-    let fp = 0.515
+        if (items === "Estrategias de actualización") {
+            itemsTittle = "Modelo matemático de actualización";
+        } else if (items === "Estrategias de expansión"){
+            itemsTittle = "Modelo matemático de expansión";
+        }else if (items === "Estrategias de electrificación en el transporte"){
+            itemsTittle = "Modelo matemático de electrificación en el transporte";
+        }else if(items === "Estrategias de actualización tecnológica"){
+            itemsTittle = "Modelo matemático de actualización tecnológica";
+        }
 
-    expansionEstrategyFor(5,15,0.515);
-    upgradeStrategyForm(5,0.5,0.04);
+        a1.appendChild(document.createTextNode(itemsTittle || ''));
+        td1.classList.add('fw-extrabold')
+        td1.classList.add('showhr')
+        let i1 = _i_.cloneNode(false);
+        i1.classList.add('fa-solid')
+        /* i.classList.add('fa-angle-right') */
+        i1.classList.add('fa-caret-down')
+        i1.classList.add('pe-1')
 
-    function expansionEstrategyFor(n,valorObjetivo, fp ){
+        td1.appendChild(i1);
+        td1.appendChild(a1);
+        tr1.appendChild(td1);
+        tbody.appendChild(tr1);
 
-        console.log("--expansionEstrategyFor--")
+        let description = json_descripcion_final[items]
+        let titles = ['Modelo matemático:', 'Variables:']
+        let tr2 = _tr_.cloneNode(false);
+        let td2 = _td_.cloneNode(false);
+        description.forEach(function (item, index) {
+
+            if (index == 1) {
+                item = item.replace(/-/gi, "<br>");
+            }
+
+            let p = _p_.cloneNode(false);
+            p.innerHTML = '<small class="fw-extrabold">' + titles[index] + '</small><br><div class="px-1 px-lg-4 text-wrap justified-text">' + item + '</div>';
+            p.classList.add('row')
+            td2.appendChild(p);
+        })
+        td2.classList.add('aser')
+        td2.classList.add('fw-normal')
+        td2.classList.add('px-2')
+        td2.classList.add('px-lg-4')
+        tr2.appendChild(td2);
+        tr2.style.display = 'none';
+        tbody.appendChild(tr2)
+    })
+
+    table.appendChild(tbody);
+
+    table.id = 'table_variables_1'
+    table.classList.add('table');
+    table.classList.add('table-centered');
+    table.classList.add('table-nowrap');
+    table.classList.add('rounded');
+    table.classList.add('mb-0');
+    table.classList.add('border-0');
+    table.classList.add('dt-responsive');
+
+    function addAllColumnHeaders_1(list_name) {
+        let columnSet = [],
+            thead = _thead_.cloneNode(false);
+        tr2 = _tr_.cloneNode(false);
+        let th = _th_.cloneNode(false);
+        if (list_name === 'generation') {
+            var key = 'Modelo matemático';
+        } else if (list_name === 'distribution') {
+            var key = 'Modelo matemático';
+        } else if (list_name === 'end_use') {
+            var key = 'Modelo matemático';
+        }
+        columnSet.push(key)
+        th.appendChild(document.createTextNode(key));
+        th.classList.add('rounded');
+        th.classList.add('border-0');
+        tr2.appendChild(th);
+        thead.appendChild(tr2);
+        thead.classList.add('thead-light');
+        table.appendChild(thead);
+        return columnSet;
+    }
+
+    var el = document.getElementById('table_content_1');
+    el.innerHTML = '';
+    el.appendChild(table);
+    const datatablesSimple = document.getElementById('table_variables_1');
+    if (datatablesSimple) {
+        let tables = new DataTable(datatablesSimple, datatable_config);
+    }
+
+    // var table_handler = $('#table_variables_1').DataTable();
+    MathJax.typesetPromise().then(() => {
+        $('#table_variables_1 tbody').on('click', 'tr', function () {
+            var td_select = this.childNodes[0]
+            if (td_select.classList.contains("showhr")) {
+                $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function () { });
+            }
+            else if (td_select.classList.contains('aser')) {
+                var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
+            }
+        }
+        );
+        MathJax.typesetPromise();
+    }).catch((err) => console.log(err.message));
+  }
+
+  function loadTable3(list_name,data) {
+
+    var json_var = data;
+    // let json_aux_var_ac=[]
+    // let json_aux_var_exp=[]
+    // json_aux_var_ac.push("Mejoras de eficiencia en plantas hidráulicas")
+    // json_aux_var_ac.push("Mejoras de eficiencia en plantas eólicas")
+    // json_aux_var_ac.push("Mejoras de eficiencia en plantas solares")
+    // // json_aux_var_ac.push("Eficiencia que se desea alcanzar")
+    // json_aux_var_exp.push("Generación con recurso hidráhulico")
+    // json_aux_var_exp.push("Generación eléctrica a partir de eólica")
+    // json_aux_var_exp.push("Generación eléctrica a partir de solar")
+    // // json_aux_var_exp.push("Capacidad instalada de recurso hidráhulico")
+
+    // json_var["Estrategias de actualización"]= json_aux_var_ac
+    // json_var["Estrategias de expansión"]= json_aux_var_exp
+    // console.log("-----------loadTable3--------")
+    // console.log("json_var_1")
+    console.log(json_var)
+
+    // si selecciono hasta el 2025. valor empieza en 2021 a 2022 n = 4
+    let n = 9;
+    let valorObjetivo = 15;
+    let fp = 51.5/100; //contruir array con todos los factores de planta
+    let nameUp = "Mejoras de eficiencia en plantas hidráulicas"
+    let nameExp = "Generación con recurso hidráulico"
+
+    //eolicas
+    let ne = 9;
+    let valorObjetivoEolico = 3;
+    let fpEolico= 34.8/100; //contruir array con todos los factores de planta
+    let nameeUp = "Mejoras de eficiencia en plantas eólicas"
+    let nameeExp = "Generación eléctrica a partir de eólico"
+
+    //solares
+    let ns = 9;
+    let valorObjetivoSolar = 1;
+    let fpSolar = 36.8/100; //contruir array con todos los factores de planta
+    let namesUp = "Mejoras de eficiencia en plantas solares"
+    let namesExp = "Generación eléctrica a partir de solar"
+
+    //hidrahulico
+    var dataModel_pruebas_expansionhidro = modelExpansionEstrategy(n,valorObjetivo,fp,nameExp);
+    var plot_exp_hidro = dataModel_pruebas_expansionhidro[0];
+    var dataGp = dataModel_pruebas_expansionhidro[1];
+
+    var dataModel_pruebashidro = modelUpgradeStrategy(n,89.9, dataGp, nameUp);
+
+    //eolico
+    var dataModel_pruebas_expansioneolico = modelExpansionEstrategy(n,valorObjetivoEolico,fpEolico,nameeExp);
+    var plot_exp_eolico = dataModel_pruebas_expansioneolico[0];
+    var dataGpeolico = dataModel_pruebas_expansioneolico[1];
+
+    var dataModel_pruebaseolico = modelUpgradeStrategy(n,55.7, dataGpeolico, nameeUp);
+
+    //solar
+    var dataModel_pruebas_expansionSolar = modelExpansionEstrategy(n,valorObjetivoSolar,fpSolar,namesExp);
+    var plot_exp_solar = dataModel_pruebas_expansionSolar[0];
+    var dataGpSolar = dataModel_pruebas_expansionSolar[1];
+
+    var dataModel_pruebasSolar = modelUpgradeStrategy(n,22.3, dataGpSolar, namesUp);
+
+    function modelExpansionEstrategy(n,valorObjetivo, fp, name ){
+      
+        console.log("--modelExpansionEstrategy--")
         var increment = valorObjetivo/n
         var data= []
+        var data_Return= []
+        var data_plot = []
+        var data_plot_return = []
 
         let creaIncrement = increment;
         for (let a=0; a<n; a++){
@@ -2122,51 +2410,98 @@ Análisis
           console.log("--increment--",increment)
         }
 
-        console.log("data",data)
+        //console.log("data",data)
 
         let gp = 0
+        let j = 2;
         for (let i= 0; i<data.length; i++){
+          let data_plot_dict = {}
+          let anio = "202"+j;
+          if(j> 9){
+            j = 0
+            anio = "203"+j
+          }
+          j++
           gp = data[i]*fp*8760
-          console.log("--gp--",gp)
+          //data_plot_dict = { "Año": anio, name : gp};
+          data_plot_dict.Año = anio
+          data_plot_dict[name] = gp
+          data_plot.push( data_plot_dict);
+          data_Return.push(gp);
+          // console.log("--gp--",gp)
+          // console.log("--anio--",anio)
+
+          // console.log("--data_plot_dict--",data_plot_dict)
+          // console.log("--data_plot--",data_plot)
         }
-        return gp;
+        data_plot_return['Modelo de expansión'] = data_plot
+        console.log("--data_plot_return--",data_plot_return)
+        return [data_plot_return,data_Return];
     }
 
 
-    function upgradeStrategyForm(n, pi, np){
-      // Eficiencia actual promedio de las plantas térmicas
-      // η_BAU: 37.20 %
-      console.log("--upgradeStrategyForm--")
-      var incrementPi = pi/n
-      var incrementNp = np/n
-      var nb = 0.372
-      var dataPi= []
-      var dataNp= []
-      var consumo_bau = [38431.48958,	47251.72003,	55085.03816,	52372.57931,	43918.86529,	42678.89415,	52088.4272,	60911.15393,	58310.93145];
-
-      let creaIncrementPi = incrementPi;
-      for (let a=0; a<n; a++){
-        dataPi.push(creaIncrementPi)
-        creaIncrementPi = creaIncrementPi +incrementPi
-        console.log("--incrementPi--",incrementPi)
+    function modelUpgradeStrategy(n, nj,dataIn, name){
+      // Generación con recurso hidráhulico
+      // ESTA FUNCION TIENE EN CUENTA LOS VALORES BAU ACTUALES Y VALORES TEORICOS DE LA EFICIENCIA .
+      // ENTONCES PARA TENER EL VALOR DEL INCREMENTO DEBEMOS EMPEZAR EN EL BAU COMO ORIGEN 
+      let n_LB = 0;
+      let max_teorico = 0;
+      if (name == "Mejoras de eficiencia en plantas hidráulicas"){
+        n_LB = 88.1/100;
+        max_teorico = 95/100;
+      }else if(name == "Mejoras de eficiencia en parque térmico"){
+        n_LB = 37.2/100;
+        max_teorico = 63/100;
+      }else if(name == "Mejoras de eficiencia en plantas de Auto y Cogeneración"){
+        n_LB = 36.3/100;
+        max_teorico = 80/100;
+      }else if(name == "Mejoras de eficiencia en plantas eólicas"){
+        n_LB = 53.7/100;
+        max_teorico = 60/100;
+      }else if(name == "Mejoras de eficiencia en plantas solares"){
+        n_LB = 20.8/100;
+        max_teorico = 26/100;
       }
+      console.log("--modelUpgradeStrategy--")
+      nj = nj/100 //se quita el porcentaje
+      var incrementNj = (nj - n_LB)/n  //llamar al valor minimo n_LB
+      console.log("--increment nj--",incrementNj)
+      var data= [];
+      var data_plot = []
+      var data_plot_return = []
+      var consumo_bau = [13,13,15,15,15,15,15,15,15];
+      //database.html consumo_data = [53881.14398,	58641.02713,	67662.72361,	67662.72361	,67662.72361,	67662.72361,	67662.72361,	67662.72361,	67662.72361];
 
-      let creaIncrementNp = incrementNp;
-      for (let a=0; a<n; a++){
-        dataNp.push(creaIncrementNp)
-        creaIncrementNp = creaIncrementNp +incrementNp
-        console.log("--incrementNp--",incrementNp)
-      }
+      let creaIncrement = n_LB +incrementNj;
 
-      console.log("dataPi",dataPi)
-      console.log("dataNp",dataNp)
-
-      let cp = 0
-        for (let i= 0; i<dataNp.length; i++){
-          cp = consumo_bau[i]*(1 - (1- nb/dataNp[i])*dataPi[i])
-          console.log("--cp--",cp)
+        for (let a=0; a<n; a++){
+          data.push(creaIncrement)
+          creaIncrement = creaIncrement +incrementNj
         }
-        return cp;
+
+      console.log("--data --",data)
+      let cp = 0
+      let j = 2;
+        for (let i= 0; i<data.length; i++){
+          let data_plot_dict = {}
+          let anio = "202"+j;
+          if(j> 9){
+            j = 0
+            anio = "203"+j
+          }
+          j++
+
+          cp = dataIn[i]/data[i];
+          //console.log("--modelUpgradeStrategy name--", name)
+          //data_plot_dict = { "Año": anio, ""+name+"" : cp};
+          data_plot_dict.Año = anio;
+          data_plot_dict[name] = cp;
+          data_plot.push( data_plot_dict);
+        }
+        data_plot_return['Modelo de actualización'] = data_plot
+        console.log("--data_plot_return--",data_plot_return)
+
+        return data_plot_return;
     }
 
     let json_new = json_var;
@@ -2268,279 +2603,956 @@ Análisis
             var data = table_handler.row(this).data();
             // var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
             console.log("data", data)
-            loadTable_strategies_desc(list_name, json_new);
+
+            create_chart_up(list_name, "Modelo de actualización", "Mejoras de eficiencia en plantas hidráulicas",dataModel_pruebashidro, "chart_title_3", "line-chart-3","graph-container-3");
+            create_chart_exp(list_name, "Modelo de expansión", "Generación con recurso hidráulico",plot_exp_hidro, "chart_title_4", "line-chart-4","graph-container-4");
+
+            create_chart_up(list_name, "Modelo de actualización", "Mejoras de eficiencia en plantas eólicas",dataModel_pruebaseolico, "chart_title_3", "line-chart-3","graph-container-3");
+            create_chart_exp(list_name, "Modelo de expansión", "Generación eléctrica a partir de eólico",plot_exp_eolico, "chart_title_4", "line-chart-4","graph-container-4");
+
+            create_chart_up(list_name, "Modelo de actualización", "Mejoras de eficiencia en plantas solares",dataModel_pruebasSolar, "chart_title_3", "line-chart-3","graph-container-3");
+            create_chart_exp(list_name, "Modelo de expansión", "Generación eléctrica a partir de solar",plot_exp_solar, "chart_title_4", "line-chart-4","graph-container-4");
+            //create_chart(list_name, "Modelo de actualización", "Mejoras de eficiencia en plantas hidráulicas",dataModel_pruebas, "chart_title_5", "line-chart-5","graph-container-5");
+            //create_chart(list_name, "Modelo de actualización", "Mejoras de eficiencia en plantas hidráulicas",dataModel_pruebas, "chart_title_6", "line-chart-6","graph-container-6");
+            //create_chart(list_name, "Modelo de actualización", "Mejoras de eficiencia en plantas hidráulicas",dataModel_pruebas, "chart_title_7", "line-chart-7","graph-container-7");
+            
+            
+            //update_list_4x(list_name,dataModel_pruebas_expansion,dataModel_pruebas);
+            update_list_4x(list_name,plot_exp_hidro,dataModel_pruebashidro);
+            update_list_4x(list_name,plot_exp_eolico,dataModel_pruebaseolico);
+            update_list_4x(list_name,plot_exp_solar,dataModel_pruebasSolar);
         }
     }
     );
   }
 
-  function loadTable_strategies_desc(list_name, json_new) {
-    let list_names = Object.keys(json_new)
-    let table = _table_.cloneNode(false);
-    let tbody = _tbody_.cloneNode(false),
-        columns = addAllColumnHeaders_1(list_name);
-    let json_descripcion_final = {}
-    list_names.forEach(function (item, index) {
-        let description_strategies = JSON.parse('{{description_strategies | tojson | safe}}');
+  
 
-        console.log("description_strategies", description_strategies)
-        let json_aux = description_strategies['generation']['estrategias']
-        let json_description = []
-        json_aux.forEach(function (item2, index) {
-            if (item2['ESTRATEGIA_NOMBRE'] === item) {
-                json_description.push(item2['MODELO_MATEMATICO']);
-                json_description.push(item2['VARIABLES']);
-            }
-        })
-        json_descripcion_final[item] = json_description;
-    })
-    list_names.forEach(function (items, index) {
-        let tr1 = _tr_.cloneNode(false);
-        let td1 = _td_.cloneNode(false);
-        let a1 = _a_.cloneNode(false);
+    var last_indicator_3 = '';
+    var chart_element_3 = '';
+    var keys_list_3 = [];
 
-        if (items === "Estrategias de actualización") {
-            itemsTittle = "Modelo matemático de actualización";
-        } else {
-            itemsTittle = "Modelo matemático de expansión";
-        }
+    function create_chart_up(list_name, indicator, key, dataModel_pruebas_expansion,chart_title,line_chart,graph_container) {
+    var row = key;
 
-        a1.appendChild(document.createTextNode(itemsTittle || ''));
-        td1.classList.add('fw-extrabold')
-        td1.classList.add('showhr')
-        let i1 = _i_.cloneNode(false);
-        i1.classList.add('fa-solid')
-        /* i.classList.add('fa-angle-right') */
-        i1.classList.add('fa-caret-down')
-        i1.classList.add('pe-1')
+    // var last_indicator_3 = '';
+    // var chart_element_3 = '';
+    // var keys_list_3 = [];
 
-        td1.appendChild(i1);
-        td1.appendChild(a1);
-        tr1.appendChild(td1);
-        tbody.appendChild(tr1);
-
-        let description = json_descripcion_final[items]
-        let titles = ['Modelo matemático:', 'Variables:']
-        let tr2 = _tr_.cloneNode(false);
-        let td2 = _td_.cloneNode(false);
-        description.forEach(function (item, index) {
-
-            if (index == 1) {
-                item = item.replace(/-/gi, "<br>");
-            }
-
-            let p = _p_.cloneNode(false);
-            p.innerHTML = '<small class="fw-extrabold">' + titles[index] + '</small><br><div class="px-1 px-lg-4 text-wrap justified-text">' + item + '</div>';
-            p.classList.add('row')
-            td2.appendChild(p);
-        })
-        td2.classList.add('aser')
-        td2.classList.add('fw-normal')
-        td2.classList.add('px-2')
-        td2.classList.add('px-lg-4')
-        tr2.appendChild(td2);
-        tr2.style.display = 'none';
-        tbody.appendChild(tr2)
-    })
-
-    table.appendChild(tbody);
-
-    table.id = 'table_variables_1'
-    table.classList.add('table');
-    table.classList.add('table-centered');
-    table.classList.add('table-nowrap');
-    table.classList.add('rounded');
-    table.classList.add('mb-0');
-    table.classList.add('border-0');
-    table.classList.add('dt-responsive');
-
-    function addAllColumnHeaders_1(list_name) {
-        let columnSet = [],
-            thead = _thead_.cloneNode(false);
-        tr2 = _tr_.cloneNode(false);
-        let th = _th_.cloneNode(false);
-        if (list_name === 'generation') {
-            var key = 'Modelo matemático';
-        } else if (list_name === 'distribution') {
-            var key = 'Modelo matemático';
-        } else if (list_name === 'end_use') {
-            var key = 'Modelo matemático';
-        }
-        columnSet.push(key)
-        th.appendChild(document.createTextNode(key));
-        th.classList.add('rounded');
-        th.classList.add('border-0');
-        tr2.appendChild(th);
-        thead.appendChild(tr2);
-        thead.classList.add('thead-light');
-        table.appendChild(thead);
-        return columnSet;
-    }
-
-    var el = document.getElementById('table_content_1');
-    el.innerHTML = '';
-    el.appendChild(table);
-    const datatablesSimple = document.getElementById('table_variables_1');
-    if (datatablesSimple) {
-        let tables = new DataTable(datatablesSimple, datatable_config);
-    }
-
-    // var table_handler = $('#table_variables_1').DataTable();
-    MathJax.typesetPromise().then(() => {
-        $('#table_variables_1 tbody').on('click', 'tr', function () {
-            var td_select = this.childNodes[0]
-            if (td_select.classList.contains("showhr")) {
-                $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function () { });
-            }
-            else if (td_select.classList.contains('aser')) {
-                var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
-            }
-        }
-        );
-        MathJax.typesetPromise();
-    }).catch((err) => console.log(err.message));
-  }
-
-  // function loadTable3(list_name){
-
-  //   alert("este mensaje ")
-  //   console.log("este es un mensaje")
-
-  // }
-
-    var last_indicator = '';
-    var chart_element = '';
-    var keys_list = [];
-    var old_dataset = [];
-    function create_chart(list_name, indicator, key){
-    var row1 = key[0];
-      var row = row1.replace("$CO_2eq$","CO2eq");
-      var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
-      var row_table;
-      if(row in translate_array){
-        row_table = translate_array[row];
-      }else{
-        row_table = row;
-      }
-    var al= Math.floor((Math.random()* (255)));
-    var al2= Math.floor((Math.random()* (255)));
-    var b_colorslist = ['rgba('+al+', 99, 132, 0.2)', 'rgba('+al+', 162, 235, 0.2)', 'rgba('+al+', 206, 86, 0.2)', 'rgba('+al+', 192, 192, 0.2)', 'rgba('+al+', 102, 255, 0.2)', 'rgba('+al+', 159, 64, 0.2)'];
-    var colorslist = ['rgba('+al+', 99, 132, 1)', 'rgba('+al+', 162, 235, 1)', 'rgba('+al+', 206, 86, 1)', 'rgba('+al+', 192, 192, 1)', 'rgba('+al+', 102, 255, 1)', 'rgba('+al+', 159, 64, 1)'];
+    // var row = row1.replace("$CO_2eq$","CO2eq");
+    // var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+    var row_table = row;
+    // if(row in translate_array){
+    //   row_table = translate_array[row];
+    // }else{
+    //   row_table = row;
+    // }
+    var al = Math.floor((Math.random() * (255)));
+    // var al2 = Math.floor((Math.random() * (255)));
+    var b_colorslist = ['rgba(' + al + ', 99, 132, 1)', 'rgba(' + al + ', 162, 235, 1)', 'rgba(' + al + ', 206, 86, 1)', 'rgba(' + al + ', 192, 192, 1)', 'rgba(' + al + ', 102, 255, 1)', 'rgba(' + al + ', 159, 64, 1)'];
+    var colorslist = ['rgba(' + al + ', 99, 132, 1)', 'rgba(' + al + ', 162, 235, 1)', 'rgba(' + al + ', 206, 86, 1)', 'rgba(' + al + ', 192, 192, 1)', 'rgba(' + al + ', 102, 255, 1)', 'rgba(' + al + ', 159, 64, 1)'];
     /* const table_name = key; */
     const table_name = indicator;
-    document.getElementById('chart_title').innerHTML = table_name;
-    var json_file = JSON.parse('{{data | tojson | safe}}');
-    var table = json_file[list_name][table_name];
+    document.getElementById(chart_title).innerHTML = table_name;
+    var json_file = dataModel_pruebas_expansion;
+
+    console.log("graficas analisis", json_file);
+    var table = json_file[table_name];
     var keys = Object.keys(table[0]);
-    var labels = table.map(function(e) {
-      return e[keys[0]];
+    var labels = table.map(function (e) {
+        return e[keys[0]];
     });
-    labels = labels.slice(0,12);
-    var data = table.map(function(e) {
-      return e[row];
+    labels = labels.slice(0, 12);
+    var data = table.map(function (e) {
+        return e[row];
     });;
     length = data.length;
-    var array=[];
-    for (var j = 0; j < length; j++){
-      if (row == "Poblacion_Total" || row == "P_Urbano" || row == "P_Rural" || row == "V_Rural"|| row == "V_Urbano" || row == "Vivienda_Total"){
-        array.push(parseFloat(data[j])/1000000);
-      }else{
-      array.push(parseFloat(data[j]));
-      }
+    var array = [];
+    for (var j = 0; j < length; j++) {
+        // if (row == "Poblacion_Total" || row == "P_Urbano" || row == "P_Rural" || row == "V_Rural"|| row == "V_Urbano" || row == "Vivienda_Total"){
+        //   array.push(parseFloat(data[j])/1000000);
+        // }else{
+        array.push(parseFloat(data[j]));
+        //}
     }
     var unit = '';
     var units = JSON.parse('{{units | tojson | safe}}');
-    if (indicator in units){
-      unit = units[indicator];
-      if (unit=='Porcentaje %'){
-        array = array.map(function(x) { return x * 100; });;
-      }
+    if (indicator in units) {
+        unit = units[indicator];
+        if (unit == 'Porcentaje %') {
+            array = array.map(function (x) { return x * 100; });;
+        }
     }
     /* Agregada - Capturar graficas actuales > 2 restablece */
-  
+
     /* Desagregados - else */
-    if (last_indicator==indicator){
-      if (!(keys_list.includes(row_table))){
-        keys_list.push(row_table);
-        const update_dataset = 
-        {
-          label: row_table,  
-          borderColor: colorslist[keys_list.length],
-          backgroundColor: b_colorslist[keys_list.length],
-          data: array, spanGraphs: false,
-          fill: true
-        };
-        chart_element.data.datasets.push(update_dataset);
-        chart_element.update();
-      } else {
-        keys_list = keys_list.filter(data => data != row_table);;
-        chart_element.data.datasets=  chart_element.data.datasets.filter(data => data.label != row_table);
-        chart_element.update();
-      }
-      
+    if (last_indicator_3 == indicator) {
+        if (!(keys_list_3.includes(row_table))) {
+            keys_list_3.push(row_table);
+            const update_dataset =
+            {
+                label: row_table,
+                borderColor: colorslist[keys_list_3.length],
+                backgroundColor: b_colorslist[keys_list_3.length],
+                data: array, spanGraphs: false,
+                fill: true
+            };
+            chart_element_3.data.datasets.push(update_dataset);
+            chart_element_3.update();
+        } else {
+            keys_list_3 = keys_list_3.filter(data => data != row_table);;
+            chart_element_3.data.datasets = chart_element_3.data.datasets.filter(data => data.label != row_table);
+            chart_element_3.update();
+        }
+
     } else {
-    keys_list=[row_table]
-    var mydatasets = [
-      {
-        label: row_table,
-          borderColor: colorslist[0],
-          backgroundColor: b_colorslist[0], 
-          data: array, 
-          spanGraphs: false,
-          fill: true
-        }];
-    let delayed;
-    $('#line-chart').remove(); 
-    $('#graph-container').append('<canvas id="line-chart" width="100%" height="48vh"><canvas>'); 
-    var config = {
-        type: 'line',
-        data: {
-          labels: labels,
-          datasets: mydatasets
-        },
-        options: {
-          responsive: true,
-          scales: {
-            xAxes: [{
-              stacked: true,
-              scaleLabel: {
-                display: true,
-                labelString: 'Año'
-              }
-            }],
-            yAxes: [{
-              stacked: false,
-              scaleLabel: {
-                display: true,
-                labelString: unit
-              }
-            }]
-          },
-          title: {
-            display: false,
-            text: table_name,
-          },
-          legend: {
-            position: 'bottom',
-          },
-          animation: {
-            onComplete: () => {
-              delayed = true;
+        keys_list_3 = [row_table]
+        var mydatasets = [
+            {
+                label: row_table,
+                borderColor: colorslist[0],
+                backgroundColor: b_colorslist[0],
+                data: array,
+                spanGraphs: false,
+                fill: true
+            }];
+        let delayed;
+        $('#'+line_chart).remove();
+        $('#'+graph_container).append('<canvas id="'+line_chart+'" width="100%" height="48vh"><canvas>');
+        var config = {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: mydatasets
             },
-            delay: (context) => {
-              let delay = 0;
-              if (context.type === 'data' && context.mode === 'default' && !delayed) {
-                delay = context.dataIndex * 300 + context.datasetIndex * 100;
-              }
-              return delay;
+            options: {
+                responsive: true,
+                scales: {
+                    xAxes: [{
+                        stacked: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Año'
+                        }
+                    }],
+                    yAxes: [{
+                        stacked: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: unit
+                        }
+                    }]
+                },
+                title: {
+                    display: false,
+                    text: table_name,
+                },
+                legend: {
+                    position: 'bottom',
+                },
+                animation: {
+                    onComplete: () => {
+                        delayed = true;
+                    },
+                    delay: (context) => {
+                        let delay = 0;
+                        if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                            delay = context.dataIndex * 300 + context.datasetIndex * 100;
+                        }
+                        return delay;
+                    },
+                },
+            }
+        };
+        chart_element_3 = new Chart(document.getElementById(line_chart), config);
+    }
+    last_indicator_3 = indicator;
+    console.log("-------last_indicator_3-**********",last_indicator_3)
+}
+
+
+    var last_indicator_4 = '';
+    var chart_element_4 = '';
+    var keys_list_4 = [];
+
+    function create_chart_exp(list_name, indicator, key, dataModel_pruebas_expansion,chart_title,line_chart,graph_container) {
+    var row = key;
+
+    // var last_indicator_4 = '';
+    // var chart_element_4 = '';
+    // var keys_list_4 = [];
+
+    // var row = row1.replace("$CO_2eq$","CO2eq");
+    // var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+    var row_table = row;
+    // if(row in translate_array){
+    //   row_table = translate_array[row];
+    // }else{
+    //   row_table = row;
+    // }
+    var al = Math.floor((Math.random() * (255)));
+    // var al2 = Math.floor((Math.random() * (255)));
+    var b_colorslist = ['rgba(' + al + ', 99, 132, 1)', 'rgba(' + al + ', 162, 235, 1)', 'rgba(' + al + ', 206, 86, 1)', 'rgba(' + al + ', 192, 192, 1)', 'rgba(' + al + ', 102, 255, 1)', 'rgba(' + al + ', 159, 64, 1)'];
+    var colorslist = ['rgba(' + al + ', 99, 132, 1)', 'rgba(' + al + ', 162, 235, 1)', 'rgba(' + al + ', 206, 86, 1)', 'rgba(' + al + ', 192, 192, 1)', 'rgba(' + al + ', 102, 255, 1)', 'rgba(' + al + ', 159, 64, 1)'];
+    /* const table_name = key; */
+    const table_name = indicator;
+    document.getElementById(chart_title).innerHTML = table_name;
+    var json_file = dataModel_pruebas_expansion;
+
+    console.log("graficas analisis", json_file);
+    var table = json_file[table_name];
+    var keys = Object.keys(table[0]);
+    var labels = table.map(function (e) {
+        return e[keys[0]];
+    });
+    labels = labels.slice(0, 12);
+    var data = table.map(function (e) {
+        return e[row];
+    });;
+    length = data.length;
+    var array = [];
+    for (var j = 0; j < length; j++) {
+        // if (row == "Poblacion_Total" || row == "P_Urbano" || row == "P_Rural" || row == "V_Rural"|| row == "V_Urbano" || row == "Vivienda_Total"){
+        //   array.push(parseFloat(data[j])/1000000);
+        // }else{
+        array.push(parseFloat(data[j]));
+        //}
+    }
+    var unit = '';
+    var units = JSON.parse('{{units | tojson | safe}}');
+    if (indicator in units) {
+        unit = units[indicator];
+        if (unit == 'Porcentaje %') {
+            array = array.map(function (x) { return x * 100; });;
+        }
+    }
+    /* Agregada - Capturar graficas actuales > 2 restablece */
+
+    /* Desagregados - else */
+    if (last_indicator_4 == indicator) {
+        if (!(keys_list_4.includes(row_table))) {
+            keys_list_4.push(row_table);
+            const update_dataset =
+            {
+                label: row_table,
+                borderColor: colorslist[keys_list_4.length],
+                backgroundColor: b_colorslist[keys_list_4.length],
+                data: array, spanGraphs: false,
+                fill: true
+            };
+            chart_element_4.data.datasets.push(update_dataset);
+            chart_element_4.update();
+        } else {
+            keys_list_4 = keys_list_4.filter(data => data != row_table);;
+            chart_element_4.data.datasets = chart_element_4.data.datasets.filter(data => data.label != row_table);
+            chart_element_4.update();
+        }
+
+    } else {
+        keys_list_4 = [row_table]
+        var mydatasets = [
+            {
+                label: row_table,
+                borderColor: colorslist[0],
+                backgroundColor: b_colorslist[0],
+                data: array,
+                spanGraphs: false,
+                fill: true
+            }];
+        let delayed;
+        $('#'+line_chart).remove();
+        $('#'+graph_container).append('<canvas id="'+line_chart+'" width="100%" height="48vh"><canvas>');
+        var config = {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: mydatasets
             },
-            },}
-      };
-    chart_element = new Chart(document.getElementById('line-chart'), config);
+            options: {
+                responsive: true,
+                scales: {
+                    xAxes: [{
+                        stacked: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Año'
+                        }
+                    }],
+                    yAxes: [{
+                        stacked: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: unit
+                        }
+                    }]
+                },
+                title: {
+                    display: false,
+                    text: table_name,
+                },
+                legend: {
+                    position: 'bottom',
+                },
+                animation: {
+                    onComplete: () => {
+                        delayed = true;
+                    },
+                    delay: (context) => {
+                        let delay = 0;
+                        if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                            delay = context.dataIndex * 300 + context.datasetIndex * 100;
+                        }
+                        return delay;
+                    },
+                },
+            }
+        };
+        chart_element_4 = new Chart(document.getElementById(line_chart), config);
     }
-    last_indicator = indicator;
+    last_indicator_4 = indicator;
+    console.log("-------last_indicator_4-**********",last_indicator_4)
+}
+
+    var last_indicator_5 = '';
+    var chart_element_5 = '';
+    var keys_list_5 = [];
+
+    function create_chart_indicador1(list_name, indicator, key, dataModel_pruebas_expansion,chart_title,line_chart,graph_container) {
+    var row = key;
+
+    // var last_indicator_5 = '';
+    // var chart_element_5 = '';
+    // var keys_list_5 = [];
+
+    // var row = row1.replace("$CO_2eq$","CO2eq");
+    // var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+    var row_table = row;
+    // if(row in translate_array){
+    //   row_table = translate_array[row];
+    // }else{
+    //   row_table = row;
+    // }
+    var al = Math.floor((Math.random() * (255)));
+    // var al2 = Math.floor((Math.random() * (255)));
+    var b_colorslist = ['rgba(' + al + ', 99, 132, 1)', 'rgba(' + al + ', 162, 235, 1)', 'rgba(' + al + ', 206, 86, 1)', 'rgba(' + al + ', 192, 192, 1)', 'rgba(' + al + ', 102, 255, 1)', 'rgba(' + al + ', 159, 64, 1)'];
+    var colorslist = ['rgba(' + al + ', 99, 132, 1)', 'rgba(' + al + ', 162, 235, 1)', 'rgba(' + al + ', 206, 86, 1)', 'rgba(' + al + ', 192, 192, 1)', 'rgba(' + al + ', 102, 255, 1)', 'rgba(' + al + ', 159, 64, 1)'];
+    /* const table_name = key; */
+    const table_name = indicator;
+    document.getElementById(chart_title).innerHTML = table_name;
+    var json_file = dataModel_pruebas_expansion;
+
+    console.log("graficas analisis", json_file);
+    var table = json_file[table_name];
+    var keys = Object.keys(table[0]);
+    var labels = table.map(function (e) {
+        return e[keys[0]];
+    });
+    labels = labels.slice(0, 12);
+    var data = table.map(function (e) {
+        return e[row];
+    });;
+    length = data.length;
+    var array = [];
+    for (var j = 0; j < length; j++) {
+        // if (row == "Poblacion_Total" || row == "P_Urbano" || row == "P_Rural" || row == "V_Rural"|| row == "V_Urbano" || row == "Vivienda_Total"){
+        //   array.push(parseFloat(data[j])/1000000);
+        // }else{
+        array.push(parseFloat(data[j]));
+        //}
     }
+    var unit = '';
+    var units = JSON.parse('{{units | tojson | safe}}');
+    if (indicator in units) {
+        unit = units[indicator];
+        if (unit == 'Porcentaje %') {
+            array = array.map(function (x) { return x * 100; });;
+        }
+    }
+    /* Agregada - Capturar graficas actuales > 2 restablece */
+
+    /* Desagregados - else */
+    if (last_indicator_5 == indicator) {
+        if (!(keys_list_5.includes(row_table))) {
+            keys_list_5.push(row_table);
+            const update_dataset =
+            {
+                label: row_table,
+                borderColor: colorslist[keys_list_5.length],
+                backgroundColor: b_colorslist[keys_list_5.length],
+                data: array, spanGraphs: false,
+                fill: true
+            };
+            chart_element_5.data.datasets.push(update_dataset);
+            chart_element_5.update();
+        } else {
+            keys_list_5 = keys_list_5.filter(data => data != row_table);;
+            chart_element_5.data.datasets = chart_element_5.data.datasets.filter(data => data.label != row_table);
+            chart_element_5.update();
+        }
+
+    } else {
+        keys_list_5 = [row_table]
+        var mydatasets = [
+            {
+                label: row_table,
+                borderColor: colorslist[0],
+                backgroundColor: b_colorslist[0],
+                data: array,
+                spanGraphs: false,
+                fill: true
+            }];
+        let delayed;
+        $('#'+line_chart).remove();
+        $('#'+graph_container).append('<canvas id="'+line_chart+'" width="100%" height="48vh"><canvas>');
+        var config = {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: mydatasets
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    xAxes: [{
+                        stacked: false,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Año'
+                        }
+                    }],
+                    yAxes: [{
+                        stacked: false,
+                        scaleLabel: {
+                            display: true,
+                            labelString: unit
+                        }
+                    }]
+                },
+                title: {
+                    display: false,
+                    text: table_name,
+                },
+                legend: {
+                    position: 'bottom',
+                },
+                animation: {
+                    onComplete: () => {
+                        delayed = true;
+                    },
+                    delay: (context) => {
+                        let delay = 0;
+                        if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                            delay = context.dataIndex * 300 + context.datasetIndex * 100;
+                        }
+                        return delay;
+                    },
+                },
+            }
+        };
+        chart_element_5 = new Chart(document.getElementById(line_chart), config);
+    }
+    last_indicator_5 = indicator;
+    console.log("-------last_indicator_5-**********",last_indicator_5)
+}
+
+
+    var last_indicator_6 = '';
+    var chart_element_6 = '';
+    var keys_list_6 = [];
+
+    function create_chart_indicador2(list_name, indicator, key, dataModel_pruebas_expansion,chart_title,line_chart,graph_container) {
+    var row = key;
+
+    // var last_indicator_6 = '';
+    // var chart_element_6 = '';
+    // var keys_list_6 = [];
+
+    // var row = row1.replace("$CO_2eq$","CO2eq");
+    // var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+    var row_table = row;
+    // if(row in translate_array){
+    //   row_table = translate_array[row];
+    // }else{
+    //   row_table = row;
+    // }
+    var al = Math.floor((Math.random() * (255)));
+    // var al2 = Math.floor((Math.random() * (255)));
+    var b_colorslist = ['rgba(' + al + ', 99, 132, 1)', 'rgba(' + al + ', 162, 235, 1)', 'rgba(' + al + ', 206, 86, 1)', 'rgba(' + al + ', 192, 192, 1)', 'rgba(' + al + ', 102, 255, 1)', 'rgba(' + al + ', 159, 64, 1)'];
+    var colorslist = ['rgba(' + al + ', 99, 132, 1)', 'rgba(' + al + ', 162, 235, 1)', 'rgba(' + al + ', 206, 86, 1)', 'rgba(' + al + ', 192, 192, 1)', 'rgba(' + al + ', 102, 255, 1)', 'rgba(' + al + ', 159, 64, 1)'];
+    /* const table_name = key; */
+    const table_name = indicator;
+    document.getElementById(chart_title).innerHTML = table_name;
+    var json_file = dataModel_pruebas_expansion;
+
+    console.log("graficas analisis", json_file);
+    var table = json_file[table_name];
+    var keys = Object.keys(table[0]);
+    var labels = table.map(function (e) {
+        return e[keys[0]];
+    });
+    labels = labels.slice(0, 12);
+    var data = table.map(function (e) {
+        return e[row];
+    });;
+    length = data.length;
+    var array = [];
+    for (var j = 0; j < length; j++) {
+        // if (row == "Poblacion_Total" || row == "P_Urbano" || row == "P_Rural" || row == "V_Rural"|| row == "V_Urbano" || row == "Vivienda_Total"){
+        //   array.push(parseFloat(data[j])/1000000);
+        // }else{
+        array.push(parseFloat(data[j]));
+        //}
+    }
+    var unit = '';
+    var units = JSON.parse('{{units | tojson | safe}}');
+    if (indicator in units) {
+        unit = units[indicator];
+        if (unit == 'Porcentaje %') {
+            array = array.map(function (x) { return x * 100; });;
+        }
+    }
+    /* Agregada - Capturar graficas actuales > 2 restablece */
+
+    /* Desagregados - else */
+    if (last_indicator_6 == indicator) {
+        if (!(keys_list_6.includes(row_table))) {
+            keys_list_6.push(row_table);
+            const update_dataset =
+            {
+                label: row_table,
+                borderColor: colorslist[keys_list_6.length],
+                backgroundColor: b_colorslist[keys_list_6.length],
+                data: array, spanGraphs: false,
+                fill: true
+            };
+            chart_element_6.data.datasets.push(update_dataset);
+            chart_element_6.update();
+        } else {
+            keys_list_6 = keys_list_6.filter(data => data != row_table);;
+            chart_element_6.data.datasets = chart_element_6.data.datasets.filter(data => data.label != row_table);
+            chart_element_6.update();
+        }
+
+    } else {
+        keys_list_6 = [row_table]
+        var mydatasets = [
+            {
+                label: row_table,
+                borderColor: colorslist[0],
+                backgroundColor: b_colorslist[0],
+                data: array,
+                spanGraphs: false,
+                fill: true
+            }];
+        let delayed;
+        $('#'+line_chart).remove();
+        $('#'+graph_container).append('<canvas id="'+line_chart+'" width="100%" height="48vh"><canvas>');
+        var config = {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: mydatasets
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    xAxes: [{
+                        stacked: false,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Año'
+                        }
+                    }],
+                    yAxes: [{
+                        stacked: false,
+                        scaleLabel: {
+                            display: true,
+                            labelString: unit
+                        }
+                    }]
+                },
+                title: {
+                    display: false,
+                    text: table_name,
+                },
+                legend: {
+                    position: 'bottom',
+                },
+                animation: {
+                    onComplete: () => {
+                        delayed = true;
+                    },
+                    delay: (context) => {
+                        let delay = 0;
+                        if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                            delay = context.dataIndex * 300 + context.datasetIndex * 100;
+                        }
+                        return delay;
+                    },
+                },
+            }
+        };
+        chart_element_6 = new Chart(document.getElementById(line_chart), config);
+    }
+    last_indicator_6 = indicator;
+    console.log("-------last_indicator_6-**********",last_indicator_6)
+}
+
+    var last_indicator_7 = '';
+    var chart_element_7 = '';
+    var keys_list_7 = [];
+
+    function create_chart_indicador3(list_name, indicator, key, dataModel_pruebas_expansion,chart_title,line_chart,graph_container) {
+    var row = key;
+
+    // var last_indicator_7 = '';
+    // var chart_element_7 = '';
+    // var keys_list_7 = [];
+
+    // var row = row1.replace("$CO_2eq$","CO2eq");
+    // var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+    var row_table = row;
+    // if(row in translate_array){
+    //   row_table = translate_array[row];
+    // }else{
+    //   row_table = row;
+    // }
+    var al = Math.floor((Math.random() * (255)));
+    // var al2 = Math.floor((Math.random() * (255)));
+    var b_colorslist = ['rgba(' + al + ', 99, 132, 1)', 'rgba(' + al + ', 162, 235, 1)', 'rgba(' + al + ', 206, 86, 1)', 'rgba(' + al + ', 192, 192, 1)', 'rgba(' + al + ', 102, 255, 1)', 'rgba(' + al + ', 159, 64, 1)'];
+    var colorslist = ['rgba(' + al + ', 99, 132, 1)', 'rgba(' + al + ', 162, 235, 1)', 'rgba(' + al + ', 206, 86, 1)', 'rgba(' + al + ', 192, 192, 1)', 'rgba(' + al + ', 102, 255, 1)', 'rgba(' + al + ', 159, 64, 1)'];
+    /* const table_name = key; */
+    const table_name = indicator;
+    document.getElementById(chart_title).innerHTML = table_name;
+    var json_file = dataModel_pruebas_expansion;
+
+    console.log("graficas analisis", json_file);
+    var table = json_file[table_name];
+    var keys = Object.keys(table[0]);
+    var labels = table.map(function (e) {
+        return e[keys[0]];
+    });
+    labels = labels.slice(0, 12);
+    var data = table.map(function (e) {
+        return e[row];
+    });;
+    length = data.length;
+    var array = [];
+    for (var j = 0; j < length; j++) {
+        // if (row == "Poblacion_Total" || row == "P_Urbano" || row == "P_Rural" || row == "V_Rural"|| row == "V_Urbano" || row == "Vivienda_Total"){
+        //   array.push(parseFloat(data[j])/1000000);
+        // }else{
+        array.push(parseFloat(data[j]));
+        //}
+    }
+    var unit = '';
+    var units = JSON.parse('{{units | tojson | safe}}');
+    if (indicator in units) {
+        unit = units[indicator];
+        if (unit == 'Porcentaje %') {
+            array = array.map(function (x) { return x * 100; });;
+        }
+    }
+    /* Agregada - Capturar graficas actuales > 2 restablece */
+
+    /* Desagregados - else */
+    if (last_indicator_7 == indicator) {
+        if (!(keys_list_7.includes(row_table))) {
+            keys_list_7.push(row_table);
+            const update_dataset =
+            {
+                label: row_table,
+                borderColor: colorslist[keys_list_7.length],
+                backgroundColor: b_colorslist[keys_list_7.length],
+                data: array, spanGraphs: false,
+                fill: true
+            };
+            chart_element_7.data.datasets.push(update_dataset);
+            chart_element_7.update();
+        } else {
+            keys_list_7 = keys_list_7.filter(data => data != row_table);;
+            chart_element_7.data.datasets = chart_element_7.data.datasets.filter(data => data.label != row_table);
+            chart_element_7.update();
+        }
+
+    } else {
+        keys_list_7 = [row_table]
+        var mydatasets = [
+            {
+                label: row_table,
+                borderColor: colorslist[0],
+                backgroundColor: b_colorslist[0],
+                data: array,
+                spanGraphs: false,
+                fill: true
+            }];
+        let delayed;
+        $('#'+line_chart).remove();
+        $('#'+graph_container).append('<canvas id="'+line_chart+'" width="100%" height="48vh"><canvas>');
+        var config = {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: mydatasets
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    xAxes: [{
+                        stacked: false,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Año'
+                        }
+                    }],
+                    yAxes: [{
+                        stacked: false,
+                        scaleLabel: {
+                            display: true,
+                            labelString: unit
+                        }
+                    }]
+                },
+                title: {
+                    display: false,
+                    text: table_name,
+                },
+                legend: {
+                    position: 'bottom',
+                },
+                animation: {
+                    onComplete: () => {
+                        delayed = true;
+                    },
+                    delay: (context) => {
+                        let delay = 0;
+                        if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                            delay = context.dataIndex * 300 + context.datasetIndex * 100;
+                        }
+                        return delay;
+                    },
+                },
+            }
+        };
+        chart_element_7 = new Chart(document.getElementById(line_chart), config);
+    }
+    last_indicator_7 = indicator;
+    console.log("-------last_indicator_7-**********",last_indicator_7)
+}
+
+function update_list_4x(list_name,dataModel_pruebas_expansion,dataModel_pruebas) {
+
+// var json_var = {}
+// let json_aux_var_ac=[]
+// let json_aux_var_exp=[]
+// json_aux_var_ac.push("Mejoras de eficiencia en plantas hidráulicas.")
+// // json_aux_var_ac.push("Eficiencia que se desea alcanzar")
+// json_aux_var_exp.push("Generación con recurso hidráhulico")
+// // json_aux_var_exp.push("Capacidad instalada de recurso hidráhulico")
+
+// json_var["Estrategias de actualización"]= json_aux_var_ac
+// json_var["Estrategias de expansión"]= json_aux_var_exp
+
+console.log("----- update_list_4x -------")
+//console.log("json_var_1",json_var)
+
+// indicadores calculados para el 2030
+// let generacion = 67671;
+// let consumo = 75264;
+// let pib = 451.74;
+// let fe = 1 // agua factor de emision
+
+let generacion = dataModel_pruebas_expansion;
+let consumo = dataModel_pruebas;
+//datos de pib desde 2022 hasta 2030, no es necesario agregar año porque el sistem recorre hasta el año que necesita
+let pib = [344.1612833,	355.4685381,	367.8705797,	380.837696,	394.8857455,	408.9742253,	423.1216551,	437.1906672,	451.7446956];
+let fe = 0.13;
+//actualizacion-28-06-2021
+
+function modifyData(data) {
+
+  let dataReturn = [];
+  let list_names = Object.keys(data);
+  let name_return = ""
+  console.log("--Consumo sacando datos data  0xx--", data);
+
   
+  list_names.forEach(function (item, index) {
+      let data_loop = data[item];
+      let data_loop_keys = Object.keys(data_loop);
+      let name = Object.keys(data_loop[0]);
+      //console.log("----------Consumo sacando datos name  0xx--", name[1]);
+      name_return = name[1];
+
+      data_loop_keys.forEach(function (item2, index2) {
+          let data_loop_keys_item = data[item][item2];
+          let data_loop_keys2 = Object.values(data_loop_keys_item);
+          console.log("--Consumo sacando datos keys2 xx--", data_loop_keys2[1]);
+          dataReturn.push(data_loop_keys2[1]);
+      })
+  })
+  return [dataReturn, name_return];
+}
+
+let data_generacion_total = modifyData(generacion);
+let data_consumo_total = modifyData(consumo);
+
+let data_generacion = data_generacion_total[0]
+let name = data_generacion_total[1]
+let data_consumo = data_consumo_total[0]
+
+
+
+var dataModel_pruebas_expansionx = generationIndicatorEficiency(data_generacion,data_consumo, name);
+//intensidad energetica primaria
+var dataModel_pruebasx = generationIndicatorsIEP(data_consumo,pib, name);
+//intensidad de emisiones de carbono
+var dataModel_pruebasx = generationIndicatorsIEC(data_consumo,fe,pib, name);
+
+function generationIndicatorEficiency(generacion,consumo, name){
+
+  console.log("--generationIndicatorEficiency--");
+  console.log("--generacion--",generacion);
+  console.log("--consumo--",Object.values(consumo));
+
+  if (name == "Generación con recurso hidráulico") {
+    name = "Indicador de eficiencia energética hidráulico";
+  } else if (name == "Generación eléctrica a partir de eólico") {
+      name = "Indicador de eficiencia energética eólico";
+  } else if (name == "Generación eléctrica a partir de solar") {
+      name = "Indicador de eficiencia energética solar";
+  } else if (name == "Generación eléctrica con geotérmica") {
+      name = "Indicador de eficiencia energética";
+  } else if (name == "Generación eléctrica a partir de gas combustibles") {
+      name = "Indicador de eficiencia energética";
+  }
+
+  // let consumo_data =Object.values(consumo)
+  // let consumo_data_2 = Object.keys(consumo_data)
+
+  // console.log("--consumo--",consumo_data_2);
+    let eficiency = 0;
+    let data_plot_eficiency = [];
+    let k = 2;
+    let anio_eficiency = '';
+    let data_plot_return = [];
+    for (var i = 0; i < generacion.length; i++){
+        let data_plot_dict = {}
+        anio_eficiency = "202"+k;
+        if(k > 9){
+          k = 0
+          anio_eficiency = "203"+k
+        }
+        k++
+      eficiency = generacion[i] /consumo[i];
+      console.log("--eficiency--",eficiency)
+      //data_plot_dict = {"Año": anio_eficiency, "Indicador de eficiencia energética": eficiency};
+      data_plot_dict.Año = anio_eficiency;
+      data_plot_dict[name] = eficiency;
+      data_plot_eficiency.push(data_plot_dict);
+    }
+
+    data_plot_return['Indicador de eficiencia energética'] = data_plot_eficiency
+    console.log("--data_plot_return--",data_plot_return)
+    create_chart_indicador1(list_name, "Indicador de eficiencia energética", name,data_plot_return, "chart_title_5", "line-chart-5","graph-container-5");
+    return data_plot_return;
+}
+
+
+function generationIndicatorsIEP(consumo,pib,name){
+  // Generación con recurso hidráhulico
+  // ESTA FUNCION TIENE EN CUENTA LOS VALORES BAU ACTUALES Y VALORES TEORICOS DE LA EFICIENCIA .
+  // ENTONCES PARA TENER EL VALOR DEL INCREMENTO DEBEMOS EMPEZAR EN EL BAU COMO ORIGEN 
+
+  if (name == "Generación con recurso hidráulico") {
+    name = "Indicador intensidad energética primaria hidráulico";
+  } else if (name == "Generación eléctrica a partir de eólico") {
+      name = "Indicador intensidad energética primaria eólico";
+  } else if (name == "Generación eléctrica a partir de solar") {
+      name = "Indicador intensidad energética primaria solar";
+  } else if (name == "Generación eléctrica con geotérmica") {
+      name = "Indicador intensidad energética primaria";
+  } else if (name == "Generación eléctrica a partir de gas combustibles") {
+      name = "Indicador intensidad energética primaria";
+  }
+
+  console.log("--generationIndicatorsIEP--")
+    let iep = 0; // (consumo /pib)/1000
+    let anio = "";
+    let k = 2;
+    let data_plot_iep = [];
+    var data_plot_return = [];
+    for (var i = 0; i < consumo.length; i++){
+        let data_plot_dict = {}
+        anio = "202"+k;
+        if(k > 9){
+          k = 0
+          anio = "203"+k
+        }
+        k++
+      iep = (consumo[i] / pib[i])/1000;
+      console.log("--Indicador de eficiencia energética--",iep)
+      //data_plot_dict = {"Año": anio, "Indicador intensidad energética primaria": iep};
+      data_plot_dict.Año = anio;
+      data_plot_dict[name] = iep;
+      data_plot_iep.push(data_plot_dict);
+    }
+    // console.log("--gp--",gp)
+    // console.log("--anio--",anio)
+    data_plot_return['Indicador intensidad energética primaria'] = data_plot_iep;
+    console.log("--data_plot_return--",data_plot_return);
+    create_chart_indicador2(list_name, "Indicador intensidad energética primaria", name, data_plot_return, "chart_title_6", "line-chart-6","graph-container-6");
+    return data_plot_return;
+
+  }
+
+  function generationIndicatorsIEC(consumo,fe,pib, name){
+  // Generación con recurso hidráhulico
+  // ESTA FUNCION TIENE EN CUENTA LOS VALORES BAU ACTUALES Y VALORES TEORICOS DE LA EFICIENCIA .
+  // ENTONCES PARA TENER EL VALOR DEL INCREMENTO DEBEMOS EMPEZAR EN EL BAU COMO ORIGEN 
+
+  if (name == "Generación con recurso hidráulico") {
+    name = "Indicador intensidad de emisiones de carbono hidráulico";
+  } else if (name == "Generación eléctrica a partir de eólico") {
+      name = "Indicador intensidad de emisiones de carbono eólico";
+  } else if (name == "Generación eléctrica a partir de solar") {
+      name = "Indicador intensidad de emisiones de carbono solar";
+  } else if (name == "Generación eléctrica con geotérmica") {
+      name = "Indicador intensidad de emisiones de carbono";
+  } else if (name == "Generación eléctrica a partir de gas combustibles") {
+      name = "Indicador intensidad de emisiones de carbono";
+  }
+  console.log("--generationIndicatorsIEC--")
+    let iec = 0;// (consumo*fe) /pib
+    let anio = "";
+    let k = 2;
+    let data_plot_iec = [];
+    var data_plot_return = [];
+
+    for (var i = 0; i < consumo.length; i++){
+      let data_plot_dict = {}
+      anio = "202"+k;
+      if(k > 9){
+        k = 0
+        anio = "203"+k
+      }
+      k++
+      iec = (consumo[i]*fe)/pib[i];
+      console.log("--Indicador intensidad de emisiones de carbono--",iec)
+      //data_plot_dict = {"Año": anio, "Indicador intensidad de emisiones de carbono": iec};
+      data_plot_dict.Año = anio;
+      data_plot_dict[name] = iec;
+      data_plot_iec.push(data_plot_dict);
+    }
+
+    // console.log("--gp--",gp)
+    // console.log("--anio--",anio)
+    data_plot_return['Indicador intensidad de emisiones de carbono'] = data_plot_iec;
+    console.log("--data_plot_return--",data_plot_return);
+    create_chart_indicador3(list_name, "Indicador intensidad de emisiones de carbono", name, data_plot_return, "chart_title_7", "line-chart-7","graph-container-7");
+    return data_plot_return;
+  }
+}
   </script>
 
 <script>
@@ -2583,6 +3595,7 @@ Análisis
   var key = 'Factor de Pérdidas';
   var variable_mathjax = true;
   update_list(list_name);
+  //loadTable3(list_name);
   // var contador = 0;
   // var contador_linea_base = 0;
   // update_list_ind(list_name);

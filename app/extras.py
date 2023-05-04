@@ -153,7 +153,7 @@ def return_indicators_calculation():
     dict_distribuciones.update({"Saidi":distribution_saidi})
     dict_distribuciones.update({"Saifi":distribution_saifi})
 
-    #carga de indicadores en la uso final
+    #carga de indicadores en el uso final
     consumo_per_capita = prepareData(end_use_total_consumption, end_use_population,"Consumo per cápita" ,"1")
     int_ener_uso_final = prepareData(end_use_total_consumption, end_use_pib, "Intensidad energética del uso final de la energía eléctrica", "2")
 
