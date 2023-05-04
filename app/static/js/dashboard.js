@@ -8,6 +8,7 @@ $(document).ready(function () {
 		})
 	})
 	addClass()
+	/* test de render whit js */
 })
 
 function addClass() {
@@ -17,3 +18,10 @@ function addClass() {
 }
 
 function updateChart() {}
+
+function loadStrategies(strategies_array) {
+	var parent = document.getElementById("template_strategies").cloneNode(true)
+	parent.querySelector("#process").innerHTML = strategies_array.process
+	console.log(strategies_array.process)
+	document.getElementById("test-clone").appendChild(parent)
+}

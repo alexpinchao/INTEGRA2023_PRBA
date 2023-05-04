@@ -32,7 +32,7 @@ strategies_definition = {
                     "lower_value": 30,
                     "value": value,
                     "year": 2025,
-                    "unit": "GW",
+                    "unit": "GW"
                 },
                 {
                     "id": "x002",
@@ -43,7 +43,7 @@ strategies_definition = {
                     "lower_value": 20000,
                     "value": 24000,
                     "year": 2025,
-                    "unit": "GW",
+                    "unit": "GW"
                 },
                 {
                     "id": "x003",
@@ -54,9 +54,9 @@ strategies_definition = {
                     "lower_value": 2000,
                     "value": 6400,
                     "year": 2025,
-                    "unit": "GW",
-                },
-            ],
+                    "unit": "GW"
+                }
+            ]
         },
         {
             "id": "d002",
@@ -71,11 +71,11 @@ strategies_definition = {
                     "lower_value": 0,
                     "value": 15,
                     "year": 2025,
-                    "unit": "%",
-                },
-            ],
-        },
-    ],
+                    "unit": "%"
+                }
+            ]
+        }
+    ]
 }
 
 

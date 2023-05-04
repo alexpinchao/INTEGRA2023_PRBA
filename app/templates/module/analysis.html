@@ -135,15 +135,30 @@ Análisis
             </div>
         </div>
     </div>
-
     <section id="test-macros">
       <div class="card border-0 shadow components-section flex-grow-1 my-1">
         <div class="card-body p-0">
-          <h1 class="h3">Test de macros</h1>
           {{ macros.render_strategies(strategies_definition) }}
         </div>
       </div>
+      <div>
+        <input type="button" onclick="runLoadStrategies()">Pulsar
+      </div>
     </section>    
+    <section hidden>
+      <div id="template_strategies" class="card border-0 shadow components-section flex-grow-1 my-1">
+        <div class="card-body p-0">
+          {{ macros.template_parent_strategies() }}
+        </div>
+      </div>
+    </section>
+    <section>
+      <div>
+        ejemplo de clonación
+      </div>
+      <div id="test-clone">
+      </div>
+    </section>
 </section>
 
 <section id="scenarios" hidden>
@@ -2579,6 +2594,13 @@ Análisis
   // update_list_ind(list_name);
   // update_list_ind_linea_base(list_name)
   /* create_chart(list_name, key); */
+</script>
+
+<script type="text/javascript">
+function runLoadStrategies(){
+  arr = JSON.parse('{{ strategies_definition| tojson | safe }}');
+  loadStrategies(arr)
+}
 </script>
 
 {% endblock %}
