@@ -169,29 +169,31 @@
 					>
 				</div>
 			</div>
-			<div class="accordion accordion-flush" id="accordionStrategies">
-				<div class="accordion-item" id="accordion-item-model-id">
-					<h2 class="accordion-header" id="heading-model-id">
-						<button
-							class="accordion-button"
-							type="button"
-							data-bs-toggle="collapse"
-							data-bs-target="#collapse-model-id"
-							aria-expanded="true"
-							aria-controls="collapse-model-id"
+			<div class="accordion accordion-flush" id="accordion-strategies">
+				<div hidden>
+					<div class="accordion-item" id="accordion-item-model-id">
+						<h2 class="accordion-header" id="heading-model-id">
+							<button
+								class="accordion-button"
+								type="button"
+								data-bs-toggle="collapse"
+								data-bs-target="#collapse-model-id"
+								aria-expanded="true"
+								aria-controls="collapse-model-id"
+							>
+								<strong class="fs-5 fw-bolder"><span id="model-name">modelo ejemplo</span></strong>
+							</button>
+						</h2>
+						<div
+							id="collapse-model-id"
+							class="accordion-collapse collapse show"
+							aria-labelledby="heading-model-id"
+							data-bs-parent="#accordion-strategies"
 						>
-							<strong class="fs-5 fw-bolder"><span id="model-name">modelo ejemplo</span></strong>
-						</button>
-					</h2>
-					<div
-						id="collapse-model-id"
-						class="accordion-collapse collapse show"
-						aria-labelledby="heading-model-id"
-						data-bs-parent="#accordionStrategies"
-					>
-						<div class="accordion-body p-1">
-							<div class="accordion accordion-flush" id="strategies-model-id">
-								{{ template_strategy() }}
+							<div class="accordion-body p-1">
+								<div class="accordion accordion-flush" id="strategies-model-id">
+									<div hidden>{{ template_strategy() }}</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -201,7 +203,7 @@
 	</div>
 </div>
 {% endmacro %} {% macro template_strategy() %}
-<div class="accordion-item mb-1" id="strategy-example">
+<div class="accordion-item mb-1" id="strategy-item-example">
 	<h2 class="accordion-header rounded bg-gray-100" id="heading-strategy-example">
 		<button
 			class="accordion-button collapsed p-2"
@@ -211,7 +213,7 @@
 			aria-expanded="false"
 			aria-controls="collapse-strategy-example"
 		>
-			<span id="strategy-exmple-name">Estrategia de ejemplo</span>
+			<span id="strategy-example-name">Estrategia de ejemplo</span>
 		</button>
 	</h2>
 	<div
@@ -222,7 +224,7 @@
 	>
 		<div class="accordion-body border-0 shadow rounded-bottom group-form-range">
 			<div class="row d-flex align-items-center py-1">
-				<div class="col-12 h6" id="strategy-example-variable">strategy.variable</div>
+				<div class="col-12 h6" id="strategy-name-variable">strategy.variable</div>
 				<div class="col-4 justify-content-center d-flex">
 					<div class="icon-shape icon-shape-tertiary rounded">
 						<svg
@@ -264,9 +266,7 @@
 									></path>
 								</svg>
 							</span>
-							<span id="strategy-example-bau-info"
-								>strategy.value strategy.unit año strategy.year
-							</span>
+							<span id="strategy-bau-info">strategy.value strategy.unit año strategy.year </span>
 						</small>
 					</div>
 				</div>
@@ -280,7 +280,7 @@
 						data-slider-id="range-strategy-example"
 						data-slider-tooltip="always"
 					/>
-					<small class="text-gray-500" id="strategy-example-range-info">
+					<small class="text-gray-500" id="strategy-range-info">
 						strategy.lower_value - strategy.upper_value; strategy.unit
 					</small>
 				</div>
