@@ -573,6 +573,46 @@ data_desag_end_use_table = Table('DATOS_DESAGREGACION_USO_FINAL', metadata_obj,
                    Column('Intensidad_energética_del_sector_comercial_y_público', String)
                    )
 
+# Method that returns the table ESTRATEGIAS
+# DATE: 16/03/2023
+#end use indicators table schema
+strategies_table = Table('ESTRATEGIAS', metadata_obj,
+                   Column('ESTRATEGIA_ID', Integer,
+                          nullable=False, unique=True),
+                   Column('ESTRATEGIA_NOMBRE', String),
+                   Column('MODELO_MATEMATICO', String),
+                   Column('VARIABLES', String)
+                   )
+
+# Method that returns the table SUB_ESTRATEGIAS
+# DATE: 16/03/2023
+#Variables relation for end use indicators table schema
+sub_strategies_table = Table('SUB_ESTRATEGIA_GEN', metadata_obj,
+                   Column('SUB_ESTRATEGIA_ID', Integer,
+                          nullable=False, unique=True),
+                   Column('NOMBRE_SUB_ESTRATEGIA', String),
+                   Column('ESTRATEGIA_ID', String)
+                   )
+
+# Method that returns the table SUB_ESTRATEGIAS
+# DATE: 16/03/2023
+#Variables relation for end use indicators table schema
+sub_strategies_table_exp = Table('SUB_ESTRATEGIA_GEN_EXP', metadata_obj,
+                   Column('SUB_ESTRATEGIA_ID', Integer,
+                          nullable=False, unique=True),
+                   Column('NOMBRE_SUB_ESTRATEGIA', String),
+                   Column('ESTRATEGIA_ID', String)
+                   )
+
+# Method that returns the table VAR_SUB_ESTRATEGIAS
+# DATE: 16/03/2023
+# data for end use table schema
+var_sub_strategies_table = Table('VARIABLES_SUB_ESTRATEGIA_GEN', metadata_obj,
+                   Column('VARIABLE_SUB_ESTRATEGIA_ID', String),
+                   Column('NOMBRE_VARIABLE', String),
+                   Column('SUB_ESTRATEGIA_ID', String)
+                   )
+
 projections_generation_table = Table('proyeccion_escenario_bau_generacion', metadata_obj,
                    Column('Año', Integer,
                           nullable=False, unique=True),
@@ -1150,6 +1190,63 @@ class SQL_connector():
         result.close()
 
         return rows
+    
+    
+    def get_gen_strategies(self):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """
+        query = select(strategies_table)
+        result = self.engine.execute(query)
+        columns = [col for col in result.keys()]
+        rows = {'estrategias':[dict(zip(columns,row)) for row in result.fetchall()]}
+        result.close()
+
+        return rows
+
+    def get_gen_sub_strategies(self):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """
+        query = select(sub_strategies_table)
+        result = self.engine.execute(query)
+        columns = [col for col in result.keys()]
+        rows = {'Estrategias de expansión':[dict(zip(columns,row)) for row in result.fetchall()]}
+        result.close()
+
+        return rows
+    
+    def get_gen_sub_strategies_exp(self):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """
+        query = select(sub_strategies_table_exp)
+        result = self.engine.execute(query)
+        columns = [col for col in result.keys()]
+        rows = {'Estrategias de actualización':[dict(zip(columns,row)) for row in result.fetchall()]}
+        result.close()
+
+        return rows
+
+    def get_gen_var_sub_strategies(self):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """        
+        query = select(var_sub_strategies_table)
+        result = self.engine.execute(query)
+        columns = [col for col in result.keys()]
+        rows = {'variables':[dict(zip(columns,row)) for row in result.fetchall()]}
+        result.close()
+
+        return rows
 
     def get_projections_gen(self):
         query = select(projections_generation_table)
@@ -1271,6 +1368,64 @@ class SQL_connector():
 
         _dict.update({'end_use':end_use_dict_ind})
         return _dict
+    
+    def get_Strategies(self):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """
+        _dict_strategies = {}
+        _dict_gen_strategies = {}
+        # _dict_gen_strategies.update(self.get_gen_strategies())
+        _dict_gen_strategies.update(self.get_gen_sub_strategies())
+        _dict_gen_strategies.update(self.get_gen_sub_strategies_exp())
+        # _dict_gen_strategies.update(self.get_gen_var_sub_strategies())
+
+        _dict_strategies.update({'generation':_dict_gen_strategies})
+
+        # _dist_dist_strategies = {}
+        # _dist_dist_strategies.update(self.)
+        # _dist_dist_strategies.update(self.)
+        # _dist_dist_strategies.update(self.)
+
+        # _dict_strategies.update({'distribution':_dist_dist_strategies})
+
+        # _dict_end_use_strategies = {}
+        # _dict_end_use_strategies.update(self.)
+        # _dict_end_use_strategies.update(self.)
+        # _dict_end_use_strategies.update(self.)
+
+        # _dict_strategies.update({'end_use':_dict_end_use_strategies})
+        return _dict_strategies
+    
+    def get_description_Strategies(self):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """
+        _dict_desc_strategies = {}
+        _dict_gen_strategies = {}
+        _dict_gen_strategies.update(self.get_gen_strategies())
+        _dict_gen_strategies.update(self.get_gen_var_sub_strategies())
+
+        _dict_desc_strategies.update({'generation':_dict_gen_strategies})
+
+        # _dist_dist_strategies = {}
+        # _dist_dist_strategies.update(self.)
+        # _dist_dist_strategies.update(self.)
+        # _dist_dist_strategies.update(self.)
+
+        # _dict_strategies.update({'distribution':_dist_dist_strategies})
+
+        # _dict_end_use_strategies = {}
+        # _dict_end_use_strategies.update(self.)
+        # _dict_end_use_strategies.update(self.)
+        # _dict_end_use_strategies.update(self.)
+
+        # _dict_strategies.update({'end_use':_dict_end_use_strategies})
+        return _dict_desc_strategies
 
     def get_projections(self):
 

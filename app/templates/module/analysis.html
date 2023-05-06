@@ -39,158 +39,699 @@ Análisis
     
   <main class="content">  
   <div class="d-none d-lg-flex justify-content-end">
-  {% block nav %}
-  {% include 'module/navbar.html' %}
-  {% endblock %}
+    {% block nav %}
+    {% include 'module/navbar.html' %}
+    {% endblock %}
   </div>
 
-    <section id="main">
-      <div class="row mt-2">
+  <section id="main">
+    <div class="row mt-2">
         <div class="col-12 d-flex flex-column">
-          <div class="card border-0 shadow components-section flex-grow-1 pt-3 px-2 px-md-4 px-xxl-5">
-            <div class="card-body p-0">
-              <div class="row mt-4 mt-lg-4">
-                <div class="col-12 px-4 px-md-2">
-                  <h3 class="fw-extrabold">Bienvenido al análisis de estrategias</h3>
-                  <p class="mb-0 justified-text">En este módulo se evalúan las estrategias de eficiencia energética mediante criterios económicos, ambientales y
-                  energéticos, al ser proyectadas hacia los años de interés, permitiendo definir las estrategias más viables para el país.</p>
-                </div>
-              </div>
-              <div class="row main-row">
-                <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
-                  {% if admin_session %}
-                  <a href="#scenarios" onclick="ActiveSection('scenarios')">
-                  {% else %}
-                  <a href="#scenarios" data-bs-toggle="modal" data-bs-target="#modal-analysis-1">
-                  {% endif %}
-                    <div class="card border-1 shadow card-effect">
-                      <div class="card-body position-relative">
-                        {% if not admin_session %}
-                        <img class="image comming-soon top-0 end-0" src="{{url_for('static',filename='images/proximamente.png')}}" height="84"
-                          width="104" alt="Próximamente logo.">
-                        {% endif %}
-                        <div class="row d-block d-xl-flex align-items-center">
-                          <div
-                            class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
-                            <div class="icon-shape icon-shape-primary rounded me-4 me-sm-0 card-effect-icon">
-                              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                  d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z">
-                                </path>
-                              </svg>
-                            </div>
-                            <div class="d-sm-none">
-                              <h3 class="fw-extrabold mb-1">Modelos</h3>
-                              <h2 class="h5 text-gray-400 mb-0">de escenarios</h2>
-                            </div>
-                          </div>
-                          <div class="col-12 col-xl-7 px-xl-0">
-                            <div class="d-none d-sm-block">
-                              <h3 class="fw-extrabold mb-2">Modelos</h3>
-                              <h2 class="h5 text-gray-400 mb-0">de escenarios</h2>
-                            </div>
-                          </div>
+            <div class="card border-0 shadow components-section flex-grow-1 pt-3 px-2 px-md-4 px-xxl-5">
+                <div class="card-body p-0">
+                    <div class="row mt-4 mt-lg-4">
+                        <div class="col-12 px-4 px-md-2">
+                            <h3 class="fw-extrabold">Bienvenido al análisis de estrategias</h3>
+                            <p class="mb-0 justified-text">En este módulo se evalúan las estrategias de eficiencia
+                                energética mediante criterios económicos, ambientales y
+                                energéticos, al ser proyectadas hacia los años de interés, permitiendo definir las
+                                estrategias más viables para el país.</p>
                         </div>
-                      </div>
                     </div>
-                  </a>
-                </div>
-                {% set text_module1 = 'En el módulo de análisis se evalúan las estrategias de eficiencia energética mediante criterios económicos, ambientales y energéticos, al ser proyectadas hacia los años de interés, permitiendo definir las estrategias más viables para el país.'%}
-                {{modals.render_modal('coming','analysis-1','Resultados de evaluación', text_module1)}}
-                <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
-                  {% if admin_session %}
-                  <a href="#evaluation" onclick="ActiveSection('evaluation')">
-                  {% else %}
-                  <a href="#evaluation" data-bs-toggle="modal" data-bs-target="#modal-analysis-2">
-                  {% endif %}
-                    <div class="card border-1 shadow card-effect">
-                      <div class="card-body position-relative">
-                        {% if not admin_session %}
-                        <img class="image comming-soon top-0 end-0" src="{{url_for('static',filename='images/proximamente.png')}}" height="84"
-                          width="104" alt="Próximamente logo.">
-                        {% endif %}
-                        <div class="row d-block d-xl-flex align-items-center">
-                          <div
-                            class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
-                            <div class="icon-shape icon-shape-secondary rounded me-4 me-sm-0 card-effect-icon">
-                              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
-                                <path fill-rule="evenodd"
-                                  d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                  clip-rule="evenodd"></path>
-                              </svg>
-                            </div>
-                            <div class="d-sm-none">
-                              <h3 class="fw-extrabold mb-1">Resultados </h3>
-                              <h2 class="h5">de evaluación</h2>
-                            </div>
-                          </div>
-                          <div class="col-12 col-xl-7 px-xl-0">
-                            <div class="d-none d-sm-block">
-                              <h3 class="fw-extrabold mb-2">Resultados</h3>
-                              <h2 class="h5 text-gray-400 mb-0">de evaluación</h2>
-                            </div>
-                          </div>
+                    <div class="row main-row">
+                        <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
+                            <a href="#scenarios" onclick="ActiveSection('scenarios')">
+                                <div class="card border-1 shadow card-effect">
+                                    <div class="card-body position-relative">
+                                        <div class="row d-block d-xl-flex align-items-center">
+                                            <div
+                                                class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                                                <div
+                                                    class="icon-shape icon-shape-primary rounded me-4 me-sm-0 card-effect-icon">
+                                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z">
+                                                        </path>
+                                                    </svg>
+                                                </div>
+                                                <div class="d-sm-none">
+                                                    <h3 class="fw-extrabold mb-1">Cálculo</h3>
+                                                    <h2 class="h5 text-gray-400 mb-0">de estrategias</h2>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-7 px-xl-0">
+                                                <div class="d-none d-sm-block">
+                                                    <h3 class="fw-extrabold mb-2">Cálculo</h3>
+                                                    <h2 class="h5 text-gray-400 mb-0">de estrategias</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                      </div>
+                        <!-- {% set text_module1 = 'En el módulo de análisis se evalúan las estrategias de eficiencia energética mediante criterios económicos, ambientales y energéticos, al ser proyectadas hacia los años de interés, permitiendo definir las estrategias más viables para el país.'%}
+              {{modals.render_modal('coming','analysis-1','Resultados de evaluación', text_module1)}} -->
+                        <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
+                            <a href="#d" onclick="ActiveSection('d')">
+                                <div class="card border-1 shadow card-effect">
+                                    <div class="card-body position-relative">
+                                        <div class="row d-block d-xl-flex align-items-center">
+                                            <div
+                                                class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                                                <div
+                                                    class="icon-shape icon-shape-secondary rounded me-4 me-sm-0 card-effect-icon">
+                                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
+                                                        <path fill-rule="evenodd"
+                                                            d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                                            clip-rule="evenodd"></path>
+                                                    </svg>
+                                                </div>
+                                                <div class="d-sm-none">
+                                                    <h3 class="fw-extrabold mb-1">Resultados </h3>
+                                                    <h2 class="h5">del proyecto</h2>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-7 px-xl-0">
+                                                <div class="d-none d-sm-block">
+                                                    <h3 class="fw-extrabold mb-2">Resultados</h3>
+                                                    <h2 class="h5 text-gray-400 mb-0">del proyecto</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- {% set text_module2 = 'En el módulo de análisis se evaluarán las estrategias de eficiencia energética mediante criterios económicos, ambientales y energéticos, al ser proyectadas hacia los años de interés, permitiendo definir las estrategias más viables para el país.'%}
+              {{modals.render_modal('coming','analysis-2','Resultados de evaluación', text_module2)}} -->
                     </div>
-                  </a>
                 </div>
-                {% set text_module2 = 'En el módulo de análisis se evaluarán las estrategias de eficiencia energética mediante criterios económicos, ambientales y energéticos, al ser proyectadas hacia los años de interés, permitiendo definir las estrategias más viables para el país.'%}
-                {{modals.render_modal('coming','analysis-2','Resultados de evaluación', text_module2)}}
-              </div>
             </div>
-          </div>
         </div>
-      </div>
-    </section>
+    </div>
+</section>
 
 <section id="scenarios" hidden>
     <!-- section header -->
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
       <div class="d-block">
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block pt-2">
+              <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                  <li class="breadcrumb-item">
+                      <a href="{{url_for('dashboard.main')}}">
+                          <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                              </path>
+                          </svg>
+                      </a>
+                  </li>
+                  <li class="breadcrumb-item"><a href="#" onclick="ActiveSection('main')">Análisis de estrategias</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Cálculo</li>
+              </ol>
+          </nav>
+      </div>
+  </div>
+  <div class="row mb-2 min-vh-85">
+      <div class="col-12">
+          <div class="card border-0 shadow h-100">
+              <div class="card-body px-1 px-md-3 d-flex flex-column">
+                  <div class="row mb-2">
+                      <div class="col-12">
+                          <span class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon">
+                              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                      d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z">
+                                  </path>
+                              </svg>
+                          </span>
+                          <span class="h2 fw-extrabold">Cálculo de estrategias</span>
+                          <p class="m-1">Paso 1: Creación de escenario</p>
+                      </div>
+                  </div>
+                  <div class="components-section flex-grow-1">
+                      <div class="row justify-content-between m-0">
+                          <div class="row mb-2 mt-2">
+                              <!-- Section Table -->
+                              <div class="card m-2 card-body border-1 shadow table-wrapper table-responsive">
+                                  <div class="row">
+                                      <div class="col-12 d-flex">
+                                          <table class="table table-hover">
+                                              <thead>
+                                                  <tr class="text-center align-middle">
+                                                      <th class="border-gray-200">#</th>
+                                                      <th class="border-gray-200">Fecha de creación</th>
+                                                      <th class="border-gray-200">Nombre del escenario</th>
+                                                      <th class="border-gray-200">Opciones</th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                                  <!-- Item -->
+                                                  <tr>
+                                                      <td>
+                                                          <a href="#" class="fw-bold">
+                                                              1
+                                                          </a>
+                                                      </td>
+                                                      <td>
+                                                          <span class="fw-normal">14/03/2023</span>
+                                                      </td>
+                                                      <td><span class="fw-normal w-25">Escenario prueba</span></td>
+                                                      <td><span class="fw-normal"></span></td>
+                                                  </tr>
+                                                  <!-- Item -->
+                                                  <tr>
+                                                      <td>
+                                                          <a href="#" class="fw-bold">
+                                                              2
+                                                          </a>
+                                                      </td>
+                                                      <td>
+                                                          <span class="fw-normal"></span>
+                                                      </td>
+                                                      <td><span class="fw-normal w-25"></span></td>
+                                                      <td><span class="fw-normal"></span></td>
+                                                  </tr>
+                                                  <!-- Item -->
+                                              </tbody>
+                                          </table>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-12 m-1 d-flex align-middle">
+                                  <button class="btn btn-primary d-inline-flex align-items-center me-2 dropdown-toggle"
+                                      data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                          xmlns="http://www.w3.org/2000/svg">
+                                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                      </svg>
+                                      Añadir escenario
+                                  </button>
+                              </div>
+                              <div class="col-12 m-1 d-flex align-middle">
+                                  <div class="btn-toolbar d-flex justify-content-end">
+                                      <a href="#scenarios_2"
+                                          class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+                                          onclick="ActiveSection('scenarios_2')">
+                                          <svg class="icon icon-xs me-2" fill="none" stroke="currentColor"
+                                              viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                              <path fill-rule="evenodd"
+                                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                                                  clip-rule="evenodd"></path>
+                                          </svg>
+                                          paso 2
+                                      </a>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+<section id="scenarios_2" hidden>
+  <!-- section header -->
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+    <div class="d-block">
         <nav aria-label="breadcrumb" class="d-none d-md-inline-block pt-2">
-          <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
-            <li class="breadcrumb-item">
-              <a href="{{url_for('dashboard.main')}}">
-                <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                <li class="breadcrumb-item">
+                    <a href="{{url_for('dashboard.main')}}">
+                        <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                            </path>
+                        </svg>
+                    </a>
+                </li>
+                <li class="breadcrumb-item"><a href="#" onclick="ActiveSection('main')">Análisis de estrategias</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Cálculo</li>
+            </ol>
+        </nav>
+    </div>
+  </div>
+  <div class="row mb-2 min-vh-85">
+    <div class="col-12">
+        <div class="card border-0 shadow h-100">
+            <div class="card-body px-1 px-md-3 d-flex flex-column">
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z">
+                                </path>
+                            </svg>
+                        </span>
+                        <span class="h2 fw-extrabold">Cálculo de estrategias</span>
+                        <p class="m-1">Paso 2: Seleccion de o las estratregias</p>
+                    </div>
+                </div>
+                <div class="row flex-fill px-1">
+                    <div class="card border-1 shadow mx-2 mx-md-0">
+                        <div class="card-header p-0">
+                            <div class="row justify-content-between m-0">
+                                <!-- Dropdown menu-->
+                                <div
+                                    class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between flex-grow-1">
+                                    <div class="d-block mb-3 mb-sm-0 align-items-center">
+                                        <span class="sidebar-icon">
+                                            <svg class="icon-shape icon-xxs" fill="black" viewBox="0 0 720 720"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M88 48C101.3 48 112 58.75 112 72V120C112 133.3 101.3 144 88 144H40C26.75 144 16 133.3 16 120V72C16 58.75 26.75 48 40 48H88zM480 64C497.7 64 512 78.33 512 96C512 113.7 497.7 128 480 128H192C174.3 128 160 113.7 160 96C160 78.33 174.3 64 192 64H480zM480 224C497.7 224 512 238.3 512 256C512 273.7 497.7 288 480 288H192C174.3 288 160 273.7 160 256C160 238.3 174.3 224 192 224H480zM480 384C497.7 384 512 398.3 512 416C512 433.7 497.7 448 480 448H192C174.3 448 160 433.7 160 416C160 398.3 174.3 384 192 384H480zM16 232C16 218.7 26.75 208 40 208H88C101.3 208 112 218.7 112 232V280C112 293.3 101.3 304 88 304H40C26.75 304 16 293.3 16 280V232zM88 368C101.3 368 112 378.7 112 392V440C112 453.3 101.3 464 88 464H40C26.75 464 16 453.3 16 440V392C16 378.7 26.75 368 40 368H88z" />
+                                            </svg>
+                                        </span>
+                                        <span class="fs-5 fw-extrabold mb-2">Estrategias</span>
+                                    </div>
+                                </div>
+                                <div
+                                    class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between justify-content-xl-center">
+                                    <span class="h6 fw-bold p-1"><strong>Cadena de Valor</strong> </span>
+                                    <div class="btn-group p-1">
+                                        <button type="button" id="select-dropdown-var"
+                                            class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
+                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span>Seleccionar</span>
+                                            <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" onclick="update_list('generation')">Generación</a>
+                                            <a class="dropdown-item"
+                                                onclick="update_list('distribution')">Distribución</a>
+                                            <a class="dropdown-item" onclick="update_list('end_use')">Uso final</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body px-1 px-md-3 py-1">
+                            <div class="row mb-2 mt-2 m-0">
+                                <div class="col-12 col-xl-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
+                                    <div class="card border-0 flex-fill">
+                                        <div class="card-body align-self-stretch p-2">
+                                            <!-- Section Table -->
+                                            <div class="table-responsive info-table" id="table_content"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xl-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
+                                    <div class="card border-0 flex-fill">
+                                        <div class="card-body align-self-stretch p-2">
+                                            <!-- Section Table -->
+                                            <div class="table-responsive info-table" id="table_content_1"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 m-1 d-flex align-middle">
+                    <div class="btn-toolbar d-flex justify-content-end">
+                        <a id="activar_scenario" href="#scenarios_3" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+                            onclick="ActiveSection('scenarios_3')">
+                            <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            paso 3
+                        </a>
+                    </div>
+                    <div class="btn-toolbar d-flex justify-content-end">
+                      <a href="#scenarios" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+                          onclick="ActiveSection('scenarios')">
+                          <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                                  clip-rule="evenodd"></path>
+                          </svg>
+                          Anterior
+                      </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section id="scenarios_3" hidden>
+  <!-- section header -->
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+    <div class="d-block">
+        <nav aria-label="breadcrumb" class="d-none d-md-inline-block pt-2">
+            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                <li class="breadcrumb-item">
+                    <a href="{{url_for('dashboard.main')}}">
+                        <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                            </path>
+                        </svg>
+                    </a>
+                </li>
+                <li class="breadcrumb-item"><a href="#" onclick="ActiveSection('main')">Análisis de estrategias</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Cálculo</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row mb-2 min-vh-85">
+    <div class="col-12">
+        <div class="card border-0 shadow h-100">
+            <div class="card-body px-1 px-md-3 d-flex flex-column">
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z">
+                                </path>
+                            </svg>
+                        </span>
+                        <span class="h2 fw-extrabold">Cálculo de estrategias</span>
+                        <p class="m-1">Paso 3: Modificacion de variables por cada estrategia</p>
+                    </div>
+                </div>
+                <div class="row flex-fill px-1">
+                    <div class="card border-1 shadow mx-2 mx-md-0">
+                        <div class="card-header p-0">
+                            <div class="row justify-content-between m-0">
+                                <!-- Dropdown menu-->
+                                <div
+                                    class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between flex-grow-1">
+                                    <div class="d-block mb-3 mb-sm-0 align-items-center">
+                                        <span class="sidebar-icon">
+                                            <svg class="icon-shape icon-xxs" fill="black" viewBox="0 0 720 720"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M88 48C101.3 48 112 58.75 112 72V120C112 133.3 101.3 144 88 144H40C26.75 144 16 133.3 16 120V72C16 58.75 26.75 48 40 48H88zM480 64C497.7 64 512 78.33 512 96C512 113.7 497.7 128 480 128H192C174.3 128 160 113.7 160 96C160 78.33 174.3 64 192 64H480zM480 224C497.7 224 512 238.3 512 256C512 273.7 497.7 288 480 288H192C174.3 288 160 273.7 160 256C160 238.3 174.3 224 192 224H480zM480 384C497.7 384 512 398.3 512 416C512 433.7 497.7 448 480 448H192C174.3 448 160 433.7 160 416C160 398.3 174.3 384 192 384H480zM16 232C16 218.7 26.75 208 40 208H88C101.3 208 112 218.7 112 232V280C112 293.3 101.3 304 88 304H40C26.75 304 16 293.3 16 280V232zM88 368C101.3 368 112 378.7 112 392V440C112 453.3 101.3 464 88 464H40C26.75 464 16 453.3 16 440V392C16 378.7 26.75 368 40 368H88z" />
+                                            </svg>
+                                        </span>
+                                        <span class="fs-5 fw-extrabold mb-2">Variables</span>
+                                    </div>
+                                </div>
+                                <div
+                                    class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between justify-content-xl-center">
+                                    <span class="h6 fw-bold p-1"><strong>Cadena de Valor</strong> </span>
+                                    <div class="btn-group p-1">
+                                        <button type="button" id="select-dropdown-var-3"
+                                            class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
+                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span>Seleccionar</span>
+                                            <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" onclick="loadTable3('generation')">Generación</a>
+                                            <a class="dropdown-item" onclick="loadTable3('distribution')">Distribución</a>
+                                            <a class="dropdown-item" onclick="loadTable3('end_use')">Uso final</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body px-1 px-md-3 py-1">
+                            <div class="row mb-2 mt-2 m-0">
+                                <div class="col-12 col-xl-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
+                                    <div class="card border-0 flex-fill">
+                                        <div class="card-body align-self-stretch p-2">
+                                            <!-- Section Table -->
+                                            <div class="table-responsive info-table" id="table_content_3"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Graph Section -->
+                                <div class="col-12 col-xl-8 mb-1 px-0 d-flex align-self-stretch">
+                                    <div class="card border-0 flex-fill">
+                                        <div class="card-body p-1 flex-fill" id="graph-container-3">
+                                            <div class="d-block mb-3 mb-sm-0">
+                                                <span class="fs-5 fw-extrabold mb-4" id="chart_title_3">Variable
+                                                    seleccionada</span>
+                                            </div>
+                                            <canvas id="line-chart-3" width="100%" height="50%"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 m-1 d-flex align-middle">
+                    <div class="btn-toolbar d-flex justify-content-end">
+                        <a href="#scenarios_4" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+                            onclick="ActiveSection('scenarios_4')">
+                            <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            paso 4
+                        </a>
+                    </div>
+                    <div class="btn-toolbar d-flex justify-content-end">
+                      <a href="#scenarios_2" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+                          onclick="ActiveSection('scenarios_2')">
+                          <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                                  clip-rule="evenodd"></path>
+                          </svg>
+                          Anterior
+                      </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<section id="scenarios_4" hidden>
+  <!-- section header -->
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+    <div class="d-block">
+        <nav aria-label="breadcrumb" class="d-none d-md-inline-block pt-2">
+            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                <li class="breadcrumb-item">
+                    <a href="{{url_for('dashboard.main')}}">
+                        <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                            </path>
+                        </svg>
+                    </a>
+                </li>
+                <li class="breadcrumb-item"><a href="#" onclick="ActiveSection('main')">Análisis de estrategias</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Cálculo</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row mb-2 min-vh-85">
+    <div class="col-12">
+        <div class="card border-0 shadow h-100">
+            <div class="card-body px-1 px-md-3 d-flex flex-column">
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z">
+                                </path>
+                            </svg>
+                        </span>
+                        <span class="h2 fw-extrabold">Cálculo de estrategias</span>
+                        <p class="m-1">Paso 4: Visualizacion de indicadores por cada estrategia</p>
+                    </div>
+                </div>
+                <div class="row flex-fill px-1">
+                    <div class="card border-1 shadow mx-2 mx-md-0">
+                        <div class="card-header p-0">
+                            <div class="row justify-content-between m-0">
+                                <!-- Dropdown menu-->
+                                <div
+                                    class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between flex-grow-1">
+                                    <div class="d-block mb-3 mb-sm-0 align-items-center">
+                                        <span class="sidebar-icon">
+                                            <svg class="icon-shape icon-xxs" fill="black" viewBox="0 0 720 720"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M88 48C101.3 48 112 58.75 112 72V120C112 133.3 101.3 144 88 144H40C26.75 144 16 133.3 16 120V72C16 58.75 26.75 48 40 48H88zM480 64C497.7 64 512 78.33 512 96C512 113.7 497.7 128 480 128H192C174.3 128 160 113.7 160 96C160 78.33 174.3 64 192 64H480zM480 224C497.7 224 512 238.3 512 256C512 273.7 497.7 288 480 288H192C174.3 288 160 273.7 160 256C160 238.3 174.3 224 192 224H480zM480 384C497.7 384 512 398.3 512 416C512 433.7 497.7 448 480 448H192C174.3 448 160 433.7 160 416C160 398.3 174.3 384 192 384H480zM16 232C16 218.7 26.75 208 40 208H88C101.3 208 112 218.7 112 232V280C112 293.3 101.3 304 88 304H40C26.75 304 16 293.3 16 280V232zM88 368C101.3 368 112 378.7 112 392V440C112 453.3 101.3 464 88 464H40C26.75 464 16 453.3 16 440V392C16 378.7 26.75 368 40 368H88z" />
+                                            </svg>
+                                        </span>
+                                        <span class="fs-5 fw-extrabold mb-2">Variables</span>
+                                    </div>
+                                </div>
+                                <div
+                                    class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between justify-content-xl-center">
+                                    <span class="h6 fw-bold p-1"><strong>Cadena de Valor</strong> </span>
+                                    <div class="btn-group p-1">
+                                        <button type="button" id="select-dropdown-var_4"
+                                            class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
+                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span>Seleccionar</span>
+                                            <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" onclick="update_list_4('generation')">Generación</a>
+                                            <a class="dropdown-item"
+                                                onclick="update_list_4('distribution')">Distribución</a>
+                                            <a class="dropdown-item" onclick="update_list_4('end_use')">Uso final</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body px-1 px-md-3 py-1">
+                            <div class="row mb-2 mt-2 m-0">
+                                <div class="col-12 col-xl-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
+                                    <div class="card border-0 flex-fill">
+                                        <div class="card-body align-self-stretch p-2">
+                                            <!-- Section Table -->
+                                            <div class="table-responsive info-table" id="table_content_4"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Graph Section -->
+                                <div class="col-12 col-xl-8 mb-1 px-0 d-flex align-self-stretch">
+                                    <div class="card border-0 flex-fill">
+                                        <div class="card-body p-1 flex-fill" id="graph-container-4">
+                                            <div class="d-block mb-3 mb-sm-0">
+                                                <span class="fs-5 fw-extrabold mb-4" id="chart_title_4">Variable
+                                                    seleccionada</span>
+                                            </div>
+                                            <canvas id="line-chart-4" width="100%" height="50%"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 m-1 d-flex align-middle">
+                    <div class="btn-toolbar d-flex justify-content-end">
+                        <a href="#scenarios_5" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+                            onclick="ActiveSection('scenarios_5')">
+                            <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            paso 5
+                        </a>
+                    </div>
+                    <div class="btn-toolbar d-flex justify-content-end">
+                      <a href="#scenarios_3" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+                          onclick="ActiveSection('scenarios_3')">
+                          <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                                  clip-rule="evenodd"></path>
+                          </svg>
+                          Anterior
+                      </a>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<section id="scenarios_5" hidden>
+  <!-- section header -->
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+    <div class="d-block">
+      <nav aria-label="breadcrumb" class="d-none d-md-inline-block pt-2">
+        <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+          <li class="breadcrumb-item">
+            <a href="{{url_for('dashboard.main')}}">
+              <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                </path>
+              </svg>
+            </a>
+          </li>
+          <li class="breadcrumb-item"><a href="#" onclick="ActiveSection('main')">Análisis de estrategias</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Cálculo</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  <div class="row mb-2 min-vh-85">
+    <div class="col-12">
+      <div class="card border-0 shadow h-100">
+        <div class="card-body px-1 px-md-3 d-flex flex-column">
+          <div class="row mb-2">
+            <div class="col-12">
+              <span class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z">
                   </path>
                 </svg>
-              </a>
-            </li>
-            <li class="breadcrumb-item"><a href="#" onclick="ActiveSection('main')">Análisis de estrategias</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Escenarios</li>
-          </ol>
-        </nav>
-      </div>
-    </div>
-    <div class="row mb-2 min-vh-85">
-      <div class="col-12">
-        <div class="card border-0 shadow h-100">
-          <div class="card-body px-1 px-md-3 d-flex flex-column">
-            <div class="row mb-2 mb-lg-2">
-              <div class="col-12">
-                <h2 class="h4">Modelos de escenarios</h2>
-              </div>
+              </span>
+              <span class="h2 fw-extrabold">Cálculo de estrategias</span>
+              <p class="m-1">Paso 5: Jerarquizacion de estrategias</p>
             </div>
-            <div class="components-section flex-grow-1">
-              <div class="row justify-content-between m-0">
+          </div>
+          <div class="components-section flex-grow-1">
+            <div class="row justify-content-between m-0">
+              <div class="row mb-2 mt-2">
                 <div class="row mb-2 mt-2">
-                  <!-- Section Table -->
-                  <div class="card m-2 card-body border-1 shadow table-wrapper table-responsive">
-                    <div class="row">
-                    <div class="col-12 d-flex">
+                  <h2 class="h4">Resultados de la evaluación</h2>
+                  <div class="col-7 card m-2 card-body border-1 shadow table-wrapper table-responsive">
+                    <div class="d-flex">
                       <table class="table table-hover">
                         <thead>
                           <tr class="text-center align-middle">
-                            <th class="border-gray-200">#</th>
-                            <th class="border-gray-200">Nombre modelo</th>
-                            <th class="border-gray-200">Variables iteradas</th>
-                            <th class="border-gray-200">Valor linea base</th>
-                            <th class="border-gray-200">Valor nuevo</th>
+                            <th class="border-gray-200">Clasificación</th>
+                            <th class="border-gray-200">Linea base</th>
+                            <th class="border-gray-200">Escenario económico</th>
+                            <th class="border-gray-200">Escenario energético base</th>
+                            <th class="border-gray-200">Escenario ambiental</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -280,255 +821,63 @@ Análisis
                           </tr>
                         </tbody>
                       </table>
-                      </div>
                     </div>
                   </div>
-                  <div class="pt-4">
-                    <div class="small mt-2 justified-text p-1">
-                      <span class="h4 mb-4">Pesos de criterio</span><br>
-                      <span class="h5 mb-4">Evaluación MDMC.</span>
-                      <br>
-                    </div>
-                    <div class="row mb-2">
-                      <div class="m-1 col-3 card card-body border-1">
-                        <div class="text-center fw-bold p-1">
-                          <span class="h5 mb-4">Escenario económico</span>
-                        </div>
-                        <div class="row mb-2">
-                          <div class="col-lg-8">
-                            <label for=""><small>Criterio energético</small></label>
-                          </div>
-                          <div class="col-lg-4">
-                            <div class="input-group input-group-sm">
-                              <input class="form-control" type="number" placeholder="33%" id="numPeople" />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-2">
-                          <div class="col-lg-8">
-                            <label for=""><small>Criterio económico</small></label>
-                          </div>
-                          <div class="col-lg-4">
-                            <div class="input-group input-group-sm">
-                              <input class="form-control" type="number" placeholder="33%" id="numPeople" />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-lg-8">
-                            <label for=""><small>Criterio ambiental</small></label>
-                          </div>
-                          <div class="col-lg-4">
-                            <div class="input-group input-group-sm">
-                              <input class="form-control" type="number" placeholder="33%" id="numPeople" />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="m-1 col-3 card card-body border-1">
-                        <div class="text-center fw-bold p-1">
-                          <span class="h5 mb-4">Escenario energético</span>
-                        </div>
-                        <div class="row mb-2">
-                          <div class="col-lg-8">
-                            <label for=""><small>Criterio energético</small></label>
-                          </div>
-                          <div class="col-lg-4">
-                            <div class="input-group input-group-sm">
-                              <input class="form-control" type="number" placeholder="33%" id="numPeople" />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-2">
-                          <div class="col-lg-8">
-                            <label for=""><small>Criterio económico</small></label>
-                          </div>
-                          <div class="col-lg-4">
-                            <div class="input-group input-group-sm">
-                              <input class="form-control" type="number" placeholder="33%" id="numPeople" />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-lg-8">
-                            <label for=""><small>Criterio ambiental</small></label>
-                          </div>
-                          <div class="col-lg-4">
-                            <div class="input-group input-group-sm">
-                              <input class="form-control" type="number" placeholder="33%" id="numPeople" />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="m-1 col-3 card card-body border-1">
-                        <div class="text-center fw-bold p-1">
-                          <span class="h5 mb-4">Escenario ambiental</span>
-                        </div>
-                        <div class="row mb-2">
-                          <div class="col-lg-8">
-                            <label for=""><small>Criterio energético</small></label>
-                          </div>
-                          <div class="col-lg-4">
-                            <div class="input-group input-group-sm">
-                              <input class="form-control" type="number" placeholder="33%" id="numPeople" />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-2">
-                          <div class="col-lg-8">
-                            <label for=""><small>Criterio económico</small></label>
-                          </div>
-                          <div class="col-lg-4">
-                            <div class="input-group input-group-sm">
-                              <input class="form-control" type="number" placeholder="33%" id="numPeople" />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-lg-8">
-                            <label for=""><small>Criterio ambiental</small></label>
-                          </div>
-                          <div class="col-lg-4">
-                            <div class="input-group input-group-sm">
-                              <input class="form-control" type="number" placeholder="33%" id="numPeople" />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-12 m-1 d-flex align-middle">
-                        <div class="btn-toolbar d-flex justify-content-end">
-                          <a href="#" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
-                            <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd"
-                                d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                                clip-rule="evenodd"></path>
-                            </svg>
-                            Evaluar
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row mb-2 mt-2">
-                      <h2 class="h4">Resultados de la evaluación</h2>
-                      <div class="col-7 card m-2 card-body border-1 shadow table-wrapper table-responsive">
-                        <div class="d-flex">
-                          <table class="table table-hover">
-                            <thead>
-                              <tr class="text-center align-middle">
-                                <th class="border-gray-200">Clasificación</th>
-                                <th class="border-gray-200">Linea base</th>
-                                <th class="border-gray-200">Escenario económico</th>
-                                <th class="border-gray-200">Escenario energético base</th>
-                                <th class="border-gray-200">Escenario ambiental</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <!-- Item -->
-                              <tr>
-                                <td>
-                                  <a href="#" class="fw-bold">
-                                    1
-                                  </a>
-                                </td>
-                                <td>
-                                  <span class="fw-normal"></span>
-                                </td>
-                                <td><span class="fw-normal w-25"></span></td>
-                                <td><span class="fw-normal"></span></td>
-                                <td><span class="fw-normal"></span></td>
-                              </tr>
-                              <!-- Item -->
-                              <tr>
-                                <td>
-                                  <a href="#" class="fw-bold">
-                                    2
-                                  </a>
-                                </td>
-                                <td>
-                                  <span class="fw-normal"></span>
-                                </td>
-                                <td><span class="fw-normal w-25"></span></td>
-                                <td><span class="fw-normal"></span></td>
-                                <td><span class="fw-normal"></span></td>
-                              </tr>
-                              <!-- Item -->
-                              <tr>
-                                <td>
-                                  <a href="#" class="fw-bold">
-                                    3
-                                  </a>
-                                </td>
-                                <td>
-                                  <span class="fw-normal"></span>
-                                </td>
-                                <td><span class="fw-normal w-25"></span></td>
-                                <td><span class="fw-normal"></span></td>
-                                <td><span class="fw-normal"></span></td>
-                              </tr>
-                              <!-- Item -->
-                              <tr>
-                                <td>
-                                  <a href="#" class="fw-bold">
-                                    4
-                                  </a>
-                                </td>
-                                <td>
-                                  <span class="fw-normal"></span>
-                                </td>
-                                <td><span class="fw-normal w-25"></span></td>
-                                <td><span class="fw-normal"></span></td>
-                                <td><span class="fw-normal"></span></td>
-                              </tr>
-                              <!-- Item -->
-                              <tr>
-                                <td>
-                                  <a href="#" class="fw-bold">
-                                    5
-                                  </a>
-                                </td>
-                                <td>
-                                  <span class="fw-normal"></span>
-                                </td>
-                                <td><span class="fw-normal w-25"></span></td>
-                                <td><span class="fw-normal"></span></td>
-                                <td><span class="fw-normal"></span></td>
-                              </tr>
-                              <!-- Item -->
-                              <tr>
-                                <td>
-                                  <a href="#" class="fw-bold">
-                                    6
-                                  </a>
-                                </td>
-                                <td>
-                                  <span class="fw-normal"></span>
-                                </td>
-                                <td><span class="fw-normal w-25"></span></td>
-                                <td><span class="fw-normal"></span></td>
-                                <td><span class="fw-normal"></span></td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                      <div class="col-3 card m-2 card-body border-1 shadow">
-                        <div class="d-flex">
-                          <canvas id="radar-chart" width="100%" height="100%"></canvas>
-                        </div>
-                      </div>
+                  <div class="col-3 card m-2 card-body border-1 shadow">
+                    <div class="d-flex">
+                      <canvas id="radar-chart" width="100%" height="100%"></canvas>
                     </div>
                   </div>
                 </div>
+
+
+                <div class="col-12 m-1 d-flex align-middle">
+                  <div class="btn-toolbar d-flex justify-content-end">
+                    <a href="#" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center" onclick="ActiveSection('')">
+                      <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                          clip-rule="evenodd"></path>
+                      </svg>
+                      guardar escenario
+                    </a>
+                  </div>
+
+                  <div class="btn-toolbar d-flex justify-content-end">
+                    <a href="#" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center" onclick="ActiveSection('')">
+                      <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                          clip-rule="evenodd"></path>
+                      </svg>
+                      crear nuevo escenario
+                    </a>
+                  </div>
+
+                  <div class="btn-toolbar d-flex justify-content-end">
+                    <a href="#" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center" onclick="ActiveSection('')">
+                      <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                          clip-rule="evenodd"></path>
+                      </svg>
+                      comparar escenario
+                    </a>
+                  </div>
+                </div>
+               
               </div>
             </div>
-    
           </div>
+  
         </div>
       </div>
     </div>
-    </div>
-    </div>
+  </div>
+  </div>
+  </div>
 </section>
+
 
 <section id="evaluation" hidden>
   <!-- section header -->
@@ -1533,9 +1882,9 @@ Análisis
 <script src="{{url_for('static',filename='/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js')}}"></script>
 
 <!-- Charts -->
-<script src="{{url_for('static',filename='/vendor/chartist/dist/chartist.min.js')}}"></script>
+<!-- <script src="{{url_for('static',filename='/vendor/chartist/dist/chartist.min.js')}}"></script>
 <script
-  src="{{url_for('static',filename='/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js')}}"></script>
+  src="{{url_for('static',filename='/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js')}}"></script> -->
 
 <!-- Datepicker -->
 <script src="{{url_for('static',filename='/vendor/vanillajs-datepicker/dist/js/datepicker.min.js')}}"></script>
@@ -1544,7 +1893,7 @@ Análisis
 <script src="{{url_for('static',filename='/vendor/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
 
 <!-- Moment JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
 
 <!-- Vanilla JS Datepicker -->
 <script src="{{url_for('static',filename='/vendor/vanillajs-datepicker/dist/js/datepicker.min.js')}}"></script>
@@ -1559,9 +1908,640 @@ Análisis
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 <!-- Volt JS -->
-<script src="{{url_for('static',filename='js/volt.js')}}"></script>
+<!-- <script src="{{url_for('static',filename='js/volt.js')}}"></script> -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-colreorder/1.5.6/dataTables.colReorder.min.js" integrity="sha512-BA+XWPyIsXxbBMmGU7Acq8vBGWAFldhFLOkoU4dL+B6Fs16RnhCC9ff+vy5GzmB783tyuzYs42QGHRbV73e1ug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script type="text/javascript">
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    }
+  };
+</script>
+
+<script type="text/javascript">
+
+  //  Variables Chart.js handler
+  //  Generic display constructor for variable tables in Json format :)
+
+  var _table_ = document.createElement('table'),
+      _tr_ = document.createElement('tr'),
+      _th_ = document.createElement('th'),
+      _td_ = document.createElement('td'),
+      _thead_ = document.createElement('thead'),
+      _tbody_ = document.createElement('tbody'),
+      _i_ = document.createElement('i'),
+      _a_ = document.createElement('a'),
+      _ul_ = document.createElement('ul'),
+      _p_ = document.createElement('p');
+
+  function update_list(list_name) {
+
+    SetSelectName('select-dropdown-var', list_name);
+    let json_file_strategies = JSON.parse('{{strategies | tojson | safe}}');
+    let keys_list_strategies = Object.keys(json_file_strategies[list_name])
+
+    console.log("---strategies---")
+    console.log("json_file_strategies",json_file_strategies)
+    // console.log("keys_list_strategies",keys_list_strategies)
+
+    let keys_list_2 = []
+    let json_new = {}
+    keys_list_strategies.forEach(function (item, index) {
+
+        let json_aux = json_file_strategies[list_name][item];
+        let json_strategies = []
+        json_aux.forEach(function (item2, index2) {
+            json_strategies.push(item2['NOMBRE_SUB_ESTRATEGIA'])
+        });
+        json_new[item] = json_strategies;
+    });
+    loadTable_variables(list_name, json_new);
+  }
+    // Variables Datatable.js handler
+    // Callback for combobox on variable view :)
+  function  loadTable_variables(list_name, json_new){
+    let list_names = Object.keys(json_new)
+    let table = _table_.cloneNode(false);
+    let tbody = _tbody_.cloneNode(false),
+    columns = addAllColumnHeaders(list_name);
+    list_names.forEach(function(items,index){
+      let tr = _tr_.cloneNode(false);
+      let td = _td_.cloneNode(false);
+      let a = _a_.cloneNode(false);
+
+      // console.log("items "+items)
+      a.appendChild(document.createTextNode(items || ''));
+      td.classList.add('fw-extrabold')
+      td.classList.add('showhr')
+      let i = _i_.cloneNode(false);
+      i.classList.add('fa-solid')
+      /* i.classList.add('fa-angle-right') */
+      i.classList.add('fa-caret-down')
+      i.classList.add('pe-1')
+
+      td.appendChild(i);
+      td.appendChild(a);
+      tr.appendChild(td);  
+      tbody.appendChild(tr);
+      let keys_list = json_new[items];
+      // var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+      keys_list.forEach(function (item, index) {
+        let tr = _tr_.cloneNode(false);
+        let td = _td_.cloneNode(false);
+        let cell_value;
+        cell_value = item;
+
+        //cell_value = cell_value.replace("CO2eq","$CO_2eq$");
+        td.appendChild(document.createTextNode(cell_value|| ''));
+        td.classList.add('aser')
+        td.classList.add('fw-normal')
+        tr.appendChild(td);
+        tr.style.display = 'none';
+        tbody.appendChild(tr);
+      })
+    })
+
+    table.appendChild(tbody);
+
+    table.id = 'table_variables'
+    table.classList.add('table');
+    table.classList.add('table-centered');
+    table.classList.add('table-nowrap');
+    table.classList.add('rounded');
+    table.classList.add('mb-0');
+    table.classList.add('border-0');
+    table.classList.add('dt-responsive');
+
+    function addAllColumnHeaders(list_name) {
+      let columnSet = [],
+      thead = _thead_.cloneNode(false);
+      tr = _tr_.cloneNode(false);
+      let th = _th_.cloneNode(false);
+      let key = ''
+      if (list_name === 'generation'){
+        key = 'Generación';
+      } else if (list_name === 'distribution'){
+        key = 'Distribución';
+      } else if (list_name === 'end_use'){
+        key = 'Uso final';
+      }
+      columnSet.push(key)
+      th.appendChild(document.createTextNode(key));
+      th.classList.add('rounded');
+      th.classList.add('border-0');
+      tr.appendChild(th);
+      thead.appendChild(tr);
+      thead.classList.add('thead-light');
+      table.appendChild(thead);
+      return columnSet;
+    }
+
+    let el = document.getElementById('table_content');
+    el.innerHTML= '';
+    el.appendChild(table);
+    const datatablesSimple = document.getElementById('table_variables');
+    if (datatablesSimple) {
+      let tables = new DataTable(datatablesSimple, datatable_config);
+    }
+
+    let table_handler = $('#table_variables').DataTable();
+    // var json_var = {}
+      $('#table_variables tbody').on('click', 'tr', function () {
+        let td_select = this.childNodes[0]
+        if(td_select.classList.contains("showhr")){
+          $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
+        }
+        else if(td_select.classList.contains('aser')) {
+          var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
+          console.log("child",child)
+          var data = table_handler.row(this).data();
+          // var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
+          console.log("data",data)
+          loadTable_strategies_desc(list_name, json_new);
+          
+          
+        }
+      }
+    );
+
+    // let json_aux_var_ac=[]
+    // let json_aux_var_exp=[]
+    // json_aux_var_ac.push("Mejoras de eficiencia en parque térmico")
+    // json_aux_var_exp.push("Generación con recurso hidráhulico")
+    // json_aux_var_exp.push("Generación distribuida con FNCER")
+    // json_aux_var_exp.push("Generación eléctrica con geotérmica")
+
+    // json_var["Estrategias de actualización"]= json_aux_var_ac
+    // json_var["Estrategias de expansión"]= json_aux_var_exp
+    // console.log("json_var_1",json_var)
+
+    const button = document.getElementById('activar_scenario')
+    loadTable3(list_name)
+    button.addEventListener("click", loadTable3);
+  }
+
+  function loadTable3(list_name) {
+
+    var json_var = {}
+    let json_aux_var_ac=[]
+    let json_aux_var_exp=[]
+    json_aux_var_ac.push("Porcentaje de incorporación de las mejoras de eficiencia en parque térmico")
+    json_aux_var_ac.push("Eficiencia que se desea alcanzar")
+    json_aux_var_exp.push("Capacidad instalada de gas combustible")
+    json_aux_var_exp.push("Capacidad instalada de recurso hidráhulico")
+
+    json_var["Estrategias de actualización"]= json_aux_var_ac
+    json_var["Estrategias de expansión"]= json_aux_var_exp
+    console.log("json_var_1",json_var)
+
+    let n = 5
+    let valorObjetivo= 15
+    let fp = 0.515
+
+    expansionEstrategyFor(5,15,0.515);
+    upgradeStrategyForm(5,0.5,0.04);
+
+    function expansionEstrategyFor(n,valorObjetivo, fp ){
+
+        console.log("--expansionEstrategyFor--")
+        var increment = valorObjetivo/n
+        var data= []
+
+        let creaIncrement = increment;
+        for (let a=0; a<n; a++){
+          data.push(creaIncrement)
+          creaIncrement = creaIncrement +increment
+          console.log("--increment--",increment)
+        }
+
+        console.log("data",data)
+
+        let gp = 0
+        for (let i= 0; i<data.length; i++){
+          gp = data[i]*fp*8760
+          console.log("--gp--",gp)
+        }
+        return gp;
+    }
+
+
+    function upgradeStrategyForm(n, pi, np){
+      // Eficiencia actual promedio de las plantas térmicas
+      // η_BAU: 37.20 %
+      console.log("--upgradeStrategyForm--")
+      var incrementPi = pi/n
+      var incrementNp = np/n
+      var nb = 0.372
+      var dataPi= []
+      var dataNp= []
+      var consumo_bau = [38431.48958,	47251.72003,	55085.03816,	52372.57931,	43918.86529,	42678.89415,	52088.4272,	60911.15393,	58310.93145];
+
+      let creaIncrementPi = incrementPi;
+      for (let a=0; a<n; a++){
+        dataPi.push(creaIncrementPi)
+        creaIncrementPi = creaIncrementPi +incrementPi
+        console.log("--incrementPi--",incrementPi)
+      }
+
+      let creaIncrementNp = incrementNp;
+      for (let a=0; a<n; a++){
+        dataNp.push(creaIncrementNp)
+        creaIncrementNp = creaIncrementNp +incrementNp
+        console.log("--incrementNp--",incrementNp)
+      }
+
+      console.log("dataPi",dataPi)
+      console.log("dataNp",dataNp)
+
+      let cp = 0
+        for (let i= 0; i<dataNp.length; i++){
+          cp = consumo_bau[i]*(1 - (1- nb/dataNp[i])*dataPi[i])
+          console.log("--cp--",cp)
+        }
+        return cp;
+    }
+
+    let json_new = json_var;
+    console.log("---variables--");
+    console.log("json_new",json_new);
+    let list_names = Object.keys(json_new)
+    let table3 = _table_.cloneNode(false);
+    let tbody3 = _tbody_.cloneNode(false),
+        columns = addAllColumnHeaders(list_name);
+    list_names.forEach(function (items, index) {
+        let tr3 = _tr_.cloneNode(false);
+        let td3 = _td_.cloneNode(false);
+        let a3 = _a_.cloneNode(false);
+
+        // console.log("items "+items)
+        a3.appendChild(document.createTextNode(items || ''));
+        td3.classList.add('fw-extrabold')
+        td3.classList.add('showhr')
+        let i3 = _i_.cloneNode(false);
+        i3.classList.add('fa-solid')
+        /* i3.classList.add('fa-angle-right') */
+        i3.classList.add('fa-caret-down')
+        i3.classList.add('pe-1')
+
+        td3.appendChild(i3);
+        td3.appendChild(a3);
+        tr3.appendChild(td3);
+        tbody3.appendChild(tr3);
+        let keys_list = json_new[items];
+        // var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+        keys_list.forEach(function (item, index) {
+            let tr3 = _tr_.cloneNode(false);
+            let td3 = _td_.cloneNode(false);
+            let cell_value;
+            cell_value = item;
+
+            //cell_value = cell_value.replace("CO2eq","$CO_2eq$");
+            td3.appendChild(document.createTextNode(cell_value || ''));
+            td3.classList.add('aser')
+            td3.classList.add('fw-normal')
+            tr3.appendChild(td3);
+            tr3.style.display = 'none';
+            tbody3.appendChild(tr3);
+        })
+    })
+
+    table3.appendChild(tbody3);
+
+    table3.id = 'table_strategies_3'
+    table3.classList.add('table');
+    table3.classList.add('table-centered');
+    table3.classList.add('table-nowrap');
+    table3.classList.add('rounded');
+    table3.classList.add('mb-0');
+    table3.classList.add('border-0');
+    table3.classList.add('dt-responsive');
+
+    function addAllColumnHeaders(list_name) {
+        let columnSet = [],
+            thead = _thead_.cloneNode(false);
+        tr3 = _tr_.cloneNode(false);
+        let th = _th_.cloneNode(false);
+        let key = ''
+        if (list_name === 'generation') {
+            key = 'Generación';
+        } else if (list_name === 'distribution') {
+            key = 'Distribución';
+        } else if (list_name === 'end_use') {
+            key = 'Uso final';
+        }
+        columnSet.push(key)
+        th.appendChild(document.createTextNode(key));
+        th.classList.add('rounded');
+        th.classList.add('border-0');
+        tr3.appendChild(th);
+        thead.appendChild(tr3);
+        thead.classList.add('thead-light');
+        table3.appendChild(thead);
+        return columnSet;
+    }
+
+    let el3 = document.getElementById('table_content_3');
+    el3.innerHTML = '';
+    el3.appendChild(table3);
+    const datatablesSimple = document.getElementById('table_strategies_3');
+    if (datatablesSimple) {
+        let tables = new DataTable(datatablesSimple, datatable_config);
+    }
+
+    let table_handler = $('#table_strategies_3').DataTable();
+    $('#table_strategies_3 tbody').on('click', 'tr', function () {
+        let td_select = this.childNodes[0]
+        if (td_select.classList.contains("showhr")) {
+            $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function () { });
+        }
+        else if (td_select.classList.contains('aser')) {
+            var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
+            console.log("child", child)
+            var data = table_handler.row(this).data();
+            // var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
+            console.log("data", data)
+            loadTable_strategies_desc(list_name, json_new);
+        }
+    }
+    );
+  }
+
+  function loadTable_strategies_desc(list_name, json_new) {
+    let list_names = Object.keys(json_new)
+    let table = _table_.cloneNode(false);
+    let tbody = _tbody_.cloneNode(false),
+        columns = addAllColumnHeaders_1(list_name);
+    let json_descripcion_final = {}
+    list_names.forEach(function (item, index) {
+        let description_strategies = JSON.parse('{{description_strategies | tojson | safe}}');
+
+        console.log("description_strategies", description_strategies)
+        let json_aux = description_strategies['generation']['estrategias']
+        let json_description = []
+        json_aux.forEach(function (item2, index) {
+            if (item2['ESTRATEGIA_NOMBRE'] === item) {
+                json_description.push(item2['MODELO_MATEMATICO']);
+                json_description.push(item2['VARIABLES']);
+            }
+        })
+        json_descripcion_final[item] = json_description;
+    })
+    list_names.forEach(function (items, index) {
+        let tr1 = _tr_.cloneNode(false);
+        let td1 = _td_.cloneNode(false);
+        let a1 = _a_.cloneNode(false);
+
+        if (items === "Estrategias de actualización") {
+            itemsTittle = "Modelo matemático de actualización";
+        } else {
+            itemsTittle = "Modelo matemático de expansión";
+        }
+
+        a1.appendChild(document.createTextNode(itemsTittle || ''));
+        td1.classList.add('fw-extrabold')
+        td1.classList.add('showhr')
+        let i1 = _i_.cloneNode(false);
+        i1.classList.add('fa-solid')
+        /* i.classList.add('fa-angle-right') */
+        i1.classList.add('fa-caret-down')
+        i1.classList.add('pe-1')
+
+        td1.appendChild(i1);
+        td1.appendChild(a1);
+        tr1.appendChild(td1);
+        tbody.appendChild(tr1);
+
+        let description = json_descripcion_final[items]
+        let titles = ['Modelo matemático:', 'Variables:']
+        let tr2 = _tr_.cloneNode(false);
+        let td2 = _td_.cloneNode(false);
+        description.forEach(function (item, index) {
+
+            if (index == 1) {
+                item = item.replace(/-/gi, "<br>");
+            }
+
+            let p = _p_.cloneNode(false);
+            p.innerHTML = '<small class="fw-extrabold">' + titles[index] + '</small><br><div class="px-1 px-lg-4 text-wrap justified-text">' + item + '</div>';
+            p.classList.add('row')
+            td2.appendChild(p);
+        })
+        td2.classList.add('aser')
+        td2.classList.add('fw-normal')
+        td2.classList.add('px-2')
+        td2.classList.add('px-lg-4')
+        tr2.appendChild(td2);
+        tr2.style.display = 'none';
+        tbody.appendChild(tr2)
+    })
+
+    table.appendChild(tbody);
+
+    table.id = 'table_variables_1'
+    table.classList.add('table');
+    table.classList.add('table-centered');
+    table.classList.add('table-nowrap');
+    table.classList.add('rounded');
+    table.classList.add('mb-0');
+    table.classList.add('border-0');
+    table.classList.add('dt-responsive');
+
+    function addAllColumnHeaders_1(list_name) {
+        let columnSet = [],
+            thead = _thead_.cloneNode(false);
+        tr2 = _tr_.cloneNode(false);
+        let th = _th_.cloneNode(false);
+        if (list_name === 'generation') {
+            var key = 'Modelo matemático';
+        } else if (list_name === 'distribution') {
+            var key = 'Modelo matemático';
+        } else if (list_name === 'end_use') {
+            var key = 'Modelo matemático';
+        }
+        columnSet.push(key)
+        th.appendChild(document.createTextNode(key));
+        th.classList.add('rounded');
+        th.classList.add('border-0');
+        tr2.appendChild(th);
+        thead.appendChild(tr2);
+        thead.classList.add('thead-light');
+        table.appendChild(thead);
+        return columnSet;
+    }
+
+    var el = document.getElementById('table_content_1');
+    el.innerHTML = '';
+    el.appendChild(table);
+    const datatablesSimple = document.getElementById('table_variables_1');
+    if (datatablesSimple) {
+        let tables = new DataTable(datatablesSimple, datatable_config);
+    }
+
+    // var table_handler = $('#table_variables_1').DataTable();
+    MathJax.typesetPromise().then(() => {
+        $('#table_variables_1 tbody').on('click', 'tr', function () {
+            var td_select = this.childNodes[0]
+            if (td_select.classList.contains("showhr")) {
+                $(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function () { });
+            }
+            else if (td_select.classList.contains('aser')) {
+                var child = $(this).prevAll('tr:has(.showhr)')[0].innerText;
+            }
+        }
+        );
+        MathJax.typesetPromise();
+    }).catch((err) => console.log(err.message));
+  }
+
+  // function loadTable3(list_name){
+
+  //   alert("este mensaje ")
+  //   console.log("este es un mensaje")
+
+  // }
+
+    var last_indicator = '';
+    var chart_element = '';
+    var keys_list = [];
+    var old_dataset = [];
+    function create_chart(list_name, indicator, key){
+    var row1 = key[0];
+      var row = row1.replace("$CO_2eq$","CO2eq");
+      var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+      var row_table;
+      if(row in translate_array){
+        row_table = translate_array[row];
+      }else{
+        row_table = row;
+      }
+    var al= Math.floor((Math.random()* (255)));
+    var al2= Math.floor((Math.random()* (255)));
+    var b_colorslist = ['rgba('+al+', 99, 132, 0.2)', 'rgba('+al+', 162, 235, 0.2)', 'rgba('+al+', 206, 86, 0.2)', 'rgba('+al+', 192, 192, 0.2)', 'rgba('+al+', 102, 255, 0.2)', 'rgba('+al+', 159, 64, 0.2)'];
+    var colorslist = ['rgba('+al+', 99, 132, 1)', 'rgba('+al+', 162, 235, 1)', 'rgba('+al+', 206, 86, 1)', 'rgba('+al+', 192, 192, 1)', 'rgba('+al+', 102, 255, 1)', 'rgba('+al+', 159, 64, 1)'];
+    /* const table_name = key; */
+    const table_name = indicator;
+    document.getElementById('chart_title').innerHTML = table_name;
+    var json_file = JSON.parse('{{data | tojson | safe}}');
+    var table = json_file[list_name][table_name];
+    var keys = Object.keys(table[0]);
+    var labels = table.map(function(e) {
+      return e[keys[0]];
+    });
+    labels = labels.slice(0,12);
+    var data = table.map(function(e) {
+      return e[row];
+    });;
+    length = data.length;
+    var array=[];
+    for (var j = 0; j < length; j++){
+      if (row == "Poblacion_Total" || row == "P_Urbano" || row == "P_Rural" || row == "V_Rural"|| row == "V_Urbano" || row == "Vivienda_Total"){
+        array.push(parseFloat(data[j])/1000000);
+      }else{
+      array.push(parseFloat(data[j]));
+      }
+    }
+    var unit = '';
+    var units = JSON.parse('{{units | tojson | safe}}');
+    if (indicator in units){
+      unit = units[indicator];
+      if (unit=='Porcentaje %'){
+        array = array.map(function(x) { return x * 100; });;
+      }
+    }
+    /* Agregada - Capturar graficas actuales > 2 restablece */
+  
+    /* Desagregados - else */
+    if (last_indicator==indicator){
+      if (!(keys_list.includes(row_table))){
+        keys_list.push(row_table);
+        const update_dataset = 
+        {
+          label: row_table,  
+          borderColor: colorslist[keys_list.length],
+          backgroundColor: b_colorslist[keys_list.length],
+          data: array, spanGraphs: false,
+          fill: true
+        };
+        chart_element.data.datasets.push(update_dataset);
+        chart_element.update();
+      } else {
+        keys_list = keys_list.filter(data => data != row_table);;
+        chart_element.data.datasets=  chart_element.data.datasets.filter(data => data.label != row_table);
+        chart_element.update();
+      }
+      
+    } else {
+    keys_list=[row_table]
+    var mydatasets = [
+      {
+        label: row_table,
+          borderColor: colorslist[0],
+          backgroundColor: b_colorslist[0], 
+          data: array, 
+          spanGraphs: false,
+          fill: true
+        }];
+    let delayed;
+    $('#line-chart').remove(); 
+    $('#graph-container').append('<canvas id="line-chart" width="100%" height="48vh"><canvas>'); 
+    var config = {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: mydatasets
+        },
+        options: {
+          responsive: true,
+          scales: {
+            xAxes: [{
+              stacked: true,
+              scaleLabel: {
+                display: true,
+                labelString: 'Año'
+              }
+            }],
+            yAxes: [{
+              stacked: false,
+              scaleLabel: {
+                display: true,
+                labelString: unit
+              }
+            }]
+          },
+          title: {
+            display: false,
+            text: table_name,
+          },
+          legend: {
+            position: 'bottom',
+          },
+          animation: {
+            onComplete: () => {
+              delayed = true;
+            },
+            delay: (context) => {
+              let delay = 0;
+              if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                delay = context.dataIndex * 300 + context.datasetIndex * 100;
+              }
+              return delay;
+            },
+            },}
+      };
+    chart_element = new Chart(document.getElementById('line-chart'), config);
+    }
+    last_indicator = indicator;
+    }
+  
+  </script>
 
 <script>
   new Chart(document.getElementById("radar-chart"), {
@@ -1597,4 +2577,17 @@ Análisis
       }
     });
 </script>
+
+<script type="text/javascript">
+  var list_name = 'generation';
+  var key = 'Factor de Pérdidas';
+  var variable_mathjax = true;
+  update_list(list_name);
+  // var contador = 0;
+  // var contador_linea_base = 0;
+  // update_list_ind(list_name);
+  // update_list_ind_linea_base(list_name)
+  /* create_chart(list_name, key); */
+</script>
+
 {% endblock %}
