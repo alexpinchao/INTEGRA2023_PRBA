@@ -12,7 +12,9 @@ from sqlalchemy import create_engine
 from sqlalchemy import MetaData, Table, Column, Integer, Text, String, Float
 from sqlalchemy.sql import select, insert
 
-#OLD Código para reciclar
+# OLD Código para reciclar
+
+
 class SQL_connector_2():
     def __init__(self):
         super().__init__()
@@ -82,10 +84,11 @@ class SQL_connector_2():
         conn.close()
         return rows
 
+
 ##Table schema definition##
 metadata_obj = MetaData()
 
-#Users table schema
+# Users table schema
 users_table = Table('users', metadata_obj,
                     Column('id_login', Integer,
                            primary_key=True, nullable=False),
@@ -93,7 +96,7 @@ users_table = Table('users', metadata_obj,
                     Column('organization', String)
                     )
 
-#Login table schema
+# Login table schema
 login_table = Table('login', metadata_obj,
                     Column('idlogin', Integer,
                            primary_key=True, nullable=False, autoincrement=True),
@@ -101,7 +104,7 @@ login_table = Table('login', metadata_obj,
                     Column('password', String)
                     )
 
-#Emissions Factor table schema
+# Emissions Factor table schema
 emission_table = Table('FEmision', metadata_obj,
                        Column('Año', Integer, nullable=False, unique=True),
                        Column('ECO2_CT_Carbon', String),
@@ -128,7 +131,7 @@ emission_table = Table('FEmision', metadata_obj,
                        Column('EmisionesCO2_Bagazo', String)
                        )
 
-#Electric generation consumption table schema
+# Electric generation consumption table schema
 consumption_table = Table('G_Consumo', metadata_obj,
                           Column('Año', Integer, nullable=False, unique=True),
                           Column('C_CH_Agua_GWh',	String),
@@ -150,7 +153,7 @@ consumption_table = Table('G_Consumo', metadata_obj,
                           Column('Total_Consumo_generacion_GWh',	String)
                           )
 
-#Electric generation table schema
+# Electric generation table schema
 generation_table = Table('G_Electrica', metadata_obj,
                          Column('Año', Integer, nullable=False, unique=True),
                          Column('CH_Agua', String),
@@ -183,7 +186,7 @@ generation_table = Table('G_Electrica', metadata_obj,
                          Column('Generacion_Total', String)
                          )
 
-#PIB table schema
+# PIB table schema
 pib_table = Table('PIB', metadata_obj,
                   Column('Año',	Integer, nullable=False, unique=True),
                   Column('PIB_Total', String),
@@ -266,7 +269,7 @@ pib_table = Table('PIB', metadata_obj,
                   Column('PIB_ComercialyPublico_Total', String)
                   )
 
-#PIB in dollars table schema
+# PIB in dollars table schema
 pib_usd_table = Table('PIB_USD', metadata_obj,
                       Column('Año', Integer, nullable=False, unique=True),
                       Column('PIBUSD_Total', String),
@@ -349,7 +352,7 @@ pib_usd_table = Table('PIB_USD', metadata_obj,
                       Column('PIBUSD_ComercialyPublico_Total', String)
                       )
 
-#Population table schema
+# Population table schema
 population_table = Table('Poblacion', metadata_obj,
                          Column('Año', Integer, nullable=False, unique=True),
                          Column('P_Urbano', Float),
@@ -357,7 +360,7 @@ population_table = Table('Poblacion', metadata_obj,
                          Column('Poblacion_Total', Float)
                          )
 
-#End use energy table schema
+# End use energy table schema
 end_use_energy_table = Table('U_Energia', metadata_obj,
                              Column('Año', Integer,
                                     nullable=False, unique=True),
@@ -395,7 +398,7 @@ end_use_energy_table = Table('U_Energia', metadata_obj,
                              Column('ConsumoFinal_Total', String)
                              )
 
-#Households table schema
+# Households table schema
 households_table = Table('Viviendas', metadata_obj,
                          Column('Año', Integer, nullable=False, unique=True),
                          Column('V_Urbano', String),
@@ -403,7 +406,7 @@ households_table = Table('Viviendas', metadata_obj,
                          Column('Vivienda_Total', String)
                          )
 
-#Losses Factor table schema
+# Losses Factor table schema
 loss_table = Table('D_Perdidas', metadata_obj,
                    Column('Año', Integer, nullable=False, unique=True),
                    Column('NT1', String),
@@ -412,7 +415,7 @@ loss_table = Table('D_Perdidas', metadata_obj,
                    Column('Total', String)
                    )
 
-#Cost associated with losses table schema
+# Cost associated with losses table schema
 loss_cost_table = Table('D_Costos_Perdidas', metadata_obj,
                         Column('Año', Integer, nullable=False, unique=True),
                         Column('NT1', String),
@@ -421,7 +424,7 @@ loss_cost_table = Table('D_Costos_Perdidas', metadata_obj,
                         Column('Total', String)
                         )
 
-#Equivalent losses table schema
+# Equivalent losses table schema
 equivalent_losses_table = Table('D_Perdidas_Equivalentes', metadata_obj,
                                 Column('Año', Integer,
                                        nullable=False, unique=True),
@@ -431,7 +434,7 @@ equivalent_losses_table = Table('D_Perdidas_Equivalentes', metadata_obj,
                                 Column('Total', String)
                                 )
 
-#IAAD table schema
+# IAAD table schema
 iaad_table = Table('D_IAAD', metadata_obj,
                    Column('Año', Integer,
                           nullable=False, unique=True),
@@ -440,217 +443,240 @@ iaad_table = Table('D_IAAD', metadata_obj,
                    Column('Total', String)
                    )
 
-#D_Saidi_Saifi table schema
+# D_Saidi_Saifi table schema
 saidi_table = Table('D_Saidi', metadata_obj,
-                   Column('Año', Integer,
-                          nullable=False, unique=True),
-                   Column('Saidi', String)
-                   )
+                    Column('Año', Integer,
+                           nullable=False, unique=True),
+                    Column('Saidi', String)
+                    )
 
-#D_Saidi_Saifi table schema
+# D_Saidi_Saifi table schema
 saifi_table = Table('D_Saifi', metadata_obj,
-                   Column('Año', Integer,
-                          nullable=False, unique=True),
-                   Column('Saifi', String)
-                   )
+                    Column('Año', Integer,
+                           nullable=False, unique=True),
+                    Column('Saifi', String)
+                    )
 # Method that returns the table DESAGREGACION
 # DATE: 14/06/2022
 
-#Generation indicators table schema
+# Generation indicators table schema
 desagregacion_table = Table('DESAGREGACION', metadata_obj,
-                   Column('DESAGREGACION_ID', Integer,
-                          nullable=False, unique=True),
-                   Column('DESAGREGACION_NOMBRE', String),
-                   Column('REL_VARIABLES_DESAGREGACION', String)
-                   )
+                            Column('DESAGREGACION_ID', Integer,
+                                   nullable=False, unique=True),
+                            Column('DESAGREGACION_NOMBRE', String),
+                            Column('REL_VARIABLES_DESAGREGACION', String)
+                            )
 
 # Method that returns the table RELACION_VARIABLES_INDICADORES
 # DATE: 14/06/2022
-#Variables relation for generation indicators table schema
+# Variables relation for generation indicators table schema
 rel_var_indic_table = Table('RELACION_VARIABLES_INDICADORES', metadata_obj,
-                   Column('INDICADOR_ID', Integer,
-                          nullable=False, unique=True),
-                   Column('INDICADOR_AGREGADO', String),
-                   Column('FORMULA_RELACIONES', String),
-                   Column('DESCRIPCION', String),
-                   Column('VARIABLES', String)
-                   )
+                            Column('INDICADOR_ID', Integer,
+                                   nullable=False, unique=True),
+                            Column('INDICADOR_AGREGADO', String),
+                            Column('FORMULA_RELACIONES', String),
+                            Column('DESCRIPCION', String),
+                            Column('VARIABLES', String)
+                            )
 
 # Method that returns the table data desagregation of generation
 # DATE: 29/07/2022
 # data for generation table schema
 
 data_desag_gen_table = Table('DATOS_DESAGREGACION_GENERACION', metadata_obj,
-                   Column('Año', Integer,
-                          nullable=False, unique=True),
-                   Column('Participación_de_fuentes_fósiles', String),
-                   Column('Participación_de_fuentes_hídricas', String),
-                   Column('Participación_de_FNCER_en_matriz_energética', String),
-                   Column('Eficiencia_de_centrales_hidroeléctricas', String),
-                   Column('Eficiencia_de_centrales_térmicas', String),
-                   Column('Eficiencia_de_centrales_de_auto_y_cogeneración', String),
-                   Column('Eficiencia_de_centrales_solares', String),
-                   Column('Eficiencia_de_centrales_eólicas', String),
-                   Column('Intensidad_energética_primaria_de_centrales_hidroeléctricas', String),
-                   Column('Intensidad_energética_primaria_de_centrales_térmicas', String),
-                   Column('Intensidad_energética_primaria_de_centrales_de_auto_y_cogeneración', String),
-                   Column('Emisiones_de_CO2eq_de_centrales_térmicas', String),
-                   Column('Emisiones_de_CO2eq_de_centrales_de_auto_y_cogeneración', String),
-                   Column('Intensidad_de_emisiones_de_centrales_térmicas', String),
-                   Column('Intensidad_de_emisiones_de_centrales_de_auto_y_cogeneración', String),
-                   Column('Emisiones_de_CO2eq_de_la_generación_eléctrica_SIN', String)
-                   )
+                             Column('Año', Integer,
+                                    nullable=False, unique=True),
+                             Column('Participación_de_fuentes_fósiles', String),
+                             Column('Participación_de_fuentes_hídricas', String),
+                             Column(
+                                 'Participación_de_FNCER_en_matriz_energética', String),
+                             Column(
+                                 'Eficiencia_de_centrales_hidroeléctricas', String),
+                             Column('Eficiencia_de_centrales_térmicas', String),
+                             Column(
+                                 'Eficiencia_de_centrales_de_auto_y_cogeneración', String),
+                             Column('Eficiencia_de_centrales_solares', String),
+                             Column('Eficiencia_de_centrales_eólicas', String),
+                             Column(
+                                 'Intensidad_energética_primaria_de_centrales_hidroeléctricas', String),
+                             Column(
+                                 'Intensidad_energética_primaria_de_centrales_térmicas', String),
+                             Column(
+                                 'Intensidad_energética_primaria_de_centrales_de_auto_y_cogeneración', String),
+                             Column(
+                                 'Emisiones_de_CO2eq_de_centrales_térmicas', String),
+                             Column(
+                                 'Emisiones_de_CO2eq_de_centrales_de_auto_y_cogeneración', String),
+                             Column(
+                                 'Intensidad_de_emisiones_de_centrales_térmicas', String),
+                             Column(
+                                 'Intensidad_de_emisiones_de_centrales_de_auto_y_cogeneración', String),
+                             Column(
+                                 'Emisiones_de_CO2eq_de_la_generación_eléctrica_SIN', String)
+                             )
 
-#distribution desagregation table schema
+# distribution desagregation table schema
 desagregation_dist_table = Table('DESAGREGACION_DISTRIBUCION', metadata_obj,
-                   Column('DESAGREGACION_ID', Integer,
-                          nullable=False, unique=True),
-                   Column('DESAGREGACION_NOMBRE', String),
-                   Column('REL_VARIABLES_DESAGREGACION', String)
-                   )
+                                 Column('DESAGREGACION_ID', Integer,
+                                        nullable=False, unique=True),
+                                 Column('DESAGREGACION_NOMBRE', String),
+                                 Column('REL_VARIABLES_DESAGREGACION', String)
+                                 )
 
 # Method that returns the table RELACION_VARIABLES_INDICADORES
 # DATE: 14/06/2022
-#Variables relation for distribution indicators table schema
+# Variables relation for distribution indicators table schema
 rel_var_indic_dist_table = Table('RELACION_VARIABLES_INDICADORES_DISTRIBUCION', metadata_obj,
-                   Column('INDICADOR_ID', Integer,
-                          nullable=False, unique=True),
-                   Column('INDICADOR_AGREGADO', String),
-                   Column('FORMULA_RELACIONES', String),
-                   Column('DESCRIPCION', String),
-                   Column('VARIABLES', String)
-                   )
+                                 Column('INDICADOR_ID', Integer,
+                                        nullable=False, unique=True),
+                                 Column('INDICADOR_AGREGADO', String),
+                                 Column('FORMULA_RELACIONES', String),
+                                 Column('DESCRIPCION', String),
+                                 Column('VARIABLES', String)
+                                 )
 
 # Method that returns the table data desagregation of distribution
 # DATE: 29/07/2022
 # data for end use table schema
 data_desag_dist_table = Table('DATOS_DESAGREGACION_DISTRIBUCION', metadata_obj,
-                   Column('Año', Integer,
-                          nullable=False, unique=True),
-                   Column('Factor_de_pérdidas_en_distribución_Nivel_de_Tensión_I', String),
-                   Column('Factor_de_pérdidas_en_distribución_Nivel_de_Tensión_II', String),
-                   Column('Factor_de_pérdidas_en_distribución_Nivel_de_Tensión_III', String),
-                   Column('Costo_de_pérdidas_equivalentes_en_distribución_Nivel_de_Tensión_I', String),
-                   Column('Costo_de_pérdidas_equivalentes_en_distribución_Nivel_de_Tensión_II', String),
-                   Column('Costo_de_pérdidas_equivalentes_en_distribución_Nivel_de_Tensión_III', String),
-                   Column('IAAD_Nivel_de_Tensión_I', String),
-                   Column('IAAD_Nivel_de_Tensión_II_y_III', String)
-                   )
+                              Column('Año', Integer,
+                                     nullable=False, unique=True),
+                              Column(
+                                  'Factor_de_pérdidas_en_distribución_Nivel_de_Tensión_I', String),
+                              Column(
+                                  'Factor_de_pérdidas_en_distribución_Nivel_de_Tensión_II', String),
+                              Column(
+                                  'Factor_de_pérdidas_en_distribución_Nivel_de_Tensión_III', String),
+                              Column(
+                                  'Costo_de_pérdidas_equivalentes_en_distribución_Nivel_de_Tensión_I', String),
+                              Column(
+                                  'Costo_de_pérdidas_equivalentes_en_distribución_Nivel_de_Tensión_II', String),
+                              Column(
+                                  'Costo_de_pérdidas_equivalentes_en_distribución_Nivel_de_Tensión_III', String),
+                              Column('IAAD_Nivel_de_Tensión_I', String),
+                              Column('IAAD_Nivel_de_Tensión_II_y_III', String)
+                              )
 
 # Method that returns the table DESAGREGACION
 # DATE: 14/06/2022
-#end use indicators table schema
+# end use indicators table schema
 desagregation_end_use_table = Table('DESAGREGACION_USO_FINAL', metadata_obj,
-                   Column('DESAGREGACION_ID', Integer,
-                          nullable=False, unique=True),
-                   Column('DESAGREGACION_NOMBRE', String),
-                   Column('REL_VARIABLES_DESAGREGACION', String)
-                   )
+                                    Column('DESAGREGACION_ID', Integer,
+                                           nullable=False, unique=True),
+                                    Column('DESAGREGACION_NOMBRE', String),
+                                    Column(
+                                        'REL_VARIABLES_DESAGREGACION', String)
+                                    )
 
 # Method that returns the table RELACION_VARIABLES_INDICADORES
 # DATE: 14/06/2022
-#Variables relation for end use indicators table schema
+# Variables relation for end use indicators table schema
 rel_var_indic_end_use_table = Table('RELACION_VARIABLES_INDICADORES_USO_FINAL', metadata_obj,
-                   Column('INDICADOR_ID', Integer,
-                          nullable=False, unique=True),
-                   Column('INDICADOR_AGREGADO', String),
-                   Column('FORMULA_RELACIONES', String),
-                   Column('DESCRIPCION', String),
-                   Column('VARIABLES', String)
-                   )
+                                    Column('INDICADOR_ID', Integer,
+                                           nullable=False, unique=True),
+                                    Column('INDICADOR_AGREGADO', String),
+                                    Column('FORMULA_RELACIONES', String),
+                                    Column('DESCRIPCION', String),
+                                    Column('VARIABLES', String)
+                                    )
 
 # Method that returns the table data desagregation of end use
 # DATE: 29/07/2022
 # data for end use table schema
 data_desag_end_use_table = Table('DATOS_DESAGREGACION_USO_FINAL', metadata_obj,
-                   Column('Año', Integer,
-                          nullable=False, unique=True),
-                   Column('Consumo_residencial_per_cápita', String),
-                   Column('Consumo_per_cápita_urbano', String),
-                   Column('Consumo_per_cápita_rural', String),
-                   Column('Consumo_residencial_por_vivienda', String),
-                   Column('Intensidad_energética_del_sector_industrial', String),
-                   Column('Intensidad_energética_del_sector_comercial_y_público', String)
-                   )
+                                 Column('Año', Integer,
+                                        nullable=False, unique=True),
+                                 Column(
+                                     'Consumo_residencial_per_cápita', String),
+                                 Column('Consumo_per_cápita_urbano', String),
+                                 Column('Consumo_per_cápita_rural', String),
+                                 Column(
+                                     'Consumo_residencial_por_vivienda', String),
+                                 Column(
+                                     'Intensidad_energética_del_sector_industrial', String),
+                                 Column(
+                                     'Intensidad_energética_del_sector_comercial_y_público', String)
+                                 )
 
 # Method that returns the table ESTRATEGIAS
 # DATE: 16/03/2023
-#end use indicators table schema
+# end use indicators table schema
 strategies_table = Table('ESTRATEGIAS', metadata_obj,
-                   Column('ESTRATEGIA_ID', Integer,
-                          nullable=False, unique=True),
-                   Column('ESTRATEGIA_NOMBRE', String),
-                   Column('MODELO_MATEMATICO', String),
-                   Column('VARIABLES', String)
-                   )
+                         Column('ESTRATEGIA_ID', Integer,
+                                nullable=False, unique=True),
+                         Column('ESTRATEGIA_NOMBRE', String),
+                         Column('MODELO_MATEMATICO', String),
+                         Column('VARIABLES', String)
+                         )
 
 # Method that returns the table SUB_ESTRATEGIAS by update
 # DATE: 16/03/2023
-#Variables relation for end use indicators table schema
+# Variables relation for end use indicators table schema
 sub_strategies_table = Table('SUB_ESTRATEGIA_GEN', metadata_obj,
-                   Column('SUB_ESTRATEGIA_ID', Integer,
-                          nullable=False, unique=True),
-                   Column('NOMBRE_SUB_ESTRATEGIA', String),
-                   Column('ESTRATEGIA_ID', String)
-                   )
+                             Column('SUB_ESTRATEGIA_ID', Integer,
+                                    nullable=False, unique=True),
+                             Column('NOMBRE_SUB_ESTRATEGIA', String),
+                             Column('ESTRATEGIA_ID', String)
+                             )
 
 # Method that returns the table SUB_ESTRATEGIAS by expansion
 # DATE: 16/03/2023
-#Variables relation for end use indicators table schema
+# Variables relation for end use indicators table schema
 sub_strategies_table_exp = Table('SUB_ESTRATEGIA_GEN_EXP', metadata_obj,
-                   Column('SUB_ESTRATEGIA_ID', Integer,
-                          nullable=False, unique=True),
-                   Column('NOMBRE_SUB_ESTRATEGIA', String),
-                   Column('ESTRATEGIA_ID', String)
-                   )
+                                 Column('SUB_ESTRATEGIA_ID', Integer,
+                                        nullable=False, unique=True),
+                                 Column('NOMBRE_SUB_ESTRATEGIA', String),
+                                 Column('ESTRATEGIA_ID', String)
+                                 )
 
 # Method that returns the table VAR_SUB_ESTRATEGIAS
 # DATE: 16/03/2023
 # data for end use table schema
 var_sub_strategies_table = Table('VARIABLES_SUB_ESTRATEGIA_GEN', metadata_obj,
-                   Column('VARIABLE_SUB_ESTRATEGIA_ID', String),
-                   Column('NOMBRE_VARIABLE', String),
-                   Column('SUB_ESTRATEGIA_ID', String)
-                   )
+                                 Column('VARIABLE_SUB_ESTRATEGIA_ID', String),
+                                 Column('NOMBRE_VARIABLE', String),
+                                 Column('SUB_ESTRATEGIA_ID', String)
+                                 )
 
 # Method that returns the table SUB_ESTRATEGIAS by update for end use
 # DATE: 16/03/2023
-#Variables relation for end use indicators table schema
+# Variables relation for end use indicators table schema
 sub_strategies_end_use_table = Table('SUB_ESTRATEGIA_END_USE', metadata_obj,
-                   Column('SUB_ESTRATEGIA_ID', Integer,
-                          nullable=False, unique=True),
-                   Column('NOMBRE_SUB_ESTRATEGIA', String),
-                   Column('ESTRATEGIA_ID', String)
-                   )
+                                     Column('SUB_ESTRATEGIA_ID', Integer,
+                                            nullable=False, unique=True),
+                                     Column('NOMBRE_SUB_ESTRATEGIA', String),
+                                     Column('ESTRATEGIA_ID', String)
+                                     )
 
 # Method that returns the table SUB_ESTRATEGIAS by expansion for end use
 # DATE: 16/03/2023
-#Variables relation for end use indicators table schema
+# Variables relation for end use indicators table schema
 sub_strategies_end_use_update_table = Table('SUB_ESTRATEGIA_END_USE_UPDATE', metadata_obj,
-                   Column('SUB_ESTRATEGIA_ID', Integer,
-                          nullable=False, unique=True),
-                   Column('NOMBRE_SUB_ESTRATEGIA', String),
-                   Column('ESTRATEGIA_ID', String)
-                   )
+                                            Column('SUB_ESTRATEGIA_ID', Integer,
+                                                   nullable=False, unique=True),
+                                            Column(
+                                                'NOMBRE_SUB_ESTRATEGIA', String),
+                                            Column('ESTRATEGIA_ID', String)
+                                            )
 
 
 projections_generation_table = Table('proyeccion_escenario_bau_generacion', metadata_obj,
-                   Column('Año', Integer,
-                          nullable=False, unique=True),
-                   Column('Generacion_Total', String)
-                   )
+                                     Column('Año', Integer,
+                                            nullable=False, unique=True),
+                                     Column('Generacion_Total', String)
+                                     )
 
 projections_distribution_table = Table('proyeccion_escenario_bau_distribucion', metadata_obj,
-                   Column('Año', Integer,
-                          nullable=False, unique=True),
-                   Column('Factor_de_pérdidas', String)
-                   )
+                                       Column('Año', Integer,
+                                              nullable=False, unique=True),
+                                       Column('Factor_de_pérdidas', String)
+                                       )
 
 projections_end_use_table = Table('proyeccion_escenario_bau_uso_final', metadata_obj,
-                   Column('Año', Integer,
-                          nullable=False, unique=True),
-                   Column('Consumo_eléctrico_total', String)
-                   )
+                                  Column('Año', Integer,
+                                         nullable=False, unique=True),
+                                  Column('Consumo_eléctrico_total', String)
+                                  )
 
 ##END eschema definition##
 
@@ -688,9 +714,9 @@ _translating_dict = {'NT1': 'Nivel de tensión 1',
                      'Generacion_FNCE_Total': 'Generación FNCE total',
                      'Generacion_SIN_Total': 'Generación SIN total',
                      'Generacion_Total': 'Generación total',
-                     'Consumo_eléctrico_total':'Consumo eléctrico total',
-                     'Factor_de_pérdidas':'Factor de pérdidas',
-                     
+                     'Consumo_eléctrico_total': 'Consumo eléctrico total',
+                     'Factor_de_pérdidas': 'Factor de pérdidas',
+
                      'C_CH_Agua_GWh': 'Consumo en centrales hidroeléctricas',
                      'C_CT_carbon_kTon': 'Consumo en centrales térmicas de Carbón',
                      'C_CT_Gas_Mpc': 'Consumo en centrales térmicas de Gas',
@@ -707,8 +733,8 @@ _translating_dict = {'NT1': 'Nivel de tensión 1',
                      'C_CAyC_Renovables_GWh': 'Consumo de Renovables en centrales AyC',
                      'C_CAyC_Diesel_kBL': 'Consumo de Diesel en centrales AyC',
                      'C_CAyC_Gaslicuado_kBL': 'Consumo de Gaslicuado en centrales AyC',
-                     'Total_Consumo_generacion_GWh':'Consumo total de la generación eléctrica',
-                     
+                     'Total_Consumo_generacion_GWh': 'Consumo total de la generación eléctrica',
+
                      'ECO2_CT_Carbon': 'Emisiones $CO_2$ Centrales Térmicas de Carbón',
                      'ECO2_CT_Gas': 'Emisiones $CO_2$ Centrales Térmicas de Gas',
                      'ECO2_CT_Diesel': 'Emisiones $CO_2$ Centrales Térmicas de Diesel',
@@ -731,7 +757,7 @@ _translating_dict = {'NT1': 'Nivel de tensión 1',
                      'EmisionesCO2_Petroleo': 'Emisiones $CO_2eq$ por Petróleo',
                      'EmisionesCO2_Gaslicuado': 'Emisiones $CO_2eq$ por Gas licuado',
                      'EmisionesCO2_Bagazo': 'Emisiones $CO_2eq$ por Bagazo',
-                     
+
                      'PIB_Total': 'PIB Total',
                      'PIB_Agro': 'Agro',
                      'PIB_Agro_Cultivos': 'Agro Cultivos',
@@ -945,7 +971,7 @@ _unit_dict = {'Consumo de fuentes primarias por tipo de central eléctrica': 'GW
               'Factor de Pérdidas': 'Porcentaje %',
               'Pérdidas Equivalentes': 'MWh/año',
               'IAAD': 'IAAD',
-              'PIB' : 'Miles de Millones de COP [base 2015]',
+              'PIB': 'Miles de Millones de COP [base 2015]',
               'PIB en USD': 'Billones de USD [base 2015]',
               'Población': 'N° de personas (Millones)',
               'Uso final de la energía': 'GWh',
@@ -953,16 +979,16 @@ _unit_dict = {'Consumo de fuentes primarias por tipo de central eléctrica': 'GW
               'Participación en la generación eléctrica': 'Porcentaje %',
               'Eficiencia de la generación eléctrica': 'Porcentaje %',
               'Intensidad energética primaria de la generación eléctrica': 'kWh/USD',
-              'Emisiones de CO2eq de la generación eléctrica':'MtCO2eq',
-              'Emisiones de $CO_2eq$ de la generación eléctrica Total':'MtCO2eq',
-              'Intensidad de emisión de la generación eléctrica':'gCO2eq/USD',
+              'Emisiones de CO2eq de la generación eléctrica': 'MtCO2eq',
+              'Emisiones de $CO_2eq$ de la generación eléctrica Total': 'MtCO2eq',
+              'Intensidad de emisión de la generación eléctrica': 'gCO2eq/USD',
               'Consumo per cápita': 'MWh/persona',
-              'Intensidad energética del uso final de la energía eléctrica':'kWh/USD',
-              'Factor de pérdidas en distribución (SOLO ADD)':'Porcentaje %',
+              'Intensidad energética del uso final de la energía eléctrica': 'kWh/USD',
+              'Factor de pérdidas en distribución (SOLO ADD)': 'Porcentaje %',
               'Costo de pérdidas equivalentes en distribución (SOLO ADD)': 'Millones USD',
               'Índice Anual Acumulado de Discontinuidad - IAAD': 'Porcentaje %',
-              'Saidi' : 'h / año',
-              'Saifi' : '# ocurrencia / año',
+              'Saidi': 'h / año',
+              'Saifi': '# ocurrencia / año',
               'Consumo eléctrico total': 'Gwh',
               'Factor de pérdidas': 'Porcentaje %',
               'Generación total': 'Gwh',
@@ -971,12 +997,15 @@ _unit_dict = {'Consumo de fuentes primarias por tipo de central eléctrica': 'GW
               'Indicador de eficiencia energética': 'Porcentaje %',
               'Indicador intensidad energética primaria': 'Gwh',
               'Indicador intensidad de emisiones de carbono': 'Gwh',
-            }
+              }
+
+
 class SQL_connector():
     """Platform server connection class
 
     Contains the constructor for the connection and execution methods for requests to the database.
     """
+
     def __init__(self) -> None:
         """Parameterized constructor
         """
@@ -990,7 +1019,7 @@ class SQL_connector():
 
         Returns:
             dict: query result of the --select-- on the login table for the given user credentials.
-        """        
+        """
         query = select(login_table).where(
             login_table.c.user == user)
         result = self.engine.execute(query)
@@ -998,7 +1027,7 @@ class SQL_connector():
         rows = [dict(zip(columns, row)) for row in result.fetchall()]
         result.close()
         return rows
-    
+
     def get_user_data(self, id_login):
         """Get user data form users table
         Args:
@@ -1015,8 +1044,8 @@ class SQL_connector():
         result.close()
         return rows
 
-    #Incompleto
-    #Verificación y creación de usuario
+    # Incompleto
+    # Verificación y creación de usuario
     def set_user(self, user, password):
         """Save users credential on database
 
@@ -1026,8 +1055,8 @@ class SQL_connector():
 
         Returns:
             dict: query result from validation --select-- for the given user credentials.
-        """        
-        query_1 = insert(login_table).values(user=user,password=password)
+        """
+        query_1 = insert(login_table).values(user=user, password=password)
         result = self.engine.execute(query_1)
 
         query_2 = select(login_table).where(
@@ -1045,19 +1074,20 @@ class SQL_connector():
             id_login (int): index of login table from method 
             name (_type_): _description_
             organization (_type_): _description_
-        """        
-        query_1 = insert(users_table).values(id_login=id_login, name=name, organization=organization)
+        """
+        query_1 = insert(users_table).values(
+            id_login=id_login, name=name, organization=organization)
         result = self.engine.execute(query_1)
-
 
     def get_emissions(self):
         query = select(emission_table)
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Emisiones de CO2 equivalentes':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'Emisiones de CO2 equivalentes': [
+            dict(zip(columns, row)) for row in result.fetchall()]}
         result.close()
         return rows
-    
+
     def get_generation(self):
         query = select(generation_table)
         result = self.engine.execute(query)
@@ -1080,33 +1110,36 @@ class SQL_connector():
         query = select(iaad_table)
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'IAAD':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'IAAD': [dict(zip(columns, row)) for row in result.fetchall()]}
         result.close()
         return rows
-    
+
     def get_saidi(self):
         query = select(saidi_table)
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Saidi':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'Saidi': [dict(zip(columns, row))
+                          for row in result.fetchall()]}
         result.close()
         return rows
-    
+
     def get_saifi(self):
         query = select(saifi_table)
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Saifi':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'Saifi': [dict(zip(columns, row))
+                          for row in result.fetchall()]}
         result.close()
         return rows
 
-    #---funciones para generacion ---
+    # ---funciones para generacion ---
     def get_desagregation(self):
         query = select(desagregacion_table)
 
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Desagregacion':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'Desagregacion': [dict(zip(columns, row))
+                                  for row in result.fetchall()]}
 
         # print(f" rows_desagregacion : {rows}")
         result.close()
@@ -1120,7 +1153,8 @@ class SQL_connector():
         # print(f" rel_var_indic_table: {rel_var_indic_table}")
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Indicadores':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'Indicadores': [dict(zip(columns, row))
+                                for row in result.fetchall()]}
         # print(f" rows_rel_var_indicadores : {rows}")
         result.close()
 
@@ -1133,19 +1167,20 @@ class SQL_connector():
         # print(f" rel_var_indic_table: {rel_var_indic_table}")
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Data':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'Data': [dict(zip(columns, row)) for row in result.fetchall()]}
         # print(f" rows_rel_var_indicadores : {rows}")
         result.close()
 
         return rows
-    
-    #---funciones para distribucion---
+
+    # ---funciones para distribucion---
     def get_desagregation_dist(self):
         query = select(desagregation_dist_table)
 
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Desagregacion':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'Desagregacion': [dict(zip(columns, row))
+                                  for row in result.fetchall()]}
 
         # print(f" rows_desagregacion : {rows}")
         result.close()
@@ -1159,7 +1194,8 @@ class SQL_connector():
         # print(f" rel_var_indic_table: {rel_var_indic_table}")
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Indicadores':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'Indicadores': [dict(zip(columns, row))
+                                for row in result.fetchall()]}
         # print(f" rows_rel_var_indicadores : {rows}")
         result.close()
 
@@ -1172,19 +1208,20 @@ class SQL_connector():
         # print(f" rel_var_indic_table: {rel_var_indic_table}")
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Data':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'Data': [dict(zip(columns, row)) for row in result.fetchall()]}
         # print(f" rows_rel_var_indicadores : {rows}")
         result.close()
 
         return rows
 
-    #---funciones para uso final---
+    # ---funciones para uso final---
     def get_desagregation_end_use(self):
         query = select(desagregation_end_use_table)
 
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Desagregacion':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'Desagregacion': [dict(zip(columns, row))
+                                  for row in result.fetchall()]}
 
         # print(f" rows_desagregacion : {rows}")
         result.close()
@@ -1198,7 +1235,8 @@ class SQL_connector():
         # print(f" rel_var_indic_table: {rel_var_indic_table}")
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Indicadores':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'Indicadores': [dict(zip(columns, row))
+                                for row in result.fetchall()]}
         # print(f" rows_rel_var_indicadores : {rows}")
         result.close()
 
@@ -1211,13 +1249,12 @@ class SQL_connector():
         # print(f" rel_var_indic_table: {rel_var_indic_table}")
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Data':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'Data': [dict(zip(columns, row)) for row in result.fetchall()]}
         # print(f" rows_rel_var_indicadores : {rows}")
         result.close()
 
         return rows
-    
-    
+
     def get_gen_strategies(self):
         """_summary_
 
@@ -1227,7 +1264,8 @@ class SQL_connector():
         query = select(strategies_table)
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'estrategias':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'estrategias': [dict(zip(columns, row))
+                                for row in result.fetchall()]}
         result.close()
 
         return rows
@@ -1241,11 +1279,12 @@ class SQL_connector():
         query = select(sub_strategies_table)
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Estrategias de expansión':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'Estrategias de expansión': [
+            dict(zip(columns, row)) for row in result.fetchall()]}
         result.close()
 
         return rows
-    
+
     def get_gen_sub_strategies_exp(self):
         """_summary_
 
@@ -1255,7 +1294,8 @@ class SQL_connector():
         query = select(sub_strategies_table_exp)
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Estrategias de actualización':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'Estrategias de actualización': [
+            dict(zip(columns, row)) for row in result.fetchall()]}
         result.close()
 
         return rows
@@ -1265,15 +1305,16 @@ class SQL_connector():
 
         Returns:
             _type_: _description_
-        """        
+        """
         query = select(var_sub_strategies_table)
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'variables':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'variables': [dict(zip(columns, row))
+                              for row in result.fetchall()]}
         result.close()
 
         return rows
-    
+
     def get_end_use_sub_strategies(self):
         """_summary_
 
@@ -1283,11 +1324,12 @@ class SQL_connector():
         query = select(sub_strategies_end_use_table)
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Estrategias de electrificación en el transporte':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'Estrategias de electrificación en el transporte': [
+            dict(zip(columns, row)) for row in result.fetchall()]}
         result.close()
 
         return rows
-    
+
     def get_end_use_sub_strategies_update(self):
         """_summary_
 
@@ -1297,7 +1339,8 @@ class SQL_connector():
         query = select(sub_strategies_end_use_update_table)
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Estrategias de actualización tecnológica':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'Estrategias de actualización tecnológica': [
+            dict(zip(columns, row)) for row in result.fetchall()]}
         result.close()
 
         return rows
@@ -1306,7 +1349,8 @@ class SQL_connector():
         query = select(projections_generation_table)
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Generación':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'Generación': [dict(zip(columns, row))
+                               for row in result.fetchall()]}
         result.close()
         return rows
 
@@ -1314,7 +1358,8 @@ class SQL_connector():
         query = select(projections_distribution_table)
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Distribución':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'Distribución': [dict(zip(columns, row))
+                                 for row in result.fetchall()]}
         result.close()
         return rows
 
@@ -1322,7 +1367,8 @@ class SQL_connector():
         query = select(projections_end_use_table)
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Uso final':[dict(zip(columns,row)) for row in result.fetchall()]}
+        rows = {'Uso final': [dict(zip(columns, row))
+                              for row in result.fetchall()]}
         result.close()
         return rows
 
@@ -1330,10 +1376,11 @@ class SQL_connector():
         query = select(loss_table)
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
-        rows = {'Factor de Pérdidas': [dict(zip(columns, row)) for row in result.fetchall()]}
+        rows = {'Factor de Pérdidas': [
+            dict(zip(columns, row)) for row in result.fetchall()]}
         result.close()
         return rows
-    
+
     def get_loss_cost(self):
         query = select(loss_cost_table)
         result = self.engine.execute(query)
@@ -1351,7 +1398,7 @@ class SQL_connector():
             dict(zip(columns, row)) for row in result.fetchall()]}
         result.close()
         return rows
-    
+
     def get_pib(self):
         query = select(pib_table)
         result = self.engine.execute(query)
@@ -1378,8 +1425,8 @@ class SQL_connector():
         rows = {'Población': [
             dict(zip(columns, row)) for row in result.fetchall()]}
         result.close()
-        return rows   
-    
+        return rows
+
     def get_households(self):
         query = select(households_table)
         result = self.engine.execute(query)
@@ -1401,28 +1448,28 @@ class SQL_connector():
     def get_indicators(self):
         indicators_dict = {}
         _dict = {}
-        #distribution_dict.update(self.get_desagregation())
+        # distribution_dict.update(self.get_desagregation())
         indicators_dict.update(self.get_rel_var_indic())
         indicators_dict.update(self.get_desagregation())
         indicators_dict.update(self.get_data_desag_gen())
         # print(f"indicators_dict:  {indicators_dict}")
-        _dict.update({'generation':indicators_dict})
+        _dict.update({'generation': indicators_dict})
 
         end_use_dict_dist = {}
         end_use_dict_dist.update(self.get_rel_var_indic_dist())
         end_use_dict_dist.update(self.get_desagregation_dist())
         end_use_dict_dist.update(self.get_data_desag_dist())
 
-        _dict.update({'distribution':end_use_dict_dist})
+        _dict.update({'distribution': end_use_dict_dist})
 
         end_use_dict_ind = {}
         end_use_dict_ind.update(self.get_rel_var_indic_end_use())
         end_use_dict_ind.update(self.get_desagregation_end_use())
         end_use_dict_ind.update(self.get_data_desag_end_use())
 
-        _dict.update({'end_use':end_use_dict_ind})
+        _dict.update({'end_use': end_use_dict_ind})
         return _dict
-    
+
     def get_Strategies(self):
         """_summary_
 
@@ -1436,7 +1483,7 @@ class SQL_connector():
         _dict_gen_strategies.update(self.get_gen_sub_strategies_exp())
         # _dict_gen_strategies.update(self.get_gen_var_sub_strategies())
 
-        _dict_strategies.update({'generation':_dict_gen_strategies})
+        _dict_strategies.update({'generation': _dict_gen_strategies})
 
         # _dist_dist_strategies = {}
         # _dist_dist_strategies.update(self.)
@@ -1447,13 +1494,14 @@ class SQL_connector():
 
         _dict_end_use_strategies = {}
         _dict_end_use_strategies.update(self.get_end_use_sub_strategies())
-        _dict_end_use_strategies.update(self.get_end_use_sub_strategies_update())
+        _dict_end_use_strategies.update(
+            self.get_end_use_sub_strategies_update())
         # _dict_end_use_strategies.update(self.)
         # _dict_end_use_strategies.update(self.)
 
-        _dict_strategies.update({'end_use':_dict_end_use_strategies})
+        _dict_strategies.update({'end_use': _dict_end_use_strategies})
         return _dict_strategies
-    
+
     def get_description_Strategies(self):
         """_summary_
 
@@ -1465,7 +1513,8 @@ class SQL_connector():
         _dict_gen_strategies.update(self.get_gen_strategies())
         _dict_gen_strategies.update(self.get_gen_var_sub_strategies())
 
-        _dict_desc_strategies.update({'description_strategies':_dict_gen_strategies})
+        _dict_desc_strategies.update(
+            {'description_strategies': _dict_gen_strategies})
 
         # _dist_dist_strategies = {}
         # _dist_dist_strategies.update(self.)
@@ -1487,37 +1536,37 @@ class SQL_connector():
         _dict = {}
         projections_gen_dict = {}
         projections_gen_dict.update(self.get_projections_gen())
-        _dict.update({'generation':projections_gen_dict})
+        _dict.update({'generation': projections_gen_dict})
 
         projections_dist_dict = {}
         projections_dist_dict.update(self.get_projections_dist())
-        _dict.update({'distribution':projections_dist_dict})
+        _dict.update({'distribution': projections_dist_dict})
 
         projections_end_use_dict = {}
         projections_end_use_dict.update(self.get_projections_end_use())
-        _dict.update({'end_use':projections_end_use_dict})
+        _dict.update({'end_use': projections_end_use_dict})
 
         return _dict
 
-    #function return dictionary data table information for calc interface
-    #date: 27/07/2022
-    #dev: Alex Pinchao
-    
+    # function return dictionary data table information for calc interface
+    # date: 27/07/2022
+    # dev: Alex Pinchao
+
     def get_data_table(self):
         indicators_dict = {}
         _dict = {}
-        #distribution_dict.update(self.get_desagregation())
+        # distribution_dict.update(self.get_desagregation())
         indicators_dict.update(self.get_rel_var_indic())
         indicators_dict.update(self.get_desagregation())
         # print(f"indicators_dict:  {indicators_dict}")
-        _dict.update({'generation':indicators_dict})
+        _dict.update({'generation': indicators_dict})
         end_use_dict_ind = {}
         end_use_dict_ind.update(self.get_rel_var_indic_end_use())
         end_use_dict_ind.update(self.get_desagregation_end_use())
-        
-        _dict.update({'end_use':end_use_dict_ind})
+
+        _dict.update({'end_use': end_use_dict_ind})
         return _dict
-    
+
     def get_distribution(self):
         distribution_dict = {}
         _dict = {}
@@ -1527,23 +1576,25 @@ class SQL_connector():
         distribution_dict.update(self.get_equivalent_losses())
         distribution_dict.update(self.get_saidi())
         distribution_dict.update(self.get_saifi())
-        _dict.update({'distribution':distribution_dict})
+        _dict.update({'distribution': distribution_dict})
         generation_dict = {}
         generation_dict.update(self.get_generation())
         generation_dict.update(self.get_emissions())
         generation_dict.update(self.get_consumption())
-        _dict.update({'generation':generation_dict})
+        _dict.update({'generation': generation_dict})
         end_use_dict = {}
         end_use_dict.update(self.get_pib())
         end_use_dict.update(self.get_pib_usd())
         end_use_dict.update(self.get_population())
         end_use_dict.update(self.get_households())
         end_use_dict.update(self.get_end_use_energy())
-        _dict.update({'end_use':end_use_dict})
+        _dict.update({'end_use': end_use_dict})
         return _dict, _translating_dict
 
     def get_units(self):
         return _unit_dict
+
+
 """ class Contact(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     fullname = db.Column(db.String(100))
@@ -1555,4 +1606,3 @@ class SQL_connector():
         self.email = email
         self.phone = phone
  """
-
