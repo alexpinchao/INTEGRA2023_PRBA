@@ -1972,7 +1972,24 @@ Análisis
     // Variables Datatable.js handler
     // Callback for combobox on variable view :)
   function  loadTable_variables(list_name, json_new){
-    let list_names = Object.keys(json_new)
+
+    console.log("-------- loadTable_variables ------ ")
+    
+    arr = JSON.parse('{{ strategies_definition| tojson | safe }}');
+
+    console.log("arr ++++ ");
+    console.log(arr);
+    
+    let arr1 = arr[list_name]
+    console.log("arr1 ++++ ");
+    console.log(arr1);
+
+    let list_names = Object.keys(arr1)
+
+    console.log("list_names ++++ 99");
+    console.log(list_names);
+
+    // console.log("list_names ++++ "+list_names)
     let table = _table_.cloneNode(false);
     let tbody = _tbody_.cloneNode(false),
     columns = addAllColumnHeaders(list_name);
@@ -1981,36 +1998,76 @@ Análisis
       let td = _td_.cloneNode(false);
       let a = _a_.cloneNode(false);
 
-      // console.log("items "+items)
-      a.appendChild(document.createTextNode(items || ''));
-      td.classList.add('fw-extrabold')
-      td.classList.add('showhr')
-      let i = _i_.cloneNode(false);
-      i.classList.add('fa-solid')
-      /* i.classList.add('fa-angle-right') */
-      i.classList.add('fa-caret-down')
-      i.classList.add('pe-1')
+      console.log("items +++ 99 "+items)
 
-      td.appendChild(i);
-      td.appendChild(a);
-      tr.appendChild(td);  
-      tbody.appendChild(tr);
-      let keys_list = json_new[items];
-      // var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
-      keys_list.forEach(function (item, index) {
-        let tr = _tr_.cloneNode(false);
-        let td = _td_.cloneNode(false);
-        let cell_value;
-        cell_value = item;
+      let arr2 = arr1[items]
+      console.log("arr2 +++ 99 ",arr2)
 
-        //cell_value = cell_value.replace("CO2eq","$CO_2eq$");
-        td.appendChild(document.createTextNode(cell_value|| ''));
-        td.classList.add('aser')
-        td.classList.add('fw-normal')
-        tr.appendChild(td);
-        tr.style.display = 'none';
-        tbody.appendChild(tr);
-      })
+      let arr3 = arr2.name;
+
+
+      console.log("arr3 +++ 99 ",arr3)
+      let arr4 = arr2.strategies
+
+      console.log("arr4 +++ 99 ",arr4)
+
+      let arr5 = Object.keys(arr4);
+
+      console.log("arr5 +++ 99 ",arr5)
+
+
+
+          a.appendChild(document.createTextNode(arr2.name || ''));
+          td.classList.add('fw-extrabold')
+          td.classList.add('showhr')
+          let i = _i_.cloneNode(false);
+          i.classList.add('fa-solid')
+          /* i.classList.add('fa-angle-right') */
+          i.classList.add('fa-caret-down')
+          i.classList.add('pe-1')
+
+          td.appendChild(i);
+          td.appendChild(a);
+          tr.appendChild(td);  
+          tbody.appendChild(tr);
+          //let keys_list = json_new[items];
+          // var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+          arr5.forEach(function (item, index) {
+
+            let arr6 = arr4[item];
+            console.log("arr6 subestrategia +++ 99 ",arr6)
+            let tr = _tr_.cloneNode(false);
+            let td = _td_.cloneNode(false);
+            let cell_value;
+            cell_value = arr6.name;
+
+            let div = document.createElement('div');
+            let inp = document.createElement('input');
+            let label = document.createElement('label');
+
+            label.classList.add('form-check-label');
+            inp.classList.add('form-check-input');
+            inp.type = 'checkbox';
+            inp.checked = false;
+            inp.id = arr6.id
+            // inp.disable = 'disabled';
+            div.classList.add('form-check')
+            // let h1 = document.createElement('h1');
+            // h1.innerHTML= cell_value;
+
+            // label.appendChild(h1);
+            label.innerHTML = cell_value
+
+            div.appendChild(label);
+            div.appendChild(inp);
+            //cell_value = cell_value.replace("CO2eq","$CO_2eq$");
+            td.appendChild(div);
+            td.classList.add('aser')
+            td.classList.add('fw-normal')
+            tr.appendChild(td);
+            tr.style.display = 'none';
+            tbody.appendChild(tr);
+          })
     })
 
     table.appendChild(tbody);
@@ -2086,10 +2143,28 @@ Análisis
     // json_var["Estrategias de actualización"]= json_aux_var_ac
     // json_var["Estrategias de expansión"]= json_aux_var_exp
     // console.log("json_var_1",json_var)
+    function validarChecks (){
+      var strategie_id = "";
+      $("#table_variables tbody tr").each(function(i, v) {
 
+        //$(this).find(".form-check-input").prop('checked', true);
+
+        if ($(this).find(".form-check-input").is(':checked') == true){
+
+            strategie_id = $(this).attr('id');
+            
+            
+          }
+        });
+
+        console.log("----strategie_id----")
+    console.log(strategie_id)
+      }
+    
+    // validarChecks();
     const button = document.getElementById('activar_scenario')
     loadTable3(list_name)
-    button.addEventListener("click", loadTable3);
+    button.addEventListener("click", validarChecks);
   }
 
   function loadTable3(list_name) {

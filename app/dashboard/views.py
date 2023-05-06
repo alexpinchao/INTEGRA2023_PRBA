@@ -18,7 +18,7 @@ value = 60
 
 strategies_definition = {
     "process": "Generación",
-    "models": [
+    "generation": [
         {
             "id": "d001",
             "name": "Estrategias de expansión",
