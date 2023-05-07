@@ -1950,6 +1950,11 @@ Análisis
 
     SetSelectName('select-dropdown-var', list_name);
     let json_file_strategies = JSON.parse('{{strategies | tojson | safe}}');
+
+    console.log("---strategies---")
+    console.log("json_file_strategies",json_file_strategies)
+
+
     let keys_list_strategies = Object.keys(json_file_strategies[list_name])
 
     console.log("---strategies---")
@@ -1984,7 +1989,7 @@ Análisis
     console.log("arr1 ++++ ");
     console.log(arr1);
 
-    let list_names = Object.keys(arr1)
+    let list_names = Object.keys(arr1.models)
 
     console.log("list_names ++++ 99");
     console.log(list_names);
@@ -2000,7 +2005,7 @@ Análisis
 
       console.log("items +++ 99 "+items)
 
-      let arr2 = arr1[items]
+      let arr2 = arr1.models[items]
       console.log("arr2 +++ 99 ",arr2)
 
       let arr3 = arr2.name;
@@ -2144,21 +2149,28 @@ Análisis
     // json_var["Estrategias de expansión"]= json_aux_var_exp
     // console.log("json_var_1",json_var)
     function validarChecks (){
+
+      console.log("---- validarChecks ----");
       var strategie_id = "";
+      var arr_ids = [];
       $("#table_variables tbody tr").each(function(i, v) {
+
+        console.log("---- validarChecks busca tabla----");
 
         //$(this).find(".form-check-input").prop('checked', true);
 
         if ($(this).find(".form-check-input").is(':checked') == true){
 
-            strategie_id = $(this).attr('id');
-            
-            
+          
+          strategie_id = $(this).find(".form-check-input").attr('id');
+          console.log("---- validarChecks ids checkeados----");
+          console.log(strategie_id);
+          arr_ids.push(strategie_id)
           }
         });
 
-        console.log("----strategie_id----")
-    console.log(strategie_id)
+        console.log("----arrys de ids----")
+        console.log(arr_ids)
       }
     
     // validarChecks();

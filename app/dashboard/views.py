@@ -17,65 +17,112 @@ import json
 value = 60
 
 strategies_definition = {
-    "process": "Generación",
-    "generation": [
-        {
-            "id": "d001",
-            "name": "Estrategias de expansión",
-            "strategies": [
-                {
-                    "id": "x001",
-                    "name": "Generación eléctrica a partir de gas combustible",
-                    "description": "N/A",
-                    "variable": "Capacidad Instalada",
-                    "upper_value": 100,
-                    "lower_value": 30,
-                    "value": value,
-                    "year": 2025,
-                    "unit": "GW"
-                },
-                {
-                    "id": "x002",
-                    "name": "Generación con recurso hidráulico",
-                    "description": "N/A",
-                    "variable": "Capacidad Instalada",
-                    "upper_value": 30000,
-                    "lower_value": 20000,
-                    "value": 24000,
-                    "year": 2025,
-                    "unit": "GW"
-                },
-                {
-                    "id": "x003",
-                    "name": "Generación distribuida con FNCER",
-                    "description": "N/A",
-                    "variable": "Capacidad Instalada",
-                    "upper_value": 8000,
-                    "lower_value": 2000,
-                    "value": 6400,
-                    "year": 2025,
-                    "unit": "GW"
-                }
-            ]
-        },
-        {
-            "id": "d002",
-            "name": "Estrategia de actualización",
-            "strategies": [
-                {
-                    "id": "y001",
-                    "name": "Mejoras de eficiencia en parque térmico",
-                    "description": "N/A",
-                    "variable": "PI",
-                    "upper_value": 100,
-                    "lower_value": 0,
-                    "value": 15,
-                    "year": 2025,
-                    "unit": "%"
-                }
-            ]
-        }
-    ]
+     "generation":{
+        "process": "Generación",
+        "models": [
+            {
+                "id": "d001",
+                "name": "Estrategias de expansión",
+                "strategies": [
+                    {
+                        "id": "x001",
+                        "name": "Generación eléctrica a partir de gas combustible",
+                        "description": "N/A",
+                        "variable": "Capacidad Instalada",
+                        "upper_value": 100,
+                        "lower_value": 30,
+                        "value": 60,
+                        "year": 2025,
+                        "unit": "GW"
+                    },
+                    {
+                        "id": "x002",
+                        "name": "Generación con recurso hidráulico",
+                        "description": "N/A",
+                        "variable": "Capacidad Instalada",
+                        "upper_value": 30000,
+                        "lower_value": 20000,
+                        "value": 24000,
+                        "year": 2025,
+                        "unit": "GW"
+                    },
+                    {
+                        "id": "x003",
+                        "name": "Generación distribuida con FNCER",
+                        "description": "N/A",
+                        "variable": "Capacidad Instalada",
+                        "upper_value": 8000,
+                        "lower_value": 2000,
+                        "value": 6400,
+                        "year": 2025,
+                        "unit": "GW"
+                    }
+                ]
+            },
+            {
+                "id": "d002",
+                "name": "Estrategia de actualización",
+                "strategies": [
+                    {
+                        "id": "y001",
+                        "name": "Mejoras de eficiencia en parque térmico",
+                        "description": "N/A",
+                        "variable": "PI",
+                        "upper_value": 100,
+                        "lower_value": 0,
+                        "value": 15,
+                        "year": 2025,
+                        "unit": "%"
+                    }
+                ]
+            }
+        ]
+    },
+    "distribution":{
+        "process":"Distribución",
+        "models":[
+            {
+                "id": "NA",
+                "name": "NA",
+                "strategies": [
+                    {
+                        "id": "NA",
+                        "name": "NA",
+                        "description": "N/A",
+                        "variable": "NA",
+                        "upper_value": 0,
+                        "lower_value": 0,
+                        "value": 0,
+                        "year": 0,
+                        "unit": "%"
+                    }
+                ]
+            }
+        ]
+        
+    },
+    "end_use":{
+        "process": "Uso final",
+        "models": [
+            {
+                "id": "NA",
+                "name": "NA",
+                "strategies": [
+                    {
+                        "id": "NA",
+                        "name": "NA",
+                        "description": "N/A",
+                        "variable": "NA",
+                        "upper_value": 0,
+                        "lower_value": 0,
+                        "value": 0,
+                        "year": 0,
+                        "unit": "%"
+                    }
+                ]
+            }
+        ]
+    }
 }
 
 
