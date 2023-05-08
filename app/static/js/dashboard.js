@@ -10,13 +10,30 @@ function loadSliders() {
 	/* test de render whit js */
 }
 
+function removeSliders() {
+	const boxes = document.querySelectorAll(".slider")
+	boxes.forEach((box) => {
+		box.remove()
+	})
+}
+
 function addClass() {
 	document.getElementsByClassName("slider").forEach((element) => {
 		element.classList.add("slider-volt")
 	})
 }
 
-function updateChart() {}
+function getProcessName() {
+	var processName = $("#select-dropdown-var").find("span").text()
+	if (processName == "Generación") {
+		processName = "generation"
+	} else if (processName == "Distribución") {
+		processName = "distribution"
+	} else if (processName == "Uso final") {
+		processName = "end_use"
+	}
+	return processName
+}
 
 function loadModel(model, parent) {
 	var model_html = parent.querySelector("#accordion-item-model-id").cloneNode(true)
@@ -73,13 +90,38 @@ function loadStrategy(strategy, parent, idModel) {
 	strategy_html.querySelector("#strategy-example-unit").innerHTML = strategy.unit
 	strategy_html.querySelector("#strategy-bau-info").innerHTML =
 		strategy.value + " " + strategy.unit + " " + strategy.year
-	strategy_html.querySelector(".form-range-value").innerHTML = strategy.value
 	strategy_html.querySelector("#strategy-range-info").innerHTML =
 		strategy.lower_value + "-" + strategy.upper_value + " " + strategy.unit
+	strategy_html.querySelector("#strategy-example-current-value").innerHTML = strategy.value
+	strategy_html.querySelector("#strategy-example-current-value").classList.add("form-range-value")
+	strategy_html.querySelector("#strategy-example-current-value").id = "current-value-" + strategy.id
 	return strategy_html
 }
 
-function loadStrategies(strategies_array) {
+function filterStrategiesByProcess(strategies_array) {
+	let current_process = getProcessName()
+	let new_strategies = Object.fromEntries(
+		Object.entries(strategies_array).filter(([key]) => key.includes(current_process))
+	)
+	return new_strategies[current_process]
+}
+
+function filterStrategiesById(array, ids) {
+	let new_array = array.models
+		.filter((model) => model.strategies.some((strategy) => ids.includes(strategy.id)))
+		.map((model) => {
+			let newElt = Object.assign({}, model, {
+				strategies: model.strategies.filter((strategy) => ids.includes(strategy.id)),
+			})
+			return newElt
+		})
+	array.models = new_array
+	return array
+}
+
+function loadStrategies(strategies_array, strategies_id_selected) {
+	strategies_array = filterStrategiesByProcess(strategies_array)
+	strategies_to_show = filterStrategiesById(strategies_array, strategies_id_selected)
 	var parent = document.getElementById("template_strategies").cloneNode(true)
 	parent.querySelector("#process").innerHTML = strategies_array.process
 	strategies_array.models.forEach((model) => {
@@ -93,6 +135,24 @@ function loadStrategies(strategies_array) {
 		/* model_html.querySelector("#strategies-model-id").id = "strategies-model-" + model.id */
 		parent.querySelector("#accordion-strategies").appendChild(model_html)
 	})
+	document.getElementById("test-clone").innerHTML = ""
 	document.getElementById("test-clone").appendChild(parent)
+	removeSliders()
 	loadSliders()
+}
+
+function getCurrentValues() {
+	let key_values = {}
+	document.querySelectorAll(".form-range-value").forEach(function (values) {
+		key_id = String(values.id.split("-").slice(-1))
+		value_slider = values.innerHTML
+		key_values[key_id] = value_slider
+	})
+	return key_values
+}
+/* Desde aca se puede seguir ajustando */
+function updateChart() {
+	console.log("--- Update Chart ---")
+	console.log("Values form sliders")
+	console.log(getCurrentValues())
 }
