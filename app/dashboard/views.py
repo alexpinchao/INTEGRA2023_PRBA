@@ -17,7 +17,7 @@ import json
 value = 60
 
 strategies_definition = {
-     "generation":{
+    "generation": {
         "process": "Generación",
         "models": [
             {
@@ -33,7 +33,7 @@ strategies_definition = {
                         "lower_value": 30,
                         "value": 60,
                         "year": 2025,
-                        "unit": "GW"
+                        "unit": "GW",
                     },
                     {
                         "id": "x002",
@@ -44,7 +44,7 @@ strategies_definition = {
                         "lower_value": 20000,
                         "value": 24000,
                         "year": 2025,
-                        "unit": "GW"
+                        "unit": "GW",
                     },
                     {
                         "id": "x003",
@@ -55,9 +55,9 @@ strategies_definition = {
                         "lower_value": 2000,
                         "value": 6400,
                         "year": 2025,
-                        "unit": "GW"
-                    }
-                ]
+                        "unit": "GW",
+                    },
+                ],
             },
             {
                 "id": "d002",
@@ -72,15 +72,15 @@ strategies_definition = {
                         "lower_value": 0,
                         "value": 15,
                         "year": 2025,
-                        "unit": "%"
+                        "unit": "%",
                     }
-                ]
-            }
-        ]
+                ],
+            },
+        ],
     },
-    "distribution":{
-        "process":"Distribución",
-        "models":[
+    "distribution": {
+        "process": "Distribución",
+        "models": [
             {
                 "id": "NA",
                 "name": "NA",
@@ -94,14 +94,13 @@ strategies_definition = {
                         "lower_value": 0,
                         "value": 0,
                         "year": 0,
-                        "unit": "%"
+                        "unit": "%",
                     }
-                ]
+                ],
             }
-        ]
-        
+        ],
     },
-    "end_use":{
+    "end_use": {
         "process": "Uso final",
         "models": [
             {
@@ -117,12 +116,12 @@ strategies_definition = {
                         "lower_value": 0,
                         "value": 0,
                         "year": 0,
-                        "unit": "%"
+                        "unit": "%",
                     }
-                ]
+                ],
             }
-        ]
-    }
+        ],
+    },
 }
 
 
