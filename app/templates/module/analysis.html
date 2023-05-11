@@ -202,6 +202,69 @@ super() }}
 								<div class="row justify-content-between m-0">
 									<div class="row mb-2 mt-2">
 										<!-- Section Table -->
+                    
+                    <div class="card-header p-0">
+                      <div class="row justify-content-between m-0">
+                          <!-- Dropdown menu-->
+                          <div
+                              class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between flex-grow-1">
+                              <div class="d-block mb-3 mb-sm-0 align-items-center">
+                                  <!-- <span class="sidebar-icon">
+                                      <svg class="icon-shape icon-xxs" fill="black" viewBox="0 0 720 720"
+                                          xmlns="http://www.w3.org/2000/svg">
+                                          <path
+                                              d="M88 48C101.3 48 112 58.75 112 72V120C112 133.3 101.3 144 88 144H40C26.75 144 16 133.3 16 120V72C16 58.75 26.75 48 40 48H88zM480 64C497.7 64 512 78.33 512 96C512 113.7 497.7 128 480 128H192C174.3 128 160 113.7 160 96C160 78.33 174.3 64 192 64H480zM480 224C497.7 224 512 238.3 512 256C512 273.7 497.7 288 480 288H192C174.3 288 160 273.7 160 256C160 238.3 174.3 224 192 224H480zM480 384C497.7 384 512 398.3 512 416C512 433.7 497.7 448 480 448H192C174.3 448 160 433.7 160 416C160 398.3 174.3 384 192 384H480zM16 232C16 218.7 26.75 208 40 208H88C101.3 208 112 218.7 112 232V280C112 293.3 101.3 304 88 304H40C26.75 304 16 293.3 16 280V232zM88 368C101.3 368 112 378.7 112 392V440C112 453.3 101.3 464 88 464H40C26.75 464 16 453.3 16 440V392C16 378.7 26.75 368 40 368H88z" />
+                                      </svg>
+                                  </span>
+                                  <span class="fs-5 fw-extrabold mb-2">Estrategias</span> -->
+                              </div>
+                          </div>
+                          <div
+                              class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between justify-content-xl-center">
+                              <span class="h6 fw-bold p-1"><strong>Cadena de Valor</strong> </span>
+                              <div class="btn-group p-1">
+                                  <button type="button" id="select-dropdown-var"
+                                      class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
+                                      data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      <span>Seleccionar</span>
+                                      <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20"
+                                          xmlns="http://www.w3.org/2000/svg">
+                                          <path fill-rule="evenodd"
+                                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                              clip-rule="evenodd"></path>
+                                      </svg>
+                                  </button>
+                                  <div class="dropdown-menu">
+                                      <a class="dropdown-item" onclick="choice('generation')">Generación</a>
+                                      <a class="dropdown-item" onclick="choice('distribution')">Distribución</a>
+                                      <a class="dropdown-item" onclick="choice('end_use')">Uso final</a>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div
+                              class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between justify-content-xl-center">
+                              <span class="h6 fw-bold p-1"><strong>Año de analisis</strong> </span>
+                              <div class="btn-group p-1">
+                                  <button type="button" id="select-dropdown-var"
+                                      class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
+                                      data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      <span>Seleccionar</span>
+                                      <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20"
+                                          xmlns="http://www.w3.org/2000/svg">
+                                          <path fill-rule="evenodd"
+                                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                              clip-rule="evenodd"></path>
+                                      </svg>
+                                  </button>
+                                  <div class="dropdown-menu">
+                                    <select name="" id="fecha"></select>
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
 										<div class="card m-2 card-body border-1 shadow table-wrapper table-responsive">
 											<div class="row">
 												<div class="col-12 d-flex">
@@ -388,7 +451,7 @@ super() }}
 												<div class="btn-group p-1">
 													<button
 														type="button"
-														id="select-dropdown-var"
+														id="select-dropdown-var-2"
 														class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
 														data-bs-toggle="dropdown"
 														aria-haspopup="true"
@@ -408,7 +471,7 @@ super() }}
 															></path>
 														</svg>
 													</button>
-													<div class="dropdown-menu">
+													<!-- <div class="dropdown-menu">
 														<a class="dropdown-item" onclick="update_list('generation')"
 															>Generación</a
 														>
@@ -416,7 +479,7 @@ super() }}
 															>Distribución</a
 														>
 														<a class="dropdown-item" onclick="update_list('end_use')">Uso final</a>
-													</div>
+													</div> -->
 												</div>
 											</div>
 										</div>
@@ -603,7 +666,7 @@ super() }}
 															></path>
 														</svg>
 													</button>
-													<div class="dropdown-menu">
+													<!-- <div class="dropdown-menu">
 														<a class="dropdown-item" onclick="loadTable3('generation')"
 															>Generación</a
 														>
@@ -611,35 +674,71 @@ super() }}
 															>Distribución</a
 														>
 														<a class="dropdown-item" onclick="loadTable3('end_use')">Uso final</a>
-													</div>
+													</div> -->
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="card-body px-1 px-md-3 py-1">
 										<div class="row mb-2 mt-2 m-0">
-											<div class="col-12 col-xl-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
+                      <div class="row my-2 py-1">
+                        <section hidden>
+                          <div
+                            id="template_strategies"
+                            class="card border-0 flex-fill components-section flex-grow-1 my-1"
+                          >
+                            <div class="card-body p-0">{{ macros.template_parent_strategies() }}</div>
+                          </div>
+                        </section>
+                        <div class="col-12 col-xl-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
+                          <div class="card border-0 flex-fill">
+                            <div class="card-body align-self-stretch p-2">
+                              <div id="test-clone"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+											<!-- <div class="col-12 col-xl-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
 												<div class="card border-0 flex-fill">
 													<div class="card-body align-self-stretch p-2">
 														<div class="table-responsive info-table" id="table_content_3"></div>
 													</div>
 												</div>
-											</div>
+											</div> -->
 											<!-- Graph Section -->
 											<div class="col-12 col-xl-8 mb-1 px-0 d-flex align-self-stretch">
 												<div class="card border-0 flex-fill">
 													<div class="card-body p-1 flex-fill" id="graph-container-3">
 														<div class="d-block mb-3 mb-sm-0">
 															<span class="fs-5 fw-extrabold mb-4" id="chart_title_3"
-																>Variable seleccionada</span
+																></span
 															>
 														</div>
 														<canvas id="line-chart-3" width="100%" height="50%"></canvas>
 													</div>
 												</div>
 											</div>
+                      <div class="col-12 col-xl-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
+                        <!-- <div class="card border-0 flex-fill">
+                            <div class="card-body align-self-stretch p-2">
+                                 Section Table 
+                                <div class="table-responsive info-table" ></div>
+                            </div>
+                        </div> -->
+                      </div>
+                      <!-- Graph Section -->
+                      <div class="col-12 col-xl-8 mb-1 px-0 d-flex align-self-stretch">
+                        <div class="card border-0 flex-fill">
+                            <div class="card-body p-1 flex-fill" id="graph-container-4">
+                                <div class="d-block mb-3 mb-sm-0">
+                                    <span class="fs-5 fw-extrabold mb-4" id="chart_title_4"></span>
+                                </div>
+                                <canvas id="line-chart-4" width="100%" height="50%"></canvas>
+                            </div>
+                        </div>
+                    </div>
 										</div>
-										<div class="row my-2 py-1">
+										<!-- <div class="row my-2 py-1">
 											<section hidden>
 												<div
 													id="template_strategies"
@@ -655,7 +754,7 @@ super() }}
 													</div>
 												</div>
 											</div>
-										</div>
+										</div> -->
 									</div>
 								</div>
 							</div>
@@ -818,7 +917,7 @@ super() }}
 															></path>
 														</svg>
 													</button>
-													<div class="dropdown-menu">
+													<!-- <div class="dropdown-menu">
 														<a class="dropdown-item" onclick="update_list_4('generation')"
 															>Generación</a
 														>
@@ -828,7 +927,7 @@ super() }}
 														<a class="dropdown-item" onclick="update_list_4('end_use')"
 															>Uso final</a
 														>
-													</div>
+													</div> -->
 												</div>
 											</div>
 										</div>
@@ -2501,6 +2600,13 @@ super() }}
 	//  Variables Chart.js handler
 	//  Generic display constructor for variable tables in Json format
 
+  function ComboFecha(){
+   var n = (new Date()).getFullYear()
+   var select = document.getElementById("fecha");
+   for(var i = n; i<=2030; i++)select.options.add(new Option(i,i)); 
+  };
+  window.onload = ComboFecha;
+
 	var _table_ = document.createElement("table"),
 		_tr_ = document.createElement("tr"),
 		_th_ = document.createElement("th"),
@@ -2512,77 +2618,52 @@ super() }}
 		_ul_ = document.createElement("ul"),
 		_p_ = document.createElement("p")
 
-	function update_list(list_name) {
-		SetSelectName("select-dropdown-var", list_name)
-		// prettier-ignore
-		let json_file_strategies = JSON.parse('{{strategies | tojson | safe}}')
+    function choice(list_name){
+      SetSelectName('select-dropdown-var', list_name);
+      updateList(list_name);
+    }
 
-		console.log("---strategies---")
-		console.log("json_file_strategies", json_file_strategies)
 
-		let keys_list_strategies = Object.keys(json_file_strategies[list_name])
+    function updateList(list_name) {
+      SetSelectName('select-dropdown-var-2', list_name);
+      let json_file = JSON.parse('{{strategies | tojson | safe}}');
+      let keys_list = Object.keys(json_file[list_name])
+      let list_data = {}
+      keys_list.forEach(function (item, index) {
+          let json_aux = json_file[list_name][item];
+          let json_strategies = []
+          json_aux.forEach(function (item2, index2) {
+              json_strategies.push(item2['NOMBRE_SUB_ESTRATEGIA'])
+          });
+          list_data[item] = json_strategies;
+      });
 
-		console.log("---strategies---")
-		console.log("json_file_strategies", json_file_strategies)
-		// console.log("keys_list_strategies",keys_list_strategies)
+      let fecha = document.getElementById("fecha").value;
+      console.log("fecha")
+      console.log(fecha)
+      loadTableStrategies(list_name, fecha);
+      loadTableStrategiesDescription(list_name, list_data);
+    }
 
-		let keys_list_2 = []
-		let json_new = {}
-		keys_list_strategies.forEach(function (item, index) {
-			let json_aux = json_file_strategies[list_name][item]
-			let json_strategies = []
-			json_aux.forEach(function (item2, index2) {
-				json_strategies.push(item2["NOMBRE_SUB_ESTRATEGIA"])
-			})
-			json_new[item] = json_strategies
-		})
-		loadTable_variables(list_name, json_new)
-	}
-	// Variables Datatable.js handler
-	// Callback for combobox on variable view
-	function loadTable_variables(list_name, json_new) {
+
+	function loadTableStrategies(list_name, fecha) {
 		console.log("-------- loadTable_variables ------ ")
 		// prettier-ignore
-		arr = JSON.parse('{{ strategies_definition| tojson | safe }}')
-
-		console.log("arr ++++ ")
-		console.log(arr)
-
-		let arr1 = arr[list_name]
-		console.log("arr1 ++++ ")
-		console.log(arr1)
-
-		let list_names = Object.keys(arr1.models)
-
-		console.log("list_names ++++ 99")
-		console.log(list_names)
-
-		// console.log("list_names ++++ "+list_names)
+		let strategies_definition = JSON.parse('{{ strategies_definition| tojson | safe }}')
+		let strategies_models = strategies_definition[list_name].models
+    let strategies = Object.fromEntries( Object.entries(strategies_models).map(([key, value]) => [key, value.name]))
+    let strategies_keys = Object.keys(strategies);
 		let table = _table_.cloneNode(false)
 		let tbody = _tbody_.cloneNode(false),
 			columns = addAllColumnHeaders(list_name)
-		list_names.forEach(function (items, index) {
+    strategies_keys.forEach(function (items, index) {
 			let tr = _tr_.cloneNode(false)
 			let td = _td_.cloneNode(false)
 			let a = _a_.cloneNode(false)
-
-			console.log("items +++ 99 " + items)
-
-			let arr2 = arr1.models[items]
-			console.log("arr2 +++ 99 ", arr2)
-
-			let arr3 = arr2.name
-
-			console.log("arr3 +++ 99 ", arr3)
-			let arr4 = arr2.strategies
-
-			console.log("arr4 +++ 99 ", arr4)
-
-			let arr5 = Object.keys(arr4)
-
-			console.log("arr5 +++ 99 ", arr5)
-
-			a.appendChild(document.createTextNode(arr2.name || ""))
+      let strategies_name = strategies_models[items].name
+      let sub_strategies = strategies_models[items].strategies
+      let sub_strategies_keys = Object.keys(sub_strategies);
+			a.appendChild(document.createTextNode(strategies_name || ""))
 			td.classList.add("fw-extrabold")
 			td.classList.add("showhr")
 			let i = _i_.cloneNode(false)
@@ -2595,15 +2676,14 @@ super() }}
 			td.appendChild(a)
 			tr.appendChild(td)
 			tbody.appendChild(tr)
-			//let keys_list = json_new[items];
-			// var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
-			arr5.forEach(function (item, index) {
-				let arr6 = arr4[item]
-				console.log("arr6 subestrategia +++ 99 ", arr6)
+			sub_strategies_keys.forEach(function (item, index) {
+				let sub_strategies_list = sub_strategies[item]
+        let name = sub_strategies_list.name
+        let id = sub_strategies_list.id
 				let tr = _tr_.cloneNode(false)
 				let td = _td_.cloneNode(false)
 				let cell_value
-				cell_value = arr6.name
+				cell_value = name
 
 				let div = document.createElement("div")
 				let inp = document.createElement("input")
@@ -2613,18 +2693,12 @@ super() }}
 				inp.classList.add("form-check-input")
 				inp.type = "checkbox"
 				inp.checked = false
-				inp.id = arr6.id
-				// inp.disable = 'disabled';
+				inp.id = id
 				div.classList.add("form-check")
-				// let h1 = document.createElement('h1');
-				// h1.innerHTML= cell_value;
-
-				// label.appendChild(h1);
 				label.innerHTML = cell_value
 
 				div.appendChild(label)
 				div.appendChild(inp)
-				//cell_value = cell_value.replace("CO2eq","$CO_2eq$");
 				td.appendChild(div)
 				td.classList.add("aser")
 				td.classList.add("fw-normal")
@@ -2692,49 +2766,162 @@ super() }}
 				var data = table_handler.row(this).data()
 				// var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
 				console.log("data", data)
-				loadTable_strategies_desc(list_name, json_new)
 			}
 		})
 
-		// let json_aux_var_ac=[]
-		// let json_aux_var_exp=[]
-		// json_aux_var_ac.push("Mejoras de eficiencia en parque térmico")
-		// json_aux_var_exp.push("Generación con recurso hidráhulico")
-		// json_aux_var_exp.push("Generación distribuida con FNCER")
-		// json_aux_var_exp.push("Generación eléctrica con geotérmica")
-
-		// json_var["Estrategias de actualización"]= json_aux_var_ac
-		// json_var["Estrategias de expansión"]= json_aux_var_exp
-		// console.log("json_var_1",json_var)
 		function validarChecks() {
 			console.log("---- validarChecks ----")
-			var strategie_id = ""
-			var arr_ids = []
+			let sub_strategie_id = ""
+			let arr_ids = []
 			$("#table_variables tbody tr").each(function (i, v) {
-				console.log("---- validarChecks busca tabla----")
-
-				//$(this).find(".form-check-input").prop('checked', true);
-
 				if ($(this).find(".form-check-input").is(":checked") == true) {
-					strategie_id = $(this).find(".form-check-input").attr("id")
-					console.log("---- validarChecks ids checkeados----")
-					console.log(strategie_id)
-					arr_ids.push(strategie_id)
+					sub_strategie_id = $(this).find(".form-check-input").attr("id")
+					arr_ids.push(sub_strategie_id)
 				}
 			})
-
-			console.log("----arrys de ids----")
-			console.log(arr_ids)
-			// prettier-ignore
-
 			let strategies_to_load = JSON.parse('{{ strategies_definition| tojson | safe }}')
 			loadStrategies(strategies_to_load, arr_ids)
 		}
 
 		// validarChecks();
 		const button = document.getElementById("activar_scenario")
-		loadTable3(list_name)
+		//loadTable3(list_name)
 		button.addEventListener("click", validarChecks)
+	}
+
+  function loadTableStrategiesDescription(list_name, json_new) {
+		let list_names = Object.keys(json_new)
+		let table = _table_.cloneNode(false)
+		let tbody = _tbody_.cloneNode(false),
+			columns = addAllColumnHeaders_1(list_name)
+		let json_descripcion_final = {}
+		list_names.forEach(function (item, index) {
+			// prettier-ignore
+			let description_strategies = JSON.parse('{{description_strategies | tojson | safe}}')
+
+			console.log("description_strategies", description_strategies)
+			let json_aux = description_strategies["generation"]["estrategias"]
+			let json_description = []
+			json_aux.forEach(function (item2, index) {
+				if (item2["ESTRATEGIA_NOMBRE"] === item) {
+					json_description.push(item2["MODELO_MATEMATICO"])
+					json_description.push(item2["VARIABLES"])
+				}
+			})
+			json_descripcion_final[item] = json_description
+		})
+		list_names.forEach(function (items, index) {
+			let tr1 = _tr_.cloneNode(false)
+			let td1 = _td_.cloneNode(false)
+			let a1 = _a_.cloneNode(false)
+
+			if (items === "Estrategias de actualización") {
+				itemsTittle = "Modelo matemático de actualización"
+			} else {
+				itemsTittle = "Modelo matemático de expansión"
+			}
+
+			a1.appendChild(document.createTextNode(itemsTittle || ""))
+			td1.classList.add("fw-extrabold")
+			td1.classList.add("showhr")
+			let i1 = _i_.cloneNode(false)
+			i1.classList.add("fa-solid")
+			/* i.classList.add('fa-angle-right') */
+			i1.classList.add("fa-caret-down")
+			i1.classList.add("pe-1")
+
+			td1.appendChild(i1)
+			td1.appendChild(a1)
+			tr1.appendChild(td1)
+			tbody.appendChild(tr1)
+
+			let description = json_descripcion_final[items]
+			let titles = ["Modelo matemático:", "Variables:"]
+			let tr2 = _tr_.cloneNode(false)
+			let td2 = _td_.cloneNode(false)
+			description.forEach(function (item, index) {
+				if (index == 1) {
+					item = item.replace(/-/gi, "<br>")
+				}
+
+				let p = _p_.cloneNode(false)
+				p.innerHTML =
+					'<small class="fw-extrabold">' +
+					titles[index] +
+					'</small><br><div class="px-1 px-lg-4 text-wrap justified-text">' +
+					item +
+					"</div>"
+				p.classList.add("row")
+				td2.appendChild(p)
+			})
+			td2.classList.add("aser")
+			td2.classList.add("fw-normal")
+			td2.classList.add("px-2")
+			td2.classList.add("px-lg-4")
+			tr2.appendChild(td2)
+			tr2.style.display = "none"
+			tbody.appendChild(tr2)
+		})
+
+		table.appendChild(tbody)
+
+		table.id = "table_variables_1"
+		table.classList.add("table")
+		table.classList.add("table-centered")
+		table.classList.add("table-nowrap")
+		table.classList.add("rounded")
+		table.classList.add("mb-0")
+		table.classList.add("border-0")
+		table.classList.add("dt-responsive")
+
+		function addAllColumnHeaders_1(list_name) {
+			let columnSet = [],
+				thead = _thead_.cloneNode(false)
+			tr2 = _tr_.cloneNode(false)
+			let th = _th_.cloneNode(false)
+			if (list_name === "generation") {
+				var key = "Modelo matemático"
+			} else if (list_name === "distribution") {
+				var key = "Modelo matemático"
+			} else if (list_name === "end_use") {
+				var key = "Modelo matemático"
+			}
+			columnSet.push(key)
+			th.appendChild(document.createTextNode(key))
+			th.classList.add("rounded")
+			th.classList.add("border-0")
+			tr2.appendChild(th)
+			thead.appendChild(tr2)
+			thead.classList.add("thead-light")
+			table.appendChild(thead)
+			return columnSet
+		}
+
+		var el = document.getElementById("table_content_1")
+		el.innerHTML = ""
+		el.appendChild(table)
+		const datatablesSimple = document.getElementById("table_variables_1")
+		if (datatablesSimple) {
+			let tables = new DataTable(datatablesSimple, datatable_config)
+		}
+
+		// var table_handler = $('#table_variables_1').DataTable();
+		MathJax.typesetPromise()
+			.then(() => {
+				$("#table_variables_1 tbody").on("click", "tr", function () {
+					var td_select = this.childNodes[0]
+					if (td_select.classList.contains("showhr")) {
+						$(this)
+							.closest("tr")
+							.nextUntil("tr:has(.showhr)")
+							.toggle("slow", function () {})
+					} else if (td_select.classList.contains("aser")) {
+						var child = $(this).prevAll("tr:has(.showhr)")[0].innerText
+					}
+				})
+				MathJax.typesetPromise()
+			})
+			.catch((err) => console.log(err.message))
 	}
 
 	function loadTable3(list_name) {
@@ -2926,140 +3113,7 @@ super() }}
 		})
 	}
 
-	function loadTable_strategies_desc(list_name, json_new) {
-		let list_names = Object.keys(json_new)
-		let table = _table_.cloneNode(false)
-		let tbody = _tbody_.cloneNode(false),
-			columns = addAllColumnHeaders_1(list_name)
-		let json_descripcion_final = {}
-		list_names.forEach(function (item, index) {
-			// prettier-ignore
-			let description_strategies = JSON.parse('{{description_strategies | tojson | safe}}')
-
-			console.log("description_strategies", description_strategies)
-			let json_aux = description_strategies["generation"]["estrategias"]
-			let json_description = []
-			json_aux.forEach(function (item2, index) {
-				if (item2["ESTRATEGIA_NOMBRE"] === item) {
-					json_description.push(item2["MODELO_MATEMATICO"])
-					json_description.push(item2["VARIABLES"])
-				}
-			})
-			json_descripcion_final[item] = json_description
-		})
-		list_names.forEach(function (items, index) {
-			let tr1 = _tr_.cloneNode(false)
-			let td1 = _td_.cloneNode(false)
-			let a1 = _a_.cloneNode(false)
-
-			if (items === "Estrategias de actualización") {
-				itemsTittle = "Modelo matemático de actualización"
-			} else {
-				itemsTittle = "Modelo matemático de expansión"
-			}
-
-			a1.appendChild(document.createTextNode(itemsTittle || ""))
-			td1.classList.add("fw-extrabold")
-			td1.classList.add("showhr")
-			let i1 = _i_.cloneNode(false)
-			i1.classList.add("fa-solid")
-			/* i.classList.add('fa-angle-right') */
-			i1.classList.add("fa-caret-down")
-			i1.classList.add("pe-1")
-
-			td1.appendChild(i1)
-			td1.appendChild(a1)
-			tr1.appendChild(td1)
-			tbody.appendChild(tr1)
-
-			let description = json_descripcion_final[items]
-			let titles = ["Modelo matemático:", "Variables:"]
-			let tr2 = _tr_.cloneNode(false)
-			let td2 = _td_.cloneNode(false)
-			description.forEach(function (item, index) {
-				if (index == 1) {
-					item = item.replace(/-/gi, "<br>")
-				}
-
-				let p = _p_.cloneNode(false)
-				p.innerHTML =
-					'<small class="fw-extrabold">' +
-					titles[index] +
-					'</small><br><div class="px-1 px-lg-4 text-wrap justified-text">' +
-					item +
-					"</div>"
-				p.classList.add("row")
-				td2.appendChild(p)
-			})
-			td2.classList.add("aser")
-			td2.classList.add("fw-normal")
-			td2.classList.add("px-2")
-			td2.classList.add("px-lg-4")
-			tr2.appendChild(td2)
-			tr2.style.display = "none"
-			tbody.appendChild(tr2)
-		})
-
-		table.appendChild(tbody)
-
-		table.id = "table_variables_1"
-		table.classList.add("table")
-		table.classList.add("table-centered")
-		table.classList.add("table-nowrap")
-		table.classList.add("rounded")
-		table.classList.add("mb-0")
-		table.classList.add("border-0")
-		table.classList.add("dt-responsive")
-
-		function addAllColumnHeaders_1(list_name) {
-			let columnSet = [],
-				thead = _thead_.cloneNode(false)
-			tr2 = _tr_.cloneNode(false)
-			let th = _th_.cloneNode(false)
-			if (list_name === "generation") {
-				var key = "Modelo matemático"
-			} else if (list_name === "distribution") {
-				var key = "Modelo matemático"
-			} else if (list_name === "end_use") {
-				var key = "Modelo matemático"
-			}
-			columnSet.push(key)
-			th.appendChild(document.createTextNode(key))
-			th.classList.add("rounded")
-			th.classList.add("border-0")
-			tr2.appendChild(th)
-			thead.appendChild(tr2)
-			thead.classList.add("thead-light")
-			table.appendChild(thead)
-			return columnSet
-		}
-
-		var el = document.getElementById("table_content_1")
-		el.innerHTML = ""
-		el.appendChild(table)
-		const datatablesSimple = document.getElementById("table_variables_1")
-		if (datatablesSimple) {
-			let tables = new DataTable(datatablesSimple, datatable_config)
-		}
-
-		// var table_handler = $('#table_variables_1').DataTable();
-		MathJax.typesetPromise()
-			.then(() => {
-				$("#table_variables_1 tbody").on("click", "tr", function () {
-					var td_select = this.childNodes[0]
-					if (td_select.classList.contains("showhr")) {
-						$(this)
-							.closest("tr")
-							.nextUntil("tr:has(.showhr)")
-							.toggle("slow", function () {})
-					} else if (td_select.classList.contains("aser")) {
-						var child = $(this).prevAll("tr:has(.showhr)")[0].innerText
-					}
-				})
-				MathJax.typesetPromise()
-			})
-			.catch((err) => console.log(err.message))
-	}
+	
 
 	// function loadTable3(list_name){
 
@@ -3275,7 +3329,8 @@ super() }}
 	var list_name = "generation"
 	var key = "Factor de Pérdidas"
 	var variable_mathjax = true
-	update_list(list_name)
+  choice(list_name);
+	//update_list(list_name)
 	// var contador = 0;
 	// var contador_linea_base = 0;
 	// update_list_ind(list_name);
