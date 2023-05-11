@@ -1,53 +1,158 @@
-/* globals Chart:false, feather:false */
+function loadSliders() {
+	$(".form-range").each(function () {
+		$(this).bootstrapSlider()
+		$(this).on("change", function (slideEvt) {
+			$(this).parents(".group-form-range").find(".form-range-value").text(slideEvt.value.newValue)
+			updateChart()
+		})
+	})
+	addClass()
+	/* test de render whit js */
+}
 
-(function () {
-  'use strict'
+function removeSliders() {
+	const boxes = document.querySelectorAll(".slider")
+	boxes.forEach((box) => {
+		box.remove()
+	})
+}
 
-  feather.replace({ 'aria-hidden': 'true' })
+function addClass() {
+	document.getElementsByClassName("slider").forEach((element) => {
+		element.classList.add("slider-volt")
+	})
+}
 
-  // Graphs
-  var ctx = document.getElementById('myChart')
-  // eslint-disable-next-line no-unused-vars
-  var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
-      ],
-      datasets: [{
-        data: [
-          15339,
-          21345,
-          18483,
-          24003,
-          23489,
-          24092,
-          12034
-        ],
-        lineTension: 0,
-        backgroundColor: 'transparent',
-        borderColor: '#007bff',
-        borderWidth: 4,
-        pointBackgroundColor: '#007bff'
-      }]
-    },
-    options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: false
-          }
-        }]
-      },
-      legend: {
-        display: false
-      }
-    }
-  })
-})()
+function getProcessName() {
+	var processName = $("#select-dropdown-var").find("span").text()
+	if (processName == "Generación") {
+		processName = "generation"
+	} else if (processName == "Distribución") {
+		processName = "distribution"
+	} else if (processName == "Uso final") {
+		processName = "end_use"
+	}
+	return processName
+}
+
+function loadModel(model, parent) {
+	var model_html = parent.querySelector("#accordion-item-model-id").cloneNode(true)
+	model_html.id = "accordion-item-model-" + model.id
+	model_html.querySelector("#model-name").innerHTML = model.name
+	model_html.querySelector("#heading-model-id").id = "heading-model-" + model.id
+	model_html
+		.querySelector(".accordion-button")
+		.setAttribute("data-bs-target", "#collapse-model-" + model.id)
+	model_html
+		.querySelector(".accordion-button")
+		.setAttribute("aria-controls", "collapse-model-" + model.id)
+	model_html
+		.querySelector("#collapse-model-id")
+		.setAttribute("aria-labelledby", "heading-model-" + model.id)
+	model_html.querySelector("#collapse-model-id").id = "collapse-model-" + model.id
+	return model_html
+}
+
+function loadStrategy(strategy, parent, idModel) {
+	var strategy_html = parent.querySelector("#strategy-item-example").cloneNode(true)
+	strategy_html.id = "accordion-strategy-" + strategy.id
+	strategy_html.querySelector("#strategy-example-name").innerHTML = strategy.name
+	strategy_html.querySelector("#strategy-example-name").id = "strategy-" + strategy.id + "-name"
+	strategy_html.querySelector("#heading-strategy-example").id = "heading-strategy-" + strategy.id
+
+	strategy_html
+		.querySelector(".accordion-button")
+		.setAttribute("data-bs-target", "#collapse-strategy-" + strategy.id)
+	strategy_html
+		.querySelector(".accordion-button")
+		.setAttribute("aria-controls", "collapse-strategy-" + strategy.id)
+	strategy_html
+		.querySelector("#collapse-strategy-example")
+		.setAttribute("aria-labelledby", "heading-strategy-" + strategy.id)
+	strategy_html
+		.querySelector("#collapse-strategy-example")
+		.setAttribute("data-bs-parent", "#strategies-model-" + idModel)
+	strategy_html.querySelector("#collapse-strategy-example").id = "collapse-strategy-" + strategy.id
+	strategy_html.querySelector("#strategy-name-variable").innerHTML = strategy.variable
+	strategy_html.querySelector(".form-range").setAttribute("data-slider-min", strategy.lower_value)
+	strategy_html
+		.querySelector(".form-range")
+		.setAttribute("data-slider-max", String(strategy.upper_value))
+	strategy_html
+		.querySelector(".form-range")
+		.setAttribute("data-slider-min", String(strategy.lower_value))
+	strategy_html
+		.querySelector(".form-range")
+		.setAttribute("data-slider-value", String(strategy.value))
+	strategy_html
+		.querySelector(".form-range")
+		.setAttribute("data-slider-id", "range-strategy-" + strategy.id)
+	strategy_html.querySelector("#strategy-example-unit").innerHTML = strategy.unit
+	strategy_html.querySelector("#strategy-bau-info").innerHTML =
+		strategy.value + " " + strategy.unit + " " + strategy.year
+	strategy_html.querySelector("#strategy-range-info").innerHTML =
+		strategy.lower_value + "-" + strategy.upper_value + " " + strategy.unit
+	strategy_html.querySelector("#strategy-example-current-value").innerHTML = strategy.value
+	strategy_html.querySelector("#strategy-example-current-value").classList.add("form-range-value")
+	strategy_html.querySelector("#strategy-example-current-value").id = "current-value-" + strategy.id
+	return strategy_html
+}
+
+function filterStrategiesByProcess(strategies_array) {
+	let current_process = getProcessName()
+	let new_strategies = Object.fromEntries(
+		Object.entries(strategies_array).filter(([key]) => key.includes(current_process))
+	)
+	return new_strategies[current_process]
+}
+
+function filterStrategiesById(array, ids) {
+	let new_array = array.models
+		.filter((model) => model.strategies.some((strategy) => ids.includes(strategy.id)))
+		.map((model) => {
+			let newElt = Object.assign({}, model, {
+				strategies: model.strategies.filter((strategy) => ids.includes(strategy.id)),
+			})
+			return newElt
+		})
+	array.models = new_array
+	return array
+}
+
+function loadStrategies(strategies_array, strategies_id_selected) {
+	strategies_array = filterStrategiesByProcess(strategies_array)
+	strategies_to_show = filterStrategiesById(strategies_array, strategies_id_selected)
+	var parent = document.getElementById("template_strategies").cloneNode(true)
+	parent.querySelector("#process").innerHTML = strategies_array.process
+	strategies_array.models.forEach((model) => {
+		var model_html = loadModel(model, parent)
+		model.strategies.forEach((strategy) => {
+			model_html
+				.querySelector("#strategies-model-id")
+				.appendChild(loadStrategy(strategy, model_html, model.id))
+		})
+		model_html.querySelector("#strategies-model-id").id = "strategies-model-" + model.id
+		/* model_html.querySelector("#strategies-model-id").id = "strategies-model-" + model.id */
+		parent.querySelector("#accordion-strategies").appendChild(model_html)
+	})
+	document.getElementById("test-clone").innerHTML = ""
+	document.getElementById("test-clone").appendChild(parent)
+	removeSliders()
+	loadSliders()
+}
+
+function getCurrentValues() {
+	let key_values = {}
+	document.querySelectorAll(".form-range-value").forEach(function (values) {
+		key_id = String(values.id.split("-").slice(-1))
+		value_slider = values.innerHTML
+		key_values[key_id] = value_slider
+	})
+	return key_values
+}
+/* Desde aca se puede seguir ajustando */
+function updateChart() {
+	console.log("--- Update Chart ---")
+	console.log("Values form sliders")
+	console.log(getCurrentValues())
+}
