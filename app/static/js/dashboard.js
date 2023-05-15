@@ -1624,51 +1624,47 @@ function updateChart(strategies_array) {
 
 /* Desarrollo Nuevo */
 $(".btn-progress-next").on("click", function () {
-	var currentStepNum = $("#checkout-progress").data("current-step")
+	var currentStepNum = $(".checkout-progress").data("current-step")
 	var nextStepNum = currentStepNum + 1
 	var currentStep = $(".stepp.stepp-" + currentStepNum)
 	var nextStep = $(".stepp.stepp-" + nextStepNum)
-	var progressBar = $("#checkout-progress")
-	/* $(".btn-progress-prev").removeClass("disabled") */
+	var currentProgress = $(".checkout-progress")
 	if (currentStepNum == 6) {
 		return false
 	}
-	$(".checkout-progress")
-		.removeClass(".stepp-" + currentStepNum)
-		.addClass(".stepp-" + (currentStepNum + 1))
+	currentProgress.removeClass(".stepp-" + currentStepNum).addClass(".stepp-" + (currentStepNum + 1))
 
 	currentStep.removeClass("active").addClass("valid")
 	currentStep.find("span").addClass("opaque")
 	currentStep.find(".fa.fa-check").removeClass("opaque")
 
 	nextStep.addClass("active")
-	progressBar
+
+	currentProgress
 		.removeAttr("class")
-		.addClass("stepp-" + nextStepNum)
+		.addClass("checkout-progress stepp-" + nextStepNum)
 		.data("current-step", nextStepNum)
 })
 
 $(".btn-progress-prev").on("click", function () {
-	var currentStepNum = $("#checkout-progress").data("current-step")
+	var currentStepNum = $(".checkout-progress").data("current-step")
 	var prevStepNum = currentStepNum - 1
 	var currentStep = $(".stepp.stepp-" + currentStepNum)
 	var prevStep = $(".stepp.stepp-" + prevStepNum)
-	var progressBar = $("#checkout-progress")
-	/* $(".btn-progress-next").removeClass("disabled") */
+	var currentProgress = $(".checkout-progress")
 	if (currentStepNum == 1) {
 		return false
 	}
-	$(".checkout-progress")
-		.removeClass(".stepp-" + currentStepNum)
-		.addClass(".stepp-" + prevStepNum)
+	currentProgress.removeClass(".stepp-" + currentStepNum).addClass(".stepp-" + prevStepNum)
 
 	currentStep.removeClass("active")
+
 	prevStep.find("span").removeClass("opaque")
 	prevStep.find(".fa.fa-check").addClass("opaque")
-
 	prevStep.addClass("active").removeClass("valid")
-	progressBar
+
+	currentProgress
 		.removeAttr("class")
-		.addClass("stepp-" + prevStepNum)
+		.addClass("checkout-progress stepp-" + prevStepNum)
 		.data("current-step", prevStepNum)
 })
