@@ -945,6 +945,11 @@ _unit_dict = {'Consumo de fuentes primarias por tipo de central eléctrica': 'GW
               'Consumo eléctrico total': 'Gwh',
               'Factor de pérdidas': 'Porcentaje %',
               'Generación total': 'Gwh',
+              'Estrategias de actualización': 'Gwh',
+              'Estrategias de expansión': 'Gwh',
+              'Indicador de eficiencia energética': 'Porcentaje %',
+              'Indicador intensidad energética primaria': 'Gwh',
+              'Indicador intensidad de emisiones de carbono': 'Gwh',
             }
 class SQL_connector():
     """Platform server connection class

@@ -2,6 +2,10 @@ var last_indicator_3 = ""
 var chart_element_3 = ""
 var keys_list_3 = []
 
+var units_array = []
+function loadUnit(units){
+    units_array = units
+}
 function checkParameters() {
 	var year_selected = document.getElementById("fecha").innerText
 	var text_process_selected = $(".process-selected").find("span").text()
@@ -63,13 +67,13 @@ function createChartExpansion(
 		array.push(parseFloat(data[j]))
 	}
 	var unit = ""
-	// var units = JSON.parse('{{units | tojson | safe}}');
-	// if (indicator in units) {
-	//     unit = units[indicator];
-	//     if (unit == 'Porcentaje %') {
-	//         array = array.map(function (x) { return x * 100; });;
-	//     }
-	// }
+	var units = units_array
+	if (indicator in units) {
+	    unit = units[indicator];
+	    if (unit == 'Porcentaje %') {
+	        array = array.map(function (x) { return x * 100; });;
+	    }
+	}
 	/* Agregada - Capturar graficas actuales > 2 restablece */
 
 	/* Desagregados - else */
@@ -219,13 +223,13 @@ function createChartUpgrade(
 		array.push(parseFloat(data[j]))
 	}
 	var unit = ""
-	// var units = JSON.parse('{{units | tojson | safe}}');
-	// if (indicator in units) {
-	//     unit = units[indicator];
-	//     if (unit == 'Porcentaje %') {
-	//         array = array.map(function (x) { return x * 100; });;
-	//     }
-	// }
+	var units = units_array
+	if (indicator in units) {
+	    unit = units[indicator];
+	    if (unit == 'Porcentaje %') {
+	        array = array.map(function (x) { return x * 100; });;
+	    }
+	}
 	/* Agregada - Capturar graficas actuales > 2 restablece */
 
 	/* Desagregados - else */
@@ -391,13 +395,13 @@ function createChartIndicador1(
 		//}
 	}
 	var unit = ""
-	// var units = JSON.parse('{{units | tojson | safe}}');
-	// if (indicator in units) {
-	//     unit = units[indicator];
-	//     if (unit == 'Porcentaje %') {
-	//         array = array.map(function (x) { return x * 100; });;
-	//     }
-	// }
+	var units = units_array
+	if (indicator in units) {
+	    unit = units[indicator];
+	    if (unit == 'Porcentaje %') {
+	        array = array.map(function (x) { return x * 100; });;
+	    }
+	}
 	/* Agregada - Capturar graficas actuales > 2 restablece */
 
 	/* Desagregados - else */
@@ -563,13 +567,13 @@ function createChartIndicador2(
 		//}
 	}
 	var unit = ""
-	// var units = JSON.parse('{{units | tojson | safe}}');
-	// if (indicator in units) {
-	//     unit = units[indicator];
-	//     if (unit == 'Porcentaje %') {
-	//         array = array.map(function (x) { return x * 100; });;
-	//     }
-	// }
+	var units = units_array
+	if (indicator in units) {
+	    unit = units[indicator];
+	    if (unit == 'Porcentaje %') {
+	        array = array.map(function (x) { return x * 100; });;
+	    }
+	}
 	/* Agregada - Capturar graficas actuales > 2 restablece */
 
 	/* Desagregados - else */
@@ -735,13 +739,13 @@ function createChartIndicador3(
 		//}
 	}
 	var unit = ""
-	// var units = JSON.parse('{{units | tojson | safe}}');
-	// if (indicator in units) {
-	//     unit = units[indicator];
-	//     if (unit == 'Porcentaje %') {
-	//         array = array.map(function (x) { return x * 100; });;
-	//     }
-	// }
+	var units = units_array
+	if (indicator in units) {
+	    unit = units[indicator];
+	    if (unit == 'Porcentaje %') {
+	        array = array.map(function (x) { return x * 100; });;
+	    }
+	}
 	/* Agregada - Capturar graficas actuales > 2 restablece */
 
 	/* Desagregados - else */

@@ -2993,7 +2993,9 @@ super() }}
 			})
 			// prettier-ignore
 			let strategies_to_load = JSON.parse('{{ strategies_definition| tojson | safe }}')
+			let units =  JSON.parse('{{units | tojson | safe}}')
 			loadStrategies(strategies_to_load, arr_ids)
+			loadUnit(units)
 		}
 
 		// validarChecks();
