@@ -463,7 +463,7 @@ super() }}
 																		<a href="#" class="fw-bold"> 1 </a>
 																	</td>
 																	<td>
-																		<span class="fw-normal">Escenario pe prueba</span>
+																		<span class="fw-normal">Escenario de prueba</span>
 																	</td>
 																	<td>
 																		<span class="fw-normal">Generación</span>
@@ -1375,13 +1375,50 @@ super() }}
 												</div>
 											</div>
 										</div>
-
-										<div class="col-12 m-1 d-flex align-middle">
+										<div class="col-12 m-1 d-flex align-middle justify-content-end">
+											<div class="d-flex justify-content-end btn-progress-prev mx-2">
+												<a
+													href="#scenarios"
+													class="btn btn-sm btn-white d-inline-flex align-items-center border-1 shadow border-gray-400"
+													onclick="ActiveSection('scenarios_4')"
+												>
+													<svg
+														class="icon icon-xs me-2"
+														fill="currentColor"
+														xmlns="http://www.w3.org/2000/svg"
+														viewBox="0 0 24 24"
+													>
+														<path
+															d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10c5.515 0 10-4.486 10-10S17.515 2 12 2zm4 14-6-4v4H8V8h2v4l6-4v8z"
+														></path>
+													</svg>
+													Anterior
+												</a>
+											</div>
+											<div class="d-flex justify-content-end">
+												<a
+													href="#"
+													class="btn btn-sm btn-primary d-inline-flex align-items-center btn-progress-next"
+													onclick="ActiveSection('scenarios_5')"
+												>
+													<svg
+														class="icon icon-xs me-2"
+														fill="currentColor"
+														viewBox="0 0 24 24"
+														xmlns="http://www.w3.org/2000/svg"
+													>
+														<path
+															d="M5 21h14a2 2 0 0 0 2-2V8a1 1 0 0 0-.29-.71l-4-4A1 1 0 0 0 16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2zm10-2H9v-5h6zM13 7h-2V5h2zM5 5h2v4h8V5h.59L19 8.41V19h-2v-5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v5H5z"
+														></path>
+													</svg>
+													Guardar
+												</a>
+											</div>
 											<div class="btn-toolbar d-flex justify-content-end">
 												<a
 													href="#"
-													class="btn btn-sm btn-gray-800 d-inline-flex align-items-center btn-progress-next"
-													onclick="ActiveSection('')"
+													class="btn btn-sm btn-primary d-inline-flex align-items-center"
+													onclick="ActiveSection('scenarios')"
 												>
 													<svg
 														class="icon icon-xs me-2"
@@ -1396,15 +1433,15 @@ super() }}
 															clip-rule="evenodd"
 														></path>
 													</svg>
-													guardar escenario
+													Nuevo escenario
 												</a>
 											</div>
 
 											<div class="btn-toolbar d-flex justify-content-end">
 												<a
 													href="#"
-													class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
-													onclick="ActiveSection('')"
+													class="btn btn-sm btn-primary d-inline-flex align-items-center"
+													onclick="ActiveSection('scenarios_5')"
 												>
 													<svg
 														class="icon icon-xs me-2"
@@ -1419,30 +1456,7 @@ super() }}
 															clip-rule="evenodd"
 														></path>
 													</svg>
-													crear nuevo escenario
-												</a>
-											</div>
-
-											<div class="btn-toolbar d-flex justify-content-end">
-												<a
-													href="#"
-													class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
-													onclick="ActiveSection('')"
-												>
-													<svg
-														class="icon icon-xs me-2"
-														fill="none"
-														stroke="currentColor"
-														viewBox="0 0 24 24"
-														xmlns="http://www.w3.org/2000/svg"
-													>
-														<path
-															fill-rule="evenodd"
-															d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-															clip-rule="evenodd"
-														></path>
-													</svg>
-													comparar escenario
+													Comparar escenario
 												</a>
 											</div>
 										</div>
