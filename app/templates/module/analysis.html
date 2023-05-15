@@ -306,7 +306,7 @@ super() }}
 																	<button
 																		type="button"
 																		id="select-dropdown-var"
-																		class="btn btn-sm btn-sm btn-primary dropdown-toggle dropdown-toggle-split"
+																		class="btn btn-sm btn-sm btn-primary dropdown-toggle dropdown-toggle-split process-selected"
 																		data-bs-toggle="dropdown"
 																		aria-haspopup="true"
 																		aria-expanded="false"
@@ -346,13 +346,13 @@ super() }}
 																<div class="btn-group p-1 w-50 m-0">
 																	<button
 																		type="button"
-																		id="select-dropdown-var"
+																		id="select-year"
 																		class="btn btn-sm btn-sm btn-primary dropdown-toggle dropdown-toggle-split"
 																		data-bs-toggle="dropdown"
 																		aria-haspopup="true"
 																		aria-expanded="false"
 																	>
-																		<span>Seleccionar</span>
+																		<span id="fecha" value="seleccionar">Seleccionar</span>
 																		<svg
 																			class="icon icon-xs"
 																			fill="currentColor"
@@ -366,16 +366,14 @@ super() }}
 																			></path>
 																		</svg>
 																	</button>
-																	<div class="dropdown-menu">
-																		<select name="" id="fecha"></select>
-																	</div>
+																	<div class="dropdown-menu" id="dropdown-items"></div>
 																</div>
 															</div>
 															<div>
 																<a
 																	class="btn btn-sm btn-secondary fs-5 fw-bold w-50 btn-progress-next"
 																	href="#iniciar"
-																	onclick="ActiveSection('scenarios_2')"
+																	onclick="checkParameters()"
 																>
 																	<svg
 																		class="icon icon-sm me-2"
@@ -581,7 +579,7 @@ super() }}
 					<div class="card border-0 shadow h-100">
 						<div class="card-body px-1 px-md-3 d-flex flex-column">
 							<div class="row mb-2">
-								<div class="col-12 col-md-6">
+								<div class="col-12 col-md-4">
 									<span
 										class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon"
 									>
@@ -597,9 +595,9 @@ super() }}
 										</svg>
 									</span>
 									<span class="h2 fw-extrabold">Cálculo de estrategias </span>
-									<p class="m-1">Paso 2: Seleccion de o las estratregias</p>
+									<p class="m-1">Paso 2: Selección de o las estrategias</p>
 								</div>
-								<div class="col-12 col-md-6">
+								<div class="col-12 col-md-8">
 									<span>{{ macros.progress_bar() }}</span>
 								</div>
 							</div>
@@ -775,7 +773,7 @@ super() }}
 					<div class="card border-0 shadow h-100">
 						<div class="card-body px-1 px-md-3 d-flex flex-column">
 							<div class="row mb-2">
-								<div class="col-12 col-md-6">
+								<div class="col-12 col-md-4">
 									<span
 										class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon"
 									>
@@ -793,7 +791,7 @@ super() }}
 									<span class="h2 fw-extrabold">Cálculo de estrategias</span>
 									<p class="m-1">Paso 3: Modificación de variables por cada estrategia</p>
 								</div>
-								<div class="col-12 col-md-6">
+								<div class="col-12 col-md-8">
 									<span>{{ macros.progress_bar() }}</span>
 								</div>
 							</div>
@@ -1026,7 +1024,7 @@ super() }}
 					<div class="card border-0 shadow h-100">
 						<div class="card-body px-1 px-md-3 d-flex flex-column">
 							<div class="row mb-2">
-								<div class="col-12 col-md-6">
+								<div class="col-12 col-md-4">
 									<span
 										class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon"
 									>
@@ -1042,9 +1040,9 @@ super() }}
 										</svg>
 									</span>
 									<span class="h2 fw-extrabold">Cálculo de estrategias</span>
-									<p class="m-1">Paso 4: Visualizacion de indicadores por cada estrategia</p>
+									<p class="m-1">Paso 4: Visualización de indicadores por cada estrategia</p>
 								</div>
-								<div class="col-12 col-md-6">
+								<div class="col-12 col-md-8">
 									<span>{{ macros.progress_bar() }}</span>
 								</div>
 							</div>
@@ -1251,7 +1249,7 @@ super() }}
 					<div class="card border-0 shadow h-100">
 						<div class="card-body px-1 px-md-3 d-flex flex-column">
 							<div class="row mb-2">
-								<div class="col-12 col-md-6">
+								<div class="col-12 col-md-4">
 									<span
 										class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon"
 									>
@@ -1267,9 +1265,9 @@ super() }}
 										</svg>
 									</span>
 									<span class="h2 fw-extrabold">Cálculo de estrategias</span>
-									<p class="m-1">Paso 5: Jerarquizacion de estrategias</p>
+									<p class="m-1">Paso 5: Jerarquización de estrategias</p>
 								</div>
-								<div class="col-12 col-md-6">
+								<div class="col-12 col-md-8">
 									<span>{{ macros.progress_bar() }}</span>
 								</div>
 							</div>
@@ -2819,11 +2817,21 @@ super() }}
 <script type="text/javascript">
 	//  Variables Chart.js handler
 	//  Generic display constructor for variable tables in Json format
+	function updateSelectDate(date) {
+		document.getElementById("fecha").innerHTML = String(date)
+		document.getElementById("fecha").value = String(date)
+	}
 
 	function ComboFecha() {
 		var n = new Date().getFullYear()
-		var select = document.getElementById("fecha")
-		for (var i = n; i <= 2030; i++) select.options.add(new Option(i, i))
+		var parent_items = document.getElementById("dropdown-items")
+		for (var i = n; i <= 2030; i++) {
+			var item = document.createElement("div")
+			item.innerHTML = String(i)
+			item.classList.add("dropdown-item")
+			item.setAttribute("onclick", "updateSelectDate(" + i + ")")
+			parent_items.appendChild(item)
+		}
 	}
 	window.onload = ComboFecha
 
