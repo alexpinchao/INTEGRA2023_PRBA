@@ -144,33 +144,44 @@
 	</div>
 </div>
 {% endmacro %} {% macro progress_bar() %}
-<div class="stepp-1" id="checkout-progress" data-current-step="1">
-	<div class="progress-bar-stepp">
-		<div class="stepp stepp-1 active">
-			<span> 1</span>
-			<div class="fa fa-check opaque"></div>
-			<div class="stepp-label">Generación</div>
+<div class="row">
+	<div class="col-3">
+		<div>
+			<p class="fw-bold small mb-1" id="scenario-name-macro">Nombre escenario</p>
+			<p class="fw-bold small mb-1" id="scenario-process-macro">Proceso</p>
 		</div>
-		<div class="stepp stepp-2">
-			<span> 2</span>
-			<div class="fa fa-check opaque"></div>
-			<div class="stepp-label">Selección</div>
-		</div>
-		<div class="stepp stepp-3">
-			<span> 3</span>
-			<div class="fa fa-check opaque"></div>
-			<div class="stepp-label">Ajustes</div>
-		</div>
-		<div class="stepp stepp-4">
-			<span> 4</span>
-			<div class="fa fa-check opaque"></div>
-			<div class="stepp-label">Visualización</div>
-		</div>
-		<div class="stepp stepp-5">
-			<span> 5</span>
-			<div class="fa fa-check opaque"></div>
-			<div class="stepp-label">Clasificación</div>
+	</div>
+	<div class="col-9">
+		<div class="stepp-1 checkout-progress" data-current-step="1">
+			<div class="progress-bar-stepp">
+				<div class="stepp stepp-1 active">
+					<span> 1</span>
+					<div class="fa fa-check opaque"></div>
+					<div class="stepp-label">Inicio</div>
+				</div>
+				<div class="stepp stepp-2">
+					<span> 2</span>
+					<div class="fa fa-check opaque"></div>
+					<div class="stepp-label">Selección</div>
+				</div>
+				<div class="stepp stepp-3">
+					<span> 3</span>
+					<div class="fa fa-check opaque"></div>
+					<div class="stepp-label">Ajustes</div>
+				</div>
+				<div class="stepp stepp-4">
+					<span> 4</span>
+					<div class="fa fa-check opaque"></div>
+					<div class="stepp-label">Visualización</div>
+				</div>
+				<div class="stepp stepp-5">
+					<span> 5</span>
+					<div class="fa fa-check opaque"></div>
+					<div class="stepp-label">Clasificación</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
+
 {% endmacro %}
