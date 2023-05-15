@@ -373,14 +373,13 @@ super() }}
 															</div>
 															<div>
 																<a
-																	class="btn btn-sm btn-secondary fs-5 fw-bold w-50"
-																	href="#"
+																	class="btn btn-sm btn-secondary fs-5 fw-bold w-50 btn-progress-next"
+																	href="#iniciar"
 																	onclick="ActiveSection('scenarios_2')"
 																>
 																	<svg
 																		class="icon icon-sm me-2"
-																		fill="none"
-																		stroke="currentColor"
+																		fill="currentColor"
 																		viewBox="0 0 24 24"
 																		xmlns="http://www.w3.org/2000/svg"
 																	>
@@ -690,40 +689,36 @@ super() }}
 									</div>
 								</div>
 							</div>
-							<div class="col-12 m-1 d-flex align-middle">
-								<div class="btn-toolbar d-flex justify-content-end btn-progress-next">
-									<a
-										id="activar_scenario"
-										href="#scenarios_3"
-										class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
-										onclick="ActiveSection('scenarios_3')"
-									>
-										<svg
-											class="icon icon-xs me-2"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<path
-												fill-rule="evenodd"
-												d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-												clip-rule="evenodd"
-											></path>
-										</svg>
-										paso 3
-									</a>
-								</div>
-								<div class="btn-toolbar d-flex justify-content-end btn-progress-prev">
+							<div class="col-12 m-1 d-flex align-middle justify-content-end">
+								<div class="d-flex justify-content-end btn-progress-prev mx-2">
 									<a
 										href="#scenarios"
-										class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+										class="btn btn-sm btn-white d-inline-flex align-items-center border-1 shadow border-gray-400"
 										onclick="ActiveSection('scenarios')"
 									>
 										<svg
 											class="icon icon-xs me-2"
-											fill="none"
-											stroke="currentColor"
+											fill="currentColor"
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
+										>
+											<path
+												d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10c5.515 0 10-4.486 10-10S17.515 2 12 2zm4 14-6-4v4H8V8h2v4l6-4v8z"
+											></path>
+										</svg>
+										Anterior
+									</a>
+								</div>
+								<div class="d-flex justify-content-end btn-progress-next">
+									<a
+										id="activar_scenario"
+										href="#scenarios_3"
+										class="btn btn-sm btn-primary d-inline-flex align-items-center"
+										onclick="ActiveSection('scenarios_3')"
+									>
+										<svg
+											class="icon icon-xs me-2"
+											fill="currentColor"
 											viewBox="0 0 24 24"
 											xmlns="http://www.w3.org/2000/svg"
 										>
@@ -733,7 +728,7 @@ super() }}
 												clip-rule="evenodd"
 											></path>
 										</svg>
-										Anterior
+										Siguiente
 									</a>
 								</div>
 							</div>
@@ -945,39 +940,36 @@ super() }}
 									</div>
 								</div>
 							</div>
-							<div class="col-12 m-1 d-flex align-middle">
-								<div class="btn-toolbar d-flex justify-content-end">
+							<div class="col-12 m-1 d-flex align-middle justify-content-end">
+								<div class="d-flex justify-content-end btn-progress-prev mx-2">
 									<a
-										href="#scenarios_4"
-										class="btn btn-sm btn-gray-800 d-inline-flex align-items-center btn-progress-next"
-										onclick="ActiveSection('scenarios_4')"
-									>
-										<svg
-											class="icon icon-xs me-2"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<path
-												fill-rule="evenodd"
-												d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-												clip-rule="evenodd"
-											></path>
-										</svg>
-										paso 4
-									</a>
-								</div>
-								<div class="btn-toolbar d-flex justify-content-end">
-									<a
-										href="#scenarios_2"
-										class="btn btn-sm btn-gray-800 d-inline-flex align-items-center btn-progress-prev"
+										href="#scenarios"
+										class="btn btn-sm btn-white d-inline-flex align-items-center border-1 shadow border-gray-400"
 										onclick="ActiveSection('scenarios_2')"
 									>
 										<svg
 											class="icon icon-xs me-2"
-											fill="none"
-											stroke="currentColor"
+											fill="currentColor"
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
+										>
+											<path
+												d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10c5.515 0 10-4.486 10-10S17.515 2 12 2zm4 14-6-4v4H8V8h2v4l6-4v8z"
+											></path>
+										</svg>
+										Anterior
+									</a>
+								</div>
+								<div class="d-flex justify-content-end btn-progress-next">
+									<a
+										id="activar_scenario"
+										href="#scenarios_3"
+										class="btn btn-sm btn-primary d-inline-flex align-items-center"
+										onclick="ActiveSection('scenarios_4')"
+									>
+										<svg
+											class="icon icon-xs me-2"
+											fill="currentColor"
 											viewBox="0 0 24 24"
 											xmlns="http://www.w3.org/2000/svg"
 										>
@@ -987,7 +979,7 @@ super() }}
 												clip-rule="evenodd"
 											></path>
 										</svg>
-										Anterior
+										Siguiente
 									</a>
 								</div>
 							</div>
@@ -1173,39 +1165,36 @@ super() }}
 									</div>
 								</div>
 							</div>
-							<div class="col-12 m-1 d-flex align-middle">
-								<div class="btn-toolbar d-flex justify-content-end">
+							<div class="col-12 m-1 d-flex align-middle justify-content-end">
+								<div class="d-flex justify-content-end btn-progress-prev mx-2">
 									<a
-										href="#scenarios_5"
-										class="btn btn-sm btn-gray-800 d-inline-flex align-items-center btn-progress-next"
-										onclick="ActiveSection('scenarios_5')"
-									>
-										<svg
-											class="icon icon-xs me-2"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<path
-												fill-rule="evenodd"
-												d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-												clip-rule="evenodd"
-											></path>
-										</svg>
-										paso 5
-									</a>
-								</div>
-								<div class="btn-toolbar d-flex justify-content-end btn-progress-prev">
-									<a
-										href="#scenarios_3"
-										class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+										href="#scenarios"
+										class="btn btn-sm btn-white d-inline-flex align-items-center border-1 shadow border-gray-400"
 										onclick="ActiveSection('scenarios_3')"
 									>
 										<svg
 											class="icon icon-xs me-2"
-											fill="none"
-											stroke="currentColor"
+											fill="currentColor"
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
+										>
+											<path
+												d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10c5.515 0 10-4.486 10-10S17.515 2 12 2zm4 14-6-4v4H8V8h2v4l6-4v8z"
+											></path>
+										</svg>
+										Anterior
+									</a>
+								</div>
+								<div class="d-flex justify-content-end btn-progress-next">
+									<a
+										id="activar_scenario"
+										href="#scenarios_3"
+										class="btn btn-sm btn-primary d-inline-flex align-items-center"
+										onclick="ActiveSection('scenarios_5')"
+									>
+										<svg
+											class="icon icon-xs me-2"
+											fill="currentColor"
 											viewBox="0 0 24 24"
 											xmlns="http://www.w3.org/2000/svg"
 										>
@@ -1215,7 +1204,7 @@ super() }}
 												clip-rule="evenodd"
 											></path>
 										</svg>
-										Anterior
+										Siguiente
 									</a>
 								</div>
 							</div>
