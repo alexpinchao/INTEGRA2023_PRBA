@@ -582,7 +582,7 @@ super() }}
 					<div class="card border-0 shadow h-100">
 						<div class="card-body px-1 px-md-3 d-flex flex-column">
 							<div class="row mb-2">
-								<div class="col-12">
+								<div class="col-12 col-md-6">
 									<span
 										class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon"
 									>
@@ -597,9 +597,11 @@ super() }}
 											></path>
 										</svg>
 									</span>
-									<span class="h2 fw-extrabold">Cálculo de estrategias</span>
+									<span class="h2 fw-extrabold">Cálculo de estrategias </span>
 									<p class="m-1">Paso 2: Seleccion de o las estratregias</p>
-									<input type="button" onclick="runLoadStrategies()" value="Console nombre" />
+								</div>
+								<div class="col-12 col-md-6">
+									<span>{{ macros.progress_bar() }}</span>
 								</div>
 							</div>
 							<div class="row flex-fill px-1">
@@ -689,7 +691,7 @@ super() }}
 								</div>
 							</div>
 							<div class="col-12 m-1 d-flex align-middle">
-								<div class="btn-toolbar d-flex justify-content-end">
+								<div class="btn-toolbar d-flex justify-content-end btn-progress-next">
 									<a
 										id="activar_scenario"
 										href="#scenarios_3"
@@ -712,7 +714,7 @@ super() }}
 										paso 3
 									</a>
 								</div>
-								<div class="btn-toolbar d-flex justify-content-end">
+								<div class="btn-toolbar d-flex justify-content-end btn-progress-prev">
 									<a
 										href="#scenarios"
 										class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
@@ -778,7 +780,7 @@ super() }}
 					<div class="card border-0 shadow h-100">
 						<div class="card-body px-1 px-md-3 d-flex flex-column">
 							<div class="row mb-2">
-								<div class="col-12">
+								<div class="col-12 col-md-6">
 									<span
 										class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon"
 									>
@@ -795,6 +797,9 @@ super() }}
 									</span>
 									<span class="h2 fw-extrabold">Cálculo de estrategias</span>
 									<p class="m-1">Paso 3: Modificación de variables por cada estrategia</p>
+								</div>
+								<div class="col-12 col-md-6">
+									<span>{{ macros.progress_bar() }}</span>
 								</div>
 							</div>
 							<div class="row flex-fill px-1">
@@ -944,7 +949,7 @@ super() }}
 								<div class="btn-toolbar d-flex justify-content-end">
 									<a
 										href="#scenarios_4"
-										class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+										class="btn btn-sm btn-gray-800 d-inline-flex align-items-center btn-progress-next"
 										onclick="ActiveSection('scenarios_4')"
 									>
 										<svg
@@ -966,7 +971,7 @@ super() }}
 								<div class="btn-toolbar d-flex justify-content-end">
 									<a
 										href="#scenarios_2"
-										class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+										class="btn btn-sm btn-gray-800 d-inline-flex align-items-center btn-progress-prev"
 										onclick="ActiveSection('scenarios_2')"
 									>
 										<svg
@@ -1029,7 +1034,7 @@ super() }}
 					<div class="card border-0 shadow h-100">
 						<div class="card-body px-1 px-md-3 d-flex flex-column">
 							<div class="row mb-2">
-								<div class="col-12">
+								<div class="col-12 col-md-6">
 									<span
 										class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon"
 									>
@@ -1046,6 +1051,9 @@ super() }}
 									</span>
 									<span class="h2 fw-extrabold">Cálculo de estrategias</span>
 									<p class="m-1">Paso 4: Visualizacion de indicadores por cada estrategia</p>
+								</div>
+								<div class="col-12 col-md-6">
+									<span>{{ macros.progress_bar() }}</span>
 								</div>
 							</div>
 							<div class="row flex-fill px-1">
@@ -1145,7 +1153,7 @@ super() }}
 								<div class="btn-toolbar d-flex justify-content-end">
 									<a
 										href="#scenarios_5"
-										class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+										class="btn btn-sm btn-gray-800 d-inline-flex align-items-center btn-progress-next"
 										onclick="ActiveSection('scenarios_5')"
 									>
 										<svg
@@ -1164,7 +1172,7 @@ super() }}
 										paso 5
 									</a>
 								</div>
-								<div class="btn-toolbar d-flex justify-content-end">
+								<div class="btn-toolbar d-flex justify-content-end btn-progress-prev">
 									<a
 										href="#scenarios_3"
 										class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
@@ -1230,7 +1238,7 @@ super() }}
 					<div class="card border-0 shadow h-100">
 						<div class="card-body px-1 px-md-3 d-flex flex-column">
 							<div class="row mb-2">
-								<div class="col-12">
+								<div class="col-12 col-md-6">
 									<span
 										class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon"
 									>
@@ -1247,6 +1255,9 @@ super() }}
 									</span>
 									<span class="h2 fw-extrabold">Cálculo de estrategias</span>
 									<p class="m-1">Paso 5: Jerarquizacion de estrategias</p>
+								</div>
+								<div class="col-12 col-md-6">
+									<span>{{ macros.progress_bar() }}</span>
 								</div>
 							</div>
 							<div class="components-section flex-grow-1">
@@ -1356,7 +1367,7 @@ super() }}
 											<div class="btn-toolbar d-flex justify-content-end">
 												<a
 													href="#"
-													class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+													class="btn btn-sm btn-gray-800 d-inline-flex align-items-center btn-progress-next"
 													onclick="ActiveSection('')"
 												>
 													<svg

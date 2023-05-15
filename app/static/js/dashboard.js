@@ -1,254 +1,314 @@
-var last_indicator_3 = '';
-var chart_element_3 = '';
-var keys_list_3 = [];
+var last_indicator_3 = ""
+var chart_element_3 = ""
+var keys_list_3 = []
 
-function createChartExpansion(list_name, indicator, key, dataModel_pruebas_expansion, chart_title, line_chart, graph_container) {
-    var row = key;
-    var row_table = row;
-    var al = Math.floor((Math.random() * (255)));
-    // var al2 = Math.floor((Math.random() * (255)));
-    var b_colorslist = ['rgba(' + al + ', 99, 132, 1)', 'rgba(' + al + ', 162, 235, 1)', 'rgba(' + al + ', 206, 86, 1)', 'rgba(' + al + ', 192, 192, 1)', 'rgba(' + al + ', 102, 255, 1)', 'rgba(' + al + ', 159, 64, 1)'];
-    var colorslist = ['rgba(' + al + ', 99, 132, 1)', 'rgba(' + al + ', 162, 235, 1)', 'rgba(' + al + ', 206, 86, 1)', 'rgba(' + al + ', 192, 192, 1)', 'rgba(' + al + ', 102, 255, 1)', 'rgba(' + al + ', 159, 64, 1)'];
-    /* const table_name = key; */
-    const table_name = indicator;
-    document.getElementById(chart_title).innerHTML = table_name;
-    var json_file = dataModel_pruebas_expansion;
-	console.log("graficas analisis table_name", table_name);
-    console.log("graficas analisis", json_file);
-    var table = json_file[table_name];
-    console.log("graficas analisis table", table);
-    var keys = Object.keys(table[0]);
-    var labels = table.map(function (e) {
-        return e[keys[0]];
-    });
-    labels = labels.slice(0, 12);
-    var data = table.map(function (e) {
-        return e[row];
-    });;
-    length = data.length;
-    var array = [];
-    for (var j = 0; j < length; j++) {
-        array.push(parseFloat(data[j]));
-    }
-    var unit = '';
-    // var units = JSON.parse('{{units | tojson | safe}}');
-    // if (indicator in units) {
-    //     unit = units[indicator];
-    //     if (unit == 'Porcentaje %') {
-    //         array = array.map(function (x) { return x * 100; });;
-    //     }
-    // }
-    /* Agregada - Capturar graficas actuales > 2 restablece */
+function createChartExpansion(
+	list_name,
+	indicator,
+	key,
+	dataModel_pruebas_expansion,
+	chart_title,
+	line_chart,
+	graph_container
+) {
+	var row = key
+	var row_table = row
+	var al = Math.floor(Math.random() * 255)
+	// var al2 = Math.floor((Math.random() * (255)));
+	var b_colorslist = [
+		"rgba(" + al + ", 99, 132, 1)",
+		"rgba(" + al + ", 162, 235, 1)",
+		"rgba(" + al + ", 206, 86, 1)",
+		"rgba(" + al + ", 192, 192, 1)",
+		"rgba(" + al + ", 102, 255, 1)",
+		"rgba(" + al + ", 159, 64, 1)",
+	]
+	var colorslist = [
+		"rgba(" + al + ", 99, 132, 1)",
+		"rgba(" + al + ", 162, 235, 1)",
+		"rgba(" + al + ", 206, 86, 1)",
+		"rgba(" + al + ", 192, 192, 1)",
+		"rgba(" + al + ", 102, 255, 1)",
+		"rgba(" + al + ", 159, 64, 1)",
+	]
+	/* const table_name = key; */
+	const table_name = indicator
+	document.getElementById(chart_title).innerHTML = table_name
+	var json_file = dataModel_pruebas_expansion
+	console.log("graficas analisis table_name", table_name)
+	console.log("graficas analisis", json_file)
+	var table = json_file[table_name]
+	console.log("graficas analisis table", table)
+	var keys = Object.keys(table[0])
+	var labels = table.map(function (e) {
+		return e[keys[0]]
+	})
+	labels = labels.slice(0, 12)
+	var data = table.map(function (e) {
+		return e[row]
+	})
+	length = data.length
+	var array = []
+	for (var j = 0; j < length; j++) {
+		array.push(parseFloat(data[j]))
+	}
+	var unit = ""
+	// var units = JSON.parse('{{units | tojson | safe}}');
+	// if (indicator in units) {
+	//     unit = units[indicator];
+	//     if (unit == 'Porcentaje %') {
+	//         array = array.map(function (x) { return x * 100; });;
+	//     }
+	// }
+	/* Agregada - Capturar graficas actuales > 2 restablece */
 
-    /* Desagregados - else */
-    if (last_indicator_3 == indicator) {
-        if (!(keys_list_3.includes(row_table))) {
-            keys_list_3.push(row_table);
-            const update_dataset =
-            {
-                label: row_table,
-                borderColor: colorslist[keys_list_3.length],
-                backgroundColor: b_colorslist[keys_list_3.length],
-                data: array, spanGraphs: false,
-                fill: true
-            };
-            chart_element_3.data.datasets.push(update_dataset);
-            chart_element_3.update();
-        } else {
-            keys_list_3 = keys_list_3.filter(data => data != row_table);;
-            chart_element_3.data.datasets = chart_element_3.data.datasets.filter(data => data.label != row_table);
-            chart_element_3.update();
-        }
-
-    } else {
-        keys_list_3 = [row_table]
-        var mydatasets = [
-            {
-                label: row_table,
-                borderColor: colorslist[0],
-                backgroundColor: b_colorslist[0],
-                data: array,
-                spanGraphs: false,
-                fill: true
-            }];
-        let delayed;
-        $('#' + line_chart).remove();
-        $('#' + graph_container).append('<canvas id="' + line_chart + '" width="100%" height="48vh"><canvas>');
-        var config = {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: mydatasets
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    xAxes: [{
-                        stacked: true,
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Año'
-                        }
-                    }],
-                    yAxes: [{
-                        stacked: true,
-                        scaleLabel: {
-                            display: true,
-                            labelString: unit
-                        }
-                    }]
-                },
-                title: {
-                    display: false,
-                    text: table_name,
-                },
-                legend: {
-                    position: 'bottom',
-                },
-                animation: {
-                    onComplete: () => {
-                        delayed = true;
-                    },
-                    delay: (context) => {
-                        let delay = 0;
-                        if (context.type === 'data' && context.mode === 'default' && !delayed) {
-                            delay = context.dataIndex * 300 + context.datasetIndex * 100;
-                        }
-                        return delay;
-                    },
-                },
-            }
-        };
-        chart_element_3 = new Chart(document.getElementById(line_chart), config);
-    }
-    last_indicator_3 = indicator;
-    console.log("last_indicator_3", last_indicator_3)
+	/* Desagregados - else */
+	if (last_indicator_3 == indicator) {
+		if (!keys_list_3.includes(row_table)) {
+			keys_list_3.push(row_table)
+			const update_dataset = {
+				label: row_table,
+				borderColor: colorslist[keys_list_3.length],
+				backgroundColor: b_colorslist[keys_list_3.length],
+				data: array,
+				spanGraphs: false,
+				fill: true,
+			}
+			chart_element_3.data.datasets.push(update_dataset)
+			chart_element_3.update()
+		} else {
+			keys_list_3 = keys_list_3.filter((data) => data != row_table)
+			chart_element_3.data.datasets = chart_element_3.data.datasets.filter(
+				(data) => data.label != row_table
+			)
+			chart_element_3.update()
+		}
+	} else {
+		keys_list_3 = [row_table]
+		var mydatasets = [
+			{
+				label: row_table,
+				borderColor: colorslist[0],
+				backgroundColor: b_colorslist[0],
+				data: array,
+				spanGraphs: false,
+				fill: true,
+			},
+		]
+		let delayed
+		$("#" + line_chart).remove()
+		$("#" + graph_container).append(
+			'<canvas id="' + line_chart + '" width="100%" height="48vh"><canvas>'
+		)
+		var config = {
+			type: "bar",
+			data: {
+				labels: labels,
+				datasets: mydatasets,
+			},
+			options: {
+				responsive: true,
+				scales: {
+					xAxes: [
+						{
+							stacked: true,
+							scaleLabel: {
+								display: true,
+								labelString: "Año",
+							},
+						},
+					],
+					yAxes: [
+						{
+							stacked: true,
+							scaleLabel: {
+								display: true,
+								labelString: unit,
+							},
+						},
+					],
+				},
+				title: {
+					display: false,
+					text: table_name,
+				},
+				legend: {
+					position: "bottom",
+				},
+				animation: {
+					onComplete: () => {
+						delayed = true
+					},
+					delay: (context) => {
+						let delay = 0
+						if (context.type === "data" && context.mode === "default" && !delayed) {
+							delay = context.dataIndex * 300 + context.datasetIndex * 100
+						}
+						return delay
+					},
+				},
+			},
+		}
+		chart_element_3 = new Chart(document.getElementById(line_chart), config)
+	}
+	last_indicator_3 = indicator
+	console.log("last_indicator_3", last_indicator_3)
 }
 
-var last_indicator_4 = '';
-var chart_element_4 = '';
-var keys_list_4 = [];
+var last_indicator_4 = ""
+var chart_element_4 = ""
+var keys_list_4 = []
 
-function createChartUpgrade(list_name, indicator, key, dataModel_pruebas_expansion, chart_title, line_chart, graph_container) {
-    var row = key;
-    var row_table = row;
-    var al = Math.floor((Math.random() * (255)));
-    // var al2 = Math.floor((Math.random() * (255)));
-    var b_colorslist = ['rgba(' + al + ', 99, 132, 1)', 'rgba(' + al + ', 162, 235, 1)', 'rgba(' + al + ', 206, 86, 1)', 'rgba(' + al + ', 192, 192, 1)', 'rgba(' + al + ', 102, 255, 1)', 'rgba(' + al + ', 159, 64, 1)'];
-    var colorslist = ['rgba(' + al + ', 99, 132, 1)', 'rgba(' + al + ', 162, 235, 1)', 'rgba(' + al + ', 206, 86, 1)', 'rgba(' + al + ', 192, 192, 1)', 'rgba(' + al + ', 102, 255, 1)', 'rgba(' + al + ', 159, 64, 1)'];
-    /* const table_name = key; */
-    const table_name = indicator;
-    document.getElementById(chart_title).innerHTML = table_name;
-    var json_file = dataModel_pruebas_expansion;
+function createChartUpgrade(
+	list_name,
+	indicator,
+	key,
+	dataModel_pruebas_expansion,
+	chart_title,
+	line_chart,
+	graph_container
+) {
+	var row = key
+	var row_table = row
+	var al = Math.floor(Math.random() * 255)
+	// var al2 = Math.floor((Math.random() * (255)));
+	var b_colorslist = [
+		"rgba(" + al + ", 99, 132, 1)",
+		"rgba(" + al + ", 162, 235, 1)",
+		"rgba(" + al + ", 206, 86, 1)",
+		"rgba(" + al + ", 192, 192, 1)",
+		"rgba(" + al + ", 102, 255, 1)",
+		"rgba(" + al + ", 159, 64, 1)",
+	]
+	var colorslist = [
+		"rgba(" + al + ", 99, 132, 1)",
+		"rgba(" + al + ", 162, 235, 1)",
+		"rgba(" + al + ", 206, 86, 1)",
+		"rgba(" + al + ", 192, 192, 1)",
+		"rgba(" + al + ", 102, 255, 1)",
+		"rgba(" + al + ", 159, 64, 1)",
+	]
+	/* const table_name = key; */
+	const table_name = indicator
+	document.getElementById(chart_title).innerHTML = table_name
+	var json_file = dataModel_pruebas_expansion
 
-    console.log("graficas analisis", json_file);
-    var table = json_file[table_name];
-    var keys = Object.keys(table[0]);
-    var labels = table.map(function (e) {
-        return e[keys[0]];
-    });
-    labels = labels.slice(0, 12);
-    var data = table.map(function (e) {
-        return e[row];
-    });;
-    length = data.length;
-    var array = [];
-    for (var j = 0; j < length; j++) {
-        array.push(parseFloat(data[j]));
-    }
-    var unit = '';
-    // var units = JSON.parse('{{units | tojson | safe}}');
-    // if (indicator in units) {
-    //     unit = units[indicator];
-    //     if (unit == 'Porcentaje %') {
-    //         array = array.map(function (x) { return x * 100; });;
-    //     }
-    // }
-    /* Agregada - Capturar graficas actuales > 2 restablece */
+	console.log("graficas analisis", json_file)
+	var table = json_file[table_name]
+	var keys = Object.keys(table[0])
+	var labels = table.map(function (e) {
+		return e[keys[0]]
+	})
+	labels = labels.slice(0, 12)
+	var data = table.map(function (e) {
+		return e[row]
+	})
+	length = data.length
+	var array = []
+	for (var j = 0; j < length; j++) {
+		array.push(parseFloat(data[j]))
+	}
+	var unit = ""
+	// var units = JSON.parse('{{units | tojson | safe}}');
+	// if (indicator in units) {
+	//     unit = units[indicator];
+	//     if (unit == 'Porcentaje %') {
+	//         array = array.map(function (x) { return x * 100; });;
+	//     }
+	// }
+	/* Agregada - Capturar graficas actuales > 2 restablece */
 
-    /* Desagregados - else */
-    if (last_indicator_4 == indicator) {
-        if (!(keys_list_4.includes(row_table))) {
-            keys_list_4.push(row_table);
-            const update_dataset =
-            {
-                label: row_table,
-                borderColor: colorslist[keys_list_4.length],
-                backgroundColor: b_colorslist[keys_list_4.length],
-                data: array, spanGraphs: false,
-                fill: true
-            };
-            chart_element_4.data.datasets.push(update_dataset);
-            chart_element_4.update();
-        } else {
-            keys_list_4 = keys_list_4.filter(data => data != row_table);;
-            chart_element_4.data.datasets = chart_element_4.data.datasets.filter(data => data.label != row_table);
-            chart_element_4.update();
-        }
-
-    } else {
-        keys_list_4 = [row_table]
-        var mydatasets = [
-            {
-                label: row_table,
-                borderColor: colorslist[0],
-                backgroundColor: b_colorslist[0],
-                data: array,
-                spanGraphs: false,
-                fill: true
-            }];
-        let delayed;
-        $('#' + line_chart).remove();
-        $('#' + graph_container).append('<canvas id="' + line_chart + '" width="100%" height="48vh"><canvas>');
-        var config = {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: mydatasets
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    xAxes: [{
-                        stacked: true,
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Año'
-                        }
-                    }],
-                    yAxes: [{
-                        stacked: true,
-                        scaleLabel: {
-                            display: true,
-                            labelString: unit
-                        }
-                    }]
-                },
-                title: {
-                    display: false,
-                    text: table_name,
-                },
-                legend: {
-                    position: 'bottom',
-                },
-                animation: {
-                    onComplete: () => {
-                        delayed = true;
-                    },
-                    delay: (context) => {
-                        let delay = 0;
-                        if (context.type === 'data' && context.mode === 'default' && !delayed) {
-                            delay = context.dataIndex * 300 + context.datasetIndex * 100;
-                        }
-                        return delay;
-                    },
-                },
-            }
-        };
-        chart_element_4 = new Chart(document.getElementById(line_chart), config);
-    }
-    last_indicator_4 = indicator;
-    console.log("last_indicator_4", last_indicator_4)
+	/* Desagregados - else */
+	if (last_indicator_4 == indicator) {
+		if (!keys_list_4.includes(row_table)) {
+			keys_list_4.push(row_table)
+			const update_dataset = {
+				label: row_table,
+				borderColor: colorslist[keys_list_4.length],
+				backgroundColor: b_colorslist[keys_list_4.length],
+				data: array,
+				spanGraphs: false,
+				fill: true,
+			}
+			chart_element_4.data.datasets.push(update_dataset)
+			chart_element_4.update()
+		} else {
+			keys_list_4 = keys_list_4.filter((data) => data != row_table)
+			chart_element_4.data.datasets = chart_element_4.data.datasets.filter(
+				(data) => data.label != row_table
+			)
+			chart_element_4.update()
+		}
+	} else {
+		keys_list_4 = [row_table]
+		var mydatasets = [
+			{
+				label: row_table,
+				borderColor: colorslist[0],
+				backgroundColor: b_colorslist[0],
+				data: array,
+				spanGraphs: false,
+				fill: true,
+			},
+		]
+		let delayed
+		$("#" + line_chart).remove()
+		$("#" + graph_container).append(
+			'<canvas id="' + line_chart + '" width="100%" height="48vh"><canvas>'
+		)
+		var config = {
+			type: "bar",
+			data: {
+				labels: labels,
+				datasets: mydatasets,
+			},
+			options: {
+				responsive: true,
+				scales: {
+					xAxes: [
+						{
+							stacked: true,
+							scaleLabel: {
+								display: true,
+								labelString: "Año",
+							},
+						},
+					],
+					yAxes: [
+						{
+							stacked: true,
+							scaleLabel: {
+								display: true,
+								labelString: unit,
+							},
+						},
+					],
+				},
+				title: {
+					display: false,
+					text: table_name,
+				},
+				legend: {
+					position: "bottom",
+				},
+				animation: {
+					onComplete: () => {
+						delayed = true
+					},
+					delay: (context) => {
+						let delay = 0
+						if (context.type === "data" && context.mode === "default" && !delayed) {
+							delay = context.dataIndex * 300 + context.datasetIndex * 100
+						}
+						return delay
+					},
+				},
+			},
+		}
+		chart_element_4 = new Chart(document.getElementById(line_chart), config)
+	}
+	last_indicator_4 = indicator
+	console.log("last_indicator_4", last_indicator_4)
 }
 
 function loadSliders(strategies_array) {
@@ -361,7 +421,7 @@ function filterStrategiesByProcess(strategies_array) {
 
 function filterStrategiesById(array, ids) {
 	console.log("la vaca loca array", array.models)
-    let new_array = array.models
+	let new_array = array.models
 		.filter((model) => model.strategies.some((strategy) => ids.includes(strategy.id)))
 		.map((model) => {
 			let newElt = Object.assign({}, model, {
@@ -379,10 +439,11 @@ function filterStrategiesByIdValues(array, idsValues) {
 		.filter((model) => model.strategies.some((strategy) => ids.includes(strategy.id)))
 		.map((model) => {
 			let newElt = Object.assign({}, model, {
-				strategies: model.strategies.filter((strategy) => ids.includes(strategy.id))
+				strategies: model.strategies
+					.filter((strategy) => ids.includes(strategy.id))
 					.map((inStrategies) => {
 						let newEltValue = Object.assign({}, inStrategies, {
-							selected_value: idsValues[ids.find(strategiId => strategiId == inStrategies.id)]
+							selected_value: idsValues[ids.find((strategiId) => strategiId == inStrategies.id)],
 						})
 						return newEltValue
 					}),
@@ -444,166 +505,219 @@ function getStrategieName() {
 // 	})
 // 	return [ids, values_sliders]
 // }
-function generateGhapExpansion(sub_strategies,n,strategies_name){
-    console.log("--- generateGhapExpansion  sub_strategies---", sub_strategies)
-    let sub_strategies_key = Object.keys(sub_strategies)
+function generateGhapExpansion(sub_strategies, n, strategies_name) {
+	console.log("--- generateGhapExpansion  sub_strategies---", sub_strategies)
+	let sub_strategies_key = Object.keys(sub_strategies)
 
-    sub_strategies_key.forEach(function(item, index){
-        let sub_strategies_name = sub_strategies[item].name
-        let sub_strategies_value = parseFloat(sub_strategies[item].selected_value)
-        let sub_strategies_fp = parseFloat(sub_strategies[item].fp)
+	sub_strategies_key.forEach(function (item, index) {
+		let sub_strategies_name = sub_strategies[item].name
+		let sub_strategies_value = parseFloat(sub_strategies[item].selected_value)
+		let sub_strategies_fp = parseFloat(sub_strategies[item].fp)
 
-        let data_model_expansion = modelExpansionEstrategy(n, sub_strategies_value, sub_strategies_fp, sub_strategies_name);
-        createChartExpansion(list_name, strategies_name, sub_strategies_name, data_model_expansion, "chart_title_3", "line-chart-3","graph-container-3");
-    })
+		let data_model_expansion = modelExpansionEstrategy(
+			n,
+			sub_strategies_value,
+			sub_strategies_fp,
+			sub_strategies_name
+		)
+		createChartExpansion(
+			list_name,
+			strategies_name,
+			sub_strategies_name,
+			data_model_expansion,
+			"chart_title_3",
+			"line-chart-3",
+			"graph-container-3"
+		)
+	})
 }
 
-function generateGhapUpgrade(sub_strategies,n,strategies_name){
+function generateGhapUpgrade(sub_strategies, n, strategies_name) {
+	console.log("--- generateGhapUpgrade  sub_strategies---", sub_strategies)
+	let sub_strategies_key = Object.keys(sub_strategies)
 
-    console.log("--- generateGhapUpgrade  sub_strategies---", sub_strategies)
-    let sub_strategies_key = Object.keys(sub_strategies)
-
-    sub_strategies_key.forEach(function(item, index){
-        let sub_strategies_name = sub_strategies[item].name
-        let sub_strategies_value = parseFloat(sub_strategies[item].selected_value)/100
-        let sub_strategies_n_LB = sub_strategies[item].n_LB
-        let sub_strategies_data = sub_strategies[item].values_BAU
-        let plot_upgrade = modelUpgradeStrategy(n, sub_strategies_value, sub_strategies_data, sub_strategies_n_LB, sub_strategies_name);
-        createChartUpgrade(list_name, strategies_name, sub_strategies_name, plot_upgrade, "chart_title_4", "line-chart-4","graph-container-4");
-    })
+	sub_strategies_key.forEach(function (item, index) {
+		let sub_strategies_name = sub_strategies[item].name
+		let sub_strategies_value = parseFloat(sub_strategies[item].selected_value) / 100
+		let sub_strategies_n_LB = sub_strategies[item].n_LB
+		let sub_strategies_data = sub_strategies[item].values_BAU
+		let plot_upgrade = modelUpgradeStrategy(
+			n,
+			sub_strategies_value,
+			sub_strategies_data,
+			sub_strategies_n_LB,
+			sub_strategies_name
+		)
+		createChartUpgrade(
+			list_name,
+			strategies_name,
+			sub_strategies_name,
+			plot_upgrade,
+			"chart_title_4",
+			"line-chart-4",
+			"graph-container-4"
+		)
+	})
 }
-function plotDataStrategies(strategies){
+function plotDataStrategies(strategies) {
 	let strategiesModels = strategies.models
-    let n = 9
+	let n = 9
 
-    let strategiesName = getStrategieName()
+	let strategiesName = getStrategieName()
 
-    if (Object.entries(strategiesModels.filter((model) => strategiesName[0].includes(model.name))).length  !=0
-        && Object.entries(strategiesModels.filter((model) => strategiesName[1].includes(model.name))).length  !=0 ){
-        let a = strategiesModels[0]
-        let b = strategiesModels[1]
+	if (
+		Object.entries(strategiesModels.filter((model) => strategiesName[0].includes(model.name)))
+			.length != 0 &&
+		Object.entries(strategiesModels.filter((model) => strategiesName[1].includes(model.name)))
+			.length != 0
+	) {
+		let a = strategiesModels[0]
+		let b = strategiesModels[1]
 
-        if (Object.entries( b.strategies.filter(strategy => a.strategies.some( strategy2 => strategy2.id_relation.includes(strategy.id_relation)))).length != 0){
-            //aqui grafica cuando tiene las dos estrategias y que estan relacionadas entre si
-            let pato = b.strategies.filter(strategy => a.strategies.some( strategy2 => strategy2.id_relation.includes(strategy.id_relation))).map(
-                (sub_strategies) => {
-                    let newSubStrategies = Object.assign({},sub_strategies, {
-                        values_BAU: a.strategies.filter(strategyValue => strategyValue.id_relation.includes(sub_strategies.id_relation)).map(
-                            (sub_strategies_values) => {
-                                let newSubStrategies =  modelExpansionEstrategyOnlyData(n, parseFloat(sub_strategies_values.selected_value), sub_strategies_values.fp)
-                                return newSubStrategies
-                            })[0]
-                    })
-                    return newSubStrategies
-            })
-            generateGhapExpansion(a.strategies,n,strategiesName[0]);
-            generateGhapUpgrade(pato,n,strategiesName[1])
-        }else if (Object.entries(b.strategies.filter(strategy => a.strategies.some( strategy2 => strategy2.id_relation !== strategy.id_relation))).length != 0){
-            //aqui grafica cuando tiene las dos estrategias pero esta no esta relacionada con las sub estrategias de expansion
-            let ardilla =  b.strategies.filter(strategy => a.strategies.some( strategy2 => strategy2.id_relation !== strategy.id_relation))
-            generateGhapExpansion(a.strategies,n,strategiesName[0]);
-            generateGhapUpgrade(ardilla,n,strategiesName[1])
-        }else {
-            //aqui grafica cuando tiene las dos estrategias pero ninguna esta relacionada entre si
-            generateGhapExpansion(a.strategies,n,strategiesName[0]);
-            generateGhapUpgrade(b.strategies,n,strategiesName[1])
-        }
-    }else{
-        let strategiesModelsKeys = Object.keys(strategiesModels)
-        strategiesModelsKeys.forEach(function(items, index){
+		if (
+			Object.entries(
+				b.strategies.filter((strategy) =>
+					a.strategies.some((strategy2) => strategy2.id_relation.includes(strategy.id_relation))
+				)
+			).length != 0
+		) {
+			//aqui grafica cuando tiene las dos estrategias y que estan relacionadas entre si
+			let pato = b.strategies
+				.filter((strategy) =>
+					a.strategies.some((strategy2) => strategy2.id_relation.includes(strategy.id_relation))
+				)
+				.map((sub_strategies) => {
+					let newSubStrategies = Object.assign({}, sub_strategies, {
+						values_BAU: a.strategies
+							.filter((strategyValue) =>
+								strategyValue.id_relation.includes(sub_strategies.id_relation)
+							)
+							.map((sub_strategies_values) => {
+								let newSubStrategies = modelExpansionEstrategyOnlyData(
+									n,
+									parseFloat(sub_strategies_values.selected_value),
+									sub_strategies_values.fp
+								)
+								return newSubStrategies
+							})[0],
+					})
+					return newSubStrategies
+				})
+			generateGhapExpansion(a.strategies, n, strategiesName[0])
+			generateGhapUpgrade(pato, n, strategiesName[1])
+		} else if (
+			Object.entries(
+				b.strategies.filter((strategy) =>
+					a.strategies.some((strategy2) => strategy2.id_relation !== strategy.id_relation)
+				)
+			).length != 0
+		) {
+			//aqui grafica cuando tiene las dos estrategias pero esta no esta relacionada con las sub estrategias de expansion
+			let ardilla = b.strategies.filter((strategy) =>
+				a.strategies.some((strategy2) => strategy2.id_relation !== strategy.id_relation)
+			)
+			generateGhapExpansion(a.strategies, n, strategiesName[0])
+			generateGhapUpgrade(ardilla, n, strategiesName[1])
+		} else {
+			//aqui grafica cuando tiene las dos estrategias pero ninguna esta relacionada entre si
+			generateGhapExpansion(a.strategies, n, strategiesName[0])
+			generateGhapUpgrade(b.strategies, n, strategiesName[1])
+		}
+	} else {
+		let strategiesModelsKeys = Object.keys(strategiesModels)
+		strategiesModelsKeys.forEach(function (items, index) {
+			let strategies_name = strategiesModels[items].name
+			let sub_strategies = strategiesModels[items].strategies
 
-            let strategies_name = strategiesModels[items].name
-            let sub_strategies = strategiesModels[items].strategies
-
-            if(strategies_name == "Estrategias de expansión"){
-                generateGhapExpansion(sub_strategies,n,strategies_name);
-            }else if(strategies_name == "Estrategias de actualización"){
-                generateGhapUpgrade(sub_strategies,n,strategies_name)
-            }
-        })
-    }
+			if (strategies_name == "Estrategias de expansión") {
+				generateGhapExpansion(sub_strategies, n, strategies_name)
+			} else if (strategies_name == "Estrategias de actualización") {
+				generateGhapUpgrade(sub_strategies, n, strategies_name)
+			}
+		})
+	}
 }
 
 function modelExpansionEstrategyOnlyData(n, valorObjetivo, fp) {
-    var increment = valorObjetivo / n
-    var data = []
-    var data_Return = []
-    let gp = 0
+	var increment = valorObjetivo / n
+	var data = []
+	var data_Return = []
+	let gp = 0
 
-    let creaIncrement = increment;
-    for (let a = 0; a < n; a++) {
-        data.push(creaIncrement)
-        creaIncrement = creaIncrement + increment
-    }
-    for (let i = 0; i < data.length; i++) {
-        gp = data[i] * fp * 8760
-        data_Return.push(gp)
-    }
-    return data_Return;
+	let creaIncrement = increment
+	for (let a = 0; a < n; a++) {
+		data.push(creaIncrement)
+		creaIncrement = creaIncrement + increment
+	}
+	for (let i = 0; i < data.length; i++) {
+		gp = data[i] * fp * 8760
+		data_Return.push(gp)
+	}
+	return data_Return
 }
 
 function modelExpansionEstrategy(n, valorObjetivo, fp, name) {
-    var increment = valorObjetivo / n
-    var data = []
-    var data_plot = []
-    var data_plot_return = []
-    let j = 2;
-    let gp = 0
+	var increment = valorObjetivo / n
+	var data = []
+	var data_plot = []
+	var data_plot_return = []
+	let j = 2
+	let gp = 0
 
-    let creaIncrement = increment;
-    for (let a = 0; a < n; a++) {
-        data.push(creaIncrement)
-        creaIncrement = creaIncrement + increment
-    }
-    for (let i = 0; i < data.length; i++) {
-        let data_plot_dict = {}
-        let anio = "202" + j;
-        if (j > 9) {
-            j = 0
-            anio = "203" + j
-        }
-        j++
-        gp = data[i] * fp * 8760
-        data_plot_dict.Año = anio
-        data_plot_dict[name] = gp
-        data_plot.push(data_plot_dict);
-    }
-    data_plot_return['Estrategias de expansión'] = data_plot
-    return data_plot_return;
+	let creaIncrement = increment
+	for (let a = 0; a < n; a++) {
+		data.push(creaIncrement)
+		creaIncrement = creaIncrement + increment
+	}
+	for (let i = 0; i < data.length; i++) {
+		let data_plot_dict = {}
+		let anio = "202" + j
+		if (j > 9) {
+			j = 0
+			anio = "203" + j
+		}
+		j++
+		gp = data[i] * fp * 8760
+		data_plot_dict.Año = anio
+		data_plot_dict[name] = gp
+		data_plot.push(data_plot_dict)
+	}
+	data_plot_return["Estrategias de expansión"] = data_plot
+	return data_plot_return
 }
 
 function modelUpgradeStrategy(n, nj, dataIn, n_LB, name) {
-    // Generación con recurso hidráhulico
-    // ESTA FUNCION TIENE EN CUENTA LOS VALORES BAU ACTUALES Y VALORES TEORICOS DE LA EFICIENCIA .
-    // ENTONCES PARA TENER EL VALOR DEL INCREMENTO DEBEMOS EMPEZAR EN EL BAU COMO ORIGEN
-    let cp = 0
-    let j = 2;
-    var data = [];
-    var data_plot = []
-    var data_plot_return = []
-    var incrementNj = (nj - n_LB) / n  //llamar al valor minimo n_LB
-    let creaIncrement = n_LB + incrementNj;
-    for (let a = 0; a < n; a++) {
-        data.push(creaIncrement)
-        creaIncrement = creaIncrement + incrementNj
-    }
+	// Generación con recurso hidráhulico
+	// ESTA FUNCION TIENE EN CUENTA LOS VALORES BAU ACTUALES Y VALORES TEORICOS DE LA EFICIENCIA .
+	// ENTONCES PARA TENER EL VALOR DEL INCREMENTO DEBEMOS EMPEZAR EN EL BAU COMO ORIGEN
+	let cp = 0
+	let j = 2
+	var data = []
+	var data_plot = []
+	var data_plot_return = []
+	var incrementNj = (nj - n_LB) / n //llamar al valor minimo n_LB
+	let creaIncrement = n_LB + incrementNj
+	for (let a = 0; a < n; a++) {
+		data.push(creaIncrement)
+		creaIncrement = creaIncrement + incrementNj
+	}
 
-    for (let i = 0; i < data.length; i++) {
-        let data_plot_dict = {}
-        let anio = "202" + j;
-        if (j > 9) {
-            j = 0
-            anio = "203" + j
-        }
-        j++
+	for (let i = 0; i < data.length; i++) {
+		let data_plot_dict = {}
+		let anio = "202" + j
+		if (j > 9) {
+			j = 0
+			anio = "203" + j
+		}
+		j++
 
-        cp = dataIn[i] / data[i]
-        data_plot_dict.Año = anio;
-        data_plot_dict[name] = cp;
-        data_plot.push(data_plot_dict);
-    }
-    data_plot_return['Estrategias de actualización'] = data_plot
-    return data_plot_return;
+		cp = dataIn[i] / data[i]
+		data_plot_dict.Año = anio
+		data_plot_dict[name] = cp
+		data_plot.push(data_plot_dict)
+	}
+	data_plot_return["Estrategias de actualización"] = data_plot
+	return data_plot_return
 }
 
 /* Desde aca se puede seguir ajustando */
@@ -613,8 +727,57 @@ function updateChart(strategies_array) {
 	console.log(getCurrentValues())
 
 	let current_values = getCurrentValues()
-	let strategies = filterStrategiesByIdValues(strategies_array,current_values)
-	plotDataStrategies(strategies);
+	let strategies = filterStrategiesByIdValues(strategies_array, current_values)
+	plotDataStrategies(strategies)
 }
 
+/* Desarrollo Nuevo */
+$(".btn-progress-next").on("click", function () {
+	var currentStepNum = $("#checkout-progress").data("current-step")
+	var nextStepNum = currentStepNum + 1
+	var currentStep = $(".stepp.stepp-" + currentStepNum)
+	var nextStep = $(".stepp.stepp-" + nextStepNum)
+	var progressBar = $("#checkout-progress")
+	/* $(".btn-progress-prev").removeClass("disabled") */
+	if (currentStepNum == 6) {
+		return false
+	}
+	$(".checkout-progress")
+		.removeClass(".stepp-" + currentStepNum)
+		.addClass(".stepp-" + (currentStepNum + 1))
 
+	currentStep.removeClass("active").addClass("valid")
+	currentStep.find("span").addClass("opaque")
+	currentStep.find(".fa.fa-check").removeClass("opaque")
+
+	nextStep.addClass("active")
+	progressBar
+		.removeAttr("class")
+		.addClass("stepp-" + nextStepNum)
+		.data("current-step", nextStepNum)
+})
+
+$(".btn-progress-prev").on("click", function () {
+	var currentStepNum = $("#checkout-progress").data("current-step")
+	var prevStepNum = currentStepNum - 1
+	var currentStep = $(".stepp.stepp-" + currentStepNum)
+	var prevStep = $(".stepp.stepp-" + prevStepNum)
+	var progressBar = $("#checkout-progress")
+	/* $(".btn-progress-next").removeClass("disabled") */
+	if (currentStepNum == 1) {
+		return false
+	}
+	$(".checkout-progress")
+		.removeClass(".stepp-" + currentStepNum)
+		.addClass(".stepp-" + prevStepNum)
+
+	currentStep.removeClass("active")
+	prevStep.find("span").removeClass("opaque")
+	prevStep.find(".fa.fa-check").addClass("opaque")
+
+	prevStep.addClass("active").removeClass("valid")
+	progressBar
+		.removeAttr("class")
+		.addClass("stepp-" + prevStepNum)
+		.data("current-step", prevStepNum)
+})
