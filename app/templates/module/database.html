@@ -37,7 +37,8 @@
 			((y = t.createElement(o)).async = !0),
 			(g = new XMLHttpRequest()).open("GET", n + "version?v=" + Date.now(), !0),
 			(g.onreadystatechange = function () {
-				4 === g.readyState &&
+				//localhost:5000/dashboard/config
+				http: 4 === g.readyState &&
 					((y.src = n + "stonly-widget.js?v=" + (200 === g.status ? g.responseText : Date.now())),
 					(l = t.getElementsByTagName(o)[0]).parentNode.insertBefore(y, l))
 			}),
@@ -51,7 +52,7 @@ super() }}
 	{% block sidebar %} {% include 'module/sidebar.html' %} {% endblock %}
 
 	<main class="content">
-		<div class="d-none d-lg-flex justify-content-end">
+		<div class="d-none d-lg-flex">
 			{% block nav %} {% include 'module/navbar.html' %} {% endblock %}
 		</div>
 

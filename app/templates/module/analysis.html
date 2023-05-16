@@ -31,7 +31,7 @@ super() }}
 	{% block sidebar %} {% include 'module/sidebar.html' %} {% endblock %}
 
 	<main class="content">
-		<div class="d-none d-lg-flex justify-content-end">
+		<div class="d-none d-lg-flex">
 			{% block nav %} {% include 'module/navbar.html' %} {% endblock %}
 		</div>
 
@@ -168,7 +168,7 @@ super() }}
 								</a>
 							</li>
 							<li class="breadcrumb-item">
-								<a href="#" onclick="ActiveSection('main')">Análisis de estrategias</a>
+								<a href="{{url_for('dashboard.analysis')}}">Análisis de estrategias</a>
 							</li>
 							<li class="breadcrumb-item active" aria-current="page">Cálculo</li>
 						</ol>
@@ -568,7 +568,7 @@ super() }}
 								</a>
 							</li>
 							<li class="breadcrumb-item">
-								<a href="#" onclick="ActiveSection('main')">Análisis de estrategias</a>
+								<a href="{{url_for('dashboard.analysis')}}">Análisis de estrategias</a>
 							</li>
 							<li class="breadcrumb-item active" aria-current="page">Cálculo</li>
 						</ol>
@@ -681,7 +681,7 @@ super() }}
 								</a>
 							</li>
 							<li class="breadcrumb-item">
-								<a href="#" onclick="ActiveSection('main')">Análisis de estrategias</a>
+								<a href="{{url_for('dashboard.analysis')}}">Análisis de estrategias</a>
 							</li>
 							<li class="breadcrumb-item active" aria-current="page">Cálculo</li>
 						</ol>
@@ -837,7 +837,7 @@ super() }}
 								</a>
 							</li>
 							<li class="breadcrumb-item">
-								<a href="#" onclick="ActiveSection('main')">Análisis de estrategias</a>
+								<a href="{{url_for('dashboard.analysis')}}">Análisis de estrategias</a>
 							</li>
 							<li class="breadcrumb-item active" aria-current="page">Cálculo</li>
 						</ol>
@@ -857,7 +857,7 @@ super() }}
 										>
 									</div>
 									<div class="card-body p-1">
-										<div class="row mb-2 mt-2 m-0">
+										<div class="row mb-2 mt-2 m-0 justify-content-center">
 											<!-- <div class="col-12 col-xl-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
 												<div class="card border-0 flex-fill">
 													<div class="card-body align-self-stretch p-2">
@@ -867,8 +867,8 @@ super() }}
 												</div>
 											</div> -->
 											<!-- Graph Section -->
-											<div class="col-12 col-xl-8 mb-1 px-0 d-flex align-self-stretch">
-												<div class="card border-0 flex-fill">
+											<div class="col-12 col-lg-6 my-1 px-0 d-flex align-self-stretch">
+												<div class="card border-0 flex-fill p-2">
 													<div class="card-body p-1 flex-fill" id="graph-container-5">
 														<div class="d-block mb-3 mb-sm-0">
 															<span class="fs-5 fw-extrabold mb-4" id="chart_title_5"
@@ -880,8 +880,8 @@ super() }}
 												</div>
 											</div>
 											<!-- Graph Section -->
-											<div class="col-12 col-xl-8 mb-1 px-0 d-flex align-self-stretch">
-												<div class="card border-0 flex-fill">
+											<div class="col-12 col-lg-6 my-1 px-0 d-flex align-self-stretch">
+												<div class="card border-0 flex-fill p-2">
 													<div class="card-body p-1 flex-fill" id="graph-container-6">
 														<div class="d-block mb-3 mb-sm-0">
 															<span class="fs-5 fw-extrabold mb-4" id="chart_title_6"
@@ -893,8 +893,8 @@ super() }}
 												</div>
 											</div>
 											<!-- Graph Section -->
-											<div class="col-12 col-xl-8 mb-1 px-0 d-flex align-self-stretch">
-												<div class="card border-0 flex-fill">
+											<div class="col-12 col-lg-6 my-1 px-0 d-flex align-self-stretch">
+												<div class="card border-0 flex-fill p-2">
 													<div class="card-body p-1 flex-fill" id="graph-container-7">
 														<div class="d-block mb-3 mb-sm-0">
 															<span class="fs-5 fw-extrabold mb-4" id="chart_title_7"
@@ -984,7 +984,7 @@ super() }}
 								</a>
 							</li>
 							<li class="breadcrumb-item">
-								<a href="#" onclick="ActiveSection('main')">Análisis de estrategias</a>
+								<a href="{{url_for('dashboard.analysis')}}">Análisis de estrategias</a>
 							</li>
 							<li class="breadcrumb-item active" aria-current="page">Cálculo</li>
 						</ol>
@@ -1218,7 +1218,7 @@ super() }}
 								</a>
 							</li>
 							<li class="breadcrumb-item">
-								<a href="#" onclick="ActiveSection('main')">Análisis de estrategias</a>
+								<a href="{{url_for('dashboard.analysis')}}">Análisis de estrategias</a>
 							</li>
 							<li class="breadcrumb-item active" aria-current="page">Resultados</li>
 						</ol>
@@ -2867,28 +2867,28 @@ super() }}
 					$(this)
 						.closest("tr")
 						.nextUntil("tr:has(.showhr)")
-						.toggle("slow", function () { })
+						.toggle("slow", function () {})
 				} else if (td_select.classList.contains("aser")) {
 					var child = $(this).prevAll("tr:has(.showhr)")[0].innerText
 				}
 			})
 		} else {
 			MathJax.typesetPromise()
-			.then(() => {
-				$("#table_variables_1 tbody").on("click", "tr", function () {
-					var td_select = this.childNodes[0]
-					if (td_select.classList.contains("showhr")) {
-						$(this)
-							.closest("tr")
-							.nextUntil("tr:has(.showhr)")
-							.toggle("slow", function () { })
-					} else if (td_select.classList.contains("aser")) {
-						var child = $(this).prevAll("tr:has(.showhr)")[0].innerText
-					}
+				.then(() => {
+					$("#table_variables_1 tbody").on("click", "tr", function () {
+						var td_select = this.childNodes[0]
+						if (td_select.classList.contains("showhr")) {
+							$(this)
+								.closest("tr")
+								.nextUntil("tr:has(.showhr)")
+								.toggle("slow", function () {})
+						} else if (td_select.classList.contains("aser")) {
+							var child = $(this).prevAll("tr:has(.showhr)")[0].innerText
+						}
+					})
+					MathJax.typesetPromise()
 				})
-				MathJax.typesetPromise()
-			})
-			.catch((err) => console.log(err.message))
+				.catch((err) => console.log(err.message))
 		}
 	}
 
