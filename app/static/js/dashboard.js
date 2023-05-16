@@ -14,18 +14,43 @@ function validateDate(){
 	return n
 }
 
-// const button_grahp_strategies = document.getElementById("adjust_sub_estrategies_prev")
-// button.addEventListener("click", cleanGrahpVariables)
+document.getElementById("adjust_sub_estrategies_prev").addEventListener("click", function () {
+	cleanGrahpVariables();
+});
 
-// const button_grahp_indicators = document.getElementById("visalization_indicators_prev")
-// button.addEventListener("click", cleanGrahpIndicators)
+document.getElementById("visalization_indicators_prev").addEventListener("click", function () {
+	cleanGrahpIndicators();
+});
 
 function cleanGrahpVariables(){
 	//aqui va codigo que limpie las graficas
+	if (chart_element_3) {
+		chart_element_3.destroy()
+		document.getElementById("chart_title_3").innerHTML = " "
+	}
+
+	if (chart_element_4) {
+		chart_element_4.destroy()
+		document.getElementById("chart_title_4").innerHTML = " "
+	}
 }
 
 function cleanGrahpIndicators(){
 	//aqui va codigo que limpie las graficas
+	// if (chart_element_5) {
+	// 	chart_element_5.destroy()
+	// 	document.getElementById("chart_title_5").innerHTML = " "
+	// }
+
+	// if (chart_element_6) {
+	// 	chart_element_6.destroy()
+	// 	document.getElementById("chart_title_6").innerHTML = " "
+	// }
+
+	// if (chart_element_7) {
+	// 	chart_element_7.destroy()
+	// 	document.getElementById("chart_title_7").innerHTML = " "
+	// }
 }
 function checkParameters() {
 	var year_selected = document.getElementById("fecha").innerText
