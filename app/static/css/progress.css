@@ -327,3 +327,191 @@
 <div>Tempor</div>
 <div class="done">Done</div>
 </div></div>--> */
+
+.checkout-progress {
+  width: 90%;
+  margin: 0px auto;
+  font-size: 1em;
+  position: relative;
+}
+
+@media (max-width: 767px) {
+  .checkout-progress {
+    font-size: 0.5em;
+  }
+}
+
+.checkout-progress:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 5px;
+  width: 100%;
+  background-color: #ccc;
+  transform: translateY(-50%) perspective(1000px);
+}
+
+.checkout-progress:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 5px;
+  width: 100%;
+  background-color: #1f2937;
+  transform: scaleX(0) translateY(-50%) perspective(1000px);
+  transform-origin: left center;
+}
+
+.checkout-progress.stepp-2:after {
+  transform: scaleX(0.25) translateY(-50%) perspective(1000px);
+}
+
+.checkout-progress.stepp-3:after {
+  transform: scaleX(0.5) translateY(-50%) perspective(1000px);
+}
+
+.checkout-progress.stepp-4:after {
+  transform: scaleX(0.75) translateY(-50%) perspective(1000px);
+}
+
+.checkout-progress.stepp-5:after {
+  transform: scaleX(1) translateY(-50%) perspective(1000px);
+}
+
+.checkout-progress.stepp-6:after {
+  transform: scaleX(1) translateY(-50%) perspective(1000px);
+}
+
+
+.checkout-progress .progress-bar-stepp {
+  width: 100%;
+  display: flex;
+  height: 45px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkout-progress .progress-bar-stepp .stepp {
+  z-index: 2;
+  position: relative;
+}
+
+.checkout-progress .progress-bar-stepp .stepp .stepp-label {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 50%;
+  transform: translateX(-50%) perspective(1000px);
+  white-space: nowrap;
+  font-size: .7em;
+  font-weight: 600;
+  color: #ccc;
+  transition: .3s ease;
+}
+
+@media (max-width: 767px) {
+  .checkout-progress .progress-bar-stepp .stepp .stepp-label {
+    top: calc(100% + 15px);
+  }
+}
+
+.checkout-progress .progress-bar-stepp .stepp span {
+  color: #ccc;
+  transition: .3s ease;
+  display: block;
+  transform: translate3d(0, 0, 0) scale(1) perspective(1000px);
+}
+
+.checkout-progress .progress-bar-stepp .stepp .fa-check {
+  color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transition: transform .3s ease;
+  transform: translate3d(-50%, -50%, 0) scale(0) perspective(1000px);
+}
+
+.checkout-progress .progress-bar-stepp .stepp.active span,
+.checkout-progress .progress-bar-stepp .stepp.active .stepp-label {
+  color: #2C3E50;
+}
+
+.checkout-progress .progress-bar-stepp .stepp.valid .fa-check {
+  transform: translate3d(-50%, -50%, 0) scale(1) perspective(1000px);
+}
+
+.checkout-progress .progress-bar-stepp .stepp.valid span {
+  color: #2C3E50;
+  transform: translate3d(0, 0, 0) scale(2) perspective(1000px);
+}
+
+.checkout-progress .progress-bar-stepp .stepp.valid .stepp-label {
+  color: #2C3E50 !important;
+}
+
+.checkout-progress .progress-bar-stepp .stepp:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) perspective(1000px);
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 3px solid #ccc;
+  transition: .5s ease;
+}
+
+@media (max-width: 767px) {
+  .checkout-progress .progress-bar-stepp .stepp:after {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.checkout-progress .progress-bar-stepp .stepp.active:after {
+  border: 3px solid #2C3E50;
+}
+
+.checkout-progress .progress-bar-stepp .stepp.valid:after {
+  background-color: #2C3E50;
+  border: 3px solid #2C3E50;
+}
+
+/* .button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+  margin: 100px auto 0px;
+}
+
+.button-container .btn {
+  display: inline-block;
+  background-color: #2C3E50;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-weight: 900;
+  border: 3px solid #2C3E50;
+  transition: .3s ease;
+  cursor: pointer;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .button-container .btn {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+}
+
+.button-container .btn:hover {
+  background-color: transparent;
+  color: #2C3E50;
+  transform: scale(1.02) perspective(1000px);
+} */

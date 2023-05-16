@@ -20,6 +20,7 @@
 macros %} {% block head %} {{ super() }}
 <!-- Datatables CSS -->
 <link rel="stylesheet" href="//cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/progress.css')}}" />
 <link
 	rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/css/bootstrap-slider.min.css"
@@ -174,12 +175,13 @@ super() }}
 					</nav>
 				</div>
 			</div>
+			<!-- Main content Inicio de Cálculo de estrategias -->
 			<div class="row mb-2 min-vh-85">
 				<div class="col-12">
 					<div class="card border-0 shadow h-100">
 						<div class="card-body px-1 px-md-3 d-flex flex-column">
 							<div class="row mb-2">
-								<div class="col-12">
+								<div class="col-12 col-md-8">
 									<span
 										class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon"
 									>
@@ -195,100 +197,340 @@ super() }}
 										</svg>
 									</span>
 									<span class="h2 fw-extrabold">Cálculo de estrategias</span>
-									<p class="m-1">Paso 1: Creación de escenario</p>
 								</div>
 							</div>
 							<div class="components-section flex-grow-1">
-								<div class="row justify-content-between m-0">
-									<div class="row mb-2 mt-2">
-										<!-- Section Table -->
-										<div class="card m-2 card-body border-1 shadow table-wrapper table-responsive">
-											<div class="row">
-												<div class="col-12 d-flex">
-													<table class="table table-hover">
-														<thead>
-															<tr class="text-center align-middle">
-																<th class="border-gray-200">#</th>
-																<th class="border-gray-200">Fecha de creación</th>
-																<th class="border-gray-200">Nombre del escenario</th>
-																<th class="border-gray-200">Opciones</th>
-															</tr>
-														</thead>
-														<tbody>
-															<!-- Item -->
-															<tr>
-																<td>
-																	<a href="#" class="fw-bold"> 1 </a>
-																</td>
-																<td>
-																	<span class="fw-normal">14/03/2023</span>
-																</td>
-																<td><span class="fw-normal w-25">Escenario prueba</span></td>
-																<td><span class="fw-normal"></span></td>
-															</tr>
-															<!-- Item -->
-															<tr>
-																<td>
-																	<a href="#" class="fw-bold"> 2 </a>
-																</td>
-																<td>
-																	<span class="fw-normal"></span>
-																</td>
-																<td><span class="fw-normal w-25"></span></td>
-																<td><span class="fw-normal"></span></td>
-															</tr>
-															<!-- Item -->
-														</tbody>
-													</table>
+								<div class="row justify-content-between mx-0 mb-2">
+									<div class="card border-0 shadow mx-2 mx-md-0">
+										<div class="card-header p-0">
+											<div class="row justify-content-between">
+												<div
+													class="m-1 col-12 d-flex align-items-center justify-content-between flex-grow-1"
+												>
+													<div class="d-block mb-3 mb-sm-0 align-items-center">
+														<span class="sidebar-icon">
+															<svg
+																class="icon-shape icon-xxs"
+																fill="black"
+																viewBox="0 0 720 720"
+																xmlns="http://www.w3.org/2000/svg"
+															>
+																<path
+																	d="M88 48C101.3 48 112 58.75 112 72V120C112 133.3 101.3 144 88 144H40C26.75 144 16 133.3 16 120V72C16 58.75 26.75 48 40 48H88zM480 64C497.7 64 512 78.33 512 96C512 113.7 497.7 128 480 128H192C174.3 128 160 113.7 160 96C160 78.33 174.3 64 192 64H480zM480 224C497.7 224 512 238.3 512 256C512 273.7 497.7 288 480 288H192C174.3 288 160 273.7 160 256C160 238.3 174.3 224 192 224H480zM480 384C497.7 384 512 398.3 512 416C512 433.7 497.7 448 480 448H192C174.3 448 160 433.7 160 416C160 398.3 174.3 384 192 384H480zM16 232C16 218.7 26.75 208 40 208H88C101.3 208 112 218.7 112 232V280C112 293.3 101.3 304 88 304H40C26.75 304 16 293.3 16 280V232zM88 368C101.3 368 112 378.7 112 392V440C112 453.3 101.3 464 88 464H40C26.75 464 16 453.3 16 440V392C16 378.7 26.75 368 40 368H88z"
+																></path>
+															</svg>
+														</span>
+														<span class="fs-5 fw-extrabold mb-2">Construcción de escenarios</span>
+													</div>
 												</div>
 											</div>
 										</div>
-										<div class="col-12 m-1 d-flex align-middle">
-											<button
-												class="btn btn-primary d-inline-flex align-items-center me-2 dropdown-toggle"
-												data-bs-toggle="dropdown"
-												aria-haspopup="true"
-												aria-expanded="false"
-											>
-												<svg
-													class="icon icon-xs me-2"
-													fill="none"
-													stroke="currentColor"
-													viewBox="0 0 24 24"
-													xmlns="http://www.w3.org/2000/svg"
+										<div class="card-body px-1 px-md-3 py-1">
+											<div class="row mb-0 mt-2 m-0">
+												<div class="col-12 mb-1 px-0 align-self-stretch flex-fill">
+													<p class="m-0">
+														En esta sección, puede construir escenarios de eficiencia energética al
+														incluir estrategias relacionadas con los procesos de generación,
+														distribución y uso final.
+													</p>
+												</div>
+											</div>
+											<div class="row mb-2 justify-content-between">
+												<div class="col-12 col-md-6 d-flex">
+													<span class="fw-extrabold fs-4 pt-1">Etapas</span>
+												</div>
+											</div>
+											<div class="row mb-2 mx-4 justify-content-between">
+												<div class="col-12 col-md-6 d-flex ps-4">
+													<div class="steps justified-text">
+														<div class="row step h-auto">
+															<div class="step-title fs-6">Generación de escenario</div>
+															<p class="small fw-light">
+																Seleccione el proceso de generación, distribución o uso final, junto
+																con el año de referencia, para llevar a cabo el análisis.
+															</p>
+														</div>
+														<div class="row step h-auto">
+															<div class="step-title fs-6">Selección de estrategias</div>
+															<p class="small fw-light">
+																Selecciona las estrategias de su interés en la lista de estrategias
+																proporcionada por la plataforma Integra.
+															</p>
+														</div>
+														<div class="row step h-auto">
+															<div class="step-title fs-6">Ajustes de estrategias</div>
+															<p class="small fw-light">
+																Ingrese los valores de participación e impacto para cada una de las
+																estrategias seleccionadas y observe cómo se comportan las variables
+																relacionadas a través de los modelos de estrategias.
+															</p>
+														</div>
+														<div class="row step h-auto">
+															<div class="step-title fs-6">Visualización de indicadores</div>
+															<p class="small fw-light">
+																Analiza el comportamiento de los indicadores de eficiencia
+																energética con base a los ajustes que has proporcionado.
+															</p>
+														</div>
+														<div class="row step h-auto">
+															<div class="step-title fs-6">Clasificación de estrategias</div>
+															<p class="small fw-light">
+																Finalmente, realiza una comparación entre las estrategias y
+																determina el orden de clasificación de acuerdo con sus preferencias.
+															</p>
+														</div>
+													</div>
+												</div>
+												<div
+													class="col-12 col-md-6 d-flex justify-content-center align-items-center"
 												>
-													<path
-														stroke-linecap="round"
-														stroke-linejoin="round"
-														stroke-width="2"
-														d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-													></path>
-												</svg>
-												Añadir escenario
-											</button>
+													<div class="card shadow border-0 text-center p-0">
+														<div class="card-body pb-1">
+															<p class="fw-extrabold fs-4 border-bottom">Nuevo escenario</p>
+															<p class="fw-light fs-6 text-gray-400 my-0">Parámetros</p>
+															<div class="justify-content-between d-flex align-items-center">
+																<span class="h6 p-1 fw-light mb-0">Nombre</span>
+																<div class="btn-group p-1 w-50 m-0">
+																	<input
+																		type="text"
+																		class="form-control"
+																		id="name-input"
+																		placeholder="Escenario prueba"
+																	/>
+																</div>
+															</div>
+															<!-- Dropdown menu-->
+															<div class="justify-content-between d-flex align-items-center">
+																<span class="h6 p-1 fw-light mb-0">Cadena de Valor </span>
+																<div class="btn-group p-1 w-50 m-0">
+																	<button
+																		type="button"
+																		id="process-selected"
+																		class="btn btn-sm btn-sm btn-primary dropdown-toggle dropdown-toggle-split"
+																		data-bs-toggle="dropdown"
+																		aria-haspopup="true"
+																		aria-expanded="false"
+																	>
+																		<span>Seleccionar</span>
+																		<svg
+																			class="icon icon-xs"
+																			fill="currentColor"
+																			viewBox="0 0 20 20"
+																			xmlns="http://www.w3.org/2000/svg"
+																		>
+																			<path
+																				fill-rule="evenodd"
+																				d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+																				clip-rule="evenodd"
+																			></path>
+																		</svg>
+																	</button>
+																	<div class="dropdown-menu">
+																		<a class="dropdown-item" onclick="choice('generation')"
+																			>Generación</a
+																		>
+																		<a class="dropdown-item" onclick="choice('distribution')"
+																			>Distribución</a
+																		>
+																		<a class="dropdown-item" onclick="choice('end_use')"
+																			>Uso final</a
+																		>
+																	</div>
+																</div>
+															</div>
+															<!-- Dropdown menu -->
+															<div
+																class="justify-content-between d-flex align-items-center border-bottom pb-4"
+															>
+																<span class="h6 p-1 fw-light">Año de análisis </span>
+																<div class="btn-group p-1 w-50 m-0">
+																	<button
+																		type="button"
+																		id="select-year"
+																		class="btn btn-sm btn-sm btn-primary dropdown-toggle dropdown-toggle-split"
+																		data-bs-toggle="dropdown"
+																		aria-haspopup="true"
+																		aria-expanded="false"
+																	>
+																		<span id="fecha" value="seleccionar">Seleccionar</span>
+																		<svg
+																			class="icon icon-xs"
+																			fill="currentColor"
+																			viewBox="0 0 20 20"
+																			xmlns="http://www.w3.org/2000/svg"
+																		>
+																			<path
+																				fill-rule="evenodd"
+																				d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+																				clip-rule="evenodd"
+																			></path>
+																		</svg>
+																	</button>
+																	<div class="dropdown-menu" id="dropdown-items"></div>
+																</div>
+															</div>
+															<div>
+																<a
+																	class="btn btn-sm btn-secondary fs-5 fw-bold w-50 btn-progress-next"
+																	href="#iniciar"
+																	onclick="checkParameters()"
+																>
+																	<svg
+																		class="icon icon-sm me-2"
+																		fill="currentColor"
+																		viewBox="0 0 24 24"
+																		xmlns="http://www.w3.org/2000/svg"
+																	>
+																		<path
+																			fill-rule="evenodd"
+																			d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+																			clip-rule="evenodd"
+																		></path>
+																	</svg>
+																	Iniciar</a
+																>
+															</div>
+															<div id="error-section" class="text-center small"></div>
+														</div>
+													</div>
+												</div>
+											</div>
 										</div>
-										<div class="col-12 m-1 d-flex align-middle">
-											<div class="btn-toolbar d-flex justify-content-end">
-												<a
-													href="#scenarios_2"
-													class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
-													onclick="ActiveSection('scenarios_2')"
+									</div>
+								</div>
+								<div class="row justify-content-between mx-0">
+									<div class="card border-1 shadow mx-2 mx-md-0">
+										<div class="card-header p-0">
+											<div class="row justify-content-between">
+												<div
+													class="m-1 col-12 d-flex align-items-center justify-content-between flex-grow-1"
 												>
-													<svg
-														class="icon icon-xs me-2"
-														fill="none"
-														stroke="currentColor"
-														viewBox="0 0 24 24"
-														xmlns="http://www.w3.org/2000/svg"
-													>
-														<path
-															fill-rule="evenodd"
-															d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-															clip-rule="evenodd"
-														></path>
-													</svg>
-													paso 2
-												</a>
+													<div class="d-block mb-3 mb-sm-0 align-items-center">
+														<span class="sidebar-icon">
+															<svg
+																class="icon-shape icon-xxs"
+																fill="black"
+																viewBox="0 0 720 720"
+																xmlns="http://www.w3.org/2000/svg"
+															>
+																<path
+																	d="M88 48C101.3 48 112 58.75 112 72V120C112 133.3 101.3 144 88 144H40C26.75 144 16 133.3 16 120V72C16 58.75 26.75 48 40 48H88zM480 64C497.7 64 512 78.33 512 96C512 113.7 497.7 128 480 128H192C174.3 128 160 113.7 160 96C160 78.33 174.3 64 192 64H480zM480 224C497.7 224 512 238.3 512 256C512 273.7 497.7 288 480 288H192C174.3 288 160 273.7 160 256C160 238.3 174.3 224 192 224H480zM480 384C497.7 384 512 398.3 512 416C512 433.7 497.7 448 480 448H192C174.3 448 160 433.7 160 416C160 398.3 174.3 384 192 384H480zM16 232C16 218.7 26.75 208 40 208H88C101.3 208 112 218.7 112 232V280C112 293.3 101.3 304 88 304H40C26.75 304 16 293.3 16 280V232zM88 368C101.3 368 112 378.7 112 392V440C112 453.3 101.3 464 88 464H40C26.75 464 16 453.3 16 440V392C16 378.7 26.75 368 40 368H88z"
+																></path>
+															</svg>
+														</span>
+														<span class="fs-5 fw-extrabold mb-2">Escenarios disponibles</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="card-body px-1 px-md-3 py-1">
+											<div class="row mb-0 mt-2 m-0">
+												<div class="col-12 mb-1 px-0 align-self-stretch flex-fill">
+													<p class="m-0">
+														En esta sección, encontrarás los escenarios previamente construidos.
+														Aquí podrás visualizarlos, editarlos y compararlos con escenarios de
+														procesos equivalentes.
+													</p>
+												</div>
+											</div>
+											<!-- Imagen de próximamente -->
+											<img
+												class="image comming-soon top-0 end-0"
+												src="/static/images/proximamente.png"
+												height="84"
+												width="104"
+												alt="Próximamente logo."
+											/>
+											<div class="row mb-2 justify-content-between">
+												<div class="col-12 col-md-12 d-flex">
+													<!-- Section Table -->
+													<div class="table-wrapper table-responsive m-2 w-100">
+														<table class="table table-hover text-center">
+															<thead>
+																<tr class="align-middle">
+																	<th class="border-gray-200">#</th>
+																	<th class="border-gray-200">Nombre del escenario</th>
+																	<th class="border-gray-200">Proceso</th>
+																	<th class="border-gray-200">Fecha de creación</th>
+																	<th class="border-gray-200">Opciones</th>
+																</tr>
+															</thead>
+															<tbody>
+																<!-- Item -->
+																<tr>
+																	<td>
+																		<a href="#" class="fw-bold"> 1 </a>
+																	</td>
+																	<td>
+																		<span class="fw-normal">Escenario de prueba</span>
+																	</td>
+																	<td>
+																		<span class="fw-normal">Generación</span>
+																	</td>
+																	<td>
+																		<span class="fw-normal">14/03/2023</span>
+																	</td>
+																	<td>
+																		<span class="fw-normal"
+																			><svg
+																				class="icon me-2 icon-xxs"
+																				xmlns="http://www.w3.org/2000/svg"
+																				width="24"
+																				height="24"
+																				viewBox="0 0 24 24"
+																				fillColor="currentColor"
+																			>
+																				<path
+																					d="M8.707 19.707 18 10.414 13.586 6l-9.293 9.293a1.003 1.003 0 0 0-.263.464L3 21l5.242-1.03c.176-.044.337-.135.465-.263zM21 7.414a2 2 0 0 0 0-2.828L19.414 3a2 2 0 0 0-2.828 0L15 4.586 19.414 9 21 7.414z"
+																				></path>
+																			</svg>
+																			<svg
+																				class="icon me-2 icon-xxs"
+																				xmlns="http://www.w3.org/2000/svg"
+																				width="24"
+																				height="24"
+																				viewBox="0 0 24 24"
+																				fillColor="currentColor"
+																			>
+																				<path
+																					d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm10.618-3L15 2H9L7.382 4H3v2h18V4z"
+																				></path>
+																			</svg>
+																			<svg
+																				class="icon me-2 icon-xs"
+																				xmlns="http://www.w3.org/2000/svg"
+																				width="24"
+																				height="24"
+																				viewBox="0 0 24 24"
+																				fillColor="currentColor"
+																			>
+																				<path
+																					d="M12 9a3.02 3.02 0 0 0-3 3c0 1.642 1.358 3 3 3 1.641 0 3-1.358 3-3 0-1.641-1.359-3-3-3z"
+																				></path>
+																				<path
+																					d="M12 5c-7.633 0-9.927 6.617-9.948 6.684L1.946 12l.105.316C2.073 12.383 4.367 19 12 19s9.927-6.617 9.948-6.684l.106-.316-.105-.316C21.927 11.617 19.633 5 12 5zm0 12c-5.351 0-7.424-3.846-7.926-5C4.578 10.842 6.652 7 12 7c5.351 0 7.424 3.846 7.926 5-.504 1.158-2.578 5-7.926 5z"
+																				></path>
+																			</svg>
+																		</span>
+																	</td>
+																</tr>
+																<!-- Item -->
+																<tr>
+																	<td>
+																		<a href="#" class="fw-bold"> 2 </a>
+																	</td>
+																	<td>
+																		<span class="fw-normal"></span>
+																	</td>
+																	<td><span class="fw-normal"></span></td>
+																	<td><span class="fw-normal"></span></td>
+																	<td><span class="fw-normal"></span></td>
+																</tr>
+																<!-- Item -->
+															</tbody>
+														</table>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -298,6 +540,7 @@ super() }}
 					</div>
 				</div>
 			</div>
+			<!-- Ene Main content -->
 		</section>
 
 		<section id="scenarios_2" hidden>
@@ -337,89 +580,40 @@ super() }}
 					<div class="card border-0 shadow h-100">
 						<div class="card-body px-1 px-md-3 d-flex flex-column">
 							<div class="row mb-2">
-								<div class="col-12">
+								<div class="col-12 col-md-4">
 									<span
 										class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon"
 									>
 										<svg
 											class="w-6 h-6"
 											fill="currentColor"
-											viewBox="0 0 20 20"
 											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
 										>
 											<path
-												d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"
+												d="M17.867 2.504c-.355-.624-1.381-.623-1.736 0l-3.999 7A1 1 0 0 0 13 11h8a1.001 1.001 0 0 0 .868-1.496l-4.001-7zM3 22h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1zm14.5-9c-2.481 0-4.5 2.019-4.5 4.5s2.019 4.5 4.5 4.5 4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5z"
 											></path>
 										</svg>
 									</span>
-									<span class="h2 fw-extrabold">Cálculo de estrategias</span>
-									<p class="m-1">Paso 2: Seleccion de o las estratregias</p>
-									<input type="button" onclick="runLoadStrategies()" value="Console nombre" />
+									<span class="h3 fw-extrabold">Construcción de escenario</span>
+									<div class="row mx-0 my-1">
+										<div class="col-6 fw-extrabold mb-1 small">
+											Escenario:
+											<span class="fw-bold" id="scenario-name-macro">Nombre escenario</span>
+										</div>
+										<div class="col-6 fw-extrabold mb-1 small">
+											Proceso: <span class="fw-bold" id="scenario-process-macro">Proceso</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-12 col-md-8">
+									<span>{{ macros.progress_bar() }}</span>
 								</div>
 							</div>
 							<div class="row flex-fill px-1">
 								<div class="card border-1 shadow mx-2 mx-md-0">
 									<div class="card-header p-0">
-										<div class="row justify-content-between m-0">
-											<!-- Dropdown menu-->
-											<div
-												class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between flex-grow-1"
-											>
-												<div class="d-block mb-3 mb-sm-0 align-items-center">
-													<span class="sidebar-icon">
-														<svg
-															class="icon-shape icon-xxs"
-															fill="black"
-															viewBox="0 0 720 720"
-															xmlns="http://www.w3.org/2000/svg"
-														>
-															<path
-																d="M88 48C101.3 48 112 58.75 112 72V120C112 133.3 101.3 144 88 144H40C26.75 144 16 133.3 16 120V72C16 58.75 26.75 48 40 48H88zM480 64C497.7 64 512 78.33 512 96C512 113.7 497.7 128 480 128H192C174.3 128 160 113.7 160 96C160 78.33 174.3 64 192 64H480zM480 224C497.7 224 512 238.3 512 256C512 273.7 497.7 288 480 288H192C174.3 288 160 273.7 160 256C160 238.3 174.3 224 192 224H480zM480 384C497.7 384 512 398.3 512 416C512 433.7 497.7 448 480 448H192C174.3 448 160 433.7 160 416C160 398.3 174.3 384 192 384H480zM16 232C16 218.7 26.75 208 40 208H88C101.3 208 112 218.7 112 232V280C112 293.3 101.3 304 88 304H40C26.75 304 16 293.3 16 280V232zM88 368C101.3 368 112 378.7 112 392V440C112 453.3 101.3 464 88 464H40C26.75 464 16 453.3 16 440V392C16 378.7 26.75 368 40 368H88z"
-															/>
-														</svg>
-													</span>
-													<span class="fs-5 fw-extrabold mb-2">Estrategias</span>
-												</div>
-											</div>
-											<div
-												class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between justify-content-xl-center"
-											>
-												<span class="h6 fw-bold p-1"><strong>Cadena de Valor</strong> </span>
-												<div class="btn-group p-1">
-													<button
-														type="button"
-														id="select-dropdown-var"
-														class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
-														data-bs-toggle="dropdown"
-														aria-haspopup="true"
-														aria-expanded="false"
-													>
-														<span>Seleccionar</span>
-														<svg
-															class="icon icon-xs"
-															fill="currentColor"
-															viewBox="0 0 20 20"
-															xmlns="http://www.w3.org/2000/svg"
-														>
-															<path
-																fill-rule="evenodd"
-																d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-																clip-rule="evenodd"
-															></path>
-														</svg>
-													</button>
-													<div class="dropdown-menu">
-														<a class="dropdown-item" onclick="update_list('generation')"
-															>Generación</a
-														>
-														<a class="dropdown-item" onclick="update_list('distribution')"
-															>Distribución</a
-														>
-														<a class="dropdown-item" onclick="update_list('end_use')">Uso final</a>
-													</div>
-												</div>
-											</div>
-										</div>
+										<span class="fs-5 fw-bold mb-2">Paso 2: Selección de estrategias</span>
 									</div>
 									<div class="card-body px-1 px-md-3 py-1">
 										<div class="row mb-2 mt-2 m-0">
@@ -443,40 +637,36 @@ super() }}
 									</div>
 								</div>
 							</div>
-							<div class="col-12 m-1 d-flex align-middle">
-								<div class="btn-toolbar d-flex justify-content-end">
-									<a
-										id="activar_scenario"
-										href="#scenarios_3"
-										class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
-										onclick="ActiveSection('scenarios_3')"
-									>
-										<svg
-											class="icon icon-xs me-2"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<path
-												fill-rule="evenodd"
-												d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-												clip-rule="evenodd"
-											></path>
-										</svg>
-										paso 3
-									</a>
-								</div>
-								<div class="btn-toolbar d-flex justify-content-end">
+							<div class="col-12 m-1 d-flex align-middle justify-content-end">
+								<div class="d-flex justify-content-end btn-progress-prev mx-2">
 									<a
 										href="#scenarios"
-										class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+										class="btn btn-sm btn-white d-inline-flex align-items-center border-1 shadow border-gray-400"
 										onclick="ActiveSection('scenarios')"
 									>
 										<svg
 											class="icon icon-xs me-2"
-											fill="none"
-											stroke="currentColor"
+											fill="currentColor"
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
+										>
+											<path
+												d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10c5.515 0 10-4.486 10-10S17.515 2 12 2zm4 14-6-4v4H8V8h2v4l6-4v8z"
+											></path>
+										</svg>
+										Anterior
+									</a>
+								</div>
+								<div class="d-flex justify-content-end btn-progress-next">
+									<a
+										id="activar_scenario"
+										href="#scenarios_3"
+										class="btn btn-sm btn-primary d-inline-flex align-items-center"
+										onclick="ActiveSection('scenarios_3')"
+									>
+										<svg
+											class="icon icon-xs me-2"
+											fill="currentColor"
 											viewBox="0 0 24 24"
 											xmlns="http://www.w3.org/2000/svg"
 										>
@@ -486,7 +676,7 @@ super() }}
 												clip-rule="evenodd"
 											></path>
 										</svg>
-										Anterior
+										Siguiente
 									</a>
 								</div>
 							</div>
@@ -533,113 +723,86 @@ super() }}
 					<div class="card border-0 shadow h-100">
 						<div class="card-body px-1 px-md-3 d-flex flex-column">
 							<div class="row mb-2">
-								<div class="col-12">
+								<div class="col-12 col-md-4">
 									<span
 										class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon"
 									>
 										<svg
 											class="w-6 h-6"
 											fill="currentColor"
-											viewBox="0 0 20 20"
 											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
 										>
 											<path
-												d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"
+												d="M17.867 2.504c-.355-.624-1.381-.623-1.736 0l-3.999 7A1 1 0 0 0 13 11h8a1.001 1.001 0 0 0 .868-1.496l-4.001-7zM3 22h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1zm14.5-9c-2.481 0-4.5 2.019-4.5 4.5s2.019 4.5 4.5 4.5 4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5z"
 											></path>
 										</svg>
 									</span>
-									<span class="h2 fw-extrabold">Cálculo de estrategias</span>
-									<p class="m-1">Paso 3: Modificacion de variables por cada estrategia</p>
+									<span class="h3 fw-extrabold">Construcción de escenario</span>
+									<div class="row mx-0 my-1">
+										<div class="col-6 fw-extrabold mb-1 small">
+											Escenario:
+											<span class="fw-bold" id="scenario-name-macro">Nombre escenario</span>
+										</div>
+										<div class="col-6 fw-extrabold mb-1 small">
+											Proceso: <span class="fw-bold" id="scenario-process-macro">Proceso</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-12 col-md-8">
+									<span>{{ macros.progress_bar() }}</span>
 								</div>
 							</div>
 							<div class="row flex-fill px-1">
 								<div class="card border-1 shadow mx-2 mx-md-0">
 									<div class="card-header p-0">
-										<div class="row justify-content-between m-0">
-											<!-- Dropdown menu-->
-											<div
-												class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between flex-grow-1"
-											>
-												<div class="d-block mb-3 mb-sm-0 align-items-center">
-													<span class="sidebar-icon">
-														<svg
-															class="icon-shape icon-xxs"
-															fill="black"
-															viewBox="0 0 720 720"
-															xmlns="http://www.w3.org/2000/svg"
-														>
-															<path
-																d="M88 48C101.3 48 112 58.75 112 72V120C112 133.3 101.3 144 88 144H40C26.75 144 16 133.3 16 120V72C16 58.75 26.75 48 40 48H88zM480 64C497.7 64 512 78.33 512 96C512 113.7 497.7 128 480 128H192C174.3 128 160 113.7 160 96C160 78.33 174.3 64 192 64H480zM480 224C497.7 224 512 238.3 512 256C512 273.7 497.7 288 480 288H192C174.3 288 160 273.7 160 256C160 238.3 174.3 224 192 224H480zM480 384C497.7 384 512 398.3 512 416C512 433.7 497.7 448 480 448H192C174.3 448 160 433.7 160 416C160 398.3 174.3 384 192 384H480zM16 232C16 218.7 26.75 208 40 208H88C101.3 208 112 218.7 112 232V280C112 293.3 101.3 304 88 304H40C26.75 304 16 293.3 16 280V232zM88 368C101.3 368 112 378.7 112 392V440C112 453.3 101.3 464 88 464H40C26.75 464 16 453.3 16 440V392C16 378.7 26.75 368 40 368H88z"
-															/>
-														</svg>
-													</span>
-													<span class="fs-5 fw-extrabold mb-2">Variables</span>
-												</div>
-											</div>
-											<div
-												class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between justify-content-xl-center"
-											>
-												<span class="h6 fw-bold p-1"><strong>Cadena de Valor</strong> </span>
-												<div class="btn-group p-1">
-													<button
-														type="button"
-														id="select-dropdown-var-3"
-														class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
-														data-bs-toggle="dropdown"
-														aria-haspopup="true"
-														aria-expanded="false"
-													>
-														<span>Seleccionar</span>
-														<svg
-															class="icon icon-xs"
-															fill="currentColor"
-															viewBox="0 0 20 20"
-															xmlns="http://www.w3.org/2000/svg"
-														>
-															<path
-																fill-rule="evenodd"
-																d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-																clip-rule="evenodd"
-															></path>
-														</svg>
-													</button>
-													<div class="dropdown-menu">
-														<a class="dropdown-item" onclick="loadTable3('generation')"
-															>Generación</a
-														>
-														<a class="dropdown-item" onclick="loadTable3('distribution')"
-															>Distribución</a
-														>
-														<a class="dropdown-item" onclick="loadTable3('end_use')">Uso final</a>
-													</div>
-												</div>
-											</div>
-										</div>
+										<span class="fs-5 fw-bold mb-2"
+											>Paso 3: Ajuste de variables por estrategia</span
+										>
 									</div>
 									<div class="card-body px-1 px-md-3 py-1">
 										<div class="row mb-2 mt-2 m-0">
-											<div class="col-12 col-xl-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
+											<section hidden>
+												<div
+													id="template_strategies"
+													class="card border-0 flex-fill components-section flex-grow-1 my-1"
+												>
+													<div class="card-body p-0">{{ macros.template_parent_strategies() }}</div>
+												</div>
+											</section>
+											<div class="col-12 col-md-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
+												<div class="card border-0 flex-fill">
+													<div class="card-body align-self-stretch p-2">
+														<div id="test-clone"></div>
+													</div>
+												</div>
+											</div>
+											<!-- <div class="col-12 col-xl-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
 												<div class="card border-0 flex-fill">
 													<div class="card-body align-self-stretch p-2">
 														<div class="table-responsive info-table" id="table_content_3"></div>
 													</div>
 												</div>
-											</div>
+											</div> -->
 											<!-- Graph Section -->
-											<div class="col-12 col-xl-8 mb-1 px-0 d-flex align-self-stretch">
+											<div class="col-12 col-md-8 mb-1 px-0 d-flex align-self-stretch">
 												<div class="card border-0 flex-fill">
 													<div class="card-body p-1 flex-fill" id="graph-container-3">
 														<div class="d-block mb-3 mb-sm-0">
-															<span class="fs-5 fw-extrabold mb-4" id="chart_title_3"
-																>Variable seleccionada</span
-															>
+															<span class="fs-5 fw-extrabold mb-4" id="chart_title_3"></span>
 														</div>
 														<canvas id="line-chart-3" width="100%" height="50%"></canvas>
+													</div>
+													<div class="card-body p-1 flex-fill" id="graph-container-4">
+														<div class="d-block mb-3 mb-sm-0">
+															<span class="fs-5 fw-extrabold mb-4" id="chart_title_4"></span>
+														</div>
+														<canvas id="line-chart-4" width="100%" height="50%"></canvas>
 													</div>
 												</div>
 											</div>
 										</div>
-										<div class="row my-2 py-1">
+										<!-- <div class="row my-2 py-1">
 											<section hidden>
 												<div
 													id="template_strategies"
@@ -655,43 +818,40 @@ super() }}
 													</div>
 												</div>
 											</div>
-										</div>
+										</div> -->
 									</div>
 								</div>
 							</div>
-							<div class="col-12 m-1 d-flex align-middle">
-								<div class="btn-toolbar d-flex justify-content-end">
+							<div class="col-12 m-1 d-flex align-middle justify-content-end">
+								<div class="d-flex justify-content-end btn-progress-prev mx-2">
 									<a
-										href="#scenarios_4"
-										class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
-										onclick="ActiveSection('scenarios_4')"
-									>
-										<svg
-											class="icon icon-xs me-2"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<path
-												fill-rule="evenodd"
-												d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-												clip-rule="evenodd"
-											></path>
-										</svg>
-										paso 4
-									</a>
-								</div>
-								<div class="btn-toolbar d-flex justify-content-end">
-									<a
-										href="#scenarios_2"
-										class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+										href="#scenarios"
+										class="btn btn-sm btn-white d-inline-flex align-items-center border-1 shadow border-gray-400"
 										onclick="ActiveSection('scenarios_2')"
 									>
 										<svg
 											class="icon icon-xs me-2"
-											fill="none"
-											stroke="currentColor"
+											fill="currentColor"
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
+										>
+											<path
+												d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10c5.515 0 10-4.486 10-10S17.515 2 12 2zm4 14-6-4v4H8V8h2v4l6-4v8z"
+											></path>
+										</svg>
+										Anterior
+									</a>
+								</div>
+								<div class="d-flex justify-content-end btn-progress-next">
+									<a
+										id="activar_scenario"
+										href="#scenarios_3"
+										class="btn btn-sm btn-primary d-inline-flex align-items-center"
+										onclick="ActiveSection('scenarios_4')"
+									>
+										<svg
+											class="icon icon-xs me-2"
+											fill="currentColor"
 											viewBox="0 0 24 24"
 											xmlns="http://www.w3.org/2000/svg"
 										>
@@ -701,7 +861,7 @@ super() }}
 												clip-rule="evenodd"
 											></path>
 										</svg>
-										Anterior
+										Siguiente
 									</a>
 								</div>
 							</div>
@@ -748,111 +908,89 @@ super() }}
 					<div class="card border-0 shadow h-100">
 						<div class="card-body px-1 px-md-3 d-flex flex-column">
 							<div class="row mb-2">
-								<div class="col-12">
+								<div class="col-12 col-md-4">
 									<span
 										class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon"
 									>
 										<svg
 											class="w-6 h-6"
 											fill="currentColor"
-											viewBox="0 0 20 20"
 											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
 										>
 											<path
-												d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"
+												d="M17.867 2.504c-.355-.624-1.381-.623-1.736 0l-3.999 7A1 1 0 0 0 13 11h8a1.001 1.001 0 0 0 .868-1.496l-4.001-7zM3 22h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1zm14.5-9c-2.481 0-4.5 2.019-4.5 4.5s2.019 4.5 4.5 4.5 4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5z"
 											></path>
 										</svg>
 									</span>
-									<span class="h2 fw-extrabold">Cálculo de estrategias</span>
-									<p class="m-1">Paso 4: Visualizacion de indicadores por cada estrategia</p>
+									<span class="h3 fw-extrabold">Construcción de escenario</span>
+									<div class="row mx-0 my-1">
+										<div class="col-6 fw-extrabold mb-1 small">
+											Escenario:
+											<span class="fw-bold" id="scenario-name-macro">Nombre escenario</span>
+										</div>
+										<div class="col-6 fw-extrabold mb-1 small">
+											Proceso: <span class="fw-bold" id="scenario-process-macro">Proceso</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-12 col-md-8">
+									<span>{{ macros.progress_bar() }}</span>
 								</div>
 							</div>
 							<div class="row flex-fill px-1">
 								<div class="card border-1 shadow mx-2 mx-md-0">
 									<div class="card-header p-0">
-										<div class="row justify-content-between m-0">
-											<!-- Dropdown menu-->
-											<div
-												class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between flex-grow-1"
-											>
-												<div class="d-block mb-3 mb-sm-0 align-items-center">
-													<span class="sidebar-icon">
-														<svg
-															class="icon-shape icon-xxs"
-															fill="black"
-															viewBox="0 0 720 720"
-															xmlns="http://www.w3.org/2000/svg"
-														>
-															<path
-																d="M88 48C101.3 48 112 58.75 112 72V120C112 133.3 101.3 144 88 144H40C26.75 144 16 133.3 16 120V72C16 58.75 26.75 48 40 48H88zM480 64C497.7 64 512 78.33 512 96C512 113.7 497.7 128 480 128H192C174.3 128 160 113.7 160 96C160 78.33 174.3 64 192 64H480zM480 224C497.7 224 512 238.3 512 256C512 273.7 497.7 288 480 288H192C174.3 288 160 273.7 160 256C160 238.3 174.3 224 192 224H480zM480 384C497.7 384 512 398.3 512 416C512 433.7 497.7 448 480 448H192C174.3 448 160 433.7 160 416C160 398.3 174.3 384 192 384H480zM16 232C16 218.7 26.75 208 40 208H88C101.3 208 112 218.7 112 232V280C112 293.3 101.3 304 88 304H40C26.75 304 16 293.3 16 280V232zM88 368C101.3 368 112 378.7 112 392V440C112 453.3 101.3 464 88 464H40C26.75 464 16 453.3 16 440V392C16 378.7 26.75 368 40 368H88z"
-															/>
-														</svg>
-													</span>
-													<span class="fs-5 fw-extrabold mb-2">Variables</span>
-												</div>
-											</div>
-											<div
-												class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between justify-content-xl-center"
-											>
-												<span class="h6 fw-bold p-1"><strong>Cadena de Valor</strong> </span>
-												<div class="btn-group p-1">
-													<button
-														type="button"
-														id="select-dropdown-var_4"
-														class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
-														data-bs-toggle="dropdown"
-														aria-haspopup="true"
-														aria-expanded="false"
-													>
-														<span>Seleccionar</span>
-														<svg
-															class="icon icon-xs"
-															fill="currentColor"
-															viewBox="0 0 20 20"
-															xmlns="http://www.w3.org/2000/svg"
-														>
-															<path
-																fill-rule="evenodd"
-																d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-																clip-rule="evenodd"
-															></path>
-														</svg>
-													</button>
-													<div class="dropdown-menu">
-														<a class="dropdown-item" onclick="update_list_4('generation')"
-															>Generación</a
-														>
-														<a class="dropdown-item" onclick="update_list_4('distribution')"
-															>Distribución</a
-														>
-														<a class="dropdown-item" onclick="update_list_4('end_use')"
-															>Uso final</a
-														>
-													</div>
-												</div>
-											</div>
-										</div>
+										<span class="fs-5 fw-bold mb-2"
+											>Paso 4: Visualización de indicadores por estrategia</span
+										>
 									</div>
 									<div class="card-body px-1 px-md-3 py-1">
 										<div class="row mb-2 mt-2 m-0">
-											<div class="col-12 col-xl-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
+											<!-- <div class="col-12 col-xl-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
 												<div class="card border-0 flex-fill">
 													<div class="card-body align-self-stretch p-2">
-														<!-- Section Table -->
+														Section Table
 														<div class="table-responsive info-table" id="table_content_4"></div>
+													</div>
+												</div>
+											</div> -->
+											<!-- Graph Section -->
+											<div class="col-12 col-xl-8 mb-1 px-0 d-flex align-self-stretch">
+												<div class="card border-0 flex-fill">
+													<div class="card-body p-1 flex-fill" id="graph-container-5">
+														<div class="d-block mb-3 mb-sm-0">
+															<span class="fs-5 fw-extrabold mb-4" id="chart_title_5"
+																>Variable seleccionada</span
+															>
+														</div>
+														<canvas id="line-chart-5" width="100%" height="50%"></canvas>
 													</div>
 												</div>
 											</div>
 											<!-- Graph Section -->
 											<div class="col-12 col-xl-8 mb-1 px-0 d-flex align-self-stretch">
 												<div class="card border-0 flex-fill">
-													<div class="card-body p-1 flex-fill" id="graph-container-4">
+													<div class="card-body p-1 flex-fill" id="graph-container-6">
 														<div class="d-block mb-3 mb-sm-0">
-															<span class="fs-5 fw-extrabold mb-4" id="chart_title_4"
+															<span class="fs-5 fw-extrabold mb-4" id="chart_title_6"
 																>Variable seleccionada</span
 															>
 														</div>
-														<canvas id="line-chart-4" width="100%" height="50%"></canvas>
+														<canvas id="line-chart-6" width="100%" height="50%"></canvas>
+													</div>
+												</div>
+											</div>
+											<!-- Graph Section -->
+											<div class="col-12 col-xl-8 mb-1 px-0 d-flex align-self-stretch">
+												<div class="card border-0 flex-fill">
+													<div class="card-body p-1 flex-fill" id="graph-container-7">
+														<div class="d-block mb-3 mb-sm-0">
+															<span class="fs-5 fw-extrabold mb-4" id="chart_title_7"
+																>Variable seleccionada</span
+															>
+														</div>
+														<canvas id="line-chart-7" width="100%" height="50%"></canvas>
 													</div>
 												</div>
 											</div>
@@ -860,39 +998,36 @@ super() }}
 									</div>
 								</div>
 							</div>
-							<div class="col-12 m-1 d-flex align-middle">
-								<div class="btn-toolbar d-flex justify-content-end">
+							<div class="col-12 m-1 d-flex align-middle justify-content-end">
+								<div class="d-flex justify-content-end btn-progress-prev mx-2">
 									<a
-										href="#scenarios_5"
-										class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
-										onclick="ActiveSection('scenarios_5')"
-									>
-										<svg
-											class="icon icon-xs me-2"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<path
-												fill-rule="evenodd"
-												d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-												clip-rule="evenodd"
-											></path>
-										</svg>
-										paso 5
-									</a>
-								</div>
-								<div class="btn-toolbar d-flex justify-content-end">
-									<a
-										href="#scenarios_3"
-										class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+										href="#scenarios"
+										class="btn btn-sm btn-white d-inline-flex align-items-center border-1 shadow border-gray-400"
 										onclick="ActiveSection('scenarios_3')"
 									>
 										<svg
 											class="icon icon-xs me-2"
-											fill="none"
-											stroke="currentColor"
+											fill="currentColor"
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
+										>
+											<path
+												d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10c5.515 0 10-4.486 10-10S17.515 2 12 2zm4 14-6-4v4H8V8h2v4l6-4v8z"
+											></path>
+										</svg>
+										Anterior
+									</a>
+								</div>
+								<div class="d-flex justify-content-end btn-progress-next">
+									<a
+										id="activar_scenario"
+										href="#scenarios_3"
+										class="btn btn-sm btn-primary d-inline-flex align-items-center"
+										onclick="ActiveSection('scenarios_5')"
+									>
+										<svg
+											class="icon icon-xs me-2"
+											fill="currentColor"
 											viewBox="0 0 24 24"
 											xmlns="http://www.w3.org/2000/svg"
 										>
@@ -902,7 +1037,7 @@ super() }}
 												clip-rule="evenodd"
 											></path>
 										</svg>
-										Anterior
+										Siguiente
 									</a>
 								</div>
 							</div>
@@ -949,23 +1084,34 @@ super() }}
 					<div class="card border-0 shadow h-100">
 						<div class="card-body px-1 px-md-3 d-flex flex-column">
 							<div class="row mb-2">
-								<div class="col-12">
+								<div class="col-12 col-md-4">
 									<span
 										class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon"
 									>
 										<svg
 											class="w-6 h-6"
 											fill="currentColor"
-											viewBox="0 0 20 20"
 											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
 										>
 											<path
-												d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"
+												d="M17.867 2.504c-.355-.624-1.381-.623-1.736 0l-3.999 7A1 1 0 0 0 13 11h8a1.001 1.001 0 0 0 .868-1.496l-4.001-7zM3 22h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1zm14.5-9c-2.481 0-4.5 2.019-4.5 4.5s2.019 4.5 4.5 4.5 4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5z"
 											></path>
 										</svg>
 									</span>
-									<span class="h2 fw-extrabold">Cálculo de estrategias</span>
-									<p class="m-1">Paso 5: Jerarquizacion de estrategias</p>
+									<span class="h3 fw-extrabold">Construcción de escenario</span>
+									<div class="row mx-0 my-1">
+										<div class="col-6 fw-extrabold mb-1 small">
+											Escenario:
+											<span class="fw-bold" id="scenario-name-macro">Nombre escenario</span>
+										</div>
+										<div class="col-6 fw-extrabold mb-1 small">
+											Proceso: <span class="fw-bold" id="scenario-process-macro">Proceso</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-12 col-md-8">
+									<span>{{ macros.progress_bar() }}</span>
 								</div>
 							</div>
 							<div class="components-section flex-grow-1">
@@ -973,6 +1119,7 @@ super() }}
 									<div class="row mb-2 mt-2">
 										<div class="row mb-2 mt-2">
 											<h2 class="h4">Resultados de la evaluación</h2>
+											<span class="fs-5 fw-bold mb-2">Paso 5: Clasificación de estrategias</span>
 											<div
 												class="col-7 card m-2 card-body border-1 shadow table-wrapper table-responsive"
 											>
@@ -1070,13 +1217,50 @@ super() }}
 												</div>
 											</div>
 										</div>
-
-										<div class="col-12 m-1 d-flex align-middle">
+										<div class="col-12 m-1 d-flex align-middle justify-content-end">
+											<div class="d-flex justify-content-end btn-progress-prev mx-2">
+												<a
+													href="#scenarios"
+													class="btn btn-sm btn-white d-inline-flex align-items-center border-1 shadow border-gray-400"
+													onclick="ActiveSection('scenarios_4')"
+												>
+													<svg
+														class="icon icon-xs me-2"
+														fill="currentColor"
+														xmlns="http://www.w3.org/2000/svg"
+														viewBox="0 0 24 24"
+													>
+														<path
+															d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10c5.515 0 10-4.486 10-10S17.515 2 12 2zm4 14-6-4v4H8V8h2v4l6-4v8z"
+														></path>
+													</svg>
+													Anterior
+												</a>
+											</div>
+											<div class="d-flex justify-content-end">
+												<a
+													href="#"
+													class="btn btn-sm btn-primary d-inline-flex align-items-center btn-progress-next"
+													onclick="ActiveSection('scenarios_5')"
+												>
+													<svg
+														class="icon icon-xs me-2"
+														fill="currentColor"
+														viewBox="0 0 24 24"
+														xmlns="http://www.w3.org/2000/svg"
+													>
+														<path
+															d="M5 21h14a2 2 0 0 0 2-2V8a1 1 0 0 0-.29-.71l-4-4A1 1 0 0 0 16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2zm10-2H9v-5h6zM13 7h-2V5h2zM5 5h2v4h8V5h.59L19 8.41V19h-2v-5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v5H5z"
+														></path>
+													</svg>
+													Guardar
+												</a>
+											</div>
 											<div class="btn-toolbar d-flex justify-content-end">
 												<a
 													href="#"
-													class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
-													onclick="ActiveSection('')"
+													class="btn btn-sm btn-primary d-inline-flex align-items-center"
+													onclick="ActiveSection('scenarios')"
 												>
 													<svg
 														class="icon icon-xs me-2"
@@ -1091,15 +1275,15 @@ super() }}
 															clip-rule="evenodd"
 														></path>
 													</svg>
-													guardar escenario
+													Nuevo escenario
 												</a>
 											</div>
 
 											<div class="btn-toolbar d-flex justify-content-end">
 												<a
 													href="#"
-													class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
-													onclick="ActiveSection('')"
+													class="btn btn-sm btn-primary d-inline-flex align-items-center"
+													onclick="ActiveSection('scenarios_5')"
 												>
 													<svg
 														class="icon icon-xs me-2"
@@ -1114,30 +1298,7 @@ super() }}
 															clip-rule="evenodd"
 														></path>
 													</svg>
-													crear nuevo escenario
-												</a>
-											</div>
-
-											<div class="btn-toolbar d-flex justify-content-end">
-												<a
-													href="#"
-													class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
-													onclick="ActiveSection('')"
-												>
-													<svg
-														class="icon icon-xs me-2"
-														fill="none"
-														stroke="currentColor"
-														viewBox="0 0 24 24"
-														xmlns="http://www.w3.org/2000/svg"
-													>
-														<path
-															fill-rule="evenodd"
-															d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-															clip-rule="evenodd"
-														></path>
-													</svg>
-													comparar escenario
+													Comparar escenario
 												</a>
 											</div>
 										</div>
@@ -1327,7 +1488,7 @@ super() }}
 			</div>
 		</section>
 
-		<section id="d" hidden>
+		<!-- 		<section id="d" hidden>
 			<div class="py-4">
 				<div class="dropdown">
 					<button
@@ -1798,7 +1959,7 @@ super() }}
 										<li class="list-group-item px-0">
 											<div class="row align-items-center">
 												<div class="col-auto">
-													<!-- Avatar -->
+													// Avatar
 													<a href="#" class="avatar">
 														<img
 															class="rounded"
@@ -1841,7 +2002,7 @@ super() }}
 										<li class="list-group-item px-0">
 											<div class="row align-items-center">
 												<div class="col-auto">
-													<!-- Avatar -->
+													//Avatar
 													<a href="#" class="avatar">
 														<img
 															class="rounded"
@@ -1884,7 +2045,7 @@ super() }}
 										<li class="list-group-item px-0">
 											<div class="row align-items-center">
 												<div class="col-auto">
-													<!-- Avatar -->
+													Avatar
 													<a href="#" class="avatar">
 														<img
 															class="rounded"
@@ -1927,7 +2088,7 @@ super() }}
 										<li class="list-group-item px-0">
 											<div class="row align-items-center">
 												<div class="col-auto">
-													<!-- Avatar -->
+													//Avatar
 													<a href="#" class="avatar">
 														<img
 															class="rounded"
@@ -1980,7 +2141,7 @@ super() }}
 									<a href="#" class="btn btn-sm btn-primary">See tasks</a>
 								</div>
 								<div class="card-body">
-									<!-- Project 1 -->
+									//Project 1
 									<div class="row mb-4">
 										<div class="col-auto">
 											<svg
@@ -2016,7 +2177,7 @@ super() }}
 											</div>
 										</div>
 									</div>
-									<!-- Project 2 -->
+									//Project 2
 									<div class="row align-items-center mb-4">
 										<div class="col-auto">
 											<svg
@@ -2052,7 +2213,7 @@ super() }}
 											</div>
 										</div>
 									</div>
-									<!-- Project 3 -->
+									//Project 3
 									<div class="row align-items-center mb-4">
 										<div class="col-auto">
 											<svg
@@ -2088,7 +2249,7 @@ super() }}
 											</div>
 										</div>
 									</div>
-									<!-- Project 4 -->
+									// Project 4
 									<div class="row align-items-center mb-3">
 										<div class="col-auto">
 											<svg
@@ -2439,7 +2600,7 @@ super() }}
 					</span>
 				</div>
 			</div>
-		</section>
+		</section> -->
 
 		{% block footer %} {% include 'module/footer.html' %} {% endblock %}
 	</main>
@@ -2500,6 +2661,25 @@ super() }}
 <script type="text/javascript">
 	//  Variables Chart.js handler
 	//  Generic display constructor for variable tables in Json format
+	function updateSelectDate(date) {
+		$("#select-year").removeClass("btn-danger")
+		$("#error-section").text("")
+
+		document.getElementById("fecha").innerHTML = String(date)
+		document.getElementById("fecha").value = String(date)
+	}
+
+	$(document).ready(function ComboFecha() {
+		var n = new Date().getFullYear()
+		var parent_items = document.getElementById("dropdown-items")
+		for (var i = n; i <= 2030; i++) {
+			var item = document.createElement("div")
+			item.innerHTML = String(i)
+			item.classList.add("dropdown-item")
+			item.setAttribute("onclick", "updateSelectDate(" + i + ")")
+			parent_items.appendChild(item)
+		}
+	})
 
 	var _table_ = document.createElement("table"),
 		_tr_ = document.createElement("tr"),
@@ -2512,77 +2692,53 @@ super() }}
 		_ul_ = document.createElement("ul"),
 		_p_ = document.createElement("p")
 
-	function update_list(list_name) {
-		SetSelectName("select-dropdown-var", list_name)
+	function choice(list_name) {
+		SetSelectName("process-selected", list_name)
+		updateList(list_name)
+	}
+
+	function updateList(list_name) {
+		/* SetSelectName("process-selected-2", list_name) */
 		// prettier-ignore
-		let json_file_strategies = JSON.parse('{{strategies | tojson | safe}}')
-
-		console.log("---strategies---")
-		console.log("json_file_strategies", json_file_strategies)
-
-		let keys_list_strategies = Object.keys(json_file_strategies[list_name])
-
-		console.log("---strategies---")
-		console.log("json_file_strategies", json_file_strategies)
-		// console.log("keys_list_strategies",keys_list_strategies)
-
-		let keys_list_2 = []
-		let json_new = {}
-		keys_list_strategies.forEach(function (item, index) {
-			let json_aux = json_file_strategies[list_name][item]
+		let json_file = JSON.parse('{{strategies | tojson | safe}}')
+		let keys_list = Object.keys(json_file[list_name])
+		let list_data = {}
+		keys_list.forEach(function (item, index) {
+			let json_aux = json_file[list_name][item]
 			let json_strategies = []
 			json_aux.forEach(function (item2, index2) {
 				json_strategies.push(item2["NOMBRE_SUB_ESTRATEGIA"])
 			})
-			json_new[item] = json_strategies
+			list_data[item] = json_strategies
 		})
-		loadTable_variables(list_name, json_new)
+
+		let fecha = document.getElementById("fecha").value
+		console.log("fecha")
+		console.log(fecha)
+		loadTableStrategies(list_name, fecha)
+		loadTableStrategiesDescription(list_name, list_data)
 	}
-	// Variables Datatable.js handler
-	// Callback for combobox on variable view
-	function loadTable_variables(list_name, json_new) {
+
+	function loadTableStrategies(list_name, fecha) {
 		console.log("-------- loadTable_variables ------ ")
 		// prettier-ignore
-		arr = JSON.parse('{{ strategies_definition| tojson | safe }}')
-
-		console.log("arr ++++ ")
-		console.log(arr)
-
-		let arr1 = arr[list_name]
-		console.log("arr1 ++++ ")
-		console.log(arr1)
-
-		let list_names = Object.keys(arr1.models)
-
-		console.log("list_names ++++ 99")
-		console.log(list_names)
-
-		// console.log("list_names ++++ "+list_names)
+		let strategies_definition = JSON.parse('{{ strategies_definition| tojson | safe }}')
+		let strategies_models = strategies_definition[list_name].models
+		let strategies = Object.fromEntries(
+			Object.entries(strategies_models).map(([key, value]) => [key, value.name])
+		)
+		let strategies_keys = Object.keys(strategies)
 		let table = _table_.cloneNode(false)
 		let tbody = _tbody_.cloneNode(false),
 			columns = addAllColumnHeaders(list_name)
-		list_names.forEach(function (items, index) {
+		strategies_keys.forEach(function (items, index) {
 			let tr = _tr_.cloneNode(false)
 			let td = _td_.cloneNode(false)
 			let a = _a_.cloneNode(false)
-
-			console.log("items +++ 99 " + items)
-
-			let arr2 = arr1.models[items]
-			console.log("arr2 +++ 99 ", arr2)
-
-			let arr3 = arr2.name
-
-			console.log("arr3 +++ 99 ", arr3)
-			let arr4 = arr2.strategies
-
-			console.log("arr4 +++ 99 ", arr4)
-
-			let arr5 = Object.keys(arr4)
-
-			console.log("arr5 +++ 99 ", arr5)
-
-			a.appendChild(document.createTextNode(arr2.name || ""))
+			let strategies_name = strategies_models[items].name
+			let sub_strategies = strategies_models[items].strategies
+			let sub_strategies_keys = Object.keys(sub_strategies)
+			a.appendChild(document.createTextNode(strategies_name || ""))
 			td.classList.add("fw-extrabold")
 			td.classList.add("showhr")
 			let i = _i_.cloneNode(false)
@@ -2595,15 +2751,14 @@ super() }}
 			td.appendChild(a)
 			tr.appendChild(td)
 			tbody.appendChild(tr)
-			//let keys_list = json_new[items];
-			// var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
-			arr5.forEach(function (item, index) {
-				let arr6 = arr4[item]
-				console.log("arr6 subestrategia +++ 99 ", arr6)
+			sub_strategies_keys.forEach(function (item, index) {
+				let sub_strategies_list = sub_strategies[item]
+				let name = sub_strategies_list.name
+				let id = sub_strategies_list.id
 				let tr = _tr_.cloneNode(false)
 				let td = _td_.cloneNode(false)
 				let cell_value
-				cell_value = arr6.name
+				cell_value = name
 
 				let div = document.createElement("div")
 				let inp = document.createElement("input")
@@ -2613,18 +2768,12 @@ super() }}
 				inp.classList.add("form-check-input")
 				inp.type = "checkbox"
 				inp.checked = false
-				inp.id = arr6.id
-				// inp.disable = 'disabled';
+				inp.id = id
 				div.classList.add("form-check")
-				// let h1 = document.createElement('h1');
-				// h1.innerHTML= cell_value;
-
-				// label.appendChild(h1);
 				label.innerHTML = cell_value
 
 				div.appendChild(label)
 				div.appendChild(inp)
-				//cell_value = cell_value.replace("CO2eq","$CO_2eq$");
 				td.appendChild(div)
 				td.classList.add("aser")
 				td.classList.add("fw-normal")
@@ -2692,241 +2841,34 @@ super() }}
 				var data = table_handler.row(this).data()
 				// var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
 				console.log("data", data)
-				loadTable_strategies_desc(list_name, json_new)
 			}
 		})
 
-		// let json_aux_var_ac=[]
-		// let json_aux_var_exp=[]
-		// json_aux_var_ac.push("Mejoras de eficiencia en parque térmico")
-		// json_aux_var_exp.push("Generación con recurso hidráhulico")
-		// json_aux_var_exp.push("Generación distribuida con FNCER")
-		// json_aux_var_exp.push("Generación eléctrica con geotérmica")
-
-		// json_var["Estrategias de actualización"]= json_aux_var_ac
-		// json_var["Estrategias de expansión"]= json_aux_var_exp
-		// console.log("json_var_1",json_var)
 		function validarChecks() {
 			console.log("---- validarChecks ----")
-			var strategie_id = ""
-			var arr_ids = []
+			let sub_strategie_id = ""
+			let arr_ids = []
 			$("#table_variables tbody tr").each(function (i, v) {
-				console.log("---- validarChecks busca tabla----")
-
-				//$(this).find(".form-check-input").prop('checked', true);
-
 				if ($(this).find(".form-check-input").is(":checked") == true) {
-					strategie_id = $(this).find(".form-check-input").attr("id")
-					console.log("---- validarChecks ids checkeados----")
-					console.log(strategie_id)
-					arr_ids.push(strategie_id)
+					sub_strategie_id = $(this).find(".form-check-input").attr("id")
+					arr_ids.push(sub_strategie_id)
 				}
 			})
-
-			console.log("----arrys de ids----")
-			console.log(arr_ids)
 			// prettier-ignore
-
 			let strategies_to_load = JSON.parse('{{ strategies_definition| tojson | safe }}')
+			// prettier-ignore
+			let units = JSON.parse('{{units | tojson | safe}}')
 			loadStrategies(strategies_to_load, arr_ids)
+			loadUnit(units)
 		}
 
 		// validarChecks();
 		const button = document.getElementById("activar_scenario")
-		loadTable3(list_name)
+		//loadTable3(list_name)
 		button.addEventListener("click", validarChecks)
 	}
 
-	function loadTable3(list_name) {
-		var json_var = {}
-		let json_aux_var_ac = []
-		let json_aux_var_exp = []
-		json_aux_var_ac.push(
-			"Porcentaje de incorporación de las mejoras de eficiencia en parque térmico"
-		)
-		json_aux_var_ac.push("Eficiencia que se desea alcanzar")
-		json_aux_var_exp.push("Capacidad instalada de gas combustible")
-		json_aux_var_exp.push("Capacidad instalada de recurso hidráhulico")
-
-		json_var["Estrategias de actualización"] = json_aux_var_ac
-		json_var["Estrategias de expansión"] = json_aux_var_exp
-		console.log("json_var_1", json_var)
-
-		let n = 5
-		let valorObjetivo = 15
-		let fp = 0.515
-
-		expansionEstrategyFor(5, 15, 0.515)
-		upgradeStrategyForm(5, 0.5, 0.04)
-
-		function expansionEstrategyFor(n, valorObjetivo, fp) {
-			console.log("--expansionEstrategyFor--")
-			var increment = valorObjetivo / n
-			var data = []
-
-			let creaIncrement = increment
-			for (let a = 0; a < n; a++) {
-				data.push(creaIncrement)
-				creaIncrement = creaIncrement + increment
-				console.log("--increment--", increment)
-			}
-
-			console.log("data", data)
-
-			let gp = 0
-			for (let i = 0; i < data.length; i++) {
-				gp = data[i] * fp * 8760
-				console.log("--gp--", gp)
-			}
-			return gp
-		}
-
-		function upgradeStrategyForm(n, pi, np) {
-			// Eficiencia actual promedio de las plantas térmicas
-			// η_BAU: 37.20 %
-			console.log("--upgradeStrategyForm--")
-			var incrementPi = pi / n
-			var incrementNp = np / n
-			var nb = 0.372
-			var dataPi = []
-			var dataNp = []
-			var consumo_bau = [
-				38431.48958, 47251.72003, 55085.03816, 52372.57931, 43918.86529, 42678.89415, 52088.4272,
-				60911.15393, 58310.93145,
-			]
-
-			let creaIncrementPi = incrementPi
-			for (let a = 0; a < n; a++) {
-				dataPi.push(creaIncrementPi)
-				creaIncrementPi = creaIncrementPi + incrementPi
-				console.log("--incrementPi--", incrementPi)
-			}
-
-			let creaIncrementNp = incrementNp
-			for (let a = 0; a < n; a++) {
-				dataNp.push(creaIncrementNp)
-				creaIncrementNp = creaIncrementNp + incrementNp
-				console.log("--incrementNp--", incrementNp)
-			}
-
-			console.log("dataPi", dataPi)
-			console.log("dataNp", dataNp)
-
-			let cp = 0
-			for (let i = 0; i < dataNp.length; i++) {
-				cp = consumo_bau[i] * (1 - (1 - nb / dataNp[i]) * dataPi[i])
-				console.log("--cp--", cp)
-			}
-			return cp
-		}
-
-		let json_new = json_var
-		console.log("---variables--")
-		console.log("json_new", json_new)
-		let list_names = Object.keys(json_new)
-		let table3 = _table_.cloneNode(false)
-		let tbody3 = _tbody_.cloneNode(false),
-			columns = addAllColumnHeaders(list_name)
-		list_names.forEach(function (items, index) {
-			let tr3 = _tr_.cloneNode(false)
-			let td3 = _td_.cloneNode(false)
-			let a3 = _a_.cloneNode(false)
-
-			// console.log("items "+items)
-			a3.appendChild(document.createTextNode(items || ""))
-			td3.classList.add("fw-extrabold")
-			td3.classList.add("showhr")
-			let i3 = _i_.cloneNode(false)
-			i3.classList.add("fa-solid")
-			/* i3.classList.add('fa-angle-right') */
-			i3.classList.add("fa-caret-down")
-			i3.classList.add("pe-1")
-
-			td3.appendChild(i3)
-			td3.appendChild(a3)
-			tr3.appendChild(td3)
-			tbody3.appendChild(tr3)
-			let keys_list = json_new[items]
-			// var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
-			keys_list.forEach(function (item, index) {
-				let tr3 = _tr_.cloneNode(false)
-				let td3 = _td_.cloneNode(false)
-				let cell_value
-				cell_value = item
-
-				//cell_value = cell_value.replace("CO2eq","$CO_2eq$");
-				td3.appendChild(document.createTextNode(cell_value || ""))
-				td3.classList.add("aser")
-				td3.classList.add("fw-normal")
-				tr3.appendChild(td3)
-				tr3.style.display = "none"
-				tbody3.appendChild(tr3)
-			})
-		})
-
-		table3.appendChild(tbody3)
-
-		table3.id = "table_strategies_3"
-		table3.classList.add("table")
-		table3.classList.add("table-centered")
-		table3.classList.add("table-nowrap")
-		table3.classList.add("rounded")
-		table3.classList.add("mb-0")
-		table3.classList.add("border-0")
-		table3.classList.add("dt-responsive")
-
-		function addAllColumnHeaders(list_name) {
-			let columnSet = [],
-				thead = _thead_.cloneNode(false)
-			tr3 = _tr_.cloneNode(false)
-			let th = _th_.cloneNode(false)
-			let key = ""
-			if (list_name === "generation") {
-				key = "Generación"
-			} else if (list_name === "distribution") {
-				key = "Distribución"
-			} else if (list_name === "end_use") {
-				key = "Uso final"
-			}
-			columnSet.push(key)
-			th.appendChild(document.createTextNode(key))
-			th.classList.add("rounded")
-			th.classList.add("border-0")
-			tr3.appendChild(th)
-			thead.appendChild(tr3)
-			thead.classList.add("thead-light")
-			table3.appendChild(thead)
-			return columnSet
-		}
-
-		let el3 = document.getElementById("table_content_3")
-		el3.innerHTML = ""
-		el3.appendChild(table3)
-		const datatablesSimple = document.getElementById("table_strategies_3")
-		if (datatablesSimple) {
-			let tables = new DataTable(datatablesSimple, datatable_config)
-		}
-
-		let table_handler = $("#table_strategies_3").DataTable()
-		$("#table_strategies_3 tbody").on("click", "tr", function () {
-			let td_select = this.childNodes[0]
-			if (td_select.classList.contains("showhr")) {
-				$(this)
-					.closest("tr")
-					.nextUntil("tr:has(.showhr)")
-					.toggle("slow", function () {})
-			} else if (td_select.classList.contains("aser")) {
-				var child = $(this).prevAll("tr:has(.showhr)")[0].innerText
-				console.log("child", child)
-				var data = table_handler.row(this).data()
-				// var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
-				console.log("data", data)
-				loadTable_strategies_desc(list_name, json_new)
-			}
-		})
-	}
-
-	function loadTable_strategies_desc(list_name, json_new) {
+	function loadTableStrategiesDescription(list_name, json_new) {
 		let list_names = Object.keys(json_new)
 		let table = _table_.cloneNode(false)
 		let tbody = _tbody_.cloneNode(false),
@@ -3059,6 +3001,196 @@ super() }}
 				MathJax.typesetPromise()
 			})
 			.catch((err) => console.log(err.message))
+	}
+
+	function loadTable3(list_name) {
+		var json_var = {}
+		let json_aux_var_ac = []
+		let json_aux_var_exp = []
+		json_aux_var_ac.push(
+			"Porcentaje de incorporación de las mejoras de eficiencia en parque térmico"
+		)
+		json_aux_var_ac.push("Eficiencia que se desea alcanzar")
+		json_aux_var_exp.push("Capacidad instalada de gas combustible")
+		json_aux_var_exp.push("Capacidad instalada de recurso hidráhulico")
+
+		json_var["Estrategias de actualización"] = json_aux_var_ac
+		json_var["Estrategias de expansión"] = json_aux_var_exp
+		console.log("json_var_1", json_var)
+
+		let n = 5
+		let valorObjetivo = 15
+		let fp = 0.515
+
+		expansionEstrategyFor(5, 15, 0.515)
+		upgradeStrategyForm(5, 0.5, 0.04)
+
+		function expansionEstrategyFor(n, valorObjetivo, fp) {
+			console.log("--expansionEstrategyFor--")
+			var increment = valorObjetivo / n
+			var data = []
+
+			let creaIncrement = increment
+			for (let a = 0; a < n; a++) {
+				data.push(creaIncrement)
+				creaIncrement = creaIncrement + increment
+				console.log("--increment--", increment)
+			}
+
+			console.log("data", data)
+
+			let gp = 0
+			for (let i = 0; i < data.length; i++) {
+				gp = data[i] * fp * 8760
+				console.log("--gp--", gp)
+			}
+			return gp
+		}
+
+		function upgradeStrategyForm(n, pi, np) {
+			// Eficiencia actual promedio de las plantas térmicas
+			// η_BAU: 37.20 %
+			console.log("--upgradeStrategyForm--")
+			var incrementPi = pi / n
+			var incrementNp = np / n
+			var nb = 0.372
+			var dataPi = []
+			var dataNp = []
+			var consumo_bau = [
+				38431.48958, 47251.72003, 55085.03816, 52372.57931, 43918.86529, 42678.89415, 52088.4272,
+				60911.15393, 58310.93145,
+			]
+
+			let creaIncrementPi = incrementPi
+			for (let a = 0; a < n; a++) {
+				dataPi.push(creaIncrementPi)
+				creaIncrementPi = creaIncrementPi + incrementPi
+				console.log("--incrementPi--", incrementPi)
+			}
+
+			let creaIncrementNp = incrementNp
+			for (let a = 0; a < n; a++) {
+				dataNp.push(creaIncrementNp)
+				creaIncrementNp = creaIncrementNp + incrementNp
+				console.log("--incrementNp--", incrementNp)
+			}
+
+			console.log("dataPi", dataPi)
+			console.log("dataNp", dataNp)
+
+			let cp = 0
+			for (let i = 0; i < dataNp.length; i++) {
+				cp = consumo_bau[i] * (1 - (1 - nb / dataNp[i]) * dataPi[i])
+				console.log("--cp--", cp)
+			}
+			return cp
+		}
+
+		let json_new = json_var
+		console.log("---variables--")
+		console.log("json_new", json_new)
+		let list_names = Object.keys(json_new)
+		let table3 = _table_.cloneNode(false)
+		let tbody3 = _tbody_.cloneNode(false),
+			columns = addAllColumnHeaders(list_name)
+		list_names.forEach(function (items, index) {
+			let tr3 = _tr_.cloneNode(false)
+			let td3 = _td_.cloneNode(false)
+			let a3 = _a_.cloneNode(false)
+
+			// console.log("items "+items)
+			a3.appendChild(document.createTextNode(items || ""))
+			td3.classList.add("fw-extrabold")
+			td3.classList.add("showhr")
+			let i3 = _i_.cloneNode(false)
+			i3.classList.add("fa-solid")
+			/* i3.classList.add('fa-angle-right') */
+			i3.classList.add("fa-caret-down")
+			i3.classList.add("pe-1")
+
+			td3.appendChild(i3)
+			td3.appendChild(a3)
+			tr3.appendChild(td3)
+			tbody3.appendChild(tr3)
+			let keys_list = json_new[items]
+			// prettier-ignore
+			// var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
+			keys_list.forEach(function (item, index) {
+				let tr3 = _tr_.cloneNode(false)
+				let td3 = _td_.cloneNode(false)
+				let cell_value
+				cell_value = item
+
+				//cell_value = cell_value.replace("CO2eq","$CO_2eq$");
+				td3.appendChild(document.createTextNode(cell_value || ""))
+				td3.classList.add("aser")
+				td3.classList.add("fw-normal")
+				tr3.appendChild(td3)
+				tr3.style.display = "none"
+				tbody3.appendChild(tr3)
+			})
+		})
+
+		table3.appendChild(tbody3)
+
+		table3.id = "table_strategies_3"
+		table3.classList.add("table")
+		table3.classList.add("table-centered")
+		table3.classList.add("table-nowrap")
+		table3.classList.add("rounded")
+		table3.classList.add("mb-0")
+		table3.classList.add("border-0")
+		table3.classList.add("dt-responsive")
+
+		function addAllColumnHeaders(list_name) {
+			let columnSet = [],
+				thead = _thead_.cloneNode(false)
+			tr3 = _tr_.cloneNode(false)
+			let th = _th_.cloneNode(false)
+			let key = ""
+			if (list_name === "generation") {
+				key = "Generación"
+			} else if (list_name === "distribution") {
+				key = "Distribución"
+			} else if (list_name === "end_use") {
+				key = "Uso final"
+			}
+			columnSet.push(key)
+			th.appendChild(document.createTextNode(key))
+			th.classList.add("rounded")
+			th.classList.add("border-0")
+			tr3.appendChild(th)
+			thead.appendChild(tr3)
+			thead.classList.add("thead-light")
+			table3.appendChild(thead)
+			return columnSet
+		}
+
+		let el3 = document.getElementById("table_content_3")
+		el3.innerHTML = ""
+		el3.appendChild(table3)
+		const datatablesSimple = document.getElementById("table_strategies_3")
+		if (datatablesSimple) {
+			let tables = new DataTable(datatablesSimple, datatable_config)
+		}
+
+		let table_handler = $("#table_strategies_3").DataTable()
+		$("#table_strategies_3 tbody").on("click", "tr", function () {
+			let td_select = this.childNodes[0]
+			if (td_select.classList.contains("showhr")) {
+				$(this)
+					.closest("tr")
+					.nextUntil("tr:has(.showhr)")
+					.toggle("slow", function () {})
+			} else if (td_select.classList.contains("aser")) {
+				var child = $(this).prevAll("tr:has(.showhr)")[0].innerText
+				console.log("child", child)
+				var data = table_handler.row(this).data()
+				// var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
+				console.log("data", data)
+				loadTable_strategies_desc(list_name, json_new)
+			}
+		})
 	}
 
 	// function loadTable3(list_name){
@@ -3275,7 +3407,8 @@ super() }}
 	var list_name = "generation"
 	var key = "Factor de Pérdidas"
 	var variable_mathjax = true
-	update_list(list_name)
+	choice(list_name)
+	//update_list(list_name)
 	// var contador = 0;
 	// var contador_linea_base = 0;
 	// update_list_ind(list_name);
