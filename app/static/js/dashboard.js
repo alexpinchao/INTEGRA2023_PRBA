@@ -3,8 +3,8 @@ var chart_element_3 = ""
 var keys_list_3 = []
 
 var units_array = []
-function loadUnit(units){
-    units_array = units
+function loadUnit(units) {
+	units_array = units
 }
 
 function validateDate(){
@@ -29,14 +29,43 @@ function cleanGrahpIndicators(){
 }
 function checkParameters() {
 	var year_selected = document.getElementById("fecha").innerText
-	var text_process_selected = $(".process-selected").find("span").text()
-	console.log("----- check parameters -----")
-	console.log(year_selected)
-	console.log(text_process_selected)
-	if (!(year_selected === "Seleccionar") && !(text_process_selected === "Seleccionar")) {
+	var text_process_selected = $("#process-selected").find("span").text()
+	var name_scenario = document.getElementById("name-input").value
+	console.log(name_scenario)
+	if (
+		!(year_selected === "Seleccionar") &&
+		!(text_process_selected === "Seleccionar") &&
+		!(name_scenario == null)
+	) {
+		resetElements()
+		loadParameters(name_scenario, text_process_selected)
 		ActiveSection("scenarios_2")
 		return
+	} else {
+		$("#error-section").text("Verifique los campos ingresados")
+		if (year_selected === "Seleccionar") {
+			$("#select-year").addClass("btn-danger")
+		}
+		if (text_process_selected === "Seleccionar") {
+			$("#process-selected").addClass("btn-danger")
+		}
+		if (!name_scenario) {
+			$("#name-input").addClass("border-danger")
+		}
 	}
+}
+
+function loadParameters(name, process) {
+	document.querySelectorAll("#scenario-name-macro").forEach(function (element) {
+		element.innerHTML = name
+	})
+	document.querySelectorAll("#scenario-process-macro").forEach(function (element) {
+		element.innerHTML = process
+	})
+}
+
+function resetElements() {
+	$(".checkout-progress").attr("data-current-step", 1)
 }
 
 function createChartExpansion(
@@ -90,16 +119,24 @@ function createChartExpansion(
 	var unit = ""
 	var units = units_array
 	if (indicator in units) {
-	    unit = units[indicator];
-	    if (unit == 'Porcentaje %') {
-	        array = array.map(function (x) { return x * 100; });;
-	    }
+		unit = units[indicator]
+		if (unit == "Porcentaje %") {
+			array = array.map(function (x) {
+				return x * 100
+			})
+		}
 	}
 	/* Agregada - Capturar graficas actuales > 2 restablece */
 
 	/* Desagregados - else */
-	if (last_indicator_3 == indicator) {
-		if (!keys_list_3.includes(row_table)) {
+
+	try {
+		_ = chart_element_3.data.datasets
+		var graphAlreadyExist = true
+	} catch (e) {
+		var graphAlreadyExist = false
+	} finally {
+		if (!keys_list_3.includes(row_table) && graphAlreadyExist) {
 			keys_list_3.push(row_table)
 			const update_dataset = {
 				label: row_table,
@@ -111,83 +148,80 @@ function createChartExpansion(
 			}
 			chart_element_3.data.datasets.push(update_dataset)
 			chart_element_3.update()
+			return
 		} else {
-			keys_list_3 = keys_list_3.filter((data) => data != row_table)
-			chart_element_3.data.datasets = chart_element_3.data.datasets.filter(
-				(data) => data.label != row_table
-			)
-			chart_element_3.update()
-		}
-	} else {
-		keys_list_3 = [row_table]
-		var mydatasets = [
 			{
-				label: row_table,
-				borderColor: colorslist[0],
-				backgroundColor: b_colorslist[0],
-				data: array,
-				spanGraphs: false,
-				fill: true,
-			},
-		]
-		let delayed
-		$("#" + line_chart).remove()
-		$("#" + graph_container).append(
-			'<canvas id="' + line_chart + '" width="100%" height="48vh"><canvas>'
-		)
-		var config = {
-			type: "bar",
-			data: {
-				labels: labels,
-				datasets: mydatasets,
-			},
-			options: {
-				responsive: true,
-				scales: {
-					xAxes: [
-						{
-							stacked: true,
-							scaleLabel: {
-								display: true,
-								labelString: "Año",
+				keys_list_3 = [row_table]
+				var mydatasets = [
+					{
+						label: row_table,
+						borderColor: colorslist[0],
+						backgroundColor: b_colorslist[0],
+						data: array,
+						spanGraphs: false,
+						fill: true,
+					},
+				]
+				let delayed
+				$("#" + line_chart).remove()
+				$("#" + graph_container).append(
+					'<canvas id="' + line_chart + '" width="100%" height="48vh"><canvas>'
+				)
+				var config = {
+					type: "bar",
+					data: {
+						labels: labels,
+						datasets: mydatasets,
+					},
+					options: {
+						responsive: true,
+						scales: {
+							xAxes: [
+								{
+									stacked: true,
+									scaleLabel: {
+										display: true,
+										labelString: "Año",
+									},
+								},
+							],
+							yAxes: [
+								{
+									stacked: true,
+									scaleLabel: {
+										display: true,
+										labelString: unit,
+									},
+								},
+							],
+						},
+						title: {
+							display: false,
+							text: table_name,
+						},
+						legend: {
+							position: "bottom",
+						},
+						animation: {
+							onComplete: () => {
+								delayed = true
+							},
+							delay: (context) => {
+								let delay = 0
+								if (context.type === "data" && context.mode === "default" && !delayed) {
+									delay = context.dataIndex * 300 + context.datasetIndex * 100
+								}
+								return delay
 							},
 						},
-					],
-					yAxes: [
-						{
-							stacked: true,
-							scaleLabel: {
-								display: true,
-								labelString: unit,
-							},
-						},
-					],
-				},
-				title: {
-					display: false,
-					text: table_name,
-				},
-				legend: {
-					position: "bottom",
-				},
-				animation: {
-					onComplete: () => {
-						delayed = true
 					},
-					delay: (context) => {
-						let delay = 0
-						if (context.type === "data" && context.mode === "default" && !delayed) {
-							delay = context.dataIndex * 300 + context.datasetIndex * 100
-						}
-						return delay
-					},
-				},
-			},
+				}
+				chart_element_3 = new Chart(document.getElementById(line_chart), config)
+			}
+			last_indicator_3 = indicator
+			console.log("last_indicator_3", last_indicator_3)
 		}
-		chart_element_3 = new Chart(document.getElementById(line_chart), config)
 	}
-	last_indicator_3 = indicator
-	console.log("last_indicator_3", last_indicator_3)
 }
 
 var last_indicator_4 = ""
@@ -246,16 +280,24 @@ function createChartUpgrade(
 	var unit = ""
 	var units = units_array
 	if (indicator in units) {
-	    unit = units[indicator];
-	    if (unit == 'Porcentaje %') {
-	        array = array.map(function (x) { return x * 100; });;
-	    }
+		unit = units[indicator]
+		if (unit == "Porcentaje %") {
+			array = array.map(function (x) {
+				return x * 100
+			})
+		}
 	}
 	/* Agregada - Capturar graficas actuales > 2 restablece */
 
 	/* Desagregados - else */
-	if (last_indicator_4 == indicator) {
-		if (!keys_list_4.includes(row_table)) {
+
+	try {
+		_ = chart_element_4.data.datasets
+		var graphAlreadyExist = true
+	} catch (e) {
+		var graphAlreadyExist = false
+	} finally {
+		if (!keys_list_4.includes(row_table) && graphAlreadyExist) {
 			keys_list_4.push(row_table)
 			const update_dataset = {
 				label: row_table,
@@ -268,82 +310,76 @@ function createChartUpgrade(
 			chart_element_4.data.datasets.push(update_dataset)
 			chart_element_4.update()
 		} else {
-			keys_list_4 = keys_list_4.filter((data) => data != row_table)
-			chart_element_4.data.datasets = chart_element_4.data.datasets.filter(
-				(data) => data.label != row_table
+			keys_list_4 = [row_table]
+			var mydatasets = [
+				{
+					label: row_table,
+					borderColor: colorslist[0],
+					backgroundColor: b_colorslist[0],
+					data: array,
+					spanGraphs: false,
+					fill: true,
+				},
+			]
+			let delayed
+			$("#" + line_chart).remove()
+			$("#" + graph_container).append(
+				'<canvas id="' + line_chart + '" width="100%" height="48vh"><canvas>'
 			)
-			chart_element_4.update()
-		}
-	} else {
-		keys_list_4 = [row_table]
-		var mydatasets = [
-			{
-				label: row_table,
-				borderColor: colorslist[0],
-				backgroundColor: b_colorslist[0],
-				data: array,
-				spanGraphs: false,
-				fill: true,
-			},
-		]
-		let delayed
-		$("#" + line_chart).remove()
-		$("#" + graph_container).append(
-			'<canvas id="' + line_chart + '" width="100%" height="48vh"><canvas>'
-		)
-		var config = {
-			type: "bar",
-			data: {
-				labels: labels,
-				datasets: mydatasets,
-			},
-			options: {
-				responsive: true,
-				scales: {
-					xAxes: [
-						{
-							stacked: true,
-							scaleLabel: {
-								display: true,
-								labelString: "Año",
+			var config = {
+				type: "bar",
+				data: {
+					labels: labels,
+					datasets: mydatasets,
+				},
+				options: {
+					responsive: true,
+					scales: {
+						xAxes: [
+							{
+								stacked: true,
+								scaleLabel: {
+									display: true,
+									labelString: "Año",
+								},
 							},
-						},
-					],
-					yAxes: [
-						{
-							stacked: true,
-							scaleLabel: {
-								display: true,
-								labelString: unit,
+						],
+						yAxes: [
+							{
+								stacked: true,
+								scaleLabel: {
+									display: true,
+									labelString: unit,
+								},
 							},
-						},
-					],
-				},
-				title: {
-					display: false,
-					text: table_name,
-				},
-				legend: {
-					position: "bottom",
-				},
-				animation: {
-					onComplete: () => {
-						delayed = true
+						],
 					},
-					delay: (context) => {
-						let delay = 0
-						if (context.type === "data" && context.mode === "default" && !delayed) {
-							delay = context.dataIndex * 300 + context.datasetIndex * 100
-						}
-						return delay
+					title: {
+						display: false,
+						text: table_name,
+					},
+					legend: {
+						position: "bottom",
+					},
+					animation: {
+						onComplete: () => {
+							delayed = true
+						},
+						delay: (context) => {
+							let delay = 0
+							if (context.type === "data" && context.mode === "default" && !delayed) {
+								delay = context.dataIndex * 300 + context.datasetIndex * 100
+							}
+							return delay
+						},
 					},
 				},
-			},
+			}
+			chart_element_4 = new Chart(document.getElementById(line_chart), config)
 		}
-		chart_element_4 = new Chart(document.getElementById(line_chart), config)
+		last_indicator_4 = indicator
+		console.log("last_indicator_4", last_indicator_4)
 	}
-	last_indicator_4 = indicator
-	console.log("last_indicator_4", last_indicator_4)
 }
 
 var last_indicator_5 = ""
@@ -418,10 +454,12 @@ function createChartIndicador1(
 	var unit = ""
 	var units = units_array
 	if (indicator in units) {
-	    unit = units[indicator];
-	    if (unit == 'Porcentaje %') {
-	        array = array.map(function (x) { return x * 100; });;
-	    }
+		unit = units[indicator]
+		if (unit == "Porcentaje %") {
+			array = array.map(function (x) {
+				return x * 100
+			})
+		}
 	}
 	/* Agregada - Capturar graficas actuales > 2 restablece */
 
@@ -590,10 +628,12 @@ function createChartIndicador2(
 	var unit = ""
 	var units = units_array
 	if (indicator in units) {
-	    unit = units[indicator];
-	    if (unit == 'Porcentaje %') {
-	        array = array.map(function (x) { return x * 100; });;
-	    }
+		unit = units[indicator]
+		if (unit == "Porcentaje %") {
+			array = array.map(function (x) {
+				return x * 100
+			})
+		}
 	}
 	/* Agregada - Capturar graficas actuales > 2 restablece */
 
@@ -762,10 +802,12 @@ function createChartIndicador3(
 	var unit = ""
 	var units = units_array
 	if (indicator in units) {
-	    unit = units[indicator];
-	    if (unit == 'Porcentaje %') {
-	        array = array.map(function (x) { return x * 100; });;
-	    }
+		unit = units[indicator]
+		if (unit == "Porcentaje %") {
+			array = array.map(function (x) {
+				return x * 100
+			})
+		}
 	}
 	/* Agregada - Capturar graficas actuales > 2 restablece */
 
@@ -865,8 +907,11 @@ function createChartIndicador3(
 function loadSliders(strategies_array) {
 	$(".form-range").each(function () {
 		$(this).bootstrapSlider()
-		$(this).on("change", function (slideEvt) {
+		$(this).on("change", { passive: true }, function (slideEvt) {
 			$(this).parents(".group-form-range").find(".form-range-value").text(slideEvt.value.newValue)
+		})
+		$(this).on("slideStop", { passive: true }, function (slideEvt) {
+			slideEvt.preventDefault()
 			updateChart(strategies_array)
 		})
 	})
@@ -888,7 +933,7 @@ function addClass() {
 }
 
 function getProcessName() {
-	var processName = $("#select-dropdown-var").find("span").text()
+	var processName = $("#process-selected").find("span").text()
 	if (processName == "Generación") {
 		processName = "generation"
 	} else if (processName == "Distribución") {
