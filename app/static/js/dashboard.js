@@ -16,6 +16,7 @@ function checkParameters() {
 		!(text_process_selected === "Seleccionar") &&
 		!(name_scenario == null)
 	) {
+		resetElements()
 		loadParameters(name_scenario, text_process_selected)
 		ActiveSection("scenarios_2")
 		return
@@ -40,6 +41,10 @@ function loadParameters(name, process) {
 	document.querySelectorAll("#scenario-process-macro").forEach(function (element) {
 		element.innerHTML = process
 	})
+}
+
+function resetElements(){
+	$(".checkout-progress").attr("data-current-step",1)
 }
 
 function createChartExpansion(
