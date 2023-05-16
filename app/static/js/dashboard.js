@@ -6,6 +6,27 @@ var units_array = []
 function loadUnit(units){
     units_array = units
 }
+
+function validateDate(){
+	let anio_base = 2021
+	let year_selected = parseInt(document.getElementById("fecha").innerText)
+	let n = year_selected- anio_base
+	return n
+}
+
+// const button_grahp_strategies = document.getElementById("adjust_sub_estrategies_prev")
+// button.addEventListener("click", cleanGrahpVariables)
+
+// const button_grahp_indicators = document.getElementById("visalization_indicators_prev")
+// button.addEventListener("click", cleanGrahpIndicators)
+
+function cleanGrahpVariables(){
+	//aqui va codigo que limpie las graficas
+}
+
+function cleanGrahpIndicators(){
+	//aqui va codigo que limpie las graficas
+}
 function checkParameters() {
 	var year_selected = document.getElementById("fecha").innerText
 	var text_process_selected = $(".process-selected").find("span").text()
@@ -1536,6 +1557,18 @@ function createStrategyUpgradeComplementary(sub_strategies, strategies_array_cop
 	console.log("entra a actualizacion")
 }
 
+function emissionFactor(name){
+	let fe = 0
+	if (name == "Generación eléctrica a partir de parque térmico"){
+		fe = 0.126379
+	}else if (name == "Generación eléctrica a partir plantas de Auto y Cogeneración"){
+		fe = 0.126379
+	}else{
+		fe = 0
+	}
+	return fe
+}
+
 function createGraphIndicator(create_data_indicator_generation, create_data_indicator_consume) {
 	let generacion = create_data_indicator_generation
 	let consumo = create_data_indicator_consume
@@ -1544,8 +1577,6 @@ function createGraphIndicator(create_data_indicator_generation, create_data_indi
 		344.1612833, 355.4685381, 367.8705797, 380.837696, 394.8857455, 408.9742253, 423.1216551,
 		437.1906672, 451.7446956,
 	]
-	let fe = 0.13
-
 	let keys_genrartion = Object.keys(generacion)
 	//let keys_consume = Object.keys(consumo)
 	keys_genrartion.forEach(function (item, index) {
@@ -1558,7 +1589,7 @@ function createGraphIndicator(create_data_indicator_generation, create_data_indi
 		let data_generacion = data_generacion_total[0]
 		let name = data_generacion_total[1]
 		let data_consumo = data_consumo_total[0]
-
+		let fe = emissionFactor(name)
 		generationIndicatorEficiency(data_generacion, data_consumo, name)
 		generationIndicatorsIEP(data_consumo, pib, name)
 		generationIndicatorsIEC(data_consumo, fe, pib, name)
@@ -1566,7 +1597,7 @@ function createGraphIndicator(create_data_indicator_generation, create_data_indi
 }
 function plotDataStrategies(strategies) {
 	let strategiesModels = strategies.models
-	let n = 9
+	let n = validateDate()
 
 	let strategiesName = getStrategieName()
 
@@ -1669,7 +1700,7 @@ function plotDataStrategies(strategies) {
 
 function plotDataIndicators(strategies) {
 	let strategiesModels = strategies.models
-	let n = 9
+	let n = validateDate()
 	let strategies_array_copia = const_strategies
 
 	let strategiesName = getStrategieName()
@@ -1717,6 +1748,11 @@ function plotDataIndicators(strategies) {
 					})
 					return newSubStrategies
 				})
+
+			let strategies_relationated_expansion = a.strategies
+				.filter((strategy) =>
+					b.strategies.some((strategy2) => strategy2.id_relation.includes(strategy.id_relation))
+				)
 			let sub_str_not_included = b.strategies
 				.filter((strategy) =>
 					a.strategies.some((strategy2) => strategy2.id_relation.includes(strategy.id_relation))
@@ -1734,14 +1770,15 @@ function plotDataIndicators(strategies) {
 					let new_ids = sub.id_relation
 					return new_ids
 				})
-			// console.log("como es a.strategies",a.strategies)
-			// console.log("como es strategies_relationated",strategies_relationated)
+			console.log("como es a.strategies",a.strategies)
+			console.log("como es a.strategies filtrado",strategies_relationated_expansion)
+			console.log("como es strategies_relationated",strategies_relationated)
 			// console.log("como es sub_str_not_included auixlio",sub_str_not_included)
 			console.log("como es sub_str_not_included", sub_str_not_included)
 			console.log("como es sub_str_not_included_expansion", sub_str_not_included_expansion)
 
 			let create_data_indicator = generateDataIndicatorWithValues(
-				a.strategies,
+				strategies_relationated_expansion,
 				strategies_relationated,
 				n
 			)
@@ -1757,12 +1794,8 @@ function plotDataIndicators(strategies) {
 				let sub_str_not_relationed = b.strategies.filter(
 					(strategy) => !sub_str_not_included.includes(strategy.id_relation)
 				)
-
-				//generateGhapUpgrade(sub_str_not_relationed,n,strategiesName[1])
-				console.log(
-					"como es sub_str_not_relationed no incluye actualizacion",
-					sub_str_not_relationed
-				)
+				console.log("sub_str_not_relationed está actualizacion no incluye expansion",sub_str_not_relationed)
+				createStrategyUpgradeComplementary(sub_str_not_relationed, strategies_array_copia, n)
 			}
 			if (
 				Object.entries(
@@ -1774,9 +1807,8 @@ function plotDataIndicators(strategies) {
 				let sub_str_not_relationed = a.strategies.filter(
 					(strategy) => !sub_str_not_included_expansion.includes(strategy.id_relation)
 				)
-
-				//generateGhapUpgrade(sub_str_not_relationed,n,strategiesName[1])
-				console.log("como es sub_str_not_relationed no incluye expansion", sub_str_not_relationed)
+				console.log("sub_str_not_relationed está expansion no incluye actualizacion", sub_str_not_relationed)
+				createStrategyExpansionComplementary(sub_str_not_relationed, strategies_array_copia, n)
 			}
 		} else if (
 			Object.entries(
@@ -1815,30 +1847,34 @@ function plotDataIndicators(strategies) {
 	}
 }
 
-function generateComplementaryStrategies() {
-	let strategies_relationated = b.strategies
-		.filter((strategy) =>
-			a.strategies.some((strategy2) => strategy2.id_relation.includes(strategy.id_relation))
-		)
-		.map((sub_strategies) => {
-			let newSubStrategies = Object.assign({}, sub_strategies, {
-				values_BAU: a.strategies
-					.filter((strategyValue) => strategyValue.id_relation.includes(sub_strategies.id_relation))
-					.map((sub_strategies_values) => {
-						let newSubStrategies = modelExpansionEstrategyOnlyData(
-							n,
-							parseFloat(sub_strategies_values.selected_value),
-							sub_strategies_values.fp
-						)
-						return newSubStrategies
-					})[0],
-			})
-			return newSubStrategies
-		})
-	return strategies_relationated
-}
+// function generateComplementaryStrategies() {
+// 	let strategies_relationated = b.strategies
+// 		.filter((strategy) =>
+// 			a.strategies.some((strategy2) => strategy2.id_relation.includes(strategy.id_relation))
+// 		)
+// 		.map((sub_strategies) => {
+// 			let newSubStrategies = Object.assign({}, sub_strategies, {
+// 				values_BAU: a.strategies
+// 					.filter((strategyValue) => strategyValue.id_relation.includes(sub_strategies.id_relation))
+// 					.map((sub_strategies_values) => {
+// 						let newSubStrategies = modelExpansionEstrategyOnlyData(
+// 							n,
+// 							parseFloat(sub_strategies_values.selected_value),
+// 							sub_strategies_values.fp
+// 						)
+// 						return newSubStrategies
+// 					})[0],
+// 			})
+// 			return newSubStrategies
+// 		})
+// 	return strategies_relationated
+// }
 
-function modelExpansionEstrategyOnlyData(n, valorObjetivo, fp) {
+function modelExpansionEstrategyOnlyData(
+	n,
+	valorObjetivo,
+	fp
+	) {
 	var increment = valorObjetivo / n
 	var data = []
 	var data_Return = []
@@ -1856,7 +1892,12 @@ function modelExpansionEstrategyOnlyData(n, valorObjetivo, fp) {
 	return data_Return
 }
 
-function modelExpansionEstrategy(n, valorObjetivo, fp, name) {
+function modelExpansionEstrategy(
+	n,
+	valorObjetivo,
+	fp,
+	name
+	) {
 	var increment = valorObjetivo / n
 	var data = []
 	var data_plot = []
@@ -1886,7 +1927,13 @@ function modelExpansionEstrategy(n, valorObjetivo, fp, name) {
 	return data_plot_return
 }
 
-function modelUpgradeStrategy(n, nj, dataIn, n_LB, name) {
+function modelUpgradeStrategy(
+	n,
+	nj,
+	dataIn,
+	n_LB,
+	name
+	) {
 	// Generación con recurso hidráhulico
 	// ESTA FUNCION TIENE EN CUENTA LOS VALORES BAU ACTUALES Y VALORES TEORICOS DE LA EFICIENCIA .
 	// ENTONCES PARA TENER EL VALOR DEL INCREMENTO DEBEMOS EMPEZAR EN EL BAU COMO ORIGEN
