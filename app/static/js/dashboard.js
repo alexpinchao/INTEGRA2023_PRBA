@@ -43,8 +43,8 @@ function loadParameters(name, process) {
 	})
 }
 
-function resetElements(){
-	$(".checkout-progress").attr("data-current-step",1)
+function resetElements() {
+	$(".checkout-progress").attr("data-current-step", 1)
 }
 
 function createChartExpansion(
@@ -108,8 +108,14 @@ function createChartExpansion(
 	/* Agregada - Capturar graficas actuales > 2 restablece */
 
 	/* Desagregados - else */
-	if (last_indicator_3 == indicator) {
-		if (!keys_list_3.includes(row_table)) {
+
+	try {
+		_ = chart_element_3.data.datasets
+		var graphAlreadyExist = true
+	} catch (e) {
+		var graphAlreadyExist = false
+	} finally {
+		if (!keys_list_3.includes(row_table) && graphAlreadyExist) {
 			keys_list_3.push(row_table)
 			const update_dataset = {
 				label: row_table,
@@ -121,83 +127,80 @@ function createChartExpansion(
 			}
 			chart_element_3.data.datasets.push(update_dataset)
 			chart_element_3.update()
+			return
 		} else {
-			keys_list_3 = keys_list_3.filter((data) => data != row_table)
-			chart_element_3.data.datasets = chart_element_3.data.datasets.filter(
-				(data) => data.label != row_table
-			)
-			chart_element_3.update()
-		}
-	} else {
-		keys_list_3 = [row_table]
-		var mydatasets = [
 			{
-				label: row_table,
-				borderColor: colorslist[0],
-				backgroundColor: b_colorslist[0],
-				data: array,
-				spanGraphs: false,
-				fill: true,
-			},
-		]
-		let delayed
-		$("#" + line_chart).remove()
-		$("#" + graph_container).append(
-			'<canvas id="' + line_chart + '" width="100%" height="48vh"><canvas>'
-		)
-		var config = {
-			type: "bar",
-			data: {
-				labels: labels,
-				datasets: mydatasets,
-			},
-			options: {
-				responsive: true,
-				scales: {
-					xAxes: [
-						{
-							stacked: true,
-							scaleLabel: {
-								display: true,
-								labelString: "Año",
+				keys_list_3 = [row_table]
+				var mydatasets = [
+					{
+						label: row_table,
+						borderColor: colorslist[0],
+						backgroundColor: b_colorslist[0],
+						data: array,
+						spanGraphs: false,
+						fill: true,
+					},
+				]
+				let delayed
+				$("#" + line_chart).remove()
+				$("#" + graph_container).append(
+					'<canvas id="' + line_chart + '" width="100%" height="48vh"><canvas>'
+				)
+				var config = {
+					type: "bar",
+					data: {
+						labels: labels,
+						datasets: mydatasets,
+					},
+					options: {
+						responsive: true,
+						scales: {
+							xAxes: [
+								{
+									stacked: true,
+									scaleLabel: {
+										display: true,
+										labelString: "Año",
+									},
+								},
+							],
+							yAxes: [
+								{
+									stacked: true,
+									scaleLabel: {
+										display: true,
+										labelString: unit,
+									},
+								},
+							],
+						},
+						title: {
+							display: false,
+							text: table_name,
+						},
+						legend: {
+							position: "bottom",
+						},
+						animation: {
+							onComplete: () => {
+								delayed = true
+							},
+							delay: (context) => {
+								let delay = 0
+								if (context.type === "data" && context.mode === "default" && !delayed) {
+									delay = context.dataIndex * 300 + context.datasetIndex * 100
+								}
+								return delay
 							},
 						},
-					],
-					yAxes: [
-						{
-							stacked: true,
-							scaleLabel: {
-								display: true,
-								labelString: unit,
-							},
-						},
-					],
-				},
-				title: {
-					display: false,
-					text: table_name,
-				},
-				legend: {
-					position: "bottom",
-				},
-				animation: {
-					onComplete: () => {
-						delayed = true
 					},
-					delay: (context) => {
-						let delay = 0
-						if (context.type === "data" && context.mode === "default" && !delayed) {
-							delay = context.dataIndex * 300 + context.datasetIndex * 100
-						}
-						return delay
-					},
-				},
-			},
+				}
+				chart_element_3 = new Chart(document.getElementById(line_chart), config)
+			}
+			last_indicator_3 = indicator
+			console.log("last_indicator_3", last_indicator_3)
 		}
-		chart_element_3 = new Chart(document.getElementById(line_chart), config)
 	}
-	last_indicator_3 = indicator
-	console.log("last_indicator_3", last_indicator_3)
 }
 
 var last_indicator_4 = ""
@@ -266,8 +269,14 @@ function createChartUpgrade(
 	/* Agregada - Capturar graficas actuales > 2 restablece */
 
 	/* Desagregados - else */
-	if (last_indicator_4 == indicator) {
-		if (!keys_list_4.includes(row_table)) {
+
+	try {
+		_ = chart_element_4.data.datasets
+		var graphAlreadyExist = true
+	} catch (e) {
+		var graphAlreadyExist = false
+	} finally {
+		if (!keys_list_4.includes(row_table) && graphAlreadyExist) {
 			keys_list_4.push(row_table)
 			const update_dataset = {
 				label: row_table,
@@ -280,82 +289,76 @@ function createChartUpgrade(
 			chart_element_4.data.datasets.push(update_dataset)
 			chart_element_4.update()
 		} else {
-			keys_list_4 = keys_list_4.filter((data) => data != row_table)
-			chart_element_4.data.datasets = chart_element_4.data.datasets.filter(
-				(data) => data.label != row_table
+			keys_list_4 = [row_table]
+			var mydatasets = [
+				{
+					label: row_table,
+					borderColor: colorslist[0],
+					backgroundColor: b_colorslist[0],
+					data: array,
+					spanGraphs: false,
+					fill: true,
+				},
+			]
+			let delayed
+			$("#" + line_chart).remove()
+			$("#" + graph_container).append(
+				'<canvas id="' + line_chart + '" width="100%" height="48vh"><canvas>'
 			)
-			chart_element_4.update()
-		}
-	} else {
-		keys_list_4 = [row_table]
-		var mydatasets = [
-			{
-				label: row_table,
-				borderColor: colorslist[0],
-				backgroundColor: b_colorslist[0],
-				data: array,
-				spanGraphs: false,
-				fill: true,
-			},
-		]
-		let delayed
-		$("#" + line_chart).remove()
-		$("#" + graph_container).append(
-			'<canvas id="' + line_chart + '" width="100%" height="48vh"><canvas>'
-		)
-		var config = {
-			type: "bar",
-			data: {
-				labels: labels,
-				datasets: mydatasets,
-			},
-			options: {
-				responsive: true,
-				scales: {
-					xAxes: [
-						{
-							stacked: true,
-							scaleLabel: {
-								display: true,
-								labelString: "Año",
+			var config = {
+				type: "bar",
+				data: {
+					labels: labels,
+					datasets: mydatasets,
+				},
+				options: {
+					responsive: true,
+					scales: {
+						xAxes: [
+							{
+								stacked: true,
+								scaleLabel: {
+									display: true,
+									labelString: "Año",
+								},
 							},
-						},
-					],
-					yAxes: [
-						{
-							stacked: true,
-							scaleLabel: {
-								display: true,
-								labelString: unit,
+						],
+						yAxes: [
+							{
+								stacked: true,
+								scaleLabel: {
+									display: true,
+									labelString: unit,
+								},
 							},
-						},
-					],
-				},
-				title: {
-					display: false,
-					text: table_name,
-				},
-				legend: {
-					position: "bottom",
-				},
-				animation: {
-					onComplete: () => {
-						delayed = true
+						],
 					},
-					delay: (context) => {
-						let delay = 0
-						if (context.type === "data" && context.mode === "default" && !delayed) {
-							delay = context.dataIndex * 300 + context.datasetIndex * 100
-						}
-						return delay
+					title: {
+						display: false,
+						text: table_name,
+					},
+					legend: {
+						position: "bottom",
+					},
+					animation: {
+						onComplete: () => {
+							delayed = true
+						},
+						delay: (context) => {
+							let delay = 0
+							if (context.type === "data" && context.mode === "default" && !delayed) {
+								delay = context.dataIndex * 300 + context.datasetIndex * 100
+							}
+							return delay
+						},
 					},
 				},
-			},
+			}
+			chart_element_4 = new Chart(document.getElementById(line_chart), config)
 		}
-		chart_element_4 = new Chart(document.getElementById(line_chart), config)
+		last_indicator_4 = indicator
+		console.log("last_indicator_4", last_indicator_4)
 	}
-	last_indicator_4 = indicator
-	console.log("last_indicator_4", last_indicator_4)
 }
 
 var last_indicator_5 = ""
@@ -883,8 +886,11 @@ function createChartIndicador3(
 function loadSliders(strategies_array) {
 	$(".form-range").each(function () {
 		$(this).bootstrapSlider()
-		$(this).on("change", function (slideEvt) {
+		$(this).on("change", { passive: true }, function (slideEvt) {
 			$(this).parents(".group-form-range").find(".form-range-value").text(slideEvt.value.newValue)
+		})
+		$(this).on("slideStop", { passive: true }, function (slideEvt) {
+			slideEvt.preventDefault()
 			updateChart(strategies_array)
 		})
 	})
