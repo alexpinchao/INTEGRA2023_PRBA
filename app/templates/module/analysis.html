@@ -168,7 +168,7 @@ super() }}
 								</a>
 							</li>
 							<li class="breadcrumb-item">
-								<a href="#" onclick="ActiveSection('main')">Análisis de estrategias</a>
+								<a href="{{url_for('dashboard.analysis')}}">Análisis de estrategias</a>
 							</li>
 							<li class="breadcrumb-item active" aria-current="page">Cálculo</li>
 						</ol>
@@ -568,7 +568,7 @@ super() }}
 								</a>
 							</li>
 							<li class="breadcrumb-item">
-								<a href="#" onclick="ActiveSection('main')">Análisis de estrategias</a>
+								<a href="{{url_for('dashboard.analysis')}}">Análisis de estrategias</a>
 							</li>
 							<li class="breadcrumb-item active" aria-current="page">Cálculo</li>
 						</ol>
@@ -681,7 +681,7 @@ super() }}
 								</a>
 							</li>
 							<li class="breadcrumb-item">
-								<a href="#" onclick="ActiveSection('main')">Análisis de estrategias</a>
+								<a href="{{url_for('dashboard.analysis')}}">Análisis de estrategias</a>
 							</li>
 							<li class="breadcrumb-item active" aria-current="page">Cálculo</li>
 						</ol>
@@ -837,7 +837,7 @@ super() }}
 								</a>
 							</li>
 							<li class="breadcrumb-item">
-								<a href="#" onclick="ActiveSection('main')">Análisis de estrategias</a>
+								<a href="{{url_for('dashboard.analysis')}}">Análisis de estrategias</a>
 							</li>
 							<li class="breadcrumb-item active" aria-current="page">Cálculo</li>
 						</ol>
@@ -984,7 +984,7 @@ super() }}
 								</a>
 							</li>
 							<li class="breadcrumb-item">
-								<a href="#" onclick="ActiveSection('main')">Análisis de estrategias</a>
+								<a href="{{url_for('dashboard.analysis')}}">Análisis de estrategias</a>
 							</li>
 							<li class="breadcrumb-item active" aria-current="page">Cálculo</li>
 						</ol>
@@ -1218,7 +1218,7 @@ super() }}
 								</a>
 							</li>
 							<li class="breadcrumb-item">
-								<a href="#" onclick="ActiveSection('main')">Análisis de estrategias</a>
+								<a href="{{url_for('dashboard.analysis')}}">Análisis de estrategias</a>
 							</li>
 							<li class="breadcrumb-item active" aria-current="page">Resultados</li>
 						</ol>
@@ -2867,28 +2867,28 @@ super() }}
 					$(this)
 						.closest("tr")
 						.nextUntil("tr:has(.showhr)")
-						.toggle("slow", function () { })
+						.toggle("slow", function () {})
 				} else if (td_select.classList.contains("aser")) {
 					var child = $(this).prevAll("tr:has(.showhr)")[0].innerText
 				}
 			})
 		} else {
 			MathJax.typesetPromise()
-			.then(() => {
-				$("#table_variables_1 tbody").on("click", "tr", function () {
-					var td_select = this.childNodes[0]
-					if (td_select.classList.contains("showhr")) {
-						$(this)
-							.closest("tr")
-							.nextUntil("tr:has(.showhr)")
-							.toggle("slow", function () { })
-					} else if (td_select.classList.contains("aser")) {
-						var child = $(this).prevAll("tr:has(.showhr)")[0].innerText
-					}
+				.then(() => {
+					$("#table_variables_1 tbody").on("click", "tr", function () {
+						var td_select = this.childNodes[0]
+						if (td_select.classList.contains("showhr")) {
+							$(this)
+								.closest("tr")
+								.nextUntil("tr:has(.showhr)")
+								.toggle("slow", function () {})
+						} else if (td_select.classList.contains("aser")) {
+							var child = $(this).prevAll("tr:has(.showhr)")[0].innerText
+						}
+					})
+					MathJax.typesetPromise()
 				})
-				MathJax.typesetPromise()
-			})
-			.catch((err) => console.log(err.message))
+				.catch((err) => console.log(err.message))
 		}
 	}
 
