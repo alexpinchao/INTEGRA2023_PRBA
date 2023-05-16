@@ -3,19 +3,43 @@ var chart_element_3 = ""
 var keys_list_3 = []
 
 var units_array = []
-function loadUnit(units){
-    units_array = units
+function loadUnit(units) {
+	units_array = units
 }
 function checkParameters() {
 	var year_selected = document.getElementById("fecha").innerText
-	var text_process_selected = $(".process-selected").find("span").text()
-	console.log("----- check parameters -----")
-	console.log(year_selected)
-	console.log(text_process_selected)
-	if (!(year_selected === "Seleccionar") && !(text_process_selected === "Seleccionar")) {
+	var text_process_selected = $("#process-selected").find("span").text()
+	var name_scenario = document.getElementById("name-input").value
+	console.log(name_scenario)
+	if (
+		!(year_selected === "Seleccionar") &&
+		!(text_process_selected === "Seleccionar") &&
+		!(name_scenario == null)
+	) {
+		loadParameters(name_scenario, text_process_selected)
 		ActiveSection("scenarios_2")
 		return
+	} else {
+		$("#error-section").text("Verifique los campos ingresados")
+		if (year_selected === "Seleccionar") {
+			$("#select-year").addClass("btn-danger")
+		}
+		if (text_process_selected === "Seleccionar") {
+			$("#process-selected").addClass("btn-danger")
+		}
+		if (!name_scenario) {
+			$("#name-input").addClass("border-danger")
+		}
 	}
+}
+
+function loadParameters(name, process) {
+	document.querySelectorAll("#scenario-name-macro").forEach(function (element) {
+		element.innerHTML = name
+	})
+	document.querySelectorAll("#scenario-process-macro").forEach(function (element) {
+		element.innerHTML = process
+	})
 }
 
 function createChartExpansion(
@@ -69,10 +93,12 @@ function createChartExpansion(
 	var unit = ""
 	var units = units_array
 	if (indicator in units) {
-	    unit = units[indicator];
-	    if (unit == 'Porcentaje %') {
-	        array = array.map(function (x) { return x * 100; });;
-	    }
+		unit = units[indicator]
+		if (unit == "Porcentaje %") {
+			array = array.map(function (x) {
+				return x * 100
+			})
+		}
 	}
 	/* Agregada - Capturar graficas actuales > 2 restablece */
 
@@ -225,10 +251,12 @@ function createChartUpgrade(
 	var unit = ""
 	var units = units_array
 	if (indicator in units) {
-	    unit = units[indicator];
-	    if (unit == 'Porcentaje %') {
-	        array = array.map(function (x) { return x * 100; });;
-	    }
+		unit = units[indicator]
+		if (unit == "Porcentaje %") {
+			array = array.map(function (x) {
+				return x * 100
+			})
+		}
 	}
 	/* Agregada - Capturar graficas actuales > 2 restablece */
 
@@ -397,10 +425,12 @@ function createChartIndicador1(
 	var unit = ""
 	var units = units_array
 	if (indicator in units) {
-	    unit = units[indicator];
-	    if (unit == 'Porcentaje %') {
-	        array = array.map(function (x) { return x * 100; });;
-	    }
+		unit = units[indicator]
+		if (unit == "Porcentaje %") {
+			array = array.map(function (x) {
+				return x * 100
+			})
+		}
 	}
 	/* Agregada - Capturar graficas actuales > 2 restablece */
 
@@ -569,10 +599,12 @@ function createChartIndicador2(
 	var unit = ""
 	var units = units_array
 	if (indicator in units) {
-	    unit = units[indicator];
-	    if (unit == 'Porcentaje %') {
-	        array = array.map(function (x) { return x * 100; });;
-	    }
+		unit = units[indicator]
+		if (unit == "Porcentaje %") {
+			array = array.map(function (x) {
+				return x * 100
+			})
+		}
 	}
 	/* Agregada - Capturar graficas actuales > 2 restablece */
 
@@ -741,10 +773,12 @@ function createChartIndicador3(
 	var unit = ""
 	var units = units_array
 	if (indicator in units) {
-	    unit = units[indicator];
-	    if (unit == 'Porcentaje %') {
-	        array = array.map(function (x) { return x * 100; });;
-	    }
+		unit = units[indicator]
+		if (unit == "Porcentaje %") {
+			array = array.map(function (x) {
+				return x * 100
+			})
+		}
 	}
 	/* Agregada - Capturar graficas actuales > 2 restablece */
 
@@ -867,7 +901,7 @@ function addClass() {
 }
 
 function getProcessName() {
-	var processName = $("#select-dropdown-var").find("span").text()
+	var processName = $("#process-selected").find("span").text()
 	if (processName == "Generación") {
 		processName = "generation"
 	} else if (processName == "Distribución") {

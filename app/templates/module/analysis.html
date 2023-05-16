@@ -305,8 +305,8 @@ super() }}
 																<div class="btn-group p-1 w-50 m-0">
 																	<button
 																		type="button"
-																		id="select-dropdown-var"
-																		class="btn btn-sm btn-sm btn-primary dropdown-toggle dropdown-toggle-split process-selected"
+																		id="process-selected"
+																		class="btn btn-sm btn-sm btn-primary dropdown-toggle dropdown-toggle-split"
 																		data-bs-toggle="dropdown"
 																		aria-haspopup="true"
 																		aria-expanded="false"
@@ -390,6 +390,7 @@ super() }}
 																	Iniciar</a
 																>
 															</div>
+															<div id="error-section" class="text-center small"></div>
 														</div>
 													</div>
 												</div>
@@ -586,15 +587,24 @@ super() }}
 										<svg
 											class="w-6 h-6"
 											fill="currentColor"
-											viewBox="0 0 20 20"
 											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
 										>
 											<path
-												d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"
+												d="M17.867 2.504c-.355-.624-1.381-.623-1.736 0l-3.999 7A1 1 0 0 0 13 11h8a1.001 1.001 0 0 0 .868-1.496l-4.001-7zM3 22h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1zm14.5-9c-2.481 0-4.5 2.019-4.5 4.5s2.019 4.5 4.5 4.5 4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5z"
 											></path>
 										</svg>
 									</span>
-									<span class="h2 fw-extrabold">Cálculo de estrategias </span>
+									<span class="h3 fw-extrabold">Construcción de escenario</span>
+									<div class="row mx-0 my-1">
+										<div class="col-6 fw-extrabold mb-1 small">
+											Escenario:
+											<span class="fw-bold" id="scenario-name-macro">Nombre escenario</span>
+										</div>
+										<div class="col-6 fw-extrabold mb-1 small">
+											Proceso: <span class="fw-bold" id="scenario-process-macro">Proceso</span>
+										</div>
+									</div>
 								</div>
 								<div class="col-12 col-md-8">
 									<span>{{ macros.progress_bar() }}</span>
@@ -720,15 +730,24 @@ super() }}
 										<svg
 											class="w-6 h-6"
 											fill="currentColor"
-											viewBox="0 0 20 20"
 											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
 										>
 											<path
-												d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"
+												d="M17.867 2.504c-.355-.624-1.381-.623-1.736 0l-3.999 7A1 1 0 0 0 13 11h8a1.001 1.001 0 0 0 .868-1.496l-4.001-7zM3 22h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1zm14.5-9c-2.481 0-4.5 2.019-4.5 4.5s2.019 4.5 4.5 4.5 4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5z"
 											></path>
 										</svg>
 									</span>
-									<span class="h2 fw-extrabold">Cálculo de estrategias</span>
+									<span class="h3 fw-extrabold">Construcción de escenario</span>
+									<div class="row mx-0 my-1">
+										<div class="col-6 fw-extrabold mb-1 small">
+											Escenario:
+											<span class="fw-bold" id="scenario-name-macro">Nombre escenario</span>
+										</div>
+										<div class="col-6 fw-extrabold mb-1 small">
+											Proceso: <span class="fw-bold" id="scenario-process-macro">Proceso</span>
+										</div>
+									</div>
 								</div>
 								<div class="col-12 col-md-8">
 									<span>{{ macros.progress_bar() }}</span>
@@ -896,15 +915,24 @@ super() }}
 										<svg
 											class="w-6 h-6"
 											fill="currentColor"
-											viewBox="0 0 20 20"
 											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
 										>
 											<path
-												d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"
+												d="M17.867 2.504c-.355-.624-1.381-.623-1.736 0l-3.999 7A1 1 0 0 0 13 11h8a1.001 1.001 0 0 0 .868-1.496l-4.001-7zM3 22h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1zm14.5-9c-2.481 0-4.5 2.019-4.5 4.5s2.019 4.5 4.5 4.5 4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5z"
 											></path>
 										</svg>
 									</span>
-									<span class="h2 fw-extrabold">Cálculo de estrategias</span>
+									<span class="h3 fw-extrabold">Construcción de escenario</span>
+									<div class="row mx-0 my-1">
+										<div class="col-6 fw-extrabold mb-1 small">
+											Escenario:
+											<span class="fw-bold" id="scenario-name-macro">Nombre escenario</span>
+										</div>
+										<div class="col-6 fw-extrabold mb-1 small">
+											Proceso: <span class="fw-bold" id="scenario-process-macro">Proceso</span>
+										</div>
+									</div>
 								</div>
 								<div class="col-12 col-md-8">
 									<span>{{ macros.progress_bar() }}</span>
@@ -1063,15 +1091,24 @@ super() }}
 										<svg
 											class="w-6 h-6"
 											fill="currentColor"
-											viewBox="0 0 20 20"
 											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
 										>
 											<path
-												d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"
+												d="M17.867 2.504c-.355-.624-1.381-.623-1.736 0l-3.999 7A1 1 0 0 0 13 11h8a1.001 1.001 0 0 0 .868-1.496l-4.001-7zM3 22h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1zm14.5-9c-2.481 0-4.5 2.019-4.5 4.5s2.019 4.5 4.5 4.5 4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5z"
 											></path>
 										</svg>
 									</span>
-									<span class="h2 fw-extrabold">Cálculo de estrategias</span>
+									<span class="h3 fw-extrabold">Construcción de escenario</span>
+									<div class="row mx-0 my-1">
+										<div class="col-6 fw-extrabold mb-1 small">
+											Escenario:
+											<span class="fw-bold" id="scenario-name-macro">Nombre escenario</span>
+										</div>
+										<div class="col-6 fw-extrabold mb-1 small">
+											Proceso: <span class="fw-bold" id="scenario-process-macro">Proceso</span>
+										</div>
+									</div>
 								</div>
 								<div class="col-12 col-md-8">
 									<span>{{ macros.progress_bar() }}</span>
@@ -2625,11 +2662,14 @@ super() }}
 	//  Variables Chart.js handler
 	//  Generic display constructor for variable tables in Json format
 	function updateSelectDate(date) {
+		$("#select-year").removeClass("btn-danger")
+		$("#error-section").text("")
+
 		document.getElementById("fecha").innerHTML = String(date)
 		document.getElementById("fecha").value = String(date)
 	}
 
-	function ComboFecha() {
+	$(document).ready(function ComboFecha() {
 		var n = new Date().getFullYear()
 		var parent_items = document.getElementById("dropdown-items")
 		for (var i = n; i <= 2030; i++) {
@@ -2639,8 +2679,7 @@ super() }}
 			item.setAttribute("onclick", "updateSelectDate(" + i + ")")
 			parent_items.appendChild(item)
 		}
-	}
-	window.onload = ComboFecha
+	})
 
 	var _table_ = document.createElement("table"),
 		_tr_ = document.createElement("tr"),
@@ -2654,12 +2693,12 @@ super() }}
 		_p_ = document.createElement("p")
 
 	function choice(list_name) {
-		SetSelectName("select-dropdown-var", list_name)
+		SetSelectName("process-selected", list_name)
 		updateList(list_name)
 	}
 
 	function updateList(list_name) {
-		/* SetSelectName("select-dropdown-var-2", list_name) */
+		/* SetSelectName("process-selected-2", list_name) */
 		// prettier-ignore
 		let json_file = JSON.parse('{{strategies | tojson | safe}}')
 		let keys_list = Object.keys(json_file[list_name])
