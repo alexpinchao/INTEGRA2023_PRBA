@@ -37,20 +37,20 @@ function cleanGrahpVariables() {
 
 function cleanGrahpIndicators() {
 	//aqui va codigo que limpie las graficas
-	// if (chart_element_5) {
-	// 	chart_element_5.destroy()
-	// 	document.getElementById("chart_title_5").innerHTML = " "
-	// }
+	if (chart_element_5) {
+		chart_element_5.destroy()
+		document.getElementById("chart_title_5").innerHTML = " "
+	}
 
-	// if (chart_element_6) {
-	// 	chart_element_6.destroy()
-	// 	document.getElementById("chart_title_6").innerHTML = " "
-	// }
+	if (chart_element_6) {
+		chart_element_6.destroy()
+		document.getElementById("chart_title_6").innerHTML = " "
+	}
 
-	// if (chart_element_7) {
-	// 	chart_element_7.destroy()
-	// 	document.getElementById("chart_title_7").innerHTML = " "
-	// }
+	if (chart_element_7) {
+		chart_element_7.destroy()
+		document.getElementById("chart_title_7").innerHTML = " "
+	}
 }
 function checkParameters() {
 	var year_selected = document.getElementById("fecha").innerText
@@ -484,8 +484,13 @@ function createChartIndicador1(
 	/* Agregada - Capturar graficas actuales > 2 restablece */
 
 	/* Desagregados - else */
-	if (last_indicator_5 == indicator) {
-		if (!keys_list_5.includes(row_table)) {
+	try {
+		_ = chart_element_5.data.datasets
+		var graphAlreadyExist = true
+	} catch (e) {
+		var graphAlreadyExist = false
+	} finally {
+		if (!keys_list_5.includes(row_table) && graphAlreadyExist) {
 			keys_list_5.push(row_table)
 			const update_dataset = {
 				label: row_table,
@@ -497,83 +502,80 @@ function createChartIndicador1(
 			}
 			chart_element_5.data.datasets.push(update_dataset)
 			chart_element_5.update()
+			return
 		} else {
-			keys_list_5 = keys_list_5.filter((data) => data != row_table)
-			chart_element_5.data.datasets = chart_element_5.data.datasets.filter(
-				(data) => data.label != row_table
-			)
-			chart_element_5.update()
-		}
-	} else {
-		keys_list_5 = [row_table]
-		var mydatasets = [
 			{
-				label: row_table,
-				borderColor: colorslist[0],
-				backgroundColor: b_colorslist[0],
-				data: array,
-				spanGraphs: false,
-				fill: true,
-			},
-		]
-		let delayed
-		$("#" + line_chart).remove()
-		$("#" + graph_container).append(
-			'<canvas id="' + line_chart + '" width="100%" height="48vh"><canvas>'
-		)
-		var config = {
-			type: "bar",
-			data: {
-				labels: labels,
-				datasets: mydatasets,
-			},
-			options: {
-				responsive: true,
-				scales: {
-					xAxes: [
-						{
-							stacked: false,
-							scaleLabel: {
-								display: true,
-								labelString: "Año",
+				keys_list_5 = [row_table]
+				var mydatasets = [
+					{
+						label: row_table,
+						borderColor: colorslist[0],
+						backgroundColor: b_colorslist[0],
+						data: array,
+						spanGraphs: false,
+						fill: true,
+					},
+				]
+				let delayed
+				$("#" + line_chart).remove()
+				$("#" + graph_container).append(
+					'<canvas id="' + line_chart + '" width="100%" height="48vh"><canvas>'
+				)
+				var config = {
+					type: "bar",
+					data: {
+						labels: labels,
+						datasets: mydatasets,
+					},
+					options: {
+						responsive: true,
+						scales: {
+							xAxes: [
+								{
+									stacked: false,
+									scaleLabel: {
+										display: true,
+										labelString: "Año",
+									},
+								},
+							],
+							yAxes: [
+								{
+									stacked: false,
+									scaleLabel: {
+										display: true,
+										labelString: unit,
+									},
+								},
+							],
+						},
+						title: {
+							display: false,
+							text: table_name,
+						},
+						legend: {
+							position: "bottom",
+						},
+						animation: {
+							onComplete: () => {
+								delayed = true
+							},
+							delay: (context) => {
+								let delay = 0
+								if (context.type === "data" && context.mode === "default" && !delayed) {
+									delay = context.dataIndex * 300 + context.datasetIndex * 100
+								}
+								return delay
 							},
 						},
-					],
-					yAxes: [
-						{
-							stacked: false,
-							scaleLabel: {
-								display: true,
-								labelString: unit,
-							},
-						},
-					],
-				},
-				title: {
-					display: false,
-					text: table_name,
-				},
-				legend: {
-					position: "bottom",
-				},
-				animation: {
-					onComplete: () => {
-						delayed = true
 					},
-					delay: (context) => {
-						let delay = 0
-						if (context.type === "data" && context.mode === "default" && !delayed) {
-							delay = context.dataIndex * 300 + context.datasetIndex * 100
-						}
-						return delay
-					},
-				},
-			},
+				}
+				chart_element_5 = new Chart(document.getElementById(line_chart), config)
+			}
+			last_indicator_5 = indicator
+			console.log("last_indicator_5", last_indicator_5)
 		}
-		chart_element_5 = new Chart(document.getElementById(line_chart), config)
 	}
-	last_indicator_5 = indicator
-	console.log("last_indicator_5", last_indicator_5)
 }
 
 var last_indicator_6 = ""
@@ -658,8 +660,13 @@ function createChartIndicador2(
 	/* Agregada - Capturar graficas actuales > 2 restablece */
 
 	/* Desagregados - else */
-	if (last_indicator_6 == indicator) {
-		if (!keys_list_6.includes(row_table)) {
+	try {
+		_ = chart_element_6.data.datasets
+		var graphAlreadyExist = true
+	} catch (e) {
+		var graphAlreadyExist = false
+	} finally {
+		if (!keys_list_6.includes(row_table) && graphAlreadyExist) {
 			keys_list_6.push(row_table)
 			const update_dataset = {
 				label: row_table,
@@ -671,83 +678,80 @@ function createChartIndicador2(
 			}
 			chart_element_6.data.datasets.push(update_dataset)
 			chart_element_6.update()
+			return
 		} else {
-			keys_list_6 = keys_list_6.filter((data) => data != row_table)
-			chart_element_6.data.datasets = chart_element_6.data.datasets.filter(
-				(data) => data.label != row_table
-			)
-			chart_element_6.update()
-		}
-	} else {
-		keys_list_6 = [row_table]
-		var mydatasets = [
 			{
-				label: row_table,
-				borderColor: colorslist[0],
-				backgroundColor: b_colorslist[0],
-				data: array,
-				spanGraphs: false,
-				fill: true,
-			},
-		]
-		let delayed
-		$("#" + line_chart).remove()
-		$("#" + graph_container).append(
-			'<canvas id="' + line_chart + '" width="100%" height="48vh"><canvas>'
-		)
-		var config = {
-			type: "bar",
-			data: {
-				labels: labels,
-				datasets: mydatasets,
-			},
-			options: {
-				responsive: true,
-				scales: {
-					xAxes: [
-						{
-							stacked: false,
-							scaleLabel: {
-								display: true,
-								labelString: "Año",
+				keys_list_6 = [row_table]
+				var mydatasets = [
+					{
+						label: row_table,
+						borderColor: colorslist[0],
+						backgroundColor: b_colorslist[0],
+						data: array,
+						spanGraphs: false,
+						fill: true,
+					},
+				]
+				let delayed
+				$("#" + line_chart).remove()
+				$("#" + graph_container).append(
+					'<canvas id="' + line_chart + '" width="100%" height="48vh"><canvas>'
+				)
+				var config = {
+					type: "bar",
+					data: {
+						labels: labels,
+						datasets: mydatasets,
+					},
+					options: {
+						responsive: true,
+						scales: {
+							xAxes: [
+								{
+									stacked: false,
+									scaleLabel: {
+										display: true,
+										labelString: "Año",
+									},
+								},
+							],
+							yAxes: [
+								{
+									stacked: false,
+									scaleLabel: {
+										display: true,
+										labelString: unit,
+									},
+								},
+							],
+						},
+						title: {
+							display: false,
+							text: table_name,
+						},
+						legend: {
+							position: "bottom",
+						},
+						animation: {
+							onComplete: () => {
+								delayed = true
+							},
+							delay: (context) => {
+								let delay = 0
+								if (context.type === "data" && context.mode === "default" && !delayed) {
+									delay = context.dataIndex * 300 + context.datasetIndex * 100
+								}
+								return delay
 							},
 						},
-					],
-					yAxes: [
-						{
-							stacked: false,
-							scaleLabel: {
-								display: true,
-								labelString: unit,
-							},
-						},
-					],
-				},
-				title: {
-					display: false,
-					text: table_name,
-				},
-				legend: {
-					position: "bottom",
-				},
-				animation: {
-					onComplete: () => {
-						delayed = true
 					},
-					delay: (context) => {
-						let delay = 0
-						if (context.type === "data" && context.mode === "default" && !delayed) {
-							delay = context.dataIndex * 300 + context.datasetIndex * 100
-						}
-						return delay
-					},
-				},
-			},
+				}
+				chart_element_6 = new Chart(document.getElementById(line_chart), config)
+			}
+			last_indicator_6 = indicator
+			console.log("last_indicator_6", last_indicator_6)
 		}
-		chart_element_6 = new Chart(document.getElementById(line_chart), config)
 	}
-	last_indicator_6 = indicator
-	console.log("last_indicator_6", last_indicator_6)
 }
 
 var last_indicator_7 = ""
@@ -832,8 +836,13 @@ function createChartIndicador3(
 	/* Agregada - Capturar graficas actuales > 2 restablece */
 
 	/* Desagregados - else */
-	if (last_indicator_7 == indicator) {
-		if (!keys_list_7.includes(row_table)) {
+	try {
+		_ = chart_element_7.data.datasets
+		var graphAlreadyExist = true
+	} catch (e) {
+		var graphAlreadyExist = false
+	} finally {
+		if (!keys_list_7.includes(row_table) && graphAlreadyExist) {
 			keys_list_7.push(row_table)
 			const update_dataset = {
 				label: row_table,
@@ -845,83 +854,80 @@ function createChartIndicador3(
 			}
 			chart_element_7.data.datasets.push(update_dataset)
 			chart_element_7.update()
+			return
 		} else {
-			keys_list_7 = keys_list_7.filter((data) => data != row_table)
-			chart_element_7.data.datasets = chart_element_7.data.datasets.filter(
-				(data) => data.label != row_table
-			)
-			chart_element_7.update()
-		}
-	} else {
-		keys_list_7 = [row_table]
-		var mydatasets = [
 			{
-				label: row_table,
-				borderColor: colorslist[0],
-				backgroundColor: b_colorslist[0],
-				data: array,
-				spanGraphs: false,
-				fill: true,
-			},
-		]
-		let delayed
-		$("#" + line_chart).remove()
-		$("#" + graph_container).append(
-			'<canvas id="' + line_chart + '" width="100%" height="48vh"><canvas>'
-		)
-		var config = {
-			type: "bar",
-			data: {
-				labels: labels,
-				datasets: mydatasets,
-			},
-			options: {
-				responsive: true,
-				scales: {
-					xAxes: [
-						{
-							stacked: false,
-							scaleLabel: {
-								display: true,
-								labelString: "Año",
+				keys_list_7 = [row_table]
+				var mydatasets = [
+					{
+						label: row_table,
+						borderColor: colorslist[0],
+						backgroundColor: b_colorslist[0],
+						data: array,
+						spanGraphs: false,
+						fill: true,
+					},
+				]
+				let delayed
+				$("#" + line_chart).remove()
+				$("#" + graph_container).append(
+					'<canvas id="' + line_chart + '" width="100%" height="48vh"><canvas>'
+				)
+				var config = {
+					type: "bar",
+					data: {
+						labels: labels,
+						datasets: mydatasets,
+					},
+					options: {
+						responsive: true,
+						scales: {
+							xAxes: [
+								{
+									stacked: false,
+									scaleLabel: {
+										display: true,
+										labelString: "Año",
+									},
+								},
+							],
+							yAxes: [
+								{
+									stacked: false,
+									scaleLabel: {
+										display: true,
+										labelString: unit,
+									},
+								},
+							],
+						},
+						title: {
+							display: false,
+							text: table_name,
+						},
+						legend: {
+							position: "bottom",
+						},
+						animation: {
+							onComplete: () => {
+								delayed = true
+							},
+							delay: (context) => {
+								let delay = 0
+								if (context.type === "data" && context.mode === "default" && !delayed) {
+									delay = context.dataIndex * 300 + context.datasetIndex * 100
+								}
+								return delay
 							},
 						},
-					],
-					yAxes: [
-						{
-							stacked: false,
-							scaleLabel: {
-								display: true,
-								labelString: unit,
-							},
-						},
-					],
-				},
-				title: {
-					display: false,
-					text: table_name,
-				},
-				legend: {
-					position: "bottom",
-				},
-				animation: {
-					onComplete: () => {
-						delayed = true
 					},
-					delay: (context) => {
-						let delay = 0
-						if (context.type === "data" && context.mode === "default" && !delayed) {
-							delay = context.dataIndex * 300 + context.datasetIndex * 100
-						}
-						return delay
-					},
-				},
-			},
+				}
+				chart_element_7 = new Chart(document.getElementById(line_chart), config)
+			}
+			last_indicator_7 = indicator
+			console.log("last_indicator_7", last_indicator_7)
 		}
-		chart_element_7 = new Chart(document.getElementById(line_chart), config)
 	}
-	last_indicator_7 = indicator
-	console.log("last_indicator_7", last_indicator_7)
 }
 
 function loadSliders(strategies_array) {
@@ -1337,7 +1343,7 @@ function generationIndicatorsIEP(consumo, pib, name) {
 		}
 		k++
 		iep = consumo[i] / pib[i] / 1000
-		console.log("--Indicador de eficiencia energética--", iep)
+		console.log("--Indicador intensidad energética primaria--", iep)
 		//data_plot_dict = {"Año": anio, "Indicador intensidad energética primaria": iep};
 		data_plot_dict.Año = anio
 		data_plot_dict[name] = iep
@@ -1661,6 +1667,7 @@ function createGraphIndicator(create_data_indicator_generation, create_data_indi
 	})
 }
 function plotDataStrategies(strategies) {
+	console.log("---plotDataStrategies strategies_need: ---", strategies)
 	let strategiesModels = strategies.models
 	let n = validateDate()
 
@@ -1764,6 +1771,7 @@ function plotDataStrategies(strategies) {
 }
 
 function plotDataIndicators(strategies) {
+	console.log("---plotDataIndicators strategies_need: ---", strategies)
 	let strategiesModels = strategies.models
 	let n = validateDate()
 	let strategies_array_copia = const_strategies
@@ -2023,17 +2031,22 @@ function modelUpgradeStrategy(n, nj, dataIn, n_LB, name) {
 }
 
 /* Desde aca se puede seguir ajustando */
+var strategies_const
 function updateChart(strategies_array) {
 	console.log("--- Update Chart ---")
 	console.log("Values form sliders")
 	console.log(getCurrentValues())
 
 	let current_values = getCurrentValues()
-	let strategies = filterStrategiesByIdValues(strategies_array, current_values)
-	plotDataStrategies(strategies)
+	strategies_const = filterStrategiesByIdValues(strategies_array, current_values)
+	plotDataStrategies(strategies_const)
 	// implementar funcion que cache cuando se presione el boton de paso 4
-	plotDataIndicators(strategies)
+	//plotDataIndicators(strategies)
 }
+
+document.getElementById("adjust_sub_estrategies_next").addEventListener("click", function () {
+	plotDataIndicators(strategies_const);
+});
 
 /* Desarrollo Nuevo */
 $(".btn-progress-next").on("click", function () {
