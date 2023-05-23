@@ -2483,6 +2483,69 @@ super() }}
 				</div>
 			</div>
 		</section> -->
+		<section>
+			<div>Ajustes de variables</div>
+			<div class="border-0 shadow rounded-bottom">
+				<div class="row d-flex align-items-center py-1">
+					<div class="col-4 justify-content-center d-flex">
+						<div class="icon-shape icon-shape-tertiary rounded">
+							<svg
+								class="w-6 h-6"
+								fill="currentColor"
+								xmlns="http://www.w3.org/2000/svg"
+								width="32"
+								height="32"
+								viewBox="0 0 24 24"
+								style="
+									transform: rotate(270deg);
+									msfilter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+								"
+							>
+								<path
+									d="M20 13.01h-7V10h1c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2h-4c-1.103 0-2 .897-2 2v4c0 1.103.897 2 2 2h1v3.01H4V18H3v4h4v-4H6v-2.99h5V18h-1v4h4v-4h-1v-2.99h5V18h-1v4h4v-4h-1v-4.99zM10 8V4h4l.002 4H10z"
+								></path>
+							</svg>
+						</div>
+					</div>
+					<div class="col-8 justify-content-center d-flex">
+						<div class="d-block">
+							<div class="col-5 col-md-4 mb-3">
+								<div class="form-group">
+									<label for="label-value-env">Ambiental</label>
+									<input
+										class="form-control"
+										id="value-env"
+										type="number"
+										required=""
+										min="0"
+										max="100"
+									/>
+								</div>
+							</div>
+							<div class="col-5 col-md-4 mb-3">
+								<div class="form-group">
+									<label for="label-value-eco">Económico</label>
+									<input
+										class="form-control"
+										id="value-eco"
+										type="number"
+										required=""
+										min="0"
+										max="100"
+									/>
+								</div>
+							</div>
+							<div class="col-5 col-md-4 mb-3">
+								<div class="form-group">
+									<label for="label-value-ener">Energético</label>
+									<input class="form-control" id="value-ener" type="number" required="" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 
 		{% block footer %} {% include 'module/footer.html' %} {% endblock %}
 	</main>
