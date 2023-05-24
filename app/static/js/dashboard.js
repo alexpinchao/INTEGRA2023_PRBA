@@ -15,12 +15,12 @@ function validateDate() {
 }
 
 document.getElementById("adjust_sub_estrategies_prev").addEventListener("click", function () {
-	cleanGrahpVariables();
-});
+	cleanGrahpVariables()
+})
 
 document.getElementById("visalization_indicators_prev").addEventListener("click", function () {
-	cleanGrahpIndicators();
-});
+	cleanGrahpIndicators()
+})
 
 function cleanGrahpVariables() {
 	if (chart_element_3) {
@@ -713,11 +713,10 @@ function createChartIndicador3(
 	line_chart,
 	graph_container
 ) {
-
-	console.log("list_name ",list_name)
-	console.log("indicator ",indicator)
-	console.log("key ",key)
-	console.log("dataModel_pruebas_expansion ",dataModel_pruebas_expansion)
+	console.log("list_name ", list_name)
+	console.log("indicator ", indicator)
+	console.log("key ", key)
+	console.log("dataModel_pruebas_expansion ", dataModel_pruebas_expansion)
 	var row = key
 	var row_table = row
 	var al = Math.floor(Math.random() * 255)
@@ -747,22 +746,22 @@ function createChartIndicador3(
 		return e[keys[0]]
 	})
 
-	console.log("table ",table)
-	console.log("keys ",keys)
-	console.log("labels ",labels)
+	console.log("table ", table)
+	console.log("keys ", keys)
+	console.log("labels ", labels)
 	labels = labels.slice(0, 12)
 	var data = table.map(function (e) {
 		return e[row]
 	})
 
-	console.log("data ",data)
+	console.log("data ", data)
 	length = data.length
 	var array = []
 	for (var j = 0; j < length; j++) {
 		array.push(parseFloat(data[j]))
 	}
 
-	console.log("array ",array)
+	console.log("array ", array)
 	var unit = ""
 	var units = units_array
 	if (indicator in units) {
@@ -874,155 +873,155 @@ var chart_element_8 = ""
 var keys_list_8 = []
 
 function createChartTopsis(
-    list_name,
-    indicator,
-    key,
-    dataModel_pruebas_expansion,
-    chart_title,
-    line_chart,
-    graph_container
+	list_name,
+	indicator,
+	key,
+	dataModel_pruebas_expansion,
+	chart_title,
+	line_chart,
+	graph_container
 ) {
-    var row = key
-    var row_table = row
-    var al = Math.floor(Math.random() * 255)
-    var b_colorslist = [
-        "rgba(" + al + ", 99, 132, 1)",
-        "rgba(" + al + ", 162, 235, 1)",
-        "rgba(" + al + ", 206, 86, 1)",
-        "rgba(" + al + ", 192, 192, 1)",
-        "rgba(" + al + ", 102, 255, 1)",
-        "rgba(" + al + ", 159, 64, 1)",
-    ]
-    var colorslist = [
-        "rgba(" + al + ", 99, 132, 1)",
-        "rgba(" + al + ", 162, 235, 1)",
-        "rgba(" + al + ", 206, 86, 1)",
-        "rgba(" + al + ", 192, 192, 1)",
-        "rgba(" + al + ", 102, 255, 1)",
-        "rgba(" + al + ", 159, 64, 1)",
-    ]
-    const table_name = indicator
-    document.getElementById(chart_title).innerHTML = table_name
-    var json_file = dataModel_pruebas_expansion
-    console.log("graficas analisis createChartTopsis", json_file)
-    var table = json_file[table_name]
-    var keys = Object.keys(table[0])
-    var labels = table.map(function (e) {
-        return e[keys[0]]
-    })
-    labels = labels.slice(0, 12)
-    var data = table.map(function (e) {
-        return e[row]
-    })
-    length = data.length
-    var array = []
-    for (var j = 0; j < length; j++) {
-        array.push(parseFloat(data[j]))
-    }
-    var unit = ""
-    var units = units_array
-    if (indicator in units) {
-        unit = units[indicator]
-        if (unit == "Porcentaje %") {
-            array = array.map(function (x) {
-                return x * 100
-            })
-        }
-    }
-    /* Agregada - Capturar graficas actuales > 2 restablece */
-    /* Desagregados - else */
-    try {
-        _ = chart_element_8.data.datasets
-        var graphAlreadyExist = true
-    } catch (e) {
-        var graphAlreadyExist = false
-    } finally {
-        if (!keys_list_8.includes(row_table) && graphAlreadyExist) {
-            keys_list_8.push(row_table)
-            const update_dataset = {
-                label: row_table,
-                borderColor: colorslist[keys_list_8.length],
-                backgroundColor: b_colorslist[keys_list_8.length],
-                data: array,
-                spanGraphs: false,
-                fill: true,
-            }
-            chart_element_8.data.datasets.push(update_dataset)
-            chart_element_8.update()
-            return
-        } else {
-            {
-                keys_list_8 = [row_table]
-                var mydatasets = [
-                    {
-                        label: row_table,
-                        borderColor: colorslist[0],
-                        backgroundColor: b_colorslist[0],
-                        data: array,
-                        spanGraphs: false,
-                        fill: true,
-                    },
-                ]
-                let delayed
-                $("#" + line_chart).remove()
-                $("#" + graph_container).append(
-                    '<canvas id="' + line_chart + '" width="100%" height="48vh"><canvas>'
-                )
-                var config = {
-                    type: "bar",
-                    data: {
-                        labels: labels,
-                        datasets: mydatasets,
-                    },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            xAxes: [
-                                {
-                                    stacked: false,
-                                    scaleLabel: {
-                                        display: false,
-                                        labelString: "Año",
-                                    },
-                                },
-                            ],
-                            yAxes: [
-                                {
-                                    stacked: false,
-                                    scaleLabel: {
-                                        display: false,
-                                        labelString: unit,
-                                    },
-                                },
-                            ],
-                        },
-                        title: {
-                            display: false,
-                            text: table_name,
-                        },
-                        legend: {
-                            position: "bottom",
-                        },
-                        animation: {
-                            onComplete: () => {
-                                delayed = true
-                            },
-                            delay: (context) => {
-                                let delay = 0
-                                if (context.type === "data" && context.mode === "default" && !delayed) {
-                                    delay = context.dataIndex * 300 + context.datasetIndex * 100
-                                }
-                                return delay
-                            },
-                        },
-                    },
-                }
-                chart_element_8 = new Chart(document.getElementById(line_chart), config)
-            }
-            last_indicator_8 = indicator
-            console.log("last_indicator_8", last_indicator_8)
-        }
-    }
+	var row = key
+	var row_table = row
+	var al = Math.floor(Math.random() * 255)
+	var b_colorslist = [
+		"rgba(" + al + ", 99, 132, 1)",
+		"rgba(" + al + ", 162, 235, 1)",
+		"rgba(" + al + ", 206, 86, 1)",
+		"rgba(" + al + ", 192, 192, 1)",
+		"rgba(" + al + ", 102, 255, 1)",
+		"rgba(" + al + ", 159, 64, 1)",
+	]
+	var colorslist = [
+		"rgba(" + al + ", 99, 132, 1)",
+		"rgba(" + al + ", 162, 235, 1)",
+		"rgba(" + al + ", 206, 86, 1)",
+		"rgba(" + al + ", 192, 192, 1)",
+		"rgba(" + al + ", 102, 255, 1)",
+		"rgba(" + al + ", 159, 64, 1)",
+	]
+	const table_name = indicator
+	document.getElementById(chart_title).innerHTML = table_name
+	var json_file = dataModel_pruebas_expansion
+	console.log("graficas analisis createChartTopsis", json_file)
+	var table = json_file[table_name]
+	var keys = Object.keys(table[0])
+	var labels = table.map(function (e) {
+		return e[keys[0]]
+	})
+	labels = labels.slice(0, 12)
+	var data = table.map(function (e) {
+		return e[row]
+	})
+	length = data.length
+	var array = []
+	for (var j = 0; j < length; j++) {
+		array.push(parseFloat(data[j]))
+	}
+	var unit = ""
+	var units = units_array
+	if (indicator in units) {
+		unit = units[indicator]
+		if (unit == "Porcentaje %") {
+			array = array.map(function (x) {
+				return x * 100
+			})
+		}
+	}
+	/* Agregada - Capturar graficas actuales > 2 restablece */
+	/* Desagregados - else */
+	try {
+		_ = chart_element_8.data.datasets
+		var graphAlreadyExist = true
+	} catch (e) {
+		var graphAlreadyExist = false
+	} finally {
+		if (!keys_list_8.includes(row_table) && graphAlreadyExist) {
+			keys_list_8.push(row_table)
+			const update_dataset = {
+				label: row_table,
+				borderColor: colorslist[keys_list_8.length],
+				backgroundColor: b_colorslist[keys_list_8.length],
+				data: array,
+				spanGraphs: false,
+				fill: true,
+			}
+			chart_element_8.data.datasets.push(update_dataset)
+			chart_element_8.update()
+			return
+		} else {
+			{
+				keys_list_8 = [row_table]
+				var mydatasets = [
+					{
+						label: row_table,
+						borderColor: colorslist[0],
+						backgroundColor: b_colorslist[0],
+						data: array,
+						spanGraphs: false,
+						fill: true,
+					},
+				]
+				let delayed
+				$("#" + line_chart).remove()
+				$("#" + graph_container).append(
+					'<canvas id="' + line_chart + '" width="100%" height="48vh"><canvas>'
+				)
+				var config = {
+					type: "bar",
+					data: {
+						labels: labels,
+						datasets: mydatasets,
+					},
+					options: {
+						responsive: true,
+						scales: {
+							xAxes: [
+								{
+									stacked: false,
+									scaleLabel: {
+										display: false,
+										labelString: "Año",
+									},
+								},
+							],
+							yAxes: [
+								{
+									stacked: false,
+									scaleLabel: {
+										display: false,
+										labelString: unit,
+									},
+								},
+							],
+						},
+						title: {
+							display: false,
+							text: table_name,
+						},
+						legend: {
+							position: "bottom",
+						},
+						animation: {
+							onComplete: () => {
+								delayed = true
+							},
+							delay: (context) => {
+								let delay = 0
+								if (context.type === "data" && context.mode === "default" && !delayed) {
+									delay = context.dataIndex * 300 + context.datasetIndex * 100
+								}
+								return delay
+							},
+						},
+					},
+				}
+				chart_element_8 = new Chart(document.getElementById(line_chart), config)
+			}
+			last_indicator_8 = indicator
+			console.log("last_indicator_8", last_indicator_8)
+		}
+	}
 }
 
 function loadSliders(strategies_array) {
@@ -1506,7 +1505,10 @@ function generationIndicatorsIEC(consumo, fe, pib, name) {
 }
 
 function generateDataIndicatorWithBau(sub_strategies_expansion, sub_strategies_upgrade, n) {
-	console.log("--- generateDataIndicatorWithBau  sub_strategies_expansion---", sub_strategies_expansion)
+	console.log(
+		"--- generateDataIndicatorWithBau  sub_strategies_expansion---",
+		sub_strategies_expansion
+	)
 	let sub_strategies_key = Object.keys(sub_strategies_expansion)
 	let data_model_expansion = []
 	sub_strategies_key.forEach(function (item, index) {
@@ -1548,7 +1550,10 @@ function generateDataIndicatorWithBau(sub_strategies_expansion, sub_strategies_u
 }
 
 function generateDataIndicatorWithBau2(sub_strategies_expansion, sub_strategies_upgrade, n) {
-	console.log("--- generateDataIndicatorWithBau2  sub_strategies_expansion---", sub_strategies_expansion)
+	console.log(
+		"--- generateDataIndicatorWithBau2  sub_strategies_expansion---",
+		sub_strategies_expansion
+	)
 	let sub_strategies_key = Object.keys(sub_strategies_expansion)
 	let data_model_expansion = []
 	sub_strategies_key.forEach(function (item, index) {
@@ -1566,7 +1571,10 @@ function generateDataIndicatorWithBau2(sub_strategies_expansion, sub_strategies_
 		//createChartExpansion(list_name, strategies_name, sub_strategies_name, data_model_expansion, "chart_title_3", "line-chart-3","graph-container-3");
 	})
 
-	console.log("--- generateDataIndicatorWithBau2  sub_strategies_upgrade---", sub_strategies_upgrade)
+	console.log(
+		"--- generateDataIndicatorWithBau2  sub_strategies_upgrade---",
+		sub_strategies_upgrade
+	)
 	let data_model_upgrade = []
 	let sub_strategies_upgrade_key = Object.keys(sub_strategies_upgrade)
 
@@ -1590,7 +1598,10 @@ function generateDataIndicatorWithBau2(sub_strategies_expansion, sub_strategies_
 }
 
 function generateDataIndicatorWithValues(sub_strategies_expansion, sub_strategies_upgrade, n) {
-	console.log("--- generateDataIndicatorWithValues  sub_strategies_expansion---", sub_strategies_expansion)
+	console.log(
+		"--- generateDataIndicatorWithValues  sub_strategies_expansion---",
+		sub_strategies_expansion
+	)
 	let sub_strategies_key = Object.keys(sub_strategies_expansion)
 	let data_model_expansion = []
 	sub_strategies_key.forEach(function (item, index) {
@@ -1608,7 +1619,10 @@ function generateDataIndicatorWithValues(sub_strategies_expansion, sub_strategie
 		//createChartExpansion(list_name, strategies_name, sub_strategies_name, data_model_expansion, "chart_title_3", "line-chart-3","graph-container-3");
 	})
 
-	console.log("--- generateDataIndicatorWithValues  sub_strategies_upgrade---", sub_strategies_upgrade)
+	console.log(
+		"--- generateDataIndicatorWithValues  sub_strategies_upgrade---",
+		sub_strategies_upgrade
+	)
 	let data_model_upgrade = []
 	let sub_strategies_upgrade_key = Object.keys(sub_strategies_upgrade)
 
@@ -1742,15 +1756,14 @@ function modifyName(name) {
 	// let index = words.indexOf(keyword);
 	// let result = words.slice(index).join(" ");
 
-	let keyword = "de";
-	let index = str.indexOf(keyword);
-	let result = str.slice(index + keyword.length).trim();
+	let keyword = "de"
+	let index = str.indexOf(keyword)
+	let result = str.slice(index + keyword.length).trim()
 	console.log("result----name", result)
 	return result
 }
 
-function prepareDataTopsis(eficiency, iep, iec, name){
-
+function prepareDataTopsis(eficiency, iep, iec, name) {
 	let parent_object = {}
 	let name_plant = modifyName(name)
 	let efi = Object.values(eficiency)[0].slice(-1)[0]
@@ -1765,17 +1778,25 @@ function prepareDataTopsis(eficiency, iep, iec, name){
 	let iec_last_value = Object.values(iec_last)[1]
 	let iec_last_name = Object.keys(iec_last)[1]
 
-	let data_topsis = Object.assign({}, parent_object,  { [name_plant]: [{[efi_last_name] :efi_last_value, [iep_las_name]: iep_las_value, [iec_last_name]: iec_last_value}] })
-	console.log("salida ------- ",data_topsis)
+	let data_topsis = Object.assign({}, parent_object, {
+		[name_plant]: [
+			{
+				[efi_last_name]: efi_last_value,
+				[iep_las_name]: iep_las_value,
+				[iec_last_name]: iec_last_value,
+			},
+		],
+	})
+	console.log("salida ------- ", data_topsis)
 	return data_topsis
 }
 
-function createDataChartTopsis(data){
+function createDataChartTopsis(data) {
 	console.log("aqui estoy")
 	let dataTopsis = JSON.parse(data)
 	let keys = Object.keys(dataTopsis)
 	let values = Object.values(dataTopsis)
-	keys.forEach(function(item){
+	keys.forEach(function (item) {
 		let obj = Object.keys(dataTopsis[item])
 		let obj2 = dataTopsis[item]["alternatives"]
 		let ob = []
@@ -1788,8 +1809,8 @@ function createDataChartTopsis(data){
 
 		ob["Clasificación de estrategias"] = ob1
 
-		console.log("kesy dentro de jajaaj " ,ob)
-		console.log("kesyfff dentro de " ,obj2)
+		console.log("kesy dentro de jajaaj ", ob)
+		console.log("kesyfff dentro de ", obj2)
 
 		createChartTopsis(
 			list_name,
@@ -1800,10 +1821,9 @@ function createDataChartTopsis(data){
 			"line-chart-8",
 			"graph-container-8"
 		)
-
 	})
-	console.log("values" ,values)
-	console.log("kesy" , keys)
+	console.log("values", values)
+	console.log("kesy", keys)
 }
 
 function createGraphIndicator(create_data_indicator_generation, create_data_indicator_consume) {
@@ -1814,7 +1834,7 @@ function createGraphIndicator(create_data_indicator_generation, create_data_indi
 	//datos de pib desde 2022 hasta 2030, no es necesario agregar año porque el sistem recorre hasta el año que necesita
 	let pib = [
 		344.1612833, 355.4685381, 367.8705797, 380.837696, 394.8857455, 408.9742253, 423.1216551,
-		437.1906672, 451.7446956
+		437.1906672, 451.7446956,
 	]
 	let keys_genrartion = Object.keys(generacion)
 	//let keys_consume = Object.keys(consumo)
@@ -1832,37 +1852,43 @@ function createGraphIndicator(create_data_indicator_generation, create_data_indi
 		let eficiency = generationIndicatorEficiency(data_generacion, data_consumo, name)
 		let iep = generationIndicatorsIEP(data_consumo, pib, name)
 		let iec = generationIndicatorsIEC(data_consumo, fe, pib, name)
-		let values =  prepareDataTopsis(eficiency, iep, iec, name)
+		let values = prepareDataTopsis(eficiency, iep, iec, name)
 		data_topsis.push(values)
 		//console.log("values_topsis ",values)
 	})
 
-	let criterios_values = Object.assign({}, parent_object,  { criteria_values: [{energetico :0.352350155182091, economico: 0.138435264150802, ambiental: 0.509214580667107}] })
+	let criterios_values = Object.assign({}, parent_object, {
+		criteria_values: [
+			{ energetico: 0.352350155182091, economico: 0.138435264150802, ambiental: 0.509214580667107 },
+		],
+	})
 	//console.log("data_topsis ",data_topsis)
 	//let criterios_values = [0.352350155182091, 0.138435264150802, 0.509214580667107]
 	data_topsis.push(criterios_values)
 
 	//console.log("array completo", data_topsis)
-	const dict_values = { data_topsis };
-	const s = JSON.stringify(dict_values);
-	console.log("s");
-	console.log(s);
+	const dict_values = { data_topsis }
+	const s = JSON.stringify(dict_values)
+	console.log("s")
+	console.log(s)
 	$.ajax({
 		url: "/dashboard/analysis",
 		type: "POST",
 		contentType: "application/json",
-		charset:"utf-8",
+		charset: "utf-8",
 		data: JSON.stringify(s),
-		success: function (data, status, xhr) {   // success callback function
+		success: function (data, status, xhr) {
+			// success callback function
 			//$('p').append(data.firstName + ' ' + data.middleName + ' ' + data.lastName);
 			console.log("data respon", data)
 			createDataChartTopsis(data)
 		},
-		error: function (jqXhr, textStatus, errorMessage) { // error callback 
+		error: function (jqXhr, textStatus, errorMessage) {
+			// error callback
 			//$('p').append('Error: ' + errorMessage);
-			console.log('Error: ' + errorMessage)
-		}
-	});
+			console.log("Error: " + errorMessage)
+		},
+	})
 }
 function plotDataStrategies(strategies) {
 	console.log("---plotDataStrategies strategies_need: ---", strategies)
@@ -2243,8 +2269,8 @@ function updateChart(strategies_array) {
 }
 
 document.getElementById("adjust_sub_estrategies_next").addEventListener("click", function () {
-	plotDataIndicators(strategies_const);
-});
+	plotDataIndicators(strategies_const)
+})
 
 /* Desarrollo Nuevo */
 $(".btn-progress-next").on("click", function () {
@@ -2292,3 +2318,46 @@ $(".btn-progress-prev").on("click", function () {
 		.addClass("checkout-progress stepp-" + prevStepNum)
 		.data("current-step", prevStepNum)
 })
+
+$(".weight-input").each(function () {
+	$(this).on("change", { passive: true }, function (changeEvt) {
+		if (!sum_values_checker()) {
+			$(this).addClass("is-invalid")
+		} else {
+			$(".weight-input").removeClass("is-invalid")
+		}
+	})
+})
+
+function get_weights_values() {
+	let values = $(".weight-input")
+		.map(function () {
+			return parseFloat($(this).val())
+		})
+		.get()
+	return values
+}
+
+function sum_values_checker() {
+	let sum = get_weights_values().reduce((partialSum, a) => partialSum + a, 0)
+	return sum < 99 || sum > 101 ? false : true
+}
+
+function weights_check() {
+	let weights = {
+		energetico: 0.333,
+		economico: 0.333,
+		ambiental: 0.333,
+	}
+
+	if (sum_values_checker()) {
+		let values = get_weights_values()
+		weights["ambiental"] = values[0] / 100
+		weights["economico"] = values[1] / 100
+		weights["energetico"] = values[2] / 100
+		console.log("Valores ")
+		console.log(weights)
+	} else {
+		console.log("error de valores")
+	}
+}
