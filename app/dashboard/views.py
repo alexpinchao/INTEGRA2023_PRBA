@@ -12,6 +12,11 @@ from app.extras import return_indicators_calculation
 from app.models import UserData, UserModel
 from flask_login import login_required, login_user, logout_user
 import json
+import pandas as pd
+import numpy as np
+
+from scikitmcda.topsis import TOPSIS
+from scikitmcda.constants import MAX, MIN, LinearMinMax_, LinearMax_, LinearSum_, Vector_, EnhancedAccuracy_, Logarithmic_ 
 
 # ONLY TEST
 value = 60
@@ -52,7 +57,7 @@ strategies_definition = {
                     },
                     {
                         "id": "x003",
-                        "name": "Generación eléctrica a partir plantas de Auto y Cogeneración",
+                        "name": "Generación eléctrica a partir de plantas de Auto y Cogeneración",
                         "description": "N/A",
                         "variable": "Capacidad Instalada",
                         "upper_value": 10,
@@ -215,28 +220,71 @@ strategies_definition = {
     },
 }
 
+def functionTopsis(output):
+    topsis = TOPSIS()
+    # topsis.dataframe([[0.898834783514384, 0.166638958655125, 0.0],[0.403999992022169, 0.106074659601237, 13.4056094057448],[0.473372271796145, 0.0603668284274698, 7.6290994098352],[0.55725, 0.0363139093316429, 0.0],[0.223268, 0.031981378104915,  0.0]],['P Hidro', 'P Termicas', 'P A&C', 'P Eolicas', 'P Solares'],['EFICIENCIA', 'IEP', 'IEC']
+    #                 )
+    topsis.dataframe(output[0],output[1],output[2])
+    print(topsis.pretty_original())
+    w_TOPSIS = topsis.set_weights_manually([0.352350155182091, 0.238435264150802, 0.409214580667107])
+    topsis.set_signals([MAX, MIN, MIN])
+    topsis.decide()
+    df_topsis = topsis.df_decision
+    rank_alternatives = df_topsis.to_json(force_ascii=False, orient='records')
+    return rank_alternatives
 
 # @login_required
 @dashboard.route("/analysis", methods=["GET", "POST"])
 def analysis():
     admin_session = session.get("admin_session")
-    # translating_dict = app.db_object.get_distribution()
-    strategies = app.db_object.get_Strategies()
-    description_strategies = app.db_object.get_description_Strategies()
-    data, translating_dict = app.db_object.get_distribution()
-    units = app.db_object.get_units()
-    context = {
-        "anonymous": False,
-        "user_ip": "UserIp",
-        "data": data,
-        "strategies": strategies,
-        "strategies_definition": strategies_definition,
-        "description_strategies": description_strategies,
-        "units": units,
-        "translating_dict": translating_dict,
-        "admin_session": admin_session,
-    }
-    return render_template("module/analysis.html", **context)
+    if request.method == "POST":
+        output = request.get_json()
+        # This is the output that was stored in the JSON within the browser
+        result = json.loads(output) #this converts the json output to a python dictionary
+        a = result.get('data_topsis')
+        values = []
+        name = []
+        weiths= []
+        dataframe = []
+        for x in a:
+            b = x.keys()
+            if ([*x.keys()][0] == 'criteria_values'):
+                c = x.values()
+                for y in c:
+                    for z in y:
+                        z2 = [*z.values()]
+                        weiths.append(z2)
+            else:
+                name.extend(b)
+                c = x.values()
+                for y in c:
+                    for z in y:
+                        z1 = z.keys()
+                        z2 = [*z.values()]
+                        values.append(z2)
+        criterios_name = ['EFICIENCIA', 'IEP', 'IEC']
+        dataframe.append(values)
+        dataframe.append(name)
+        dataframe.append(criterios_name)
+        topsis = functionTopsis(dataframe)
+        return topsis
+    else:
+        strategies = app.db_object.get_Strategies()
+        description_strategies = app.db_object.get_description_Strategies()
+        data, translating_dict = app.db_object.get_distribution()
+        units = app.db_object.get_units()
+        context = {
+            "anonymous": False,
+            "user_ip": "UserIp",
+            "data": data,
+            "strategies": strategies,
+            "strategies_definition": strategies_definition,
+            "description_strategies": description_strategies,
+            "units": units,
+            "translating_dict": translating_dict,
+            "admin_session": admin_session,
+        }
+        return render_template("module/analysis.html", **context)
 
 
 # @login_required

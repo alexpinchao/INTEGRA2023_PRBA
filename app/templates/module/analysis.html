@@ -202,7 +202,7 @@ super() }}
 							<div class="components-section flex-grow-1">
 								<div class="row justify-content-between mx-0 mb-2">
 									<div class="card border-0 shadow mx-2 mx-md-0">
-										<div class="card-header p-0">
+										<div class="card-header p-1">
 											<div class="row justify-content-between">
 												<div
 													class="m-1 col-12 d-flex align-items-center justify-content-between flex-grow-1"
@@ -582,10 +582,10 @@ super() }}
 							<div class="row mb-2">{{ macros.progress_bar() }}</div>
 							<div class="row flex-fill px-1">
 								<div class="card border-1 shadow mx-2 mx-md-0">
-									<div class="card-header p-0">
+									<div class="card-header p-1">
 										<span class="fs-5 fw-bold mb-2">Paso 2: Selección de estrategias</span>
 									</div>
-									<div class="card-body p-1">
+									<div class="card-body p-0">
 										<div class="row mb-2 mt-2 m-0">
 											<div class="col-12 col-xl-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
 												<div class="card border-0 flex-fill">
@@ -695,12 +695,12 @@ super() }}
 							<div class="row mb-2">{{ macros.progress_bar() }}</div>
 							<div class="row flex-fill px-1">
 								<div class="card border-1 shadow mx-2 mx-md-0">
-									<div class="card-header p-0">
+									<div class="card-header p-1">
 										<span class="fs-5 fw-bold mb-2"
 											>Paso 3: Ajuste de variables por estrategia</span
 										>
 									</div>
-									<div class="card-body p-1">
+									<div class="card-body p-0">
 										<div class="row my-2 m-0">
 											<section hidden>
 												<div
@@ -851,12 +851,12 @@ super() }}
 							<div class="row mb-2">{{ macros.progress_bar() }}</div>
 							<div class="row flex-fill px-1">
 								<div class="card border-1 shadow mx-2 mx-md-0">
-									<div class="card-header p-0">
+									<div class="card-header p-1">
 										<span class="fs-5 fw-bold mb-2"
 											>Paso 4: Visualización de indicadores por estrategia</span
 										>
 									</div>
-									<div class="card-body p-1">
+									<div class="card-body p-0">
 										<div class="row mb-2 mt-2 m-0 justify-content-center">
 											<!-- <div class="col-12 col-xl-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
 												<div class="card border-0 flex-fill">
@@ -996,195 +996,290 @@ super() }}
 					<div class="card border-0 shadow h-100">
 						<div class="card-body px-1 px-md-3 d-flex flex-column">
 							<div class="row mb-2">{{ macros.progress_bar() }}</div>
-							<div class="components-section flex-grow-1">
-								<div class="row justify-content-between m-0">
-									<div class="row mb-2 mt-2">
-										<div class="row mb-2 mt-2">
-											<h2 class="h4">Resultados de la evaluación</h2>
-											<span class="fs-5 fw-bold mb-2">Paso 5: Clasificación de estrategias</span>
-											<div
-												class="col-7 card m-2 card-body border-1 shadow table-wrapper table-responsive"
-											>
-												<div class="d-flex">
-													<table class="table table-hover">
-														<thead>
-															<tr class="text-center align-middle">
-																<th class="border-gray-200">Clasificación</th>
-																<th class="border-gray-200">Linea base</th>
-																<th class="border-gray-200">Escenario económico</th>
-																<th class="border-gray-200">Escenario energético base</th>
-																<th class="border-gray-200">Escenario ambiental</th>
-															</tr>
-														</thead>
-														<tbody>
-															<!-- Item -->
-															<tr>
-																<td>
-																	<a href="#" class="fw-bold"> 1 </a>
-																</td>
-																<td>
-																	<span class="fw-normal"></span>
-																</td>
-																<td><span class="fw-normal w-25"></span></td>
-																<td><span class="fw-normal"></span></td>
-																<td><span class="fw-normal"></span></td>
-															</tr>
-															<!-- Item -->
-															<tr>
-																<td>
-																	<a href="#" class="fw-bold"> 2 </a>
-																</td>
-																<td>
-																	<span class="fw-normal"></span>
-																</td>
-																<td><span class="fw-normal w-25"></span></td>
-																<td><span class="fw-normal"></span></td>
-																<td><span class="fw-normal"></span></td>
-															</tr>
-															<!-- Item -->
-															<tr>
-																<td>
-																	<a href="#" class="fw-bold"> 3 </a>
-																</td>
-																<td>
-																	<span class="fw-normal"></span>
-																</td>
-																<td><span class="fw-normal w-25"></span></td>
-																<td><span class="fw-normal"></span></td>
-																<td><span class="fw-normal"></span></td>
-															</tr>
-															<!-- Item -->
-															<tr>
-																<td>
-																	<a href="#" class="fw-bold"> 4 </a>
-																</td>
-																<td>
-																	<span class="fw-normal"></span>
-																</td>
-																<td><span class="fw-normal w-25"></span></td>
-																<td><span class="fw-normal"></span></td>
-																<td><span class="fw-normal"></span></td>
-															</tr>
-															<!-- Item -->
-															<tr>
-																<td>
-																	<a href="#" class="fw-bold"> 5 </a>
-																</td>
-																<td>
-																	<span class="fw-normal"></span>
-																</td>
-																<td><span class="fw-normal w-25"></span></td>
-																<td><span class="fw-normal"></span></td>
-																<td><span class="fw-normal"></span></td>
-															</tr>
-															<!-- Item -->
-															<tr>
-																<td>
-																	<a href="#" class="fw-bold"> 6 </a>
-																</td>
-																<td>
-																	<span class="fw-normal"></span>
-																</td>
-																<td><span class="fw-normal w-25"></span></td>
-																<td><span class="fw-normal"></span></td>
-																<td><span class="fw-normal"></span></td>
-															</tr>
-														</tbody>
-													</table>
+							<div class="row flex-fill px-1">
+								<div class="card border-1 shadow mx-2 mx-md-0">
+									<div class="card-header p-1">
+										<span class="fs-5 fw-bold mb-2">Paso 5: Clasificación de estrategias</span>
+									</div>
+									<div class="card-body p-0">
+										<div class="row d-flex align-items-center justify-content-center py-1">
+											<div class="col-12 col-md-4 col-lg-3 d-flex align-self-stretch px-0">
+												<div class="card border-1 flex-fill p-2 ms-1">
+													<div class="card-body p-1 flex-fill">
+														<div class="d-block mb-3 mb-sm-0">
+															<p class="fs-5 fw-extrabold pb-3">Selección de pesos por criterio</p>
+														</div>
+														<div class="row d-block d-md-flex align-items-center">
+															<div class="col-12 col-md-4 justify-content-center d-flex">
+																<div class="icon-shape icon-shape-tertiary icon-md rounded">
+																	<svg
+																		class="w-6 h-6"
+																		fill="currentColor"
+																		xmlns="http://www.w3.org/2000/svg"
+																		width="48"
+																		height="48"
+																		viewBox="0 0 24 24"
+																		style="
+																			transform: rotate(270deg);
+																			msfilter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+																		"
+																	>
+																		<path
+																			d="M20 13.01h-7V10h1c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2h-4c-1.103 0-2 .897-2 2v4c0 1.103.897 2 2 2h1v3.01H4V18H3v4h4v-4H6v-2.99h5V18h-1v4h4v-4h-1v-2.99h5V18h-1v4h4v-4h-1v-4.99zM10 8V4h4l.002 4H10z"
+																		></path>
+																	</svg>
+																</div>
+															</div>
+															<div
+																class="col-12 col-md-8 justify-content-center d-flex weights-input"
+															>
+																<div class="d-block">
+																	<div class="mb-3">
+																		<div class="form-group text-center">
+																			<label for="label-value-env">Ambiental</label>
+																			<input
+																				class="form-control weight-input"
+																				id="value-env"
+																				type="number"
+																				min="0"
+																				max="100"
+																				value="33"
+																			/>
+																		</div>
+																	</div>
+																	<div class="mb-3">
+																		<div class="form-group text-center">
+																			<label for="label-value-eco">Económico</label>
+																			<input
+																				class="form-control weight-input"
+																				id="value-eco"
+																				type="number"
+																				min="0"
+																				max="100"
+																				value="33"
+																			/>
+																		</div>
+																	</div>
+																	<div class="mb-3">
+																		<div class="form-group text-center">
+																			<label for="label-value-ener">Energético</label>
+																			<input
+																				class="form-control weight-input"
+																				id="value-ener"
+																				type="number"
+																				min="0"
+																				max="100"
+																				value="33"
+																			/>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="row d-flex align-items-center justify-content-center">
+															<a
+																class="btn btn-primary w-50"
+																href="#summit"
+																onclick="weights_check()"
+															>
+																Iniciar</a
+															>
+														</div>
+													</div>
 												</div>
 											</div>
-											<div class="col-3 card m-2 card-body border-1 shadow">
-												<div class="d-flex">
-													<canvas id="radar-chart" width="100%" height="100%"></canvas>
+											<div class="col-12 col-md-8 col-lg-9 d-flex align-self-stretch my-1 px-0">
+												<!-- Graph Section -->
+
+												<div class="card border-0 flex-fill p-2">
+													<div class="card-body p-1 flex-fill" id="graph-container-8">
+														<div class="d-block mb-3 mb-sm-0">
+															<span class="fs-5 fw-extrabold mb-4" id="chart_title_8"
+																>Variable seleccionada</span
+															>
+														</div>
+														<canvas id="line-chart-8" width="100%" height="50%"></canvas>
+													</div>
 												</div>
 											</div>
 										</div>
-										<div class="col-12 m-1 d-flex align-middle justify-content-end">
-											<div class="d-flex justify-content-end btn-progress-prev mx-2">
-												<a
-													href="#scenarios"
-													class="btn btn-sm btn-white d-inline-flex align-items-center border-1 shadow border-gray-400"
-													onclick="ActiveSection('scenarios_4')"
-												>
-													<svg
-														class="icon icon-xs me-2"
-														fill="currentColor"
-														xmlns="http://www.w3.org/2000/svg"
-														viewBox="0 0 24 24"
-													>
-														<path
-															d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10c5.515 0 10-4.486 10-10S17.515 2 12 2zm4 14-6-4v4H8V8h2v4l6-4v8z"
-														></path>
-													</svg>
-													Anterior
-												</a>
-											</div>
-											<div class="d-flex justify-content-end">
-												<a
-													href="#"
-													class="btn btn-sm btn-primary d-inline-flex align-items-center btn-progress-next"
-													onclick="ActiveSection('scenarios_5')"
-												>
-													<svg
-														class="icon icon-xs me-2"
-														fill="currentColor"
-														viewBox="0 0 24 24"
-														xmlns="http://www.w3.org/2000/svg"
-													>
-														<path
-															d="M5 21h14a2 2 0 0 0 2-2V8a1 1 0 0 0-.29-.71l-4-4A1 1 0 0 0 16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2zm10-2H9v-5h6zM13 7h-2V5h2zM5 5h2v4h8V5h.59L19 8.41V19h-2v-5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v5H5z"
-														></path>
-													</svg>
-													Guardar
-												</a>
-											</div>
-											<div class="btn-toolbar d-flex justify-content-end">
-												<a
-													href="#"
-													class="btn btn-sm btn-primary d-inline-flex align-items-center"
-													onclick="ActiveSection('scenarios')"
-												>
-													<svg
-														class="icon icon-xs me-2"
-														fill="none"
-														stroke="currentColor"
-														viewBox="0 0 24 24"
-														xmlns="http://www.w3.org/2000/svg"
-													>
-														<path
-															fill-rule="evenodd"
-															d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-															clip-rule="evenodd"
-														></path>
-													</svg>
-													Nuevo escenario
-												</a>
-											</div>
-
-											<div class="btn-toolbar d-flex justify-content-end">
-												<a
-													href="#"
-													class="btn btn-sm btn-primary d-inline-flex align-items-center"
-													onclick="ActiveSection('scenarios_5')"
-												>
-													<svg
-														class="icon icon-xs me-2"
-														fill="none"
-														stroke="currentColor"
-														viewBox="0 0 24 24"
-														xmlns="http://www.w3.org/2000/svg"
-													>
-														<path
-															fill-rule="evenodd"
-															d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-															clip-rule="evenodd"
-														></path>
-													</svg>
-													Comparar escenario
-												</a>
+										<div
+											class="col-7 card m-2 card-body border-1 shadow table-wrapper table-responsive"
+										>
+											<div class="d-flex">
+												<table class="table table-hover">
+													<thead>
+														<tr class="text-center align-middle">
+															<th class="border-gray-200">Clasificación</th>
+															<th class="border-gray-200">Linea base</th>
+															<th class="border-gray-200">Escenario económico</th>
+															<th class="border-gray-200">Escenario energético base</th>
+															<th class="border-gray-200">Escenario ambiental</th>
+														</tr>
+													</thead>
+													<tbody>
+														<!-- Item -->
+														<tr>
+															<td>
+																<a href="#" class="fw-bold"> 1 </a>
+															</td>
+															<td>
+																<span class="fw-normal"></span>
+															</td>
+															<td><span class="fw-normal w-25"></span></td>
+															<td><span class="fw-normal"></span></td>
+															<td><span class="fw-normal"></span></td>
+														</tr>
+														<!-- Item -->
+														<tr>
+															<td>
+																<a href="#" class="fw-bold"> 2 </a>
+															</td>
+															<td>
+																<span class="fw-normal"></span>
+															</td>
+															<td><span class="fw-normal w-25"></span></td>
+															<td><span class="fw-normal"></span></td>
+															<td><span class="fw-normal"></span></td>
+														</tr>
+														<!-- Item -->
+														<tr>
+															<td>
+																<a href="#" class="fw-bold"> 3 </a>
+															</td>
+															<td>
+																<span class="fw-normal"></span>
+															</td>
+															<td><span class="fw-normal w-25"></span></td>
+															<td><span class="fw-normal"></span></td>
+															<td><span class="fw-normal"></span></td>
+														</tr>
+														<!-- Item -->
+														<tr>
+															<td>
+																<a href="#" class="fw-bold"> 4 </a>
+															</td>
+															<td>
+																<span class="fw-normal"></span>
+															</td>
+															<td><span class="fw-normal w-25"></span></td>
+															<td><span class="fw-normal"></span></td>
+															<td><span class="fw-normal"></span></td>
+														</tr>
+														<!-- Item -->
+														<tr>
+															<td>
+																<a href="#" class="fw-bold"> 5 </a>
+															</td>
+															<td>
+																<span class="fw-normal"></span>
+															</td>
+															<td><span class="fw-normal w-25"></span></td>
+															<td><span class="fw-normal"></span></td>
+															<td><span class="fw-normal"></span></td>
+														</tr>
+														<!-- Item -->
+														<tr>
+															<td>
+																<a href="#" class="fw-bold"> 6 </a>
+															</td>
+															<td>
+																<span class="fw-normal"></span>
+															</td>
+															<td><span class="fw-normal w-25"></span></td>
+															<td><span class="fw-normal"></span></td>
+															<td><span class="fw-normal"></span></td>
+														</tr>
+													</tbody>
+												</table>
 											</div>
 										</div>
 									</div>
+								</div>
+							</div>
+							<div class="col-12 m-1 d-flex align-middle justify-content-end">
+								<div class="d-flex justify-content-end btn-progress-prev mx-2">
+									<a
+										href="#scenarios"
+										class="btn btn-sm btn-white d-inline-flex align-items-center border-1 shadow border-gray-400"
+										onclick="ActiveSection('scenarios_4')"
+									>
+										<svg
+											class="icon icon-xs me-2"
+											fill="currentColor"
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
+										>
+											<path
+												d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10c5.515 0 10-4.486 10-10S17.515 2 12 2zm4 14-6-4v4H8V8h2v4l6-4v8z"
+											></path>
+										</svg>
+										Anterior
+									</a>
+								</div>
+								<div class="d-flex justify-content-end">
+									<a
+										href="#"
+										class="btn btn-sm btn-primary d-inline-flex align-items-center btn-progress-next"
+										onclick="ActiveSection('scenarios_5')"
+									>
+										<svg
+											class="icon icon-xs me-2"
+											fill="currentColor"
+											viewBox="0 0 24 24"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M5 21h14a2 2 0 0 0 2-2V8a1 1 0 0 0-.29-.71l-4-4A1 1 0 0 0 16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2zm10-2H9v-5h6zM13 7h-2V5h2zM5 5h2v4h8V5h.59L19 8.41V19h-2v-5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v5H5z"
+											></path>
+										</svg>
+										Guardar
+									</a>
+								</div>
+								<div class="btn-toolbar d-flex justify-content-end">
+									<a
+										href="#"
+										class="btn btn-sm btn-primary d-inline-flex align-items-center"
+										onclick="ActiveSection('scenarios')"
+									>
+										<svg
+											class="icon icon-xs me-2"
+											fill="none"
+											stroke="currentColor"
+											viewBox="0 0 24 24"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												fill-rule="evenodd"
+												d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+												clip-rule="evenodd"
+											></path>
+										</svg>
+										Nuevo escenario
+									</a>
+								</div>
+
+								<div class="btn-toolbar d-flex justify-content-end">
+									<a
+										href="#"
+										class="btn btn-sm btn-primary d-inline-flex align-items-center"
+										onclick="ActiveSection('scenarios_5')"
+									>
+										<svg
+											class="icon icon-xs me-2"
+											fill="none"
+											stroke="currentColor"
+											viewBox="0 0 24 24"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												fill-rule="evenodd"
+												d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+												clip-rule="evenodd"
+											></path>
+										</svg>
+										Comparar escenario
+									</a>
 								</div>
 							</div>
 						</div>
@@ -2489,10 +2584,9 @@ super() }}
 </body>
 {% endblock %} {% block scripts%} {{super()}}
 <!-- Charts -->
-<!-- <script src="{{url_for('static',filename='/vendor/chartist/dist/chartist.min.js')}}"></script>
-<script
-  src="{{url_for('static',filename='/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js')}}"></script> -->
+<script src="{{url_for('static',filename='js/src/chartist.min.js')}}"></script>
 
+<!-- <script src="{{url_for('static',filename='js/src/chartist-plugin-tooltip.min.js')}}"></script>-->
 <!-- Volt JS -->
 <!-- <script src="{{url_for('static',filename='js/volt.js')}}"></script> -->
 
@@ -2580,7 +2674,6 @@ super() }}
 	}
 
 	function updateList(list_name) {
-		/* SetSelectName("process-selected-2", list_name) */
 		// prettier-ignore
 		let json_file = JSON.parse('{{strategies | tojson | safe}}')
 		let keys_list = Object.keys(json_file[list_name])
@@ -2593,10 +2686,6 @@ super() }}
 			})
 			list_data[item] = json_strategies
 		})
-
-		// let fecha = document.getElementById("fecha").value
-		// console.log("fecha")
-		// console.log(fecha)
 		loadTableStrategies(list_name)
 		loadTableStrategiesDescription(list_name, list_data)
 	}
@@ -2891,405 +2980,44 @@ super() }}
 				.catch((err) => console.log(err.message))
 		}
 	}
-
-	// function loadTable3(list_name) {
-	// 	var json_var = {}
-	// 	let json_aux_var_ac = []
-	// 	let json_aux_var_exp = []
-	// 	json_aux_var_ac.push(
-	// 		"Porcentaje de incorporación de las mejoras de eficiencia en parque térmico"
-	// 	)
-	// 	json_aux_var_ac.push("Eficiencia que se desea alcanzar")
-	// 	json_aux_var_exp.push("Capacidad instalada de gas combustible")
-	// 	json_aux_var_exp.push("Capacidad instalada de recurso hidráhulico")
-
-	// 	json_var["Estrategias de actualización"] = json_aux_var_ac
-	// 	json_var["Estrategias de expansión"] = json_aux_var_exp
-	// 	console.log("json_var_1", json_var)
-
-	// 	let n = 5
-	// 	let valorObjetivo = 15
-	// 	let fp = 0.515
-
-	// 	expansionEstrategyFor(5, 15, 0.515)
-	// 	upgradeStrategyForm(5, 0.5, 0.04)
-
-	// 	function expansionEstrategyFor(n, valorObjetivo, fp) {
-	// 		console.log("--expansionEstrategyFor--")
-	// 		var increment = valorObjetivo / n
-	// 		var data = []
-
-	// 		let creaIncrement = increment
-	// 		for (let a = 0; a < n; a++) {
-	// 			data.push(creaIncrement)
-	// 			creaIncrement = creaIncrement + increment
-	// 			console.log("--increment--", increment)
-	// 		}
-
-	// 		console.log("data", data)
-
-	// 		let gp = 0
-	// 		for (let i = 0; i < data.length; i++) {
-	// 			gp = data[i] * fp * 8760
-	// 			console.log("--gp--", gp)
-	// 		}
-	// 		return gp
-	// 	}
-
-	// 	function upgradeStrategyForm(n, pi, np) {
-	// 		// Eficiencia actual promedio de las plantas térmicas
-	// 		// η_BAU: 37.20 %
-	// 		console.log("--upgradeStrategyForm--")
-	// 		var incrementPi = pi / n
-	// 		var incrementNp = np / n
-	// 		var nb = 0.372
-	// 		var dataPi = []
-	// 		var dataNp = []
-	// 		var consumo_bau = [
-	// 			38431.48958, 47251.72003, 55085.03816, 52372.57931, 43918.86529, 42678.89415, 52088.4272,
-	// 			60911.15393, 58310.93145,
-	// 		]
-
-	// 		let creaIncrementPi = incrementPi
-	// 		for (let a = 0; a < n; a++) {
-	// 			dataPi.push(creaIncrementPi)
-	// 			creaIncrementPi = creaIncrementPi + incrementPi
-	// 			console.log("--incrementPi--", incrementPi)
-	// 		}
-
-	// 		let creaIncrementNp = incrementNp
-	// 		for (let a = 0; a < n; a++) {
-	// 			dataNp.push(creaIncrementNp)
-	// 			creaIncrementNp = creaIncrementNp + incrementNp
-	// 			console.log("--incrementNp--", incrementNp)
-	// 		}
-
-	// 		console.log("dataPi", dataPi)
-	// 		console.log("dataNp", dataNp)
-
-	// 		let cp = 0
-	// 		for (let i = 0; i < dataNp.length; i++) {
-	// 			cp = consumo_bau[i] * (1 - (1 - nb / dataNp[i]) * dataPi[i])
-	// 			console.log("--cp--", cp)
-	// 		}
-	// 		return cp
-	// 	}
-
-	// 	let json_new = json_var
-	// 	console.log("---variables--")
-	// 	console.log("json_new", json_new)
-	// 	let list_names = Object.keys(json_new)
-	// 	let table3 = _table_.cloneNode(false)
-	// 	let tbody3 = _tbody_.cloneNode(false),
-	// 		columns = addAllColumnHeaders(list_name)
-	// 	list_names.forEach(function (items, index) {
-	// 		let tr3 = _tr_.cloneNode(false)
-	// 		let td3 = _td_.cloneNode(false)
-	// 		let a3 = _a_.cloneNode(false)
-
-	// 		// console.log("items "+items)
-	// 		a3.appendChild(document.createTextNode(items || ""))
-	// 		td3.classList.add("fw-extrabold")
-	// 		td3.classList.add("showhr")
-	// 		let i3 = _i_.cloneNode(false)
-	// 		i3.classList.add("fa-solid")
-	// 		/* i3.classList.add('fa-angle-right') */
-	// 		i3.classList.add("fa-caret-down")
-	// 		i3.classList.add("pe-1")
-
-	// 		td3.appendChild(i3)
-	// 		td3.appendChild(a3)
-	// 		tr3.appendChild(td3)
-	// 		tbody3.appendChild(tr3)
-	// 		let keys_list = json_new[items]
-	// 		// prettier-ignore
-	// 		// var translate_array = JSON.parse('{{translating_dict | tojson | safe}}');
-	// 		keys_list.forEach(function (item, index) {
-	// 			let tr3 = _tr_.cloneNode(false)
-	// 			let td3 = _td_.cloneNode(false)
-	// 			let cell_value
-	// 			cell_value = item
-
-	// 			//cell_value = cell_value.replace("CO2eq","$CO_2eq$");
-	// 			td3.appendChild(document.createTextNode(cell_value || ""))
-	// 			td3.classList.add("aser")
-	// 			td3.classList.add("fw-normal")
-	// 			tr3.appendChild(td3)
-	// 			tr3.style.display = "none"
-	// 			tbody3.appendChild(tr3)
-	// 		})
-	// 	})
-
-	// 	table3.appendChild(tbody3)
-
-	// 	table3.id = "table_strategies_3"
-	// 	table3.classList.add("table")
-	// 	table3.classList.add("table-centered")
-	// 	table3.classList.add("table-nowrap")
-	// 	table3.classList.add("rounded")
-	// 	table3.classList.add("mb-0")
-	// 	table3.classList.add("border-0")
-	// 	table3.classList.add("dt-responsive")
-
-	// 	function addAllColumnHeaders(list_name) {
-	// 		let columnSet = [],
-	// 			thead = _thead_.cloneNode(false)
-	// 		tr3 = _tr_.cloneNode(false)
-	// 		let th = _th_.cloneNode(false)
-	// 		let key = ""
-	// 		if (list_name === "generation") {
-	// 			key = "Generación"
-	// 		} else if (list_name === "distribution") {
-	// 			key = "Distribución"
-	// 		} else if (list_name === "end_use") {
-	// 			key = "Uso final"
-	// 		}
-	// 		columnSet.push(key)
-	// 		th.appendChild(document.createTextNode(key))
-	// 		th.classList.add("rounded")
-	// 		th.classList.add("border-0")
-	// 		tr3.appendChild(th)
-	// 		thead.appendChild(tr3)
-	// 		thead.classList.add("thead-light")
-	// 		table3.appendChild(thead)
-	// 		return columnSet
-	// 	}
-
-	// 	let el3 = document.getElementById("table_content_3")
-	// 	el3.innerHTML = ""
-	// 	el3.appendChild(table3)
-	// 	const datatablesSimple = document.getElementById("table_strategies_3")
-	// 	if (datatablesSimple) {
-	// 		let tables = new DataTable(datatablesSimple, datatable_config)
-	// 	}
-
-	// 	let table_handler = $("#table_strategies_3").DataTable()
-	// 	$("#table_strategies_3 tbody").on("click", "tr", function () {
-	// 		let td_select = this.childNodes[0]
-	// 		if (td_select.classList.contains("showhr")) {
-	// 			$(this)
-	// 				.closest("tr")
-	// 				.nextUntil("tr:has(.showhr)")
-	// 				.toggle("slow", function () {})
-	// 		} else if (td_select.classList.contains("aser")) {
-	// 			var child = $(this).prevAll("tr:has(.showhr)")[0].innerText
-	// 			console.log("child", child)
-	// 			var data = table_handler.row(this).data()
-	// 			// var row = [Object.keys(translate_array).find(key => translate_array[key] == data)];
-	// 			console.log("data", data)
-	// 			loadTable_strategies_desc(list_name, json_new)
-	// 		}
-	// 	})
-	// }
-
-	// function loadTable3(list_name){
-
-	//   alert("este mensaje ")
-	//   console.log("este es un mensaje")
-
-	// }
-
-	// var last_indicator = ""
-	// var chart_element = ""
-	// var keys_list = []
-	// var old_dataset = []
-	// function create_chart(list_name, indicator, key) {
-	// 	var row1 = key[0]
-	// 	var row = row1.replace("$CO_2eq$", "CO2eq")
-	// 	// prettier-ignore
-	// 	var translate_array = JSON.parse('{{translating_dict | tojson | safe}}')
-	// 	var row_table
-	// 	if (row in translate_array) {
-	// 		row_table = translate_array[row]
-	// 	} else {
-	// 		row_table = row
-	// 	}
-	// 	var al = Math.floor(Math.random() * 255)
-	// 	var al2 = Math.floor(Math.random() * 255)
-	// 	var b_colorslist = [
-	// 		"rgba(" + al + ", 99, 132, 0.2)",
-	// 		"rgba(" + al + ", 162, 235, 0.2)",
-	// 		"rgba(" + al + ", 206, 86, 0.2)",
-	// 		"rgba(" + al + ", 192, 192, 0.2)",
-	// 		"rgba(" + al + ", 102, 255, 0.2)",
-	// 		"rgba(" + al + ", 159, 64, 0.2)",
-	// 	]
-	// 	var colorslist = [
-	// 		"rgba(" + al + ", 99, 132, 1)",
-	// 		"rgba(" + al + ", 162, 235, 1)",
-	// 		"rgba(" + al + ", 206, 86, 1)",
-	// 		"rgba(" + al + ", 192, 192, 1)",
-	// 		"rgba(" + al + ", 102, 255, 1)",
-	// 		"rgba(" + al + ", 159, 64, 1)",
-	// 	]
-	// 	/* const table_name = key; */
-	// 	const table_name = indicator
-	// 	document.getElementById("chart_title").innerHTML = table_name
-	// 	// prettier-ignore
-	// 	var json_file = JSON.parse('{{data | tojson | safe}}')
-	// 	var table = json_file[list_name][table_name]
-	// 	var keys = Object.keys(table[0])
-	// 	var labels = table.map(function (e) {
-	// 		return e[keys[0]]
-	// 	})
-	// 	labels = labels.slice(0, 12)
-	// 	var data = table.map(function (e) {
-	// 		return e[row]
-	// 	})
-	// 	length = data.length
-	// 	var array = []
-	// 	for (var j = 0; j < length; j++) {
-	// 		if (
-	// 			row == "Poblacion_Total" ||
-	// 			row == "P_Urbano" ||
-	// 			row == "P_Rural" ||
-	// 			row == "V_Rural" ||
-	// 			row == "V_Urbano" ||
-	// 			row == "Vivienda_Total"
-	// 		) {
-	// 			array.push(parseFloat(data[j]) / 1000000)
-	// 		} else {
-	// 			array.push(parseFloat(data[j]))
-	// 		}
-	// 	}
-	// 	var unit = ""
-	// 	// prettier-ignore
-	// 	var units = JSON.parse('{{units | tojson | safe}}')
-	// 	if (indicator in units) {
-	// 		unit = units[indicator]
-	// 		if (unit == "Porcentaje %") {
-	// 			array = array.map(function (x) {
-	// 				return x * 100
-	// 			})
-	// 		}
-	// 	}
-	// 	/* Agregada - Capturar graficas actuales > 2 restablece */
-
-	// 	/* Desagregados - else */
-	// 	if (last_indicator == indicator) {
-	// 		if (!keys_list.includes(row_table)) {
-	// 			keys_list.push(row_table)
-	// 			const update_dataset = {
-	// 				label: row_table,
-	// 				borderColor: colorslist[keys_list.length],
-	// 				backgroundColor: b_colorslist[keys_list.length],
-	// 				data: array,
-	// 				spanGraphs: false,
-	// 				fill: true,
-	// 			}
-	// 			chart_element.data.datasets.push(update_dataset)
-	// 			chart_element.update()
-	// 		} else {
-	// 			keys_list = keys_list.filter((data) => data != row_table)
-	// 			chart_element.data.datasets = chart_element.data.datasets.filter(
-	// 				(data) => data.label != row_table
-	// 			)
-	// 			chart_element.update()
-	// 		}
-	// 	} else {
-	// 		keys_list = [row_table]
-	// 		var mydatasets = [
-	// 			{
-	// 				label: row_table,
-	// 				borderColor: colorslist[0],
-	// 				backgroundColor: b_colorslist[0],
-	// 				data: array,
-	// 				spanGraphs: false,
-	// 				fill: true,
-	// 			},
-	// 		]
-	// 		let delayed
-	// 		$("#line-chart").remove()
-	// 		$("#graph-container").append('<canvas id="line-chart" width="100%" height="48vh"><canvas>')
-	// 		var config = {
-	// 			type: "line",
-	// 			data: {
-	// 				labels: labels,
-	// 				datasets: mydatasets,
-	// 			},
-	// 			options: {
-	// 				responsive: true,
-	// 				scales: {
-	// 					xAxes: [
-	// 						{
-	// 							stacked: true,
-	// 							scaleLabel: {
-	// 								display: true,
-	// 								labelString: "Año",
-	// 							},
-	// 						},
-	// 					],
-	// 					yAxes: [
-	// 						{
-	// 							stacked: false,
-	// 							scaleLabel: {
-	// 								display: true,
-	// 								labelString: unit,
-	// 							},
-	// 						},
-	// 					],
-	// 				},
-	// 				title: {
-	// 					display: false,
-	// 					text: table_name,
-	// 				},
-	// 				legend: {
-	// 					position: "bottom",
-	// 				},
-	// 				animation: {
-	// 					onComplete: () => {
-	// 						delayed = true
-	// 					},
-	// 					delay: (context) => {
-	// 						let delay = 0
-	// 						if (context.type === "data" && context.mode === "default" && !delayed) {
-	// 							delay = context.dataIndex * 300 + context.datasetIndex * 100
-	// 						}
-	// 						return delay
-	// 					},
-	// 				},
-	// 			},
-	// 		}
-	// 		chart_element = new Chart(document.getElementById("line-chart"), config)
-	// 	}
-	// 	last_indicator = indicator
-	// }
 </script>
 
 <script>
-	new Chart(document.getElementById("radar-chart"), {
-		type: "radar",
-		data: {
-			labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-			datasets: [
-				{
-					label: "1950",
-					fill: true,
-					backgroundColor: "rgba(179,181,198,0.2)",
-					borderColor: "rgba(179,181,198,1)",
-					pointBorderColor: "#fff",
-					pointBackgroundColor: "rgba(179,181,198,1)",
-					data: [8.77, 55.61, 21.69, 6.62, 6.82],
-				},
-				{
-					label: "2050",
-					fill: true,
-					backgroundColor: "rgba(255,99,132,0.2)",
-					borderColor: "rgba(255,99,132,1)",
-					pointBorderColor: "#fff",
-					pointBackgroundColor: "rgba(255,99,132,1)",
-					pointBorderColor: "#fff",
-					data: [25.48, 54.16, 7.61, 8.06, 4.45],
-				},
-			],
-		},
-		options: {
-			title: {
-				display: true,
-				text: "Gráfica de ejemplo 3",
+	function radar_chart() {
+		new Chart(document.getElementById("radar-chart"), {
+			type: "radar",
+			data: {
+				labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+				datasets: [
+					{
+						label: "1950",
+						fill: true,
+						backgroundColor: "rgba(179,181,198,0.2)",
+						borderColor: "rgba(179,181,198,1)",
+						pointBorderColor: "#fff",
+						pointBackgroundColor: "rgba(179,181,198,1)",
+						data: [8.77, 55.61, 21.69, 6.62, 6.82],
+					},
+					{
+						label: "2050",
+						fill: true,
+						backgroundColor: "rgba(255,99,132,0.2)",
+						borderColor: "rgba(255,99,132,1)",
+						pointBorderColor: "#fff",
+						pointBackgroundColor: "rgba(255,99,132,1)",
+						pointBorderColor: "#fff",
+						data: [25.48, 54.16, 7.61, 8.06, 4.45],
+					},
+				],
 			},
-		},
-	})
+			options: {
+				title: {
+					display: true,
+					text: "Gráfica de ejemplo 3",
+				},
+			},
+		})
+	}
 </script>
 
 <script type="text/javascript">
