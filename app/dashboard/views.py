@@ -220,13 +220,13 @@ strategies_definition = {
     },
 }
 
-def functionTopsis(output):
+def functionTopsis(output,weiths):
     topsis = TOPSIS()
     # topsis.dataframe([[0.898834783514384, 0.166638958655125, 0.0],[0.403999992022169, 0.106074659601237, 13.4056094057448],[0.473372271796145, 0.0603668284274698, 7.6290994098352],[0.55725, 0.0363139093316429, 0.0],[0.223268, 0.031981378104915,  0.0]],['P Hidro', 'P Termicas', 'P A&C', 'P Eolicas', 'P Solares'],['EFICIENCIA', 'IEP', 'IEC']
     #                 )
     topsis.dataframe(output[0],output[1],output[2])
     print(topsis.pretty_original())
-    w_TOPSIS = topsis.set_weights_manually([0.352350155182091, 0.238435264150802, 0.409214580667107])
+    w_TOPSIS = topsis.set_weights_manually(weiths[0])
     topsis.set_signals([MAX, MIN, MIN])
     topsis.decide()
     df_topsis = topsis.df_decision
@@ -241,32 +241,31 @@ def analysis():
         output = request.get_json()
         # This is the output that was stored in the JSON within the browser
         result = json.loads(output) #this converts the json output to a python dictionary
-        a = result.get('data_topsis')
+        data_result = result.get('data_topsis')
         values = []
         name = []
         weiths= []
         dataframe = []
-        for x in a:
-            b = x.keys()
-            if ([*x.keys()][0] == 'criteria_values'):
-                c = x.values()
-                for y in c:
-                    for z in y:
-                        z2 = [*z.values()]
-                        weiths.append(z2)
+        for row in data_result:
+            keys = row.keys()
+            if ([*row.keys()][0] == 'criteria_values'):
+                row_values = row.values()
+                for row_val in row_values:
+                    for val in row_val:
+                        number = [*val.values()]
+                        weiths.append(number)
             else:
-                name.extend(b)
-                c = x.values()
-                for y in c:
-                    for z in y:
-                        z1 = z.keys()
-                        z2 = [*z.values()]
-                        values.append(z2)
+                name.extend(keys)
+                row_values = row.values()
+                for row_val in row_values:
+                    for val in row_val:
+                        number = [*val.values()]
+                        values.append(number)
         criterios_name = ['EFICIENCIA', 'IEP', 'IEC']
         dataframe.append(values)
         dataframe.append(name)
         dataframe.append(criterios_name)
-        topsis = functionTopsis(dataframe)
+        topsis = functionTopsis(dataframe, weiths)
         return topsis
     else:
         strategies = app.db_object.get_Strategies()

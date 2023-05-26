@@ -1,6 +1,24 @@
 var last_indicator_3 = ""
 var chart_element_3 = ""
 var keys_list_3 = []
+var last_indicator_4 = ""
+var chart_element_4 = ""
+var keys_list_4 = []
+var last_indicator_5 = ""
+var chart_element_5 = ""
+var keys_list_5 = []
+var last_indicator_6 = ""
+var chart_element_6 = ""
+var keys_list_6 = []
+var last_indicator_7 = ""
+var chart_element_7 = ""
+var keys_list_7 = []
+var last_indicator_8 = ""
+var chart_element_8 = ""
+var keys_list_8 = []
+let data_topsis = []
+var strategies_const
+let const_strategies = {}
 
 var units_array = []
 function loadUnit(units) {
@@ -114,7 +132,7 @@ function createChartExpansion(
 	const table_name = indicator
 	document.getElementById(chart_title).innerHTML = table_name
 	var json_file = dataModel_pruebas_expansion
-	console.log("graficas analisis createChartExpansion", json_file)
+	//console.log("graficas analisis createChartExpansion", json_file)
 	var table = json_file[table_name]
 	var keys = Object.keys(table[0])
 	var labels = table.map(function (e) {
@@ -230,14 +248,10 @@ function createChartExpansion(
 				chart_element_3 = new Chart(document.getElementById(line_chart), config)
 			}
 			last_indicator_3 = indicator
-			console.log("last_indicator_3", last_indicator_3)
+			//console.log("last_indicator_3", last_indicator_3)
 		}
 	}
 }
-
-var last_indicator_4 = ""
-var chart_element_4 = ""
-var keys_list_4 = []
 
 function createChartUpgrade(
 	list_name,
@@ -270,7 +284,7 @@ function createChartUpgrade(
 	const table_name = indicator
 	document.getElementById(chart_title).innerHTML = table_name
 	var json_file = dataModel_pruebas_expansion
-	console.log("graficas analisis createChartUpgrade", json_file)
+	//console.log("graficas analisis createChartUpgrade", json_file)
 	var table = json_file[table_name]
 	var keys = Object.keys(table[0])
 	var labels = table.map(function (e) {
@@ -384,13 +398,9 @@ function createChartUpgrade(
 			chart_element_4 = new Chart(document.getElementById(line_chart), config)
 		}
 		last_indicator_4 = indicator
-		console.log("last_indicator_4", last_indicator_4)
+		//console.log("last_indicator_4", last_indicator_4)
 	}
 }
-
-var last_indicator_5 = ""
-var chart_element_5 = ""
-var keys_list_5 = []
 
 function createChartIndicador1(
 	list_name,
@@ -423,7 +433,7 @@ function createChartIndicador1(
 	const table_name = indicator
 	document.getElementById(chart_title).innerHTML = table_name
 	var json_file = dataModel_pruebas_expansion
-	console.log("graficas analisis createChartIndicador1", json_file)
+	//console.log("graficas analisis createChartIndicador1", json_file)
 	var table = json_file[table_name]
 	var keys = Object.keys(table[0])
 	var labels = table.map(function (e) {
@@ -539,14 +549,10 @@ function createChartIndicador1(
 				chart_element_5 = new Chart(document.getElementById(line_chart), config)
 			}
 			last_indicator_5 = indicator
-			console.log("last_indicator_5", last_indicator_5)
+			//console.log("last_indicator_5", last_indicator_5)
 		}
 	}
 }
-
-var last_indicator_6 = ""
-var chart_element_6 = ""
-var keys_list_6 = []
 
 function createChartIndicador2(
 	list_name,
@@ -579,7 +585,7 @@ function createChartIndicador2(
 	const table_name = indicator
 	document.getElementById(chart_title).innerHTML = table_name
 	var json_file = dataModel_pruebas_expansion
-	console.log("graficas analisis createChartIndicador2", json_file)
+	//console.log("graficas analisis createChartIndicador2", json_file)
 	var table = json_file[table_name]
 	var keys = Object.keys(table[0])
 	var labels = table.map(function (e) {
@@ -695,14 +701,10 @@ function createChartIndicador2(
 				chart_element_6 = new Chart(document.getElementById(line_chart), config)
 			}
 			last_indicator_6 = indicator
-			console.log("last_indicator_6", last_indicator_6)
+			//console.log("last_indicator_6", last_indicator_6)
 		}
 	}
 }
-
-var last_indicator_7 = ""
-var chart_element_7 = ""
-var keys_list_7 = []
 
 function createChartIndicador3(
 	list_name,
@@ -713,10 +715,6 @@ function createChartIndicador3(
 	line_chart,
 	graph_container
 ) {
-	console.log("list_name ", list_name)
-	console.log("indicator ", indicator)
-	console.log("key ", key)
-	console.log("dataModel_pruebas_expansion ", dataModel_pruebas_expansion)
 	var row = key
 	var row_table = row
 	var al = Math.floor(Math.random() * 255)
@@ -739,29 +737,21 @@ function createChartIndicador3(
 	const table_name = indicator
 	document.getElementById(chart_title).innerHTML = table_name
 	var json_file = dataModel_pruebas_expansion
-	console.log("graficas analisis createChartIndicador3", json_file)
+	//console.log("graficas analisis createChartIndicador3", json_file)
 	var table = json_file[table_name]
 	var keys = Object.keys(table[0])
 	var labels = table.map(function (e) {
 		return e[keys[0]]
 	})
-
-	console.log("table ", table)
-	console.log("keys ", keys)
-	console.log("labels ", labels)
 	labels = labels.slice(0, 12)
 	var data = table.map(function (e) {
 		return e[row]
 	})
-
-	console.log("data ", data)
 	length = data.length
 	var array = []
 	for (var j = 0; j < length; j++) {
 		array.push(parseFloat(data[j]))
 	}
-
-	console.log("array ", array)
 	var unit = ""
 	var units = units_array
 	if (indicator in units) {
@@ -863,14 +853,10 @@ function createChartIndicador3(
 				chart_element_7 = new Chart(document.getElementById(line_chart), config)
 			}
 			last_indicator_7 = indicator
-			console.log("last_indicator_7", last_indicator_7)
+			//console.log("last_indicator_7", last_indicator_7)
 		}
 	}
 }
-
-var last_indicator_8 = ""
-var chart_element_8 = ""
-var keys_list_8 = []
 
 function createChartTopsis(
 	list_name,
@@ -903,7 +889,7 @@ function createChartTopsis(
 	const table_name = indicator
 	document.getElementById(chart_title).innerHTML = table_name
 	var json_file = dataModel_pruebas_expansion
-	console.log("graficas analisis createChartTopsis", json_file)
+	//console.log("graficas analisis createChartTopsis", json_file)
 	var table = json_file[table_name]
 	var keys = Object.keys(table[0])
 	var labels = table.map(function (e) {
@@ -1019,7 +1005,7 @@ function createChartTopsis(
 				chart_element_8 = new Chart(document.getElementById(line_chart), config)
 			}
 			last_indicator_8 = indicator
-			console.log("last_indicator_8", last_indicator_8)
+			//console.log("last_indicator_8", last_indicator_8)
 		}
 	}
 }
@@ -1148,20 +1134,6 @@ function filterStrategiesById(array, ids) {
 	return array
 }
 
-// function filterStrategiesByIdExpansion(array, ids) {
-
-//     let new_array = array.models
-// 		.filter((model) => model.strategies.some((strategy) => ids.includes(strategy.id_relation)))
-// 		.map((model) => {
-// 			let newElt = Object.assign({}, model, {
-// 				strategies: model.strategies.filter((strategy) => ids.includes(strategy.id_relation)),
-// 			})
-// 			return newElt
-// 		})
-// 	array.models = new_array
-// 	return array
-// }
-
 function filterStrategiesByIdRelationated(array, ids) {
 	let new_array = array.models
 		.filter((model) => model.strategies.some((strategy) => ids.includes(strategy.id_relation)))
@@ -1196,9 +1168,8 @@ function filterStrategiesByIdValues(array, idsValues) {
 	return array
 }
 
-let const_strategies = {}
+//let const_strategies = {}
 function loadStrategies(strategies_array, strategies_id_selected) {
-	//const fecha = fecha;
 	const_strategies = JSON.parse(JSON.stringify(strategies_array))
 	strategies_array = filterStrategiesByProcess(strategies_array)
 	strategies_to_show = filterStrategiesById(strategies_array, strategies_id_selected)
@@ -1250,9 +1221,7 @@ function getStrategieName() {
 // 	return [ids, values_sliders]
 // }
 function generateGhapExpansion(sub_strategies, n, strategies_name) {
-	console.log("--- generateGhapExpansion  sub_strategies---", sub_strategies)
 	let sub_strategies_key = Object.keys(sub_strategies)
-
 	sub_strategies_key.forEach(function (item, index) {
 		let sub_strategies_name = sub_strategies[item].name
 		let sub_strategies_value = parseFloat(sub_strategies[item].selected_value)
@@ -1277,9 +1246,7 @@ function generateGhapExpansion(sub_strategies, n, strategies_name) {
 }
 
 function generateGhapUpgrade(sub_strategies, n, strategies_name) {
-	console.log("--- generateGhapUpgrade  sub_strategies---", sub_strategies)
 	let sub_strategies_key = Object.keys(sub_strategies)
-
 	sub_strategies_key.forEach(function (item, index) {
 		let sub_strategies_name = sub_strategies[item].name
 		let sub_strategies_value = parseFloat(sub_strategies[item].selected_value) / 100
@@ -1308,19 +1275,15 @@ function modifyData(data) {
 	let dataReturn = []
 	let list_names = Object.keys(data)
 	let name_return = ""
-	console.log("--Consumo sacando datos data  0xx--", data)
-
 	list_names.forEach(function (item, index) {
 		let data_loop = data[item]
 		let data_loop_keys = Object.keys(data_loop)
 		let name = Object.keys(data_loop[0])
-		//console.log("----------Consumo sacando datos name  0xx--", name[1]);
 		name_return = name[1]
 
 		data_loop_keys.forEach(function (item2, index2) {
 			let data_loop_keys_item = data[item][item2]
 			let data_loop_keys2 = Object.values(data_loop_keys_item)
-			console.log("--Consumo sacando datos keys2 xx--", data_loop_keys2[1])
 			dataReturn.push(data_loop_keys2[1])
 		})
 	})
@@ -1372,15 +1335,7 @@ function validateNameIndicatorIec(name) {
 	return name
 }
 function generationIndicatorEficiency(generacion, consumo, name) {
-	console.log("--generationIndicatorEficiency--")
-	console.log("--generacion--", generacion)
-	console.log("--consumo--", consumo)
-
 	name = validateNameIndicatorEficiency(name)
-	// let consumo_data =Object.values(consumo)
-	// let consumo_data_2 = Object.keys(consumo_data)
-
-	// console.log("--consumo--",consumo_data_2);
 	let eficiency = 0
 	let data_plot_eficiency = []
 	let k = 2
@@ -1395,15 +1350,11 @@ function generationIndicatorEficiency(generacion, consumo, name) {
 		}
 		k++
 		eficiency = generacion[i] / consumo[i]
-		console.log("--eficiency--", eficiency)
-		//data_plot_dict = {"Año": anio_eficiency, "Indicador de eficiencia energética": eficiency};
 		data_plot_dict.Año = anio_eficiency
 		data_plot_dict[name] = eficiency
 		data_plot_eficiency.push(data_plot_dict)
 	}
-
 	data_plot_return["Indicador de eficiencia energética"] = data_plot_eficiency
-	console.log("--data_plot_return-- eficiency--", data_plot_return)
 	createChartIndicador1(
 		list_name,
 		"Indicador de eficiencia energética",
@@ -1421,8 +1372,6 @@ function generationIndicatorsIEP(consumo, pib, name) {
 	// ESTA FUNCION TIENE EN CUENTA LOS VALORES BAU ACTUALES Y VALORES TEORICOS DE LA EFICIENCIA .
 	// ENTONCES PARA TENER EL VALOR DEL INCREMENTO DEBEMOS EMPEZAR EN EL BAU COMO ORIGEN
 	name = validateNameIndicatorIep(name)
-
-	console.log("--generationIndicatorsIEP--")
 	let iep = 0 // (consumo /pib)/1000
 	let anio = ""
 	let k = 2
@@ -1437,16 +1386,12 @@ function generationIndicatorsIEP(consumo, pib, name) {
 		}
 		k++
 		iep = consumo[i] / pib[i] / 1000
-		console.log("--Indicador intensidad energética primaria--", iep)
 		//data_plot_dict = {"Año": anio, "Indicador intensidad energética primaria": iep};
 		data_plot_dict.Año = anio
 		data_plot_dict[name] = iep
 		data_plot_iep.push(data_plot_dict)
 	}
-	// console.log("--gp--",gp)
-	// console.log("--anio--",anio)
 	data_plot_return["Indicador intensidad energética primaria"] = data_plot_iep
-	console.log("--data_plot_return--iep--", data_plot_return)
 	createChartIndicador2(
 		list_name,
 		"Indicador intensidad energética primaria",
@@ -1463,9 +1408,7 @@ function generationIndicatorsIEC(consumo, fe, pib, name) {
 	// Generación con recurso hidráhulico
 	// ESTA FUNCION TIENE EN CUENTA LOS VALORES BAU ACTUALES Y VALORES TEORICOS DE LA EFICIENCIA .
 	// ENTONCES PARA TENER EL VALOR DEL INCREMENTO DEBEMOS EMPEZAR EN EL BAU COMO ORIGEN
-
 	name = validateNameIndicatorIec(name)
-	console.log("--generationIndicatorsIEC--")
 	let iec = 0 // (consumo*fe) /pib
 	let anio = ""
 	let k = 2
@@ -1481,17 +1424,11 @@ function generationIndicatorsIEC(consumo, fe, pib, name) {
 		}
 		k++
 		iec = (consumo[i] * fe) / pib[i]
-		console.log("--Indicador intensidad de emisiones de carbono--", iec)
-		//data_plot_dict = {"Año": anio, "Indicador intensidad de emisiones de carbono": iec};
 		data_plot_dict.Año = anio
 		data_plot_dict[name] = iec
 		data_plot_iec.push(data_plot_dict)
 	}
-
-	// console.log("--gp--",gp)
-	// console.log("--anio--",anio)
 	data_plot_return["Indicador intensidad de emisiones de carbono"] = data_plot_iec
-	console.log("--data_plot_return--Iec--", data_plot_return)
 	createChartIndicador3(
 		list_name,
 		"Indicador intensidad de emisiones de carbono",
@@ -1505,10 +1442,6 @@ function generationIndicatorsIEC(consumo, fe, pib, name) {
 }
 
 function generateDataIndicatorWithBau(sub_strategies_expansion, sub_strategies_upgrade, n) {
-	console.log(
-		"--- generateDataIndicatorWithBau  sub_strategies_expansion---",
-		sub_strategies_expansion
-	)
 	let sub_strategies_key = Object.keys(sub_strategies_expansion)
 	let data_model_expansion = []
 	sub_strategies_key.forEach(function (item, index) {
@@ -1526,7 +1459,6 @@ function generateDataIndicatorWithBau(sub_strategies_expansion, sub_strategies_u
 		//createChartExpansion(list_name, strategies_name, sub_strategies_name, data_model_expansion, "chart_title_3", "line-chart-3","graph-container-3");
 	})
 
-	console.log("--- generateDataIndicatorWithBau  sub_strategies_upgrade---", sub_strategies_upgrade)
 	let data_model_upgrade = []
 	let sub_strategies_upgrade_key = Object.keys(sub_strategies_upgrade)
 
@@ -1550,10 +1482,6 @@ function generateDataIndicatorWithBau(sub_strategies_expansion, sub_strategies_u
 }
 
 function generateDataIndicatorWithBau2(sub_strategies_expansion, sub_strategies_upgrade, n) {
-	console.log(
-		"--- generateDataIndicatorWithBau2  sub_strategies_expansion---",
-		sub_strategies_expansion
-	)
 	let sub_strategies_key = Object.keys(sub_strategies_expansion)
 	let data_model_expansion = []
 	sub_strategies_key.forEach(function (item, index) {
@@ -1571,10 +1499,6 @@ function generateDataIndicatorWithBau2(sub_strategies_expansion, sub_strategies_
 		//createChartExpansion(list_name, strategies_name, sub_strategies_name, data_model_expansion, "chart_title_3", "line-chart-3","graph-container-3");
 	})
 
-	console.log(
-		"--- generateDataIndicatorWithBau2  sub_strategies_upgrade---",
-		sub_strategies_upgrade
-	)
 	let data_model_upgrade = []
 	let sub_strategies_upgrade_key = Object.keys(sub_strategies_upgrade)
 
@@ -1598,10 +1522,6 @@ function generateDataIndicatorWithBau2(sub_strategies_expansion, sub_strategies_
 }
 
 function generateDataIndicatorWithValues(sub_strategies_expansion, sub_strategies_upgrade, n) {
-	console.log(
-		"--- generateDataIndicatorWithValues  sub_strategies_expansion---",
-		sub_strategies_expansion
-	)
 	let sub_strategies_key = Object.keys(sub_strategies_expansion)
 	let data_model_expansion = []
 	sub_strategies_key.forEach(function (item, index) {
@@ -1618,11 +1538,6 @@ function generateDataIndicatorWithValues(sub_strategies_expansion, sub_strategie
 		data_model_expansion.push(data_model_expansion1)
 		//createChartExpansion(list_name, strategies_name, sub_strategies_name, data_model_expansion, "chart_title_3", "line-chart-3","graph-container-3");
 	})
-
-	console.log(
-		"--- generateDataIndicatorWithValues  sub_strategies_upgrade---",
-		sub_strategies_upgrade
-	)
 	let data_model_upgrade = []
 	let sub_strategies_upgrade_key = Object.keys(sub_strategies_upgrade)
 
@@ -1652,9 +1567,6 @@ function createStrategyExpansionComplementary(sub_strategies, strategies_array_c
 		return id_relationated
 	})
 
-	// console.log("entra a expansion ids_relatioated", ids_relatioated)
-
-	// console.log("entra a actualizacion strategies_array_copia", strategies_array_copia)
 	let strategies_copia = JSON.parse(JSON.stringify(strategies_array_copia))
 
 	let strategies_array_copia_process = filterStrategiesByProcess(strategies_copia)
@@ -1663,10 +1575,6 @@ function createStrategyExpansionComplementary(sub_strategies, strategies_array_c
 		ids_relatioated
 	)
 	let sub_strategies_upgrade = strategies_by_id_relationated.models[1]
-	// console.log(
-	// 	"entra a expansion need strategies_by_id_relationated",
-	// 	strategies_by_id_relationated.models[1]
-	// )
 	let strategies_complementaries = sub_strategies_upgrade.strategies
 		.filter((strategy) =>
 			sub_strategies_expansion.some((strategy2) =>
@@ -1677,20 +1585,14 @@ function createStrategyExpansionComplementary(sub_strategies, strategies_array_c
 			let newSubStrategies = Object.assign({}, sub_strategies_upgrade_list)
 			return newSubStrategies
 		})
-	// console.log("entra a expansion strategies_complementaries", strategies_complementaries)
 	let create_data_indicator = generateDataIndicatorWithBau(
 		sub_strategies_expansion,
 		strategies_complementaries,
 		n
 	)
 	let create_data_indicator_generation = create_data_indicator[0]
-	// console.log("create_data_indicator_generation", create_data_indicator_generation)
 	let create_data_indicator_consume = create_data_indicator[1]
-	// console.log("create_data_indicator_consume", create_data_indicator_consume)
 	createGraphIndicator(create_data_indicator_generation, create_data_indicator_consume)
-	//generateComplementaryStrategies()
-	//generateGhapExpansion(sub_strategies,n,strategies_name);
-	// console.log("entra a expansion sub_strategies", sub_strategies)
 }
 
 function createStrategyUpgradeComplementary(sub_strategies, strategies_array_copia, n) {
@@ -1699,18 +1601,12 @@ function createStrategyUpgradeComplementary(sub_strategies, strategies_array_cop
 		let id_relationated = sub.id_relation
 		return id_relationated
 	})
-	// console.log("entra a actualizacion ids_relatioated", ids_relatioated)
-	// console.log("entra a actualizacion strategies_array_copia", strategies_array_copia)
 	let strategies_copia = JSON.parse(JSON.stringify(strategies_array_copia))
 	let strategies_array_copia_process = filterStrategiesByProcess(strategies_copia)
 	let strategies_by_id_relationated = filterStrategiesByIdRelationated(
 		strategies_array_copia_process,
 		ids_relatioated
 	)
-	// console.log(
-	// 	"entra a actualizacion need strategies_by_id_relationated",
-	// 	strategies_by_id_relationated.models[0]
-	// )
 	let sub_strategies_expansion = strategies_by_id_relationated.models[0]
 	let strategies_complementaries = sub_strategies_expansion.strategies
 		.filter((strategy) =>
@@ -1722,19 +1618,14 @@ function createStrategyUpgradeComplementary(sub_strategies, strategies_array_cop
 			let newSubStrategies = Object.assign({}, sub_strategies_upgrade_list)
 			return newSubStrategies
 		})
-	//console.log("entra a expansion strategies_complementaries", strategies_complementaries)
 	let create_data_indicator = generateDataIndicatorWithBau2(
 		strategies_complementaries,
 		sub_strategies_upgrade,
 		n
 	)
 	let create_data_indicator_generation = create_data_indicator[0]
-	//console.log("create_data_indicator_generation", create_data_indicator_generation)
 	let create_data_indicator_consume = create_data_indicator[1]
-	//console.log("create_data_indicator_consume", create_data_indicator_consume)
 	createGraphIndicator(create_data_indicator_generation, create_data_indicator_consume)
-	//generateGhapUpgrade(sub_strategies,n,strategies_name)
-	//console.log("entra a actualizacion")
 }
 
 function emissionFactor(name) {
@@ -1755,11 +1646,9 @@ function modifyName(name) {
 	// let words = str.split(" ");
 	// let index = words.indexOf(keyword);
 	// let result = words.slice(index).join(" ");
-
 	let keyword = "de"
 	let index = str.indexOf(keyword)
 	let result = str.slice(index + keyword.length).trim()
-	console.log("result----name", result)
 	return result
 }
 
@@ -1778,7 +1667,7 @@ function prepareDataTopsis(eficiency, iep, iec, name) {
 	let iec_last_value = Object.values(iec_last)[1]
 	let iec_last_name = Object.keys(iec_last)[1]
 
-	let data_topsis = Object.assign({}, parent_object, {
+	let data_topsis_return = Object.assign({}, parent_object, {
 		[name_plant]: [
 			{
 				[efi_last_name]: efi_last_value,
@@ -1787,57 +1676,43 @@ function prepareDataTopsis(eficiency, iep, iec, name) {
 			},
 		],
 	})
-	console.log("salida ------- ", data_topsis)
-	return data_topsis
+	return data_topsis_return
 }
 
 function createDataChartTopsis(data) {
-	console.log("aqui estoy")
 	let dataTopsis = JSON.parse(data)
 	let keys = Object.keys(dataTopsis)
-	let values = Object.values(dataTopsis)
 	keys.forEach(function (item) {
-		let obj = Object.keys(dataTopsis[item])
-		let obj2 = dataTopsis[item]["alternatives"]
-		let ob = []
-		let ob1 = []
-		let ob2 = {}
-		ob2.Año = "2022"
-		ob2[obj2] = dataTopsis[item]["performance score"]
-
-		ob1.push(ob2)
-
-		ob["Clasificación de estrategias"] = ob1
-
-		console.log("kesy dentro de jajaaj ", ob)
-		console.log("kesyfff dentro de ", obj2)
-
+		let alternatives = dataTopsis[item]["alternatives"]
+		let data_graph = []
+		let array_alternatives = []
+		let dict_graph = {}
+		dict_graph.Año = " "
+		dict_graph[alternatives] = dataTopsis[item]["performance score"]
+		array_alternatives.push(dict_graph)
+		data_graph["Clasificación de estrategias"] = array_alternatives
 		createChartTopsis(
 			list_name,
 			"Clasificación de estrategias",
-			obj2,
-			ob,
+			alternatives,
+			data_graph,
 			"chart_title_8",
 			"line-chart-8",
 			"graph-container-8"
 		)
 	})
-	console.log("values", values)
-	console.log("kesy", keys)
 }
 
+//let data_topsis = []
 function createGraphIndicator(create_data_indicator_generation, create_data_indicator_consume) {
 	let generacion = create_data_indicator_generation
 	let consumo = create_data_indicator_consume
-	let parent_object = {}
-	let data_topsis = []
 	//datos de pib desde 2022 hasta 2030, no es necesario agregar año porque el sistem recorre hasta el año que necesita
 	let pib = [
 		344.1612833, 355.4685381, 367.8705797, 380.837696, 394.8857455, 408.9742253, 423.1216551,
 		437.1906672, 451.7446956,
 	]
 	let keys_genrartion = Object.keys(generacion)
-	//let keys_consume = Object.keys(consumo)
 	keys_genrartion.forEach(function (item, index) {
 		let genration_item = generacion[item]
 		let consume_item = consumo[item]
@@ -1854,44 +1729,9 @@ function createGraphIndicator(create_data_indicator_generation, create_data_indi
 		let iec = generationIndicatorsIEC(data_consumo, fe, pib, name)
 		let values = prepareDataTopsis(eficiency, iep, iec, name)
 		data_topsis.push(values)
-		//console.log("values_topsis ",values)
-	})
-
-	let criterios_values = Object.assign({}, parent_object, {
-		criteria_values: [
-			{ energetico: 0.352350155182091, economico: 0.138435264150802, ambiental: 0.509214580667107 },
-		],
-	})
-	//console.log("data_topsis ",data_topsis)
-	//let criterios_values = [0.352350155182091, 0.138435264150802, 0.509214580667107]
-	data_topsis.push(criterios_values)
-
-	//console.log("array completo", data_topsis)
-	const dict_values = { data_topsis }
-	const s = JSON.stringify(dict_values)
-	console.log("s")
-	console.log(s)
-	$.ajax({
-		url: "/dashboard/analysis",
-		type: "POST",
-		contentType: "application/json",
-		charset: "utf-8",
-		data: JSON.stringify(s),
-		success: function (data, status, xhr) {
-			// success callback function
-			//$('p').append(data.firstName + ' ' + data.middleName + ' ' + data.lastName);
-			console.log("data respon", data)
-			createDataChartTopsis(data)
-		},
-		error: function (jqXhr, textStatus, errorMessage) {
-			// error callback
-			//$('p').append('Error: ' + errorMessage);
-			console.log("Error: " + errorMessage)
-		},
 	})
 }
 function plotDataStrategies(strategies) {
-	console.log("---plotDataStrategies strategies_need: ---", strategies)
 	let strategiesModels = strategies.models
 	let n = validateDate()
 
@@ -1943,10 +1783,6 @@ function plotDataStrategies(strategies) {
 					let new_ids = sub.id_relation
 					return new_ids
 				})
-			console.log("graficar estrategias")
-			console.log("graficar estrategias a.strategies", a.strategies)
-			console.log("graficar estrategias strategies_relationated", strategies_relationated)
-			console.log("graficar estrategias sub_str_not_included", sub_str_not_included)
 			generateGhapExpansion(a.strategies, n, strategiesName[0])
 			generateGhapUpgrade(strategies_relationated, n, strategiesName[1])
 
@@ -1958,7 +1794,6 @@ function plotDataStrategies(strategies) {
 				let sub_str_not_relationed = b.strategies.filter(
 					(strategy) => !sub_str_not_included.includes(strategy.id_relation)
 				)
-				console.log("graficar estrategias sub_str_not_relationed", sub_str_not_relationed)
 				generateGhapUpgrade(sub_str_not_relationed, n, strategiesName[1])
 			}
 		} else if (
@@ -1995,15 +1830,11 @@ function plotDataStrategies(strategies) {
 }
 
 function plotDataIndicators(strategies) {
-	console.log("---plotDataIndicators strategies_need: ---", strategies)
 	let strategiesModels = strategies.models
 	let n = validateDate()
 	let strategies_array_copia = const_strategies
 
 	let strategiesName = getStrategieName()
-	console.log("---plotDataIndicators---")
-	console.log("---plotDataIndicators---strategies_array_copia", strategies_array_copia)
-
 	if (
 		Object.entries(strategiesModels.filter((model) => strategiesName[0].includes(model.name)))
 			.length != 0 &&
@@ -2012,10 +1843,6 @@ function plotDataIndicators(strategies) {
 	) {
 		let a = strategiesModels[0]
 		let b = strategiesModels[1]
-
-		console.log("como es a", a)
-		console.log("como es b", b)
-
 		if (
 			Object.entries(
 				b.strategies.filter((strategy) =>
@@ -2066,13 +1893,6 @@ function plotDataIndicators(strategies) {
 					let new_ids = sub.id_relation
 					return new_ids
 				})
-			console.log("como es a.strategies", a.strategies)
-			console.log("como es a.strategies filtrado", strategies_relationated_expansion)
-			console.log("como es strategies_relationated", strategies_relationated)
-			// console.log("como es sub_str_not_included auixlio",sub_str_not_included)
-			console.log("como es sub_str_not_included", sub_str_not_included)
-			console.log("como es sub_str_not_included_expansion", sub_str_not_included_expansion)
-
 			let create_data_indicator = generateDataIndicatorWithValues(
 				strategies_relationated_expansion,
 				strategies_relationated,
@@ -2090,10 +1910,6 @@ function plotDataIndicators(strategies) {
 				let sub_str_not_relationed = b.strategies.filter(
 					(strategy) => !sub_str_not_included.includes(strategy.id_relation)
 				)
-				console.log(
-					"sub_str_not_relationed está actualizacion no incluye expansion",
-					sub_str_not_relationed
-				)
 				createStrategyUpgradeComplementary(sub_str_not_relationed, strategies_array_copia, n)
 			}
 			if (
@@ -2106,10 +1922,6 @@ function plotDataIndicators(strategies) {
 				let sub_str_not_relationed = a.strategies.filter(
 					(strategy) => !sub_str_not_included_expansion.includes(strategy.id_relation)
 				)
-				console.log(
-					"sub_str_not_relationed está expansion no incluye actualizacion",
-					sub_str_not_relationed
-				)
 				createStrategyExpansionComplementary(sub_str_not_relationed, strategies_array_copia, n)
 			}
 		} else if (
@@ -2120,7 +1932,6 @@ function plotDataIndicators(strategies) {
 			).length != 0
 		) {
 			//aqui grafica cuando tiene las dos estrategias pero esta no esta relacionada con las sub estrategias de expansion
-			console.log("create_data_indicator----entra ??")
 			let sub_strategies_no_relationed = b.strategies.filter((strategy) =>
 				a.strategies.some((strategy2) => strategy2.id_relation !== strategy.id_relation)
 			)
@@ -2148,29 +1959,6 @@ function plotDataIndicators(strategies) {
 		})
 	}
 }
-
-// function generateComplementaryStrategies() {
-// 	let strategies_relationated = b.strategies
-// 		.filter((strategy) =>
-// 			a.strategies.some((strategy2) => strategy2.id_relation.includes(strategy.id_relation))
-// 		)
-// 		.map((sub_strategies) => {
-// 			let newSubStrategies = Object.assign({}, sub_strategies, {
-// 				values_BAU: a.strategies
-// 					.filter((strategyValue) => strategyValue.id_relation.includes(sub_strategies.id_relation))
-// 					.map((sub_strategies_values) => {
-// 						let newSubStrategies = modelExpansionEstrategyOnlyData(
-// 							n,
-// 							parseFloat(sub_strategies_values.selected_value),
-// 							sub_strategies_values.fp
-// 						)
-// 						return newSubStrategies
-// 					})[0],
-// 			})
-// 			return newSubStrategies
-// 		})
-// 	return strategies_relationated
-// }
 
 function modelExpansionEstrategyOnlyData(n, valorObjetivo, fp) {
 	var increment = valorObjetivo / n
@@ -2255,23 +2043,52 @@ function modelUpgradeStrategy(n, nj, dataIn, n_LB, name) {
 }
 
 /* Desde aca se puede seguir ajustando */
-var strategies_const
+//var strategies_const
 function updateChart(strategies_array) {
-	console.log("--- Update Chart ---")
-	console.log("Values form sliders")
-	console.log(getCurrentValues())
-
+	//console.log(getCurrentValues())
 	let current_values = getCurrentValues()
 	strategies_const = filterStrategiesByIdValues(strategies_array, current_values)
-	//plotDataStrategies(strategies_const)
-	// implementar funcion que cache cuando se presione el boton de paso 4
-	//plotDataIndicators(strategies)
+	plotDataStrategies(strategies_const)
 }
 
 document.getElementById("adjust_sub_estrategies_next").addEventListener("click", function () {
 	plotDataIndicators(strategies_const)
 })
 
+function topsisValues(weights){
+	let parent_object = {}
+	// let criterios_values = Object.assign({}, parent_object, {
+	// 	criteria_values: [
+	// 		{ energetico: 0.352350155182091, economico: 0.138435264150802, ambiental: 0.509214580667107 },
+	// 	],
+	// })
+	let criterios_values = {}
+	criterios_values = Object.assign({}, parent_object, {
+		criteria_values: [weights],
+	})
+	data_topsis.push(criterios_values)
+	const dict_values = { data_topsis }
+	const s = JSON.stringify(dict_values)
+	//console.log(s)
+	$.ajax({
+		url: "/dashboard/analysis",
+		type: "POST",
+		contentType: "application/json",
+		charset: "utf-8",
+		data: JSON.stringify(s),
+		success: function (data, status, xhr) {
+			// success callback function
+			//console.log("data respon", data)
+			console.log("status: " + status)
+			createDataChartTopsis(data)
+			data_topsis.pop()
+		},
+		error: function (jqXhr, textStatus, errorMessage) {
+			// error callback
+			console.log("Error: " + errorMessage)
+		},
+	})
+}
 /* Desarrollo Nuevo */
 $(".btn-progress-next").on("click", function () {
 	var currentStepNum = $(".checkout-progress").data("current-step")
@@ -2355,8 +2172,7 @@ function weights_check() {
 		weights["ambiental"] = values[0] / 100
 		weights["economico"] = values[1] / 100
 		weights["energetico"] = values[2] / 100
-		console.log("Valores ")
-		console.log(weights)
+		topsisValues(weights)
 	} else {
 		console.log("error de valores")
 	}
