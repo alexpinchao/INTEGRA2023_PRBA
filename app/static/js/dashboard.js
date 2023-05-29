@@ -1025,6 +1025,15 @@ function loadSliders(strategies_array) {
 	/* test de render whit js */
 }
 
+function loadInputsAux(strategies_array) {
+	$(".form-control-sm").each(function () {
+		$(this).on("change", { passive: true }, function (slideEvt) {
+			slideEvt.preventDefault()
+			updateChart(strategies_array)
+		})
+	})
+}
+
 function removeSliders() {
 	const boxes = document.querySelectorAll(".slider")
 	boxes.forEach((box) => {
@@ -1110,6 +1119,26 @@ function loadStrategy(strategy, parent, idModel) {
 	strategy_html.querySelector("#strategy-example-current-value").innerHTML = strategy.value
 	strategy_html.querySelector("#strategy-example-current-value").classList.add("form-range-value")
 	strategy_html.querySelector("#strategy-example-current-value").id = "current-value-" + strategy.id
+
+	if (strategy.variable_aux !== undefined) {
+		var variable_aux_html = document.querySelector("#strategy-variable-aux-example").cloneNode(true)
+		variable_aux_html.querySelector("#variable-aux-name-strategy").id =
+			"variable-aux-name-strategy-" + strategy.id
+		variable_aux_html
+			.querySelector("#aux-input-strategy")
+			.setAttribute("min", String(strategy.lower_value_aux))
+		variable_aux_html
+			.querySelector("#aux-input-strategy")
+			.setAttribute("max", String(strategy.upper_value_aux))
+		variable_aux_html
+			.querySelector("#aux-input-strategy")
+			.setAttribute("value", String(strategy.value_aux))
+		variable_aux_html.querySelector("#range-aux-info-strategy").innerText =
+			strategy.lower_value_aux + "-" + strategy.upper_value_aux + " " + strategy.unit_aux
+		variable_aux_html.querySelector("#aux-input-strategy").id = "aux-input-strategy-" + strategy.id
+		strategy_html.querySelector("#aux_var_section").appendChild(variable_aux_html)
+	}
+
 	return strategy_html
 }
 
@@ -1190,6 +1219,7 @@ function loadStrategies(strategies_array, strategies_id_selected) {
 	document.getElementById("test-clone").appendChild(parent)
 	removeSliders()
 	loadSliders(strategies_array)
+	loadInputsAux(strategies_array)
 }
 
 function getCurrentValues() {
@@ -1197,7 +1227,12 @@ function getCurrentValues() {
 	document.querySelectorAll(".form-range-value").forEach(function (values) {
 		key_id = String(values.id.split("-").slice(-1))
 		value_slider = values.innerHTML
-		key_values[key_id] = value_slider
+		var aux_input = document.querySelector("#aux-input-strategy-" + key_id)
+		value_aux = null
+		if (aux_input !== null) {
+			value_aux = aux_input.value
+		}
+		key_values[key_id] = value_slider + "," + value_aux
 	})
 	return key_values
 }
@@ -2047,7 +2082,7 @@ function modelUpgradeStrategy(n, nj, dataIn, n_LB, name) {
 function updateChart(strategies_array) {
 	//console.log(getCurrentValues())
 	let current_values = getCurrentValues()
-	console.log("current_values",current_values)
+	console.log("current_values", current_values)
 	strategies_const = filterStrategiesByIdValues(strategies_array, current_values)
 	plotDataStrategies(strategies_const)
 }
@@ -2056,7 +2091,7 @@ document.getElementById("adjust_sub_estrategies_next").addEventListener("click",
 	plotDataIndicators(strategies_const)
 })
 
-function topsisValues(weights){
+function topsisValues(weights) {
 	let parent_object = {}
 	// let criterios_values = Object.assign({}, parent_object, {
 	// 	criteria_values: [
@@ -2100,16 +2135,19 @@ function upgradeStrategyEndUse(n, nb, pi, np, name, consumo_bau) {
 	var nb = 0.372
 	var dataPi = []
 	var dataNp = []
-	var consumo_bau = [38431.48958, 47251.72003, 55085.03816, 52372.57931, 43918.86529, 42678.89415, 52088.4272, 60911.15393, 58310.93145];
+	var consumo_bau = [
+		38431.48958, 47251.72003, 55085.03816, 52372.57931, 43918.86529, 42678.89415, 52088.4272,
+		60911.15393, 58310.93145,
+	]
 
-	let creaIncrementPi = incrementPi;
+	let creaIncrementPi = incrementPi
 	for (let a = 0; a < n; a++) {
 		dataPi.push(creaIncrementPi)
 		creaIncrementPi = creaIncrementPi + incrementPi
 		console.log("--incrementPi--", incrementPi)
 	}
 
-	let creaIncrementNp = incrementNp;
+	let creaIncrementNp = incrementNp
 	for (let a = 0; a < n; a++) {
 		dataNp.push(creaIncrementNp)
 		creaIncrementNp = creaIncrementNp + incrementNp
@@ -2124,7 +2162,7 @@ function upgradeStrategyEndUse(n, nb, pi, np, name, consumo_bau) {
 		cp = consumo_bau[i] * (1 - (1 - nb / dataNp[i]) * dataPi[i])
 		console.log("--cp--", cp)
 	}
-	return cp;
+	return cp
 }
 
 function transportElectStrategiesEndUse(n, nb, pi, np, name, consumo_bau) {
@@ -2136,16 +2174,19 @@ function transportElectStrategiesEndUse(n, nb, pi, np, name, consumo_bau) {
 	var nb = 0.372
 	var dataPi = []
 	var dataNp = []
-	var consumo_bau = [38431.48958, 47251.72003, 55085.03816, 52372.57931, 43918.86529, 42678.89415, 52088.4272, 60911.15393, 58310.93145];
+	var consumo_bau = [
+		38431.48958, 47251.72003, 55085.03816, 52372.57931, 43918.86529, 42678.89415, 52088.4272,
+		60911.15393, 58310.93145,
+	]
 
-	let creaIncrementPi = incrementPi;
+	let creaIncrementPi = incrementPi
 	for (let a = 0; a < n; a++) {
 		dataPi.push(creaIncrementPi)
 		creaIncrementPi = creaIncrementPi + incrementPi
 		console.log("--incrementPi--", incrementPi)
 	}
 
-	let creaIncrementNp = incrementNp;
+	let creaIncrementNp = incrementNp
 	for (let a = 0; a < n; a++) {
 		dataNp.push(creaIncrementNp)
 		creaIncrementNp = creaIncrementNp + incrementNp
@@ -2160,7 +2201,7 @@ function transportElectStrategiesEndUse(n, nb, pi, np, name, consumo_bau) {
 		cp = consumo_bau[i] * (1 - (1 - nb / dataNp[i]) * dataPi[i])
 		console.log("--cp--", cp)
 	}
-	return cp;
+	return cp
 }
 
 /* Desarrollo Nuevo */

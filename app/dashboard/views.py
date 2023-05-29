@@ -16,7 +16,16 @@ import pandas as pd
 import numpy as np
 
 from scikitmcda.topsis import TOPSIS
-from scikitmcda.constants import MAX, MIN, LinearMinMax_, LinearMax_, LinearSum_, Vector_, EnhancedAccuracy_, Logarithmic_ 
+from scikitmcda.constants import (
+    MAX,
+    MIN,
+    LinearMinMax_,
+    LinearMax_,
+    LinearSum_,
+    Vector_,
+    EnhancedAccuracy_,
+    Logarithmic_,
+)
 
 # ONLY TEST
 value = 60
@@ -29,6 +38,27 @@ strategies_definition = {
                 "id": "d001",
                 "name": "Estrategias de expansión",
                 "strategies": [
+                    # STRATEGY TEST #
+                    {
+                        "id": "x099",
+                        "name": "Test variables auxiliares",
+                        "description": "N/A",
+                        "variable": "Variable primaria",
+                        "upper_value": 100,
+                        "lower_value": 0,
+                        "value": 50,
+                        "year": 2025,
+                        "unit": "%",
+                        "variable_aux": "Valariable auxiliar",
+                        "upper_value_aux": 100,
+                        "lower_value_aux": 0,
+                        "value_aux": 39,
+                        "year_aux": 2025,
+                        "unit_aux": "%",
+                        "fp": 35.2576182447618 / 100,
+                        "id_relation": "r001",
+                    },
+                    # END STRATEGY TEST #
                     {
                         "id": "x001",
                         "name": "Generación eléctrica a partir de parque térmico",
@@ -39,8 +69,8 @@ strategies_definition = {
                         "value": 6,
                         "year": 2025,
                         "unit": "GW",
-                        "fp": 35.2576182447618/100,
-                        "id_relation":"r001",
+                        "fp": 35.2576182447618 / 100,
+                        "id_relation": "r001",
                     },
                     {
                         "id": "x002",
@@ -52,8 +82,8 @@ strategies_definition = {
                         "value": 15,
                         "year": 2025,
                         "unit": "GW",
-                        "fp": 51.4937014/100,
-                        "id_relation":"r002",
+                        "fp": 51.4937014 / 100,
+                        "id_relation": "r002",
                     },
                     {
                         "id": "x003",
@@ -65,8 +95,8 @@ strategies_definition = {
                         "value": 2,
                         "year": 2025,
                         "unit": "GW",
-                        "fp":91.3033263/100,
-                        "id_relation":"r003",
+                        "fp": 91.3033263 / 100,
+                        "id_relation": "r003",
                     },
                     {
                         "id": "x004",
@@ -78,8 +108,8 @@ strategies_definition = {
                         "value": 3,
                         "year": 2025,
                         "unit": "GW",
-                        "fp": 34.7849019/100,
-                        "id_relation":"r004",
+                        "fp": 34.7849019 / 100,
+                        "id_relation": "r004",
                     },
                     {
                         "id": "x005",
@@ -91,8 +121,8 @@ strategies_definition = {
                         "value": 1,
                         "year": 2025,
                         "unit": "GW",
-                        "fp": 36.8224441/100,
-                        "id_relation":"r005",
+                        "fp": 36.8224441 / 100,
+                        "id_relation": "r005",
                     },
                 ],
             },
@@ -111,8 +141,18 @@ strategies_definition = {
                         "year": 2025,
                         "unit": "%",
                         "n_LB": 37.1999989362893 / 100,
-                        "values_BAU": [17730.94, 19359.14, 19359.14, 19359.14, 19359.14, 19359.14, 19359.14, 19359.14, 19359.14],
-                        "id_relation":"r001",
+                        "values_BAU": [
+                            17730.94,
+                            19359.14,
+                            19359.14,
+                            19359.14,
+                            19359.14,
+                            19359.14,
+                            19359.14,
+                            19359.14,
+                            19359.14,
+                        ],
+                        "id_relation": "r001",
                     },
                     {
                         "id": "y002",
@@ -125,8 +165,18 @@ strategies_definition = {
                         "year": 2025,
                         "unit": "%",
                         "n_LB": 88.0834783514384 / 100,
-                        "values_BAU": [53881.14, 58641.03, 67662.72, 67662.72, 67662.72, 67662.72, 67662.72, 67662.72, 67662.72],
-                        "id_relation":"r002",
+                        "values_BAU": [
+                            53881.14,
+                            58641.03,
+                            67662.72,
+                            67662.72,
+                            67662.72,
+                            67662.72,
+                            67662.72,
+                            67662.72,
+                            67662.72,
+                        ],
+                        "id_relation": "r002",
                     },
                     {
                         "id": "y003",
@@ -139,8 +189,18 @@ strategies_definition = {
                         "year": 2025,
                         "unit": "%",
                         "n_LB": 36.3372271796145 / 100,
-                        "values_BAU": [10629.57, 10885.51, 11165.45, 11429.39, 11733.32, 12013.25, 12317.18, 12613.12, 12909.05],
-                        "id_relation":"r003",
+                        "values_BAU": [
+                            10629.57,
+                            10885.51,
+                            11165.45,
+                            11429.39,
+                            11733.32,
+                            12013.25,
+                            12317.18,
+                            12613.12,
+                            12909.05,
+                        ],
+                        "id_relation": "r003",
                     },
                     {
                         "id": "y004",
@@ -152,9 +212,19 @@ strategies_definition = {
                         "value": 55,
                         "year": 2025,
                         "unit": "%",
-                        "n_LB": 53.725/ 100,
-                        "values_BAU": [56.13, 6094.31, 6094.31, 6094.31, 6094.31, 6094.31, 9141.47, 9141.47, 9141.47],
-                        "id_relation":"r004",
+                        "n_LB": 53.725 / 100,
+                        "values_BAU": [
+                            56.13,
+                            6094.31,
+                            6094.31,
+                            6094.31,
+                            6094.31,
+                            6094.31,
+                            9141.47,
+                            9141.47,
+                            9141.47,
+                        ],
+                        "id_relation": "r004",
                     },
                     {
                         "id": "y005",
@@ -167,8 +237,18 @@ strategies_definition = {
                         "year": 2025,
                         "unit": "%",
                         "n_LB": 20.8268 / 100,
-                        "values_BAU": [935.81, 3225.65, 3225.65, 3225.65, 3225.65, 3225.65, 3225.65, 3225.65, 3225.65],
-                        "id_relation":"r005",
+                        "values_BAU": [
+                            935.81,
+                            3225.65,
+                            3225.65,
+                            3225.65,
+                            3225.65,
+                            3225.65,
+                            3225.65,
+                            3225.65,
+                            3225.65,
+                        ],
+                        "id_relation": "r005",
                     },
                 ],
             },
@@ -213,8 +293,8 @@ strategies_definition = {
                         "value": 6,
                         "year": 2025,
                         "unit": "kWh/km",
-                        "fp": 35.2576182447618/100,
-                        "id_relation":"r001",
+                        "fp": 35.2576182447618 / 100,
+                        "id_relation": "r001",
                     },
                     {
                         "id": "e002",
@@ -226,8 +306,8 @@ strategies_definition = {
                         "value": 15,
                         "year": 2025,
                         "unit": "kWh/km",
-                        "fp": 51.4937014/100,
-                        "id_relation":"r002",
+                        "fp": 51.4937014 / 100,
+                        "id_relation": "r002",
                     },
                     {
                         "id": "e003",
@@ -239,8 +319,8 @@ strategies_definition = {
                         "value": 2,
                         "year": 2025,
                         "unit": "kWh/km",
-                        "fp":91.3033263/100,
-                        "id_relation":"r003",
+                        "fp": 91.3033263 / 100,
+                        "id_relation": "r003",
                     },
                     {
                         "id": "e004",
@@ -252,8 +332,8 @@ strategies_definition = {
                         "value": 3,
                         "year": 2025,
                         "unit": "kWh/km",
-                        "fp": 34.7849019/100,
-                        "id_relation":"r004",
+                        "fp": 34.7849019 / 100,
+                        "id_relation": "r004",
                     },
                     {
                         "id": "e005",
@@ -265,8 +345,8 @@ strategies_definition = {
                         "value": 1,
                         "year": 2025,
                         "unit": "kWh/km",
-                        "fp": 36.8224441/100,
-                        "id_relation":"r005",
+                        "fp": 36.8224441 / 100,
+                        "id_relation": "r005",
                     },
                     {
                         "id": "e006",
@@ -278,8 +358,8 @@ strategies_definition = {
                         "value": 1,
                         "year": 2025,
                         "unit": "kWh/km",
-                        "fp": 36.8224441/100,
-                        "id_relation":"r005",
+                        "fp": 36.8224441 / 100,
+                        "id_relation": "r005",
                     },
                     {
                         "id": "e007",
@@ -291,8 +371,8 @@ strategies_definition = {
                         "value": 1,
                         "year": 2025,
                         "unit": "kWh/km",
-                        "fp": 36.8224441/100,
-                        "id_relation":"r005",
+                        "fp": 36.8224441 / 100,
+                        "id_relation": "r005",
                     },
                 ],
             },
@@ -311,8 +391,28 @@ strategies_definition = {
                         "year": 2025,
                         "unit": "%",
                         "nb": 0.338571429,
-                        "ce_bau": [27728.50797, 28392.36255, 28945.51962, 29580.86469, 30275.13246, 30965.60573, 31638.25986, 32301.31337, 32969.76222],
-                        "pi_bau": [0.788451953, 1.030658539, 1.351527385, 1.775937717, 2.333159213, 3.059047229, 3.992018218, 5.172317986, 6.634338406],
+                        "ce_bau": [
+                            27728.50797,
+                            28392.36255,
+                            28945.51962,
+                            29580.86469,
+                            30275.13246,
+                            30965.60573,
+                            31638.25986,
+                            32301.31337,
+                            32969.76222,
+                        ],
+                        "pi_bau": [
+                            0.788451953,
+                            1.030658539,
+                            1.351527385,
+                            1.775937717,
+                            2.333159213,
+                            3.059047229,
+                            3.992018218,
+                            5.172317986,
+                            6.634338406,
+                        ],
                     },
                     {
                         "id": "f002",
@@ -325,8 +425,28 @@ strategies_definition = {
                         "year": 2025,
                         "unit": "%",
                         "nb": 0.42,
-                        "ce_bau": [18729.09273, 19177.49024, 19551.11763, 19980.25853, 20449.19849, 20915.57547, 21369.9166, 21817.77303, 22269.27372],
-                        "pi_bau": [0.532556233, 0.696153553, 0.912882934, 1.199548934, 1.575921622, 2.066219332, 2.69639028, 3.493618311, 4.481133256],
+                        "ce_bau": [
+                            18729.09273,
+                            19177.49024,
+                            19551.11763,
+                            19980.25853,
+                            20449.19849,
+                            20915.57547,
+                            21369.9166,
+                            21817.77303,
+                            22269.27372,
+                        ],
+                        "pi_bau": [
+                            0.532556233,
+                            0.696153553,
+                            0.912882934,
+                            1.199548934,
+                            1.575921622,
+                            2.066219332,
+                            2.69639028,
+                            3.493618311,
+                            4.481133256,
+                        ],
                     },
                     {
                         "id": "f003",
@@ -339,8 +459,28 @@ strategies_definition = {
                         "year": 2025,
                         "unit": "%",
                         "nb": 0.7225,
-                        "ce_bau": [29330.06708, 30032.26495, 30617.37158, 31289.41328, 32023.78097, 32754.13499, 33465.64067, 34166.9912, 34874.04871],
-                        "pi_bau": [0.833991814, 1.090187908, 1.429589681, 1.878513349, 2.467919165, 3.235733438, 4.222591502, 5.471063703, 7.017528338],
+                        "ce_bau": [
+                            29330.06708,
+                            30032.26495,
+                            30617.37158,
+                            31289.41328,
+                            32023.78097,
+                            32754.13499,
+                            33465.64067,
+                            34166.9912,
+                            34874.04871,
+                        ],
+                        "pi_bau": [
+                            0.833991814,
+                            1.090187908,
+                            1.429589681,
+                            1.878513349,
+                            2.467919165,
+                            3.235733438,
+                            4.222591502,
+                            5.471063703,
+                            7.017528338,
+                        ],
                     },
                 ],
             },
@@ -348,18 +488,20 @@ strategies_definition = {
     },
 }
 
-def functionTopsis(output,weiths):
+
+def functionTopsis(output, weiths):
     topsis = TOPSIS()
     # topsis.dataframe([[0.898834783514384, 0.166638958655125, 0.0],[0.403999992022169, 0.106074659601237, 13.4056094057448],[0.473372271796145, 0.0603668284274698, 7.6290994098352],[0.55725, 0.0363139093316429, 0.0],[0.223268, 0.031981378104915,  0.0]],['P Hidro', 'P Termicas', 'P A&C', 'P Eolicas', 'P Solares'],['EFICIENCIA', 'IEP', 'IEC']
     #                 )
-    topsis.dataframe(output[0],output[1],output[2])
+    topsis.dataframe(output[0], output[1], output[2])
     print(topsis.pretty_original())
     w_TOPSIS = topsis.set_weights_manually(weiths[0])
     topsis.set_signals([MAX, MIN, MIN])
     topsis.decide()
     df_topsis = topsis.df_decision
-    rank_alternatives = df_topsis.to_json(force_ascii=False, orient='records')
+    rank_alternatives = df_topsis.to_json(force_ascii=False, orient="records")
     return rank_alternatives
+
 
 # @login_required
 @dashboard.route("/analysis", methods=["GET", "POST"])
@@ -368,15 +510,17 @@ def analysis():
     if request.method == "POST":
         output = request.get_json()
         # This is the output that was stored in the JSON within the browser
-        result = json.loads(output) #this converts the json output to a python dictionary
-        data_result = result.get('data_topsis')
+        result = json.loads(
+            output
+        )  # this converts the json output to a python dictionary
+        data_result = result.get("data_topsis")
         values = []
         name = []
-        weiths= []
+        weiths = []
         dataframe = []
         for row in data_result:
             keys = row.keys()
-            if ([*row.keys()][0] == 'criteria_values'):
+            if [*row.keys()][0] == "criteria_values":
                 row_values = row.values()
                 for row_val in row_values:
                     for val in row_val:
@@ -389,7 +533,7 @@ def analysis():
                     for val in row_val:
                         number = [*val.values()]
                         values.append(number)
-        criterios_name = ['EFICIENCIA', 'IEP', 'IEC']
+        criterios_name = ["EFICIENCIA", "IEP", "IEC"]
         dataframe.append(values)
         dataframe.append(name)
         dataframe.append(criterios_name)

@@ -57,6 +57,27 @@
 		</div>
 	</div>
 </div>
+<div hidden>
+	<div id="strategy-variable-aux-example" class="row d-flex align-items-center py-1">
+		<p class="col-12 h6" id="variable-aux-name-strategy">Variable auxiliar</p>
+		<div class="mb-3">
+			<div class="form-group">
+				<input
+					class="form-control form-control-sm"
+					id="aux-input-strategy"
+					type="number"
+					min="0"
+					max="100"
+					value="33"
+				/>
+				<small class="text-gray-500" id="range-aux-info-strategy">
+					strategy.lower_value - strategy.upper_value; strategy.unit
+				</small>
+			</div>
+		</div>
+	</div>
+</div>
+
 {% endmacro %} {% macro template_strategy() %}
 <div class="accordion-item mb-1" id="strategy-item-example">
 	<h2 class="accordion-header rounded bg-gray-100" id="heading-strategy-example">
@@ -140,6 +161,7 @@
 					</small>
 				</div>
 			</div>
+			<div id="aux_var_section"></div>
 		</div>
 	</div>
 </div>
