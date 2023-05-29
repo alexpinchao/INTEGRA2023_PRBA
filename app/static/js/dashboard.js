@@ -2047,6 +2047,7 @@ function modelUpgradeStrategy(n, nj, dataIn, n_LB, name) {
 function updateChart(strategies_array) {
 	//console.log(getCurrentValues())
 	let current_values = getCurrentValues()
+	console.log("current_values",current_values)
 	strategies_const = filterStrategiesByIdValues(strategies_array, current_values)
 	plotDataStrategies(strategies_const)
 }
@@ -2089,6 +2090,79 @@ function topsisValues(weights){
 		},
 	})
 }
+
+function upgradeStrategyEndUse(n, nb, pi, np, name, consumo_bau) {
+	// Eficiencia actual promedio de las plantas térmicas
+	// η_BAU: 37.20 %
+	console.log("--upgradeStrategyEndUse--")
+	var incrementPi = pi / n
+	var incrementNp = np / n
+	var nb = 0.372
+	var dataPi = []
+	var dataNp = []
+	var consumo_bau = [38431.48958, 47251.72003, 55085.03816, 52372.57931, 43918.86529, 42678.89415, 52088.4272, 60911.15393, 58310.93145];
+
+	let creaIncrementPi = incrementPi;
+	for (let a = 0; a < n; a++) {
+		dataPi.push(creaIncrementPi)
+		creaIncrementPi = creaIncrementPi + incrementPi
+		console.log("--incrementPi--", incrementPi)
+	}
+
+	let creaIncrementNp = incrementNp;
+	for (let a = 0; a < n; a++) {
+		dataNp.push(creaIncrementNp)
+		creaIncrementNp = creaIncrementNp + incrementNp
+		console.log("--incrementNp--", incrementNp)
+	}
+
+	console.log("dataPi", dataPi)
+	console.log("dataNp", dataNp)
+
+	let cp = 0
+	for (let i = 0; i < dataNp.length; i++) {
+		cp = consumo_bau[i] * (1 - (1 - nb / dataNp[i]) * dataPi[i])
+		console.log("--cp--", cp)
+	}
+	return cp;
+}
+
+function transportElectStrategiesEndUse(n, nb, pi, np, name, consumo_bau) {
+	// Eficiencia actual promedio de las plantas térmicas
+	// η_BAU: 37.20 %
+	console.log("--transportElectStrategiesEndUse--")
+	var incrementPi = pi / n
+	var incrementNp = np / n
+	var nb = 0.372
+	var dataPi = []
+	var dataNp = []
+	var consumo_bau = [38431.48958, 47251.72003, 55085.03816, 52372.57931, 43918.86529, 42678.89415, 52088.4272, 60911.15393, 58310.93145];
+
+	let creaIncrementPi = incrementPi;
+	for (let a = 0; a < n; a++) {
+		dataPi.push(creaIncrementPi)
+		creaIncrementPi = creaIncrementPi + incrementPi
+		console.log("--incrementPi--", incrementPi)
+	}
+
+	let creaIncrementNp = incrementNp;
+	for (let a = 0; a < n; a++) {
+		dataNp.push(creaIncrementNp)
+		creaIncrementNp = creaIncrementNp + incrementNp
+		console.log("--incrementNp--", incrementNp)
+	}
+
+	console.log("dataPi", dataPi)
+	console.log("dataNp", dataNp)
+
+	let cp = 0
+	for (let i = 0; i < dataNp.length; i++) {
+		cp = consumo_bau[i] * (1 - (1 - nb / dataNp[i]) * dataPi[i])
+		console.log("--cp--", cp)
+	}
+	return cp;
+}
+
 /* Desarrollo Nuevo */
 $(".btn-progress-next").on("click", function () {
 	var currentStepNum = $(".checkout-progress").data("current-step")
