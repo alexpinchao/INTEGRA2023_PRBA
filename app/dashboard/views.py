@@ -104,7 +104,7 @@ strategies_definition = {
                         "id": "y001",
                         "name": "Mejoras de eficiencia en parque térmico",
                         "description": "N/A",
-                        "variable": "PI",
+                        "variable": "Eficiencia deseada",
                         "upper_value": 100,
                         "lower_value": 0,
                         "value": 56,
@@ -118,7 +118,7 @@ strategies_definition = {
                         "id": "y002",
                         "name": "Mejoras de eficiencia en plantas hidráulicas",
                         "description": "N/A",
-                        "variable": "PI",
+                        "variable": "Eficiencia deseada",
                         "upper_value": 100,
                         "lower_value": 0,
                         "value": 90,
@@ -132,7 +132,7 @@ strategies_definition = {
                         "id": "y003",
                         "name": "Mejoras de eficiencia en plantas de Auto y Cogeneración",
                         "description": "N/A",
-                        "variable": "PI",
+                        "variable": "Eficiencia deseada",
                         "upper_value": 100,
                         "lower_value": 0,
                         "value": 47,
@@ -146,7 +146,7 @@ strategies_definition = {
                         "id": "y004",
                         "name": "Mejoras de eficiencia en plantas eólicas",
                         "description": "N/A",
-                        "variable": "PI",
+                        "variable": "Eficiencia deseada",
                         "upper_value": 100,
                         "lower_value": 0,
                         "value": 55,
@@ -160,7 +160,7 @@ strategies_definition = {
                         "id": "y005",
                         "name": "Mejoras de eficiencia en plantas solares",
                         "description": "N/A",
-                        "variable": "PI",
+                        "variable": "Eficiencia deseada",
                         "upper_value": 100,
                         "lower_value": 0,
                         "value": 22,
@@ -200,33 +200,161 @@ strategies_definition = {
         "process": "Uso final",
         "models": [
             {
-                "id": "NA",
-                "name": "NA",
+                "id": "u001",
+                "name": "Estrategias de electrificación en el transporte",
                 "strategies": [
                     {
-                        "id": "NA",
-                        "name": "NA",
+                        "id": "e001",
+                        "name": "Electrificación del transporte masivo microbuses",
                         "description": "N/A",
-                        "variable": "NA",
-                        "upper_value": 0,
+                        "variable": "Rendimiento del motor",
+                        "upper_value": 10,
                         "lower_value": 0,
-                        "value": 0,
-                        "year": 0,
-                        "unit": "%",
-                    }
+                        "value": 6,
+                        "year": 2025,
+                        "unit": "kWh/km",
+                        "fp": 35.2576182447618/100,
+                        "id_relation":"r001",
+                    },
+                    {
+                        "id": "e002",
+                        "name": "Electrificación del transporte masivo buses",
+                        "description": "N/A",
+                        "variable": "Rendimiento del motor",
+                        "upper_value": 100,
+                        "lower_value": 0,
+                        "value": 15,
+                        "year": 2025,
+                        "unit": "kWh/km",
+                        "fp": 51.4937014/100,
+                        "id_relation":"r002",
+                    },
+                    {
+                        "id": "e003",
+                        "name": "Electrificación del transporte ligero automóviles y camperos",
+                        "description": "N/A",
+                        "variable": "Rendimiento del motor",
+                        "upper_value": 10,
+                        "lower_value": 0,
+                        "value": 2,
+                        "year": 2025,
+                        "unit": "kWh/km",
+                        "fp":91.3033263/100,
+                        "id_relation":"r003",
+                    },
+                    {
+                        "id": "e004",
+                        "name": "Electrificación del transporte ligero motos",
+                        "description": "N/A",
+                        "variable": "Rendimiento del motor",
+                        "upper_value": 10,
+                        "lower_value": 1,
+                        "value": 3,
+                        "year": 2025,
+                        "unit": "kWh/km",
+                        "fp": 34.7849019/100,
+                        "id_relation":"r004",
+                    },
+                    {
+                        "id": "e005",
+                        "name": "Electrificación del transporte ligero camionetas",
+                        "description": "N/A",
+                        "variable": "Rendimiento del motor",
+                        "upper_value": 10,
+                        "lower_value": 1,
+                        "value": 1,
+                        "year": 2025,
+                        "unit": "kWh/km",
+                        "fp": 36.8224441/100,
+                        "id_relation":"r005",
+                    },
+                    {
+                        "id": "e006",
+                        "name": "Electrificación del transporte de carga y pasajeros taxis",
+                        "description": "N/A",
+                        "variable": "Rendimiento del motor",
+                        "upper_value": 10,
+                        "lower_value": 1,
+                        "value": 1,
+                        "year": 2025,
+                        "unit": "kWh/km",
+                        "fp": 36.8224441/100,
+                        "id_relation":"r005",
+                    },
+                    {
+                        "id": "e007",
+                        "name": "Electrificación del transporte de carga y pasajeros camiones",
+                        "description": "N/A",
+                        "variable": "Rendimiento del motor",
+                        "upper_value": 10,
+                        "lower_value": 1,
+                        "value": 1,
+                        "year": 2025,
+                        "unit": "kWh/km",
+                        "fp": 36.8224441/100,
+                        "id_relation":"r005",
+                    },
                 ],
-            }
+            },
+            {
+                "id": "u002",
+                "name": "Estrategias de actualización tecnológica",
+                "strategies": [
+                    {
+                        "id": "f001",
+                        "name": "Equipos en el sector residencial a BAT",
+                        "description": "N/A",
+                        "variable": "Porcentaje de integración",
+                        "upper_value": 100,
+                        "lower_value": 0,
+                        "value": 56,
+                        "year": 2025,
+                        "unit": "%",
+                        "nb": 0.338571429,
+                        "ce_bau": [27728.50797, 28392.36255, 28945.51962, 29580.86469, 30275.13246, 30965.60573, 31638.25986, 32301.31337, 32969.76222],
+                        "pi_bau": [0.788451953, 1.030658539, 1.351527385, 1.775937717, 2.333159213, 3.059047229, 3.992018218, 5.172317986, 6.634338406],
+                    },
+                    {
+                        "id": "f002",
+                        "name": "Equipos en el sector comcercial y público a BAT",
+                        "description": "N/A",
+                        "variable": "Porcentaje de integración",
+                        "upper_value": 100,
+                        "lower_value": 0,
+                        "value": 90,
+                        "year": 2025,
+                        "unit": "%",
+                        "nb": 0.42,
+                        "ce_bau": [18729.09273, 19177.49024, 19551.11763, 19980.25853, 20449.19849, 20915.57547, 21369.9166, 21817.77303, 22269.27372],
+                        "pi_bau": [0.532556233, 0.696153553, 0.912882934, 1.199548934, 1.575921622, 2.066219332, 2.69639028, 3.493618311, 4.481133256],
+                    },
+                    {
+                        "id": "f003",
+                        "name": "Equipos en el sector industrial a BAT",
+                        "description": "N/A",
+                        "variable": "Porcentaje de integración",
+                        "upper_value": 100,
+                        "lower_value": 0,
+                        "value": 47,
+                        "year": 2025,
+                        "unit": "%",
+                        "nb": 0.7225,
+                        "ce_bau": [29330.06708, 30032.26495, 30617.37158, 31289.41328, 32023.78097, 32754.13499, 33465.64067, 34166.9912, 34874.04871],
+                        "pi_bau": [0.833991814, 1.090187908, 1.429589681, 1.878513349, 2.467919165, 3.235733438, 4.222591502, 5.471063703, 7.017528338],
+                    },
+                ],
+            },
         ],
     },
 }
 
-def functionTopsis(output):
+def functionTopsis(output,weiths):
     topsis = TOPSIS()
     # topsis.dataframe([[0.898834783514384, 0.166638958655125, 0.0],[0.403999992022169, 0.106074659601237, 13.4056094057448],[0.473372271796145, 0.0603668284274698, 7.6290994098352],[0.55725, 0.0363139093316429, 0.0],[0.223268, 0.031981378104915,  0.0]],['P Hidro', 'P Termicas', 'P A&C', 'P Eolicas', 'P Solares'],['EFICIENCIA', 'IEP', 'IEC']
     #                 )
     topsis.dataframe(output[0],output[1],output[2])
     print(topsis.pretty_original())
-    w_TOPSIS = topsis.set_weights_manually([0.352350155182091, 0.238435264150802, 0.409214580667107])
+    w_TOPSIS = topsis.set_weights_manually(weiths[0])
     topsis.set_signals([MAX, MIN, MIN])
     topsis.decide()
     df_topsis = topsis.df_decision
@@ -241,32 +369,31 @@ def analysis():
         output = request.get_json()
         # This is the output that was stored in the JSON within the browser
         result = json.loads(output) #this converts the json output to a python dictionary
-        a = result.get('data_topsis')
+        data_result = result.get('data_topsis')
         values = []
         name = []
         weiths= []
         dataframe = []
-        for x in a:
-            b = x.keys()
-            if ([*x.keys()][0] == 'criteria_values'):
-                c = x.values()
-                for y in c:
-                    for z in y:
-                        z2 = [*z.values()]
-                        weiths.append(z2)
+        for row in data_result:
+            keys = row.keys()
+            if ([*row.keys()][0] == 'criteria_values'):
+                row_values = row.values()
+                for row_val in row_values:
+                    for val in row_val:
+                        number = [*val.values()]
+                        weiths.append(number)
             else:
-                name.extend(b)
-                c = x.values()
-                for y in c:
-                    for z in y:
-                        z1 = z.keys()
-                        z2 = [*z.values()]
-                        values.append(z2)
+                name.extend(keys)
+                row_values = row.values()
+                for row_val in row_values:
+                    for val in row_val:
+                        number = [*val.values()]
+                        values.append(number)
         criterios_name = ['EFICIENCIA', 'IEP', 'IEC']
         dataframe.append(values)
         dataframe.append(name)
         dataframe.append(criterios_name)
-        topsis = functionTopsis(dataframe)
+        topsis = functionTopsis(dataframe, weiths)
         return topsis
     else:
         strategies = app.db_object.get_Strategies()
