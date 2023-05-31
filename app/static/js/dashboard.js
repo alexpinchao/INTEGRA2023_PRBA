@@ -1122,6 +1122,7 @@ function loadStrategy(strategy, parent, idModel) {
 
 	if (strategy.variable_aux !== undefined) {
 		var variable_aux_html = document.querySelector("#strategy-variable-aux-example").cloneNode(true)
+		variable_aux_html.querySelector("#variable-aux-name-strategy").innerText = strategy.name
 		variable_aux_html.querySelector("#variable-aux-name-strategy").id =
 			"variable-aux-name-strategy-" + strategy.id
 		variable_aux_html
