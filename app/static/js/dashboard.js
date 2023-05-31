@@ -1077,6 +1077,37 @@ function loadModel(model, parent) {
 	return model_html
 }
 
+function toggleAuxInput(input_name) {
+	document.getElementById(input_name).toggleAttribute("disabled")
+}
+
+function loadAuxVariable(strategy) {
+	var variable_aux_html = document.querySelector("#strategy-variable-aux-example").cloneNode(true)
+	variable_aux_html.querySelector("#variable-aux-name-strategy").innerText = strategy.name
+	variable_aux_html.querySelector("#variable-aux-name-strategy").id =
+		"variable-aux-name-strategy-" + strategy.id
+	variable_aux_html
+		.querySelector("#aux-input-strategy")
+		.setAttribute("min", String(strategy.lower_value_aux))
+	variable_aux_html
+		.querySelector("#aux-input-strategy")
+		.setAttribute("max", String(strategy.upper_value_aux))
+	variable_aux_html
+		.querySelector("#aux-input-strategy")
+		.setAttribute("value", String(strategy.value_aux))
+	variable_aux_html.querySelector("#range-aux-info-strategy").innerText =
+		strategy.lower_value_aux + "-" + strategy.upper_value_aux + " " + strategy.unit_aux
+
+	let name_aux_input = "aux-input-strategy-" + strategy.id
+	variable_aux_html
+		.querySelector("#variable-aux-checker")
+		.setAttribute("onclick", "toggleAuxInput('" + name_aux_input + "')")
+
+	variable_aux_html.querySelector("#aux-input-strategy").id = name_aux_input
+
+	return variable_aux_html
+}
+
 function loadStrategy(strategy, parent, idModel) {
 	var strategy_html = parent.querySelector("#strategy-item-example").cloneNode(true)
 	strategy_html.id = "accordion-strategy-" + strategy.id
@@ -1121,23 +1152,8 @@ function loadStrategy(strategy, parent, idModel) {
 	strategy_html.querySelector("#strategy-example-current-value").id = "current-value-" + strategy.id
 
 	if (strategy.variable_aux !== undefined) {
-		var variable_aux_html = document.querySelector("#strategy-variable-aux-example").cloneNode(true)
-		variable_aux_html.querySelector("#variable-aux-name-strategy").innerText = strategy.name
-		variable_aux_html.querySelector("#variable-aux-name-strategy").id =
-			"variable-aux-name-strategy-" + strategy.id
-		variable_aux_html
-			.querySelector("#aux-input-strategy")
-			.setAttribute("min", String(strategy.lower_value_aux))
-		variable_aux_html
-			.querySelector("#aux-input-strategy")
-			.setAttribute("max", String(strategy.upper_value_aux))
-		variable_aux_html
-			.querySelector("#aux-input-strategy")
-			.setAttribute("value", String(strategy.value_aux))
-		variable_aux_html.querySelector("#range-aux-info-strategy").innerText =
-			strategy.lower_value_aux + "-" + strategy.upper_value_aux + " " + strategy.unit_aux
-		variable_aux_html.querySelector("#aux-input-strategy").id = "aux-input-strategy-" + strategy.id
-		strategy_html.querySelector("#aux_var_section").appendChild(variable_aux_html)
+		var aux_html = loadAuxVariable(strategy)
+		strategy_html.querySelector("#aux_var_section").appendChild(aux_html)
 	}
 
 	return strategy_html
@@ -1231,7 +1247,7 @@ function getCurrentValues() {
 		var aux_input = document.querySelector("#aux-input-strategy-" + key_id)
 		value_aux = null
 		if (aux_input !== null) {
-			value_aux = aux_input.value
+			value_aux = aux_input.hasAttribute("disabled") ? false : aux_input.value
 		}
 		key_values[key_id] = value_slider + "," + value_aux
 	})

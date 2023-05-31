@@ -45,7 +45,7 @@
 							aria-labelledby="heading-model-id"
 							data-bs-parent="#accordion-strategies"
 						>
-							<div class="accordion-body p-1">
+							<div class="accordion-body p-0">
 								<div class="accordion accordion-flush" id="strategies-model-id">
 									<div hidden>{{ template_strategy() }}</div>
 								</div>
@@ -59,18 +59,26 @@
 </div>
 <div hidden>
 	<div id="strategy-variable-aux-example" class="row d-flex align-items-center py-1">
-		<p class="col-12 h6" id="variable-aux-name-strategy">Variable auxiliar</p>
+		<div class="from-group">
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" id="variable-aux-checker" />
+				<label class="form-check-label h6" for="defaultCheck10" id="variable-aux-name-strategy">
+					Variable auxiliar
+				</label>
+			</div>
+		</div>
 		<div class="mb-3">
 			<div class="form-group">
 				<input
 					class="form-control form-control-sm"
 					id="aux-input-strategy"
+					disabled
 					type="number"
 					min="0"
 					max="100"
 					value="33"
 				/>
-				<small class="text-gray-500" id="range-aux-info-strategy">
+				<small class="text-gray-500 mx-2" id="range-aux-info-strategy">
 					strategy.lower_value - strategy.upper_value; strategy.unit
 				</small>
 			</div>
