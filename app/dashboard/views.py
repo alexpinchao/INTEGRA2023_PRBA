@@ -49,7 +49,7 @@ strategies_definition = {
                         "value": 50,
                         "year": 2025,
                         "unit": "%",
-                        "variable_aux": "Valariable auxiliar",
+                        "variable_aux": "Variable test",
                         "upper_value_aux": 100,
                         "lower_value_aux": 0,
                         "value_aux": 39,

@@ -710,9 +710,11 @@ super() }}
 													<div class="card-body p-0">{{ macros.template_parent_strategies() }}</div>
 												</div>
 											</section>
-											<div class="col-12 col-md-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
+											<div
+												class="col-12 col-md-4 col-lg-3 mb-1 px-0 d-flex align-self-stretch flex-fill"
+											>
 												<div class="card border-0 flex-fill">
-													<div class="card-body align-self-stretch p-2">
+													<div class="card-body align-self-stretch p-0">
 														<div id="test-clone"></div>
 													</div>
 												</div>
@@ -725,7 +727,7 @@ super() }}
 												</div>
 											</div> -->
 											<!-- Graph Section -->
-											<div class="col-12 col-md-8 mb-1 px-0 d-flex align-self-stretch">
+											<div class="col-12 col-md-8 col-lg-9 mb-1 px-0 d-flex align-self-stretch">
 												<div class="card border-0 flex-fill">
 													<div class="card-body p-1 flex-fill" id="graph-container-3">
 														<div class="d-block mb-3 mb-sm-0">
@@ -2578,7 +2580,6 @@ super() }}
 				</div>
 			</div>
 		</section> -->
-
 		{% block footer %} {% include 'module/footer.html' %} {% endblock %}
 	</main>
 </body>
@@ -2673,15 +2674,15 @@ super() }}
 		updateList(list_name)
 	}
 
-	function evaluateNameModel(item){
+	function evaluateNameModel(item) {
 		let title = ""
 		if (item === "Estrategias de actualización") {
 			tittle = "Modelo matemático de actualización"
-		} else if (item === "Estrategias de expansión"){
+		} else if (item === "Estrategias de expansión") {
 			tittle = "Modelo matemático de expansión"
-		}else if (item === "Estrategias de actualización tecnológica"){
+		} else if (item === "Estrategias de actualización tecnológica") {
 			tittle = "Modelo matemático de actualización tecnológica"
-		}else if (item === "Estrategias de electrificación en el transporte"){
+		} else if (item === "Estrategias de electrificación en el transporte") {
 			tittle = "Modelo matemático de electrificación en el transporte"
 		}
 		return tittle
@@ -2854,6 +2855,7 @@ super() }}
 		let json_descripcion_final = {}
 		list_names.forEach(function (item, index) {
 			// prettier-ignore
+			console.log("NEED item", item)
 			let description_strategies = JSON.parse('{{description_strategies | tojson | safe}}')
 			let json_aux = description_strategies["description_strategies"]["estrategias"]
 			let json_description = []
@@ -2909,6 +2911,63 @@ super() }}
 			tr2.style.display = "none"
 			tbody.appendChild(tr2)
 		})
+		console.log("NEED json_descripcion_final", json_descripcion_final)
+		list_names.forEach(function (items, index) {
+			// let tr1 = _tr_.cloneNode(false)
+			// let td1 = _td_.cloneNode(false)
+			// let a1 = _a_.cloneNode(false)
+
+			// console.log("NEED items", items)
+
+			// if (items === "Estrategias de actualización") {
+			// 	itemsTittle = "Modelo matemático de actualización"
+			// } else {
+			// 	itemsTittle = "Modelo matemático de expansión"
+			// }
+
+			// a1.appendChild(document.createTextNode(itemsTittle || ""))
+			// td1.classList.add("fw-extrabold")
+			// td1.classList.add("showhr")
+			// let i1 = _i_.cloneNode(false)
+			// i1.classList.add("fa-solid")
+			// /* i.classList.add('fa-angle-right') */
+			// i1.classList.add("fa-caret-down")
+			// i1.classList.add("pe-1")
+
+			// td1.appendChild(i1)
+			// td1.appendChild(a1)
+			// tr1.appendChild(td1)
+			// tbody.appendChild(tr1)
+
+			// // let description = json_descripcion_final[items]
+			// // console.log("NEED description", description)
+			// let titles = ["Modelo matemático:", "Variables:"]
+			// let tr2 = _tr_.cloneNode(false)
+			// let td2 = _td_.cloneNode(false)
+			// description.forEach(function (item, index) {
+			// 	if (index == 1) {
+			// 		item = item.replace(/-/gi, "<br>")
+			// 	}
+
+			// 	let p = _p_.cloneNode(false)
+			// 	p.innerHTML =
+			// 		'<small class="fw-extrabold">' +
+			// 		titles[index] +
+			// 		'</small><br><div class="px-1 px-lg-4 text-wrap justified-text">' +
+			// 		item +
+			// 		"</div>"
+			// 	p.classList.add("row")
+			// 	td2.appendChild(p)
+			// })
+			// td2.classList.add("aser")
+			// td2.classList.add("fw-normal")
+			// td2.classList.add("px-2")
+			// td2.classList.add("px-lg-4")
+			// tr2.appendChild(td2)
+			// tr2.style.display = "none"
+			// tbody.appendChild(tr2)
+		})
+
 		table.appendChild(tbody)
 
 		table.id = "table_variables_1"
