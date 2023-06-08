@@ -39,25 +39,25 @@ strategies_definition = {
                 "name": "Estrategias de expansión",
                 "strategies": [
                     # STRATEGY TEST #
-                    {
-                        "id": "x099",
-                        "name": "Test variables auxiliares",
-                        "description": "N/A",
-                        "variable": "Variable primaria",
-                        "upper_value": 100,
-                        "lower_value": 0,
-                        "value": 50,
-                        "year": 2025,
-                        "unit": "%",
-                        "variable_aux": "Variable test",
-                        "upper_value_aux": 100,
-                        "lower_value_aux": 0,
-                        "value_aux": 39,
-                        "year_aux": 2025,
-                        "unit_aux": "%",
-                        "fp": 35.2576182447618 / 100,
-                        "id_relation": "r001",
-                    },
+                    # {
+                    #     "id": "x099",
+                    #     "name": "Test variables auxiliares",
+                    #     "description": "N/A",
+                    #     "variable": "Variable primaria",
+                    #     "upper_value": 100,
+                    #     "lower_value": 0,
+                    #     "value": 50,
+                    #     "year": 2025,
+                    #     "unit": "%",
+                    #     "variable_aux": "Variable test",
+                    #     "upper_value_aux": 100,
+                    #     "lower_value_aux": 0,
+                    #     "value_aux": 39,
+                    #     "year_aux": 2025,
+                    #     "unit_aux": "%",
+                    #     "fp": 35.2576182447618 / 100,
+                    #     "id_relation": "r001",
+                    # },
                     # END STRATEGY TEST #
                     {
                         "id": "x001",
@@ -410,7 +410,7 @@ strategies_definition = {
                         "year_aux": 2025,
                         "unit_aux": "kWh/km",
                         "avkt": 45000, # valor por defecto para promedio de vkt constante para años [2022 ...2030]
-                        "id_relation": "r001",
+                        "id_tipo_vehiculo": "ve001",
                         "num_vehic_elect": [
                             25.70104,
                             36.01845,
@@ -440,7 +440,7 @@ strategies_definition = {
                         "year_aux": 2025,
                         "unit_aux": "kWh/km",
                         "avkt": 74750,
-                        "id_relation": "r002",
+                        "id_tipo_vehiculo": "ve002",
                         "num_vehic_elect": [
                             34.13536,
                             47.83727,
@@ -470,7 +470,7 @@ strategies_definition = {
                         "year_aux": 2025,
                         "unit_aux": "kWh/km",
                         "avkt": 13206,
-                        "id_relation": "r003",
+                        "id_tipo_vehiculo": "ve001",
                         "num_vehic_elect": [
                             7104.90914,
                             11479.8671,
@@ -500,7 +500,7 @@ strategies_definition = {
                         "year_aux": 2025,
                         "unit_aux": "kWh/km",
                         "avkt": 22301,
-                        "id_relation": "r004",
+                        "id_tipo_vehiculo": "ve001",
                         "num_vehic_elect": [
                             4153.5912,
                             6662.08416,
@@ -530,7 +530,7 @@ strategies_definition = {
                         "year_aux": 2025,
                         "unit_aux": "kWh/km",
                         "avkt": 15187,
-                        "id_relation": "r005",
+                        "id_tipo_vehiculo": "ve001",
                         "num_vehic_elect": [
                             171.25089,
                             338.1644,
@@ -560,7 +560,7 @@ strategies_definition = {
                         "year_aux": 2025,
                         "unit_aux": "kWh/km",
                         "avkt": 60320,
-                        "id_relation": "r005",
+                        "id_tipo_vehiculo": "ve001",
                         "num_vehic_elect": [
                             31.40058,
                             62.4397,
@@ -590,7 +590,7 @@ strategies_definition = {
                         "year_aux": 2025,
                         "unit_aux": "kWh/km",
                         "avkt": 29000,
-                        "id_relation": "r005",
+                        "id_tipo_vehiculo": "ve002",
                         "num_vehic_elect": [
                             68.6098,
                             88.9576,
@@ -622,14 +622,24 @@ strategies_definition = {
                         "variable_aux": "Porcentaje de integración",
                         "upper_value_aux": 100,
                         "lower_value_aux": 0,
-                        "value_aux": 39, # valor por defecto de numero de vehiculos, su valor se reemplaza ...
+                        "value_aux": 39, # valor por defecto de porcentaje de integracion, su valor se reemplaza ...
                         "year_aux": 2025, # con el valor de pi_bau [2022 ... 2030] dependiendo del año
                         "unit_aux": "%",
                         "nb": 0.338571429, # valor constante para todos los años [2022 .. 2030 ]
                         "consumption_percent": 0.365870975887343,
                         "ce_bau": [75787.66778, 77602.11774, 79114.00883, 80850.5365, 82748.11192, 84635.31618, 86473.81712, 88286.0776, 90113.08465,],
                         "poblacion": [51609470, 52156250, 52691440, 53216590, 53732420, 54237750, 54731190, 55211260, 55678080,],
-                        "PIB_billones_USD": [18814.97266, 19014.30915, 19209.42034, 19400.87131, 19588.92454, 19773.14984, 19953.04047, 20128.05687, 20298.2428,],
+                        "PIB_billones_USD": [
+                            344.1612833,
+                            355.4685381,
+                            367.8705797,
+                            380.837696,
+                            394.8857455,
+                            408.9742253,
+                            423.1216551,
+                            437.1906672,
+                            451.7446956,
+                        ],
                         "pi_bau": [
                             0.788451953 / 100,
                             1.030658539 / 100,
@@ -662,7 +672,17 @@ strategies_definition = {
                         "consumption_percent": 0.247125862010456,
                         "ce_bau": [75787.66778, 77602.11774, 79114.00883, 80850.5365, 82748.11192, 84635.31618, 86473.81712, 88286.0776, 90113.08465,],
                         "poblacion": [51609470, 52156250, 52691440, 53216590, 53732420, 54237750, 54731190, 55211260, 55678080,],
-                        "PIB_billones_USD": [18814.97266, 19014.30915, 19209.42034, 19400.87131, 19588.92454, 19773.14984, 19953.04047, 20128.05687, 20298.2428,],
+                        "PIB_billones_USD": [
+                            344.1612833,
+                            355.4685381,
+                            367.8705797,
+                            380.837696,
+                            394.8857455,
+                            408.9742253,
+                            423.1216551,
+                            437.1906672,
+                            451.7446956,
+                        ],
                         "pi_bau": [
                             0.532556233 / 100,
                             0.696153553 / 100,
@@ -695,7 +715,17 @@ strategies_definition = {
                         "consumption_percent": 0.3870031621022,
                         "ce_bau": [75787.66778, 77602.11774, 79114.00883, 80850.5365, 82748.11192, 84635.31618, 86473.81712, 88286.0776, 90113.08465,],
                         "poblacion": [51609470, 52156250, 52691440, 53216590, 53732420, 54237750, 54731190, 55211260, 55678080,],
-                        "PIB_billones_USD": [18814.97266, 19014.30915, 19209.42034, 19400.87131, 19588.92454, 19773.14984, 19953.04047, 20128.05687, 20298.2428,],
+                        "PIB_billones_USD": [
+                            344.1612833,
+                            355.4685381,
+                            367.8705797,
+                            380.837696,
+                            394.8857455,
+                            408.9742253,
+                            423.1216551,
+                            437.1906672,
+                            451.7446956,
+                        ],
                         "pi_bau": [
                             0.833991814 / 100,
                             1.090187908 / 100,

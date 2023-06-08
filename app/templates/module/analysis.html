@@ -2855,7 +2855,7 @@ super() }}
 		let json_descripcion_final = {}
 		list_names.forEach(function (item, index) {
 			// prettier-ignore
-			console.log("NEED item", item)
+			//console.log("NEED item", item)
 			let description_strategies = JSON.parse('{{description_strategies | tojson | safe}}')
 			let json_aux = description_strategies["description_strategies"]["estrategias"]
 			let json_description = []
@@ -2911,7 +2911,7 @@ super() }}
 			tr2.style.display = "none"
 			tbody.appendChild(tr2)
 		})
-		console.log("NEED json_descripcion_final", json_descripcion_final)
+		//console.log("NEED json_descripcion_final", json_descripcion_final)
 		list_names.forEach(function (items, index) {
 			// let tr1 = _tr_.cloneNode(false)
 			// let td1 = _td_.cloneNode(false)
