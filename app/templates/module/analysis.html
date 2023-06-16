@@ -632,7 +632,6 @@ super() }}
 										id="select_sub_strategies"
 										href="#scenarios_3"
 										class="btn btn-sm btn-primary d-inline-flex align-items-center"
-										onclick="ActiveSection('scenarios_3')"
 									>
 										<svg
 											class="icon icon-xs me-2"
@@ -2813,6 +2812,7 @@ super() }}
 
 		let table_handler = $("#table_variables").DataTable()
 		$("#table_variables tbody").on("click", "tr", function () {
+			$("#select_sub_strategies").removeClass("btn-danger")
 			let td_select = this.childNodes[0]
 			if (td_select.classList.contains("showhr")) {
 				$(this)
@@ -2840,8 +2840,14 @@ super() }}
 			let strategies_to_load = JSON.parse('{{ strategies_definition| tojson | safe }}')
 			// prettier-ignore
 			let units = JSON.parse('{{units | tojson | safe}}')
-			loadStrategies(strategies_to_load, arr_ids)
-			loadUnit(units)
+			if (arr_ids.length === 0){
+				console.log("array es cero")
+				$("#select_sub_strategies").addClass("btn-danger")
+			}else{
+				ActiveSection('scenarios_3')
+				loadStrategies(strategies_to_load, arr_ids)
+				loadUnit(units)
+			}
 		}
 		const button = document.getElementById("select_sub_strategies")
 		button.addEventListener("click", validarChecks)

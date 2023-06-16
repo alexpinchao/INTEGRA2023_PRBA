@@ -368,22 +368,30 @@ strategies_definition = {
         "process": "Distribución",
         "models": [
             {
-                "id": "NA",
-                "name": "NA",
+                "id": "z001",
+                "name": "Estrategias de descentralización y digitalización",
                 "strategies": [
                     {
-                        "id": "NA",
-                        "name": "NA",
+                        "id": "w001",
+                        "name": "Adopción de sistema de medición inteligente",
                         "description": "N/A",
-                        "variable": "NA",
-                        "upper_value": 0,
+                        "variable": "Porcentaje de incorporación AMI",
+                        "upper_value": 100,
                         "lower_value": 0,
-                        "value": 0,
-                        "year": 0,
+                        "value": 50,
+                        "year": 2025,
                         "unit": "%",
-                    }
+                        "variable_aux": "Renducción final",
+                        "upper_value_aux": 100,
+                        "lower_value_aux": 0,
+                        "value_aux": 50,
+                        "year_aux": 2025,
+                        "unit_aux": "%",
+                        "ami_bau": 0.127553083836326, # valor por defecto par el año 2021, se toma como inicio de la ecuacion ya que es recursiva
+                        "final_reduction_bau": 0.11774817604788, # valor por defecto para el 2021
+                    },
                 ],
-            }
+            },
         ],
     },
     "end_use": {
