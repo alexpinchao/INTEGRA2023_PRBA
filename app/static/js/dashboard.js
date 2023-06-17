@@ -19,6 +19,7 @@ var keys_list_8 = []
 let data_topsis = []
 var strategies_const
 let const_strategies = {}
+let const_loss_factor = {}
 
 var units_array = []
 function loadUnit(units) {
@@ -29,7 +30,7 @@ function validateDate() {
 	let anio_base = 2021
 	let year_selected = parseInt(document.getElementById("fecha").innerText)
 	let n = year_selected - anio_base
-	return n
+	return [n, year_selected]
 }
 
 document.getElementById("adjust_sub_estrategies_prev").addEventListener("click", function () {
@@ -120,6 +121,8 @@ function createChartExpansion(
 		"rgba(" + al + ", 192, 192, 1)",
 		"rgba(" + al + ", 102, 255, 1)",
 		"rgba(" + al + ", 159, 64, 1)",
+		"rgba(" + al + ", 195, 238, 1)",
+		"rgba(" + al + ", 33, 209, 1)",
 	]
 	var colorslist = [
 		"rgba(" + al + ", 99, 132, 1)",
@@ -128,6 +131,8 @@ function createChartExpansion(
 		"rgba(" + al + ", 192, 192, 1)",
 		"rgba(" + al + ", 102, 255, 1)",
 		"rgba(" + al + ", 159, 64, 1)",
+		"rgba(" + al + ", 195, 238, 1)",
+		"rgba(" + al + ", 33, 209, 1)",
 	]
 	const table_name = indicator
 	document.getElementById(chart_title).innerHTML = table_name
@@ -1025,6 +1030,15 @@ function loadSliders(strategies_array) {
 	/* test de render whit js */
 }
 
+function loadInputsAux(strategies_array) {
+	$(".form-control-sm").each(function () {
+		$(this).on("change", { passive: true }, function (slideEvt) {
+			slideEvt.preventDefault()
+			updateChart(strategies_array)
+		})
+	})
+}
+
 function removeSliders() {
 	const boxes = document.querySelectorAll(".slider")
 	boxes.forEach((box) => {
@@ -1066,6 +1080,37 @@ function loadModel(model, parent) {
 		.setAttribute("aria-labelledby", "heading-model-" + model.id)
 	model_html.querySelector("#collapse-model-id").id = "collapse-model-" + model.id
 	return model_html
+}
+
+function toggleAuxInput(input_name) {
+	document.getElementById(input_name).toggleAttribute("disabled")
+}
+
+function loadAuxVariable(strategy) {
+	var variable_aux_html = document.querySelector("#strategy-variable-aux-example").cloneNode(true)
+	variable_aux_html.querySelector("#variable-aux-name-strategy").innerText = strategy.name
+	variable_aux_html.querySelector("#variable-aux-name-strategy").id =
+		"variable-aux-name-strategy-" + strategy.id
+	variable_aux_html
+		.querySelector("#aux-input-strategy")
+		.setAttribute("min", String(strategy.lower_value_aux))
+	variable_aux_html
+		.querySelector("#aux-input-strategy")
+		.setAttribute("max", String(strategy.upper_value_aux))
+	variable_aux_html
+		.querySelector("#aux-input-strategy")
+		.setAttribute("value", String(strategy.value_aux))
+	variable_aux_html.querySelector("#range-aux-info-strategy").innerText =
+		strategy.lower_value_aux + "-" + strategy.upper_value_aux + " " + strategy.unit_aux
+
+	let name_aux_input = "aux-input-strategy-" + strategy.id
+	variable_aux_html
+		.querySelector("#variable-aux-checker")
+		.setAttribute("onclick", "toggleAuxInput('" + name_aux_input + "')")
+
+	variable_aux_html.querySelector("#aux-input-strategy").id = name_aux_input
+
+	return variable_aux_html
 }
 
 function loadStrategy(strategy, parent, idModel) {
@@ -1110,6 +1155,12 @@ function loadStrategy(strategy, parent, idModel) {
 	strategy_html.querySelector("#strategy-example-current-value").innerHTML = strategy.value
 	strategy_html.querySelector("#strategy-example-current-value").classList.add("form-range-value")
 	strategy_html.querySelector("#strategy-example-current-value").id = "current-value-" + strategy.id
+
+	if (strategy.variable_aux !== undefined) {
+		var aux_html = loadAuxVariable(strategy)
+		strategy_html.querySelector("#aux_var_section").appendChild(aux_html)
+	}
+
 	return strategy_html
 }
 
@@ -1122,12 +1173,75 @@ function filterStrategiesByProcess(strategies_array) {
 }
 
 function filterStrategiesById(array, ids) {
+	let n_and_year = validateDate()
+	let n = n_and_year[0]
+	let anio = n_and_year[1]
+	let exist = false
+	let exist_ = false
+	//console.log("-- filterStrategiesById --")
+	if (array.process == "Uso final") {
+		exist = true;
+	}else if (array.process == "Distribución"){
+		exist_ = true;
+	}
 	let new_array = array.models
 		.filter((model) => model.strategies.some((strategy) => ids.includes(strategy.id)))
 		.map((model) => {
-			let newElt = Object.assign({}, model, {
-				strategies: model.strategies.filter((strategy) => ids.includes(strategy.id)),
-			})
+			let newElt
+			if (exist) {
+				newElt = Object.assign({}, model, {
+					strategies: model.strategies
+						.filter((strategy) => ids.includes(strategy.id))
+						.map((inStrategies) => {
+							let newEltValue
+							if (typeof inStrategies.pi_bau !== 'undefined') {
+								let new_value_aux = Math.round(inStrategies.pi_bau[n - 1] * 100)
+								//console.log(" auidaa new_value_aux", new_value_aux)
+								newEltValue = Object.assign({}, inStrategies, {
+									value_aux: new_value_aux,
+									year: anio,
+								})
+							} else if (typeof inStrategies.num_vehic_elect !== 'undefined') {
+								let new_value = Math.round(inStrategies.num_vehic_elect[n - 1])
+								//console.log(" auidaa new_value", new_value)
+								newEltValue = Object.assign({}, inStrategies, {
+									value: new_value,
+									year: anio,
+								})
+							}
+							return newEltValue
+						}),
+				})
+			} else if (exist_){
+				newElt = Object.assign({}, model, {
+					strategies: model.strategies.filter((strategy) => ids.includes(strategy.id)),
+				})
+				return newElt
+			}else {
+				newElt = Object.assign({}, model, {
+					strategies: model.strategies
+					.filter((strategy) => ids.includes(strategy.id))
+					.map((inStrategies) => {
+						let newEltValue
+						if (typeof inStrategies.values_CI !== 'undefined') {
+							let new_value = Math.round(inStrategies.values_CI[n - 1])
+							//console.log(" auidaa new_value_aux", new_value_aux)
+							newEltValue = Object.assign({}, inStrategies, {
+								value_aux: new_value,
+								year: anio,
+							})
+						} else if (typeof inStrategies.efi_deseada_base !== 'undefined') {
+							let new_value = Math.round(inStrategies.efi_deseada_base[n - 1])
+							//console.log(" auidaa new_value", new_value)
+							newEltValue = Object.assign({}, inStrategies, {
+								value: new_value,
+								year: anio,
+							})
+						}
+						return newEltValue
+					}),
+				})
+			}
 			return newElt
 		})
 	array.models = new_array
@@ -1147,21 +1261,41 @@ function filterStrategiesByIdRelationated(array, ids) {
 	return array
 }
 
-function filterStrategiesByIdValues(array, idsValues) {
+function filterStrategiesByIdValues(array, idsValues, idsValuesText) {
 	let ids = Object.keys(idsValues)
+	let exist = false
+	//console.log("--- filterStrategiesByIdValues ---")
+	if (Object.keys(idsValuesText).length > 0){
+		exist = true;
+	}
 	let new_array = array.models
 		.filter((model) => model.strategies.some((strategy) => ids.includes(strategy.id)))
 		.map((model) => {
-			let newElt = Object.assign({}, model, {
-				strategies: model.strategies
-					.filter((strategy) => ids.includes(strategy.id))
-					.map((inStrategies) => {
-						let newEltValue = Object.assign({}, inStrategies, {
-							selected_value: idsValues[ids.find((strategiId) => strategiId == inStrategies.id)],
-						})
-						return newEltValue
-					}),
-			})
+			let newElt
+			if (exist) {
+				newElt = Object.assign({}, model, {
+					strategies: model.strategies
+						.filter((strategy) => ids.includes(strategy.id))
+						.map((inStrategies) => {
+							let newEltValue = Object.assign({}, inStrategies, {
+								selected_value: idsValues[ids.find((strategiId) => strategiId == inStrategies.id)],
+								selected_value_aux: idsValuesText[ids.find((strategiId) => strategiId == inStrategies.id)],
+							})
+							return newEltValue
+						}),
+				})
+			} else {
+				newElt = Object.assign({}, model, {
+					strategies: model.strategies
+						.filter((strategy) => ids.includes(strategy.id))
+						.map((inStrategies) => {
+							let newEltValue = Object.assign({}, inStrategies, {
+								selected_value: idsValues[ids.find((strategiId) => strategiId == inStrategies.id)],
+							})
+							return newEltValue
+						}),
+				})
+			}
 			return newElt
 		})
 	array.models = new_array
@@ -1190,16 +1324,25 @@ function loadStrategies(strategies_array, strategies_id_selected) {
 	document.getElementById("test-clone").appendChild(parent)
 	removeSliders()
 	loadSliders(strategies_array)
+	loadInputsAux(strategies_array)
 }
 
 function getCurrentValues() {
 	let key_values = {}
+	let text_values = {}
 	document.querySelectorAll(".form-range-value").forEach(function (values) {
 		key_id = String(values.id.split("-").slice(-1))
 		value_slider = values.innerHTML
+		var aux_input = document.querySelector("#aux-input-strategy-" + key_id)
+		value_aux = null
+		if (aux_input !== null) {
+			//value_aux = aux_input.value
+			value_aux = aux_input.hasAttribute("disabled") ? false : aux_input.value
+			text_values[key_id] = value_aux
+		}
 		key_values[key_id] = value_slider
 	})
-	return key_values
+	return [key_values,text_values]
 }
 
 function getStrategieName() {
@@ -1733,7 +1876,8 @@ function createGraphIndicator(create_data_indicator_generation, create_data_indi
 }
 function plotDataStrategies(strategies) {
 	let strategiesModels = strategies.models
-	let n = validateDate()
+	let n_and_year = validateDate()
+	let n = n_and_year[0]
 
 	let strategiesName = getStrategieName()
 
@@ -1831,7 +1975,8 @@ function plotDataStrategies(strategies) {
 
 function plotDataIndicators(strategies) {
 	let strategiesModels = strategies.models
-	let n = validateDate()
+	let n_and_year = validateDate()
+	let n = n_and_year[0]
 	let strategies_array_copia = const_strategies
 
 	let strategiesName = getStrategieName()
@@ -2044,19 +2189,769 @@ function modelUpgradeStrategy(n, nj, dataIn, n_LB, name) {
 
 /* Desde aca se puede seguir ajustando */
 //var strategies_const
+function calculateElectricConsumptionVehicles(n, rm, vkt, name) {
+	var increment = rm / n
+	var data = []
+	var data_plot = []
+	var data_plot_return = []
+	let j = 2
+	let ce_vehicles = 0
+
+	let creaIncrement = increment
+	for (let a = 0; a < n; a++) {
+		data.push(creaIncrement)
+		creaIncrement = creaIncrement + increment
+	}
+	for (let i = 0; i < data.length; i++) {
+		let data_plot_dict = {}
+		let anio = "202" + j
+		if (j > 9) {
+			j = 0
+			anio = "203" + j
+		}
+		j++
+		ce_vehicles = data[i] * vkt[i]
+		data_plot_dict.Año = anio
+		data_plot_dict[name] = ce_vehicles
+		data_plot.push(data_plot_dict)
+	}
+	data_plot_return["Estrategias de electrificación en el transporte"] = data_plot
+	return [data_plot_return,data_plot]
+}
+
+function calculateElectricConsumptionVehiclesRmConstant(n, rm, vkt, name) {
+	// var increment = rm / n
+	// var data = []
+	var data_plot = []
+	var data_plot_return = []
+	let j = 2
+	let pci = 45329.5
+	let den_rel = 0.7405
+	let ce_vehicles = 0
+
+	// let creaIncrement = increment
+	// for (let a = 0; a < n; a++) {
+	// 	data.push(creaIncrement)
+	// 	creaIncrement = creaIncrement + increment
+	// }
+	for (let i = 0; i < vkt.length; i++) {
+		let data_plot_dict = {}
+		let anio = "202" + j
+		if (j > 9) {
+			j = 0
+			anio = "203" + j
+		}
+		j++
+		ce_vehicles = (((0.000000001) * vkt[i] * pci * den_rel) / rm ) / 3.6
+		data_plot_dict.Año = anio
+		data_plot_dict[name] = ce_vehicles
+		data_plot.push(data_plot_dict)
+	}
+	data_plot_return["Estrategias de electrificación en el transporte"] = data_plot
+	return [data_plot_return,data_plot]
+}
+
+function calculateVkt(n, avkt, nv) {
+    var increment = nv / n
+    var data = []
+    var array_vkt = []
+    let vkt = 0
+
+    let creaIncrement = increment
+    for (let a = 0; a < n; a++) {
+        data.push(creaIncrement)
+        creaIncrement = creaIncrement + increment
+    }
+    for (let i = 0; i < data.length; i++) {
+
+        vkt = avkt * data[i]
+        array_vkt.push(vkt)
+    }
+    return array_vkt
+}
+
+function generateGhapTransportElectrification(sub_strategies, n, strategies_name) {
+	//console.log("---generateGhapTransportElectrification---  ")
+	let sub_strategies_key = Object.keys(sub_strategies)
+	sub_strategies_key.forEach(function (item, index) {
+		let sub_strategies_name = sub_strategies[item].name
+		let sub_strategies_value = parseFloat(sub_strategies[item].selected_value)	// NV numero de vehiculos
+		let sub_strategies_value_aux_mod = sub_strategies[item].selected_value_aux	// Rendimiento del motor
+		let sub_strategies_avkt = parseFloat(sub_strategies[item].avkt)
+		let sub_strategies_value_aux
+		let data_ce_vehicles
+
+		if (typeof sub_strategies_value_aux_mod === "string") {
+			sub_strategies_value_aux = parseFloat(sub_strategies[item].selected_value_aux) //rendimiento del motor desde slider
+			let vkt = calculateVkt(n, sub_strategies_avkt, sub_strategies_value)
+			//utiliza de entrada el promedio de km recorridos(avkt), # de vehículos eléctricos (nv)
+			let data_consump_vehic = calculateElectricConsumptionVehicles(
+				n,
+				sub_strategies_value_aux,
+				vkt,
+				sub_strategies_name
+			)
+			data_ce_vehicles = data_consump_vehic[0]
+			// createChartExpansion(
+			// 	list_name,
+			// 	strategies_name,
+			// 	sub_strategies_name,
+			// 	data_ce_vehicles,
+			// 	"chart_title_3",
+			// 	"line-chart-3",
+			// 	"graph-container-3"
+			// )
+		} else if (typeof sub_strategies_value_aux_mod === "boolean") {
+			sub_strategies_value_aux = parseFloat(sub_strategies[item].value_aux) // Rendimiento del motor constante
+			let vkt = calculateVkt(n, sub_strategies_avkt, sub_strategies_value)
+			//utiliza de entrada el promedio de km recorridos(avkt), # de vehículos eléctricos (nv)
+			let data_consump_vehic = calculateElectricConsumptionVehiclesRmConstant(
+				n,
+				sub_strategies_value_aux,
+				vkt,
+				sub_strategies_name
+			)
+			data_ce_vehicles = data_consump_vehic[0]
+			// createChartExpansion(
+			// 	list_name,
+			// 	strategies_name,
+			// 	sub_strategies_name,
+			// 	data_ce_vehicles,
+			// 	"chart_title_3",
+			// 	"line-chart-3",
+			// 	"graph-container-3"
+			// )
+		}
+		createChartExpansion(
+			list_name,
+			strategies_name,
+			sub_strategies_name,
+			data_ce_vehicles,
+			"chart_title_3",
+			"line-chart-3",
+			"graph-container-3"
+		)
+	})
+}
+
+function calculateElectricConsumptionEndUse(n, np, pi, nb, ce_bau, name) {
+    var incrementNp = np / n
+    var incrementPi = pi / n
+    var dataNp = []
+    var dataPi = []
+    var data_plot = []
+    var data_plot_return = []
+    let j = 2
+    let ce = 0
+    let creaIncrementNp = incrementNp
+    for (let a = 0; a < n; a++) {
+        dataNp.push(creaIncrementNp)
+        creaIncrementNp = creaIncrementNp + incrementNp
+    }
+    let creaIncrementPi = incrementPi
+    for (let a = 0; a < n; a++) {
+        dataPi.push(creaIncrementPi)
+        creaIncrementPi = creaIncrementPi + incrementPi
+    }
+    for (let i = 0; i < dataNp.length; i++) {
+        let data_plot_dict = {}
+        let anio = "202" + j
+        if (j > 9) {
+            j = 0
+            anio = "203" + j
+        }
+        j++
+        ce = ce_bau[i] * (1 - (1 - nb / dataNp[i]) * dataPi[i])
+        data_plot_dict.Año = anio
+        data_plot_dict[name] = ce
+        data_plot.push(data_plot_dict)
+    }
+    data_plot_return["Estrategias de actualización tecnológica"] = data_plot
+    return [data_plot_return,data_plot]
+}
+
+function generateGhapTechnologicalUpdate(sub_strategies, n, strategies_name) {
+    //console.log("-----generateGhapTechnologicalUpdate ---  ")
+	let sub_strategies_key = Object.keys(sub_strategies)
+    sub_strategies_key.forEach(function (item, index) {
+        //utiliza de entrada rficirencia base nb , consumo electico bau ce_bau
+        let sub_strategies_name = sub_strategies[item].name
+        let sub_strategies_value = parseFloat(sub_strategies[item].selected_value) / 100// nd eficiencia deseada
+		let sub_strategies_value_aux_mod = sub_strategies[item].selected_value_aux
+		let sub_strategies_value_aux
+		if (typeof sub_strategies_value_aux_mod === "string") {
+			sub_strategies_value_aux = parseFloat(sub_strategies[item].selected_value_aux) / 100// pi porcentajde de incorporacion
+		} else if (typeof sub_strategies_value_aux_mod === "boolean") {
+			let pi_default = sub_strategies[item].pi_bau
+			sub_strategies_value_aux = parseFloat(pi_default[n - 1])// pi porcentajde de incorporacion
+		}
+		let sub_strategies_nb = parseFloat(sub_strategies[item].nb)
+        let sub_strategies_ce_bau = sub_strategies[item].ce_bau.map( ce_bau => ce_bau * sub_strategies[item].consumption_percent)
+        //utiliza de entrada eficiencia base nb , consumo electico bau ce_bau
+        let data_ce_consumpt = calculateElectricConsumptionEndUse(
+            n,
+            sub_strategies_value,
+            sub_strategies_value_aux,
+            sub_strategies_nb,
+            sub_strategies_ce_bau,
+            sub_strategies_name
+        )
+		let data_ce = data_ce_consumpt[0]
+        createChartUpgrade(
+            list_name,
+            strategies_name,
+            sub_strategies_name,
+            data_ce,
+            "chart_title_4",
+            "line-chart-4",
+            "graph-container-4"
+        )
+    })
+}
+
+function dataGraphStrategiesEndUse(strategies) {
+	//console.log(" --- dataGraphStrategiesEndUse --- ")
+	let strategiesModels = strategies.models
+	let n_and_year = validateDate()
+	let n = n_and_year[0]
+	//let strategiesName = getStrategieName()
+	let strategiesModelsKeys = Object.keys(strategiesModels)
+	strategiesModelsKeys.forEach(function (items, index) {
+		let strategies_name = strategiesModels[items].name
+		let sub_strategies = strategiesModels[items].strategies
+		if (strategies_name == "Estrategias de electrificación en el transporte") {
+			generateGhapTransportElectrification(sub_strategies, n, strategies_name)
+		} else if (strategies_name == "Estrategias de actualización tecnológica") {
+			generateGhapTechnologicalUpdate(sub_strategies, n, strategies_name)
+		}
+	})
+}
+
+function sumStrategyDatawithAccumulation(data_model_electrification){
+	let arrays = data_model_electrification.map(arr => arr.map(obj => Object.values(obj)[1]));
+	let sumaTotal = 0;
+	const resultado = [];
+	for (let i = 0; i < arrays[0].length; i++) {
+		let suma = 0;
+		for (let j = 0; j < arrays.length; j++) {
+		suma += arrays[j][i];
+		}
+		sumaTotal += suma;
+		resultado.push(sumaTotal);
+	}
+	return resultado
+}
+
+function sumStrategyData(data_model_electrification){
+	//console.log("---sumStrategyData-----")
+	let result = data_model_electrification.reduce(
+		(acc, curr) => {
+			let array_sum = acc.map(
+				(v, i) => {
+					let sum
+					if (Number.isInteger(v) || typeof v === "number"){
+						sum = v + Object.values(curr[i])[1]
+					}else {
+						sum =  Object.values(v)[1] + Object.values(curr[i])[1]
+					}
+					return sum
+				})
+			return array_sum
+	})
+	//console.log("NEED ", result);
+	return result
+}
+
+function totalSumStrategyData(consumption_electrical_vehicle, consumption_technological_upgrade) {
+	//console.log(" -----totalSumStrategyData--- ")
+	let result
+	if (consumption_electrical_vehicle.length !== consumption_technological_upgrade.length) {
+		console.log("Hubo un error en el sistema por favor verifique el tamaño de los arrays ")
+	} else {
+		result = consumption_electrical_vehicle.map((num, index) => num + consumption_technological_upgrade[index])
+	}
+	return result
+}
+
+function generatePerCapitaConsumptionindicator(total_elect_consump, poblacion) {
+	let c_per_cap = 0
+	let data_plot_c_per_cap = []
+	let k = 2
+	let anio_c_per_cap = ""
+	let data_plot_return = []
+	for (var i = 0; i < total_elect_consump.length; i++) {
+		let data_plot_dict = {}
+		anio_c_per_cap = "202" + k
+		if (k > 9) {
+			k = 0
+			anio_c_per_cap = "203" + k
+		}
+		k++
+		c_per_cap = (total_elect_consump[i] / poblacion[i] ) * 1000
+		data_plot_dict.Año = anio_c_per_cap
+		data_plot_dict["Consumo per cápita"] = c_per_cap
+		data_plot_c_per_cap.push(data_plot_dict)
+	}
+	data_plot_return["Indicador consumo per cápita"] = data_plot_c_per_cap
+	createChartIndicador1(
+		list_name,
+		"Indicador consumo per cápita",
+		"Consumo per cápita",
+		data_plot_return,
+		"chart_title_5",
+		"line-chart-5",
+		"graph-container-5"
+	)
+	return data_plot_return
+}
+
+function generateEnergyintensityindicator(total_elect_consump, pib_billones_usd) {
+	let energy_intensity = 0
+	let data_plot_energy_intensity = []
+	let k = 2
+	let anio_energy_intensity = ""
+	let data_plot_return = []
+	for (var i = 0; i < total_elect_consump.length; i++) {
+		let data_plot_dict = {}
+		anio_energy_intensity = "202" + k
+		if (k > 9) {
+			k = 0
+			anio_energy_intensity = "203" + k
+		}
+		k++
+		energy_intensity = (total_elect_consump[i] / pib_billones_usd[i] ) / 1000
+		data_plot_dict.Año = anio_energy_intensity
+		data_plot_dict["Intensidad energética"] = energy_intensity
+		data_plot_energy_intensity.push(data_plot_dict)
+	}
+	data_plot_return["Indicador intensidad energética"] = data_plot_energy_intensity
+	createChartIndicador2(
+		list_name,
+		"Indicador intensidad energética",
+		"Intensidad energética",
+		data_plot_return,
+		"chart_title_6",
+		"line-chart-6",
+		"graph-container-6"
+	)
+	return data_plot_return
+}
+
+function generateAvoidEmissionsIndicator(total_elect_consump, ce_bau, fe ) {
+	let avoid_emissions = 0
+	let data_plot_avoid_emissions = []
+	let k = 2
+	let anio_avoid_emissions = ""
+	let data_plot_return = []
+	for (var i = 0; i < total_elect_consump.length; i++) {
+		let data_plot_dict = {}
+		anio_avoid_emissions = "202" + k
+		if (k > 9) {
+			k = 0
+			anio_avoid_emissions = "203" + k
+		}
+		k++
+		avoid_emissions = (ce_bau[i] - total_elect_consump[i]) * fe
+		data_plot_dict.Año = anio_avoid_emissions
+		data_plot_dict["Emisiones evitadas"] = avoid_emissions
+		data_plot_avoid_emissions.push(data_plot_dict)
+	}
+	data_plot_return["Indicador emisiones evitadas"] = data_plot_avoid_emissions
+	createChartIndicador3(
+		list_name,
+		"Indicador emisiones evitadas",
+		"Emisiones evitadas",
+		data_plot_return,
+		"chart_title_7",
+		"line-chart-7",
+		"graph-container-7"
+	)
+	return data_plot_return
+}
+
+function createGraphIndicatorEndUse(total_elect_consump, ce_bau, poblacion, pib_billones_usd ) {
+    let fe = 0.2
+    //total_elect_consump es quien determina hasta donde se recorren los arrays complementarios que contienen datos del 2022 hasta 2030
+    let c_per_cap = generatePerCapitaConsumptionindicator(total_elect_consump, poblacion)
+    let energy_intensity = generateEnergyintensityindicator(total_elect_consump, pib_billones_usd)
+    let avoid_emissions = generateAvoidEmissionsIndicator(total_elect_consump, ce_bau, fe)
+	// console.log("--- createGraphIndicatorEndUse --- ")
+	// console.log("c_per_cap", c_per_cap)
+	// console.log("energy_intensity", energy_intensity)
+	// console.log("avoid_emissions", avoid_emissions)
+
+    // let values = prepareDataTopsis(c_per_cap, iep, iec, name)
+    // data_topsis.push(values)
+}
+
+function createDataForTospsis(impact, population, pib_usd, ce_bau_projected, name){
+	let parent_object = {}
+	let fe = 0.2
+	let data_topsis_return = Object.assign({}, parent_object, {
+		[name]: [
+			{
+				["Consumo per capita"]: (impact / population) * 1000,
+				["Intensidad energética"]: (impact / pib_usd) / 1000,
+				["Emisiones evitadas"]: (ce_bau_projected - impact ) * fe,
+			},
+		],
+	})
+	//console.log("generar datos para topsis ",data_topsis_return )
+	return data_topsis_return
+}
+
+function generateDataIndicatorEndUse(sub_strategies_electrification, sub_strategies_technological, n) {
+    console.log("-----generateDataIndicatorEndUse---------  ")
+	let data_model_electrification = [] // alamacen los valores de todas las estrategias de electrificacion del transporte
+	let lightweight_vehicles = []
+	let lightweight_vehicles_array = [] //almacena los valores de las estrategegias de electr del transporte ligero
+	let heavy_vehicles = []
+	let heavy_vehicles_array = [] 		//almacena los valores de las estrategegias de electr del transporte pesado
+	// let data_topsis = []
+    let sub_strategies_key = Object.keys(sub_strategies_electrification)
+	sub_strategies_key.forEach(function (item, index) {
+		//let data_electrification = []
+		console.log("-----TransportElectrification---------  ")
+		let sub_strategies_name = sub_strategies_electrification[item].name
+		let sub_strategies_value_mod = sub_strategies_electrification[item].selected_value//NV numero de vehiculos
+		let sub_strategies_value_aux_mod = sub_strategies_electrification[item].selected_value_aux//  Rendimiento del motor
+		let sub_strategies_avkt = parseFloat(sub_strategies_electrification[item].avkt)
+		let sub_strategies_value
+		let sub_strategies_value_aux
+		if (typeof sub_strategies_value_mod === "string") {
+			sub_strategies_value = parseFloat(sub_strategies_electrification[item].selected_value) // numero de vehiculos desde sliders
+		} else if (sub_strategies_value_mod === undefined) {
+			let nv_default = sub_strategies_electrification[item].num_vehic_elect // numero de vehiculos desde db
+			sub_strategies_value = parseFloat(nv_default[n - 1])
+		}
+		//si la variable selected_value_aux no existe en el objeto significa que el usuario no elegio esa estrategia
+		// si la variable selected_value_aux existe pero es false significa que el usuario eleigio la estrategia pero no selecciono el RM
+		// si la variable selected_value_aux  es strgin significa que el usuario eligio la estrategia y modifico El rendimiento del motor
+		//utiliza de entrada el promedio de km recorridos(avkt), # de vehículos eléctricos (nv)
+		let vkt = calculateVkt(n, sub_strategies_avkt, sub_strategies_value)
+		let data_ce_vehicles
+		if (typeof sub_strategies_value_aux_mod === "string") {
+			sub_strategies_value_aux = parseFloat(sub_strategies_electrification[item].selected_value_aux) //rendimiento del motor desde slider
+			//Devuelve la multiplicacion de VKT * rendimiento del motor
+			data_ce_vehicles = calculateElectricConsumptionVehicles(
+				n,
+				sub_strategies_value_aux,
+				vkt,
+				sub_strategies_name
+			)
+		} else if (typeof sub_strategies_value_aux_mod === "boolean" || sub_strategies_value_aux_mod === undefined) {
+			sub_strategies_value_aux = parseFloat(sub_strategies_electrification[item].value_aux) // Rendimiento del motor constante
+			data_ce_vehicles = calculateElectricConsumptionVehiclesRmConstant(
+				n,
+				sub_strategies_value_aux,
+				vkt,
+				sub_strategies_name
+			)
+		}
+		let data_ce_ve_without_name = data_ce_vehicles[1]
+		data_model_electrification.push(data_ce_ve_without_name)
+		if (sub_strategies_electrification[item].id_tipo_vehiculo == "ve001") {
+			// data_electrification.push(data_ce_ve_without_name)
+			// let last_value_cv = data_electrification[0][data_electrification[0].length - 1]
+			//console.log("last_value_cv", last_value_cv)
+			//lightweight_vehicles.push(Object.values(last_value_cv)[1])
+			lightweight_vehicles_array.push(data_ce_ve_without_name)
+		} else {
+			// data_electrification.push(data_ce_ve_without_name)
+			// let last_value_cv = data_electrification[0][data_electrification[0].length - 1]
+			//console.log("last_value_cv", last_value_cv)
+			//heavy_vehicles.push(Object.values(last_value_cv)[1])
+			heavy_vehicles_array.push(data_ce_ve_without_name)
+		}
+	})
+
+	lightweight_vehicles = sumStrategyData(lightweight_vehicles_array)  //suma todos lo valores de los arreglos para cada año
+	heavy_vehicles = sumStrategyData (heavy_vehicles_array)
+
+	let lightweight_sum = lightweight_vehicles.reduce( (accumulator, currentValue) => { // suma todos los totales de todos los años para devolver un unico valor
+		return accumulator + currentValue
+	})
+	let heavy_sum = heavy_vehicles.reduce( (accumulator, currentValue) => {
+		return accumulator + currentValue
+	})
+
+    let data_model_upgrade = []
+	let ce_bau = [] , poblacion = [] , pib_billones_usd = []
+	let consumption_percent_residential = 0.365870975887343
+	let consumption_percent_c_p = 0.247125862010456
+	let consumption_percent_industrial = 0.3870031621022
+	let impact_total_residential_demand
+	let impact_total_demand_commercial_public
+	let impact_total_industrial_demand
+    let sub_strategies_upgrade_key = Object.keys(sub_strategies_technological)
+    sub_strategies_upgrade_key.forEach(function (item, index) {
+        //utiliza de entrada rficirencia base nb , consumo electico bau ce_bau
+        console.log("----technologicalUpgrade  ---- ")
+		let data_upgrade = []
+        let sub_strategies_name = sub_strategies_technological[item].name
+		let sub_strategies_value_mod = sub_strategies_technological[item].selected_value // nd eficiencia deseada
+        let sub_strategies_value_aux_mod = sub_strategies_technological[item].selected_value_aux // pi porcentajde de incorporacion
+		let sub_strategies_value
+		let sub_strategies_value_aux
+		if (typeof sub_strategies_value_mod === "string") {
+			sub_strategies_value = parseFloat(sub_strategies_technological[item].selected_value) / 100// nd eficiencia deseada
+		} else if (sub_strategies_value_mod === undefined) {
+			sub_strategies_value = parseFloat(sub_strategies_technological[item].value) / 100// nd eficiencia deseada constante para todos los años desde db 
+		}
+        if (typeof sub_strategies_value_aux_mod === "string") {
+			sub_strategies_value_aux = parseFloat(sub_strategies_technological[item].selected_value_aux) / 100// pi porcentajde de incorporacion
+		} else if (typeof sub_strategies_value_aux_mod === "boolean" || sub_strategies_value_aux_mod === undefined) {
+			let pi_default = sub_strategies_technological[item].pi_bau
+			sub_strategies_value_aux = parseFloat(pi_default[n - 1])// pi porcentajde de incorporacion
+		}
+        let sub_strategies_nb = parseFloat(sub_strategies_technological[item].nb)
+        let sub_strategies_ce_bau = sub_strategies_technological[item].ce_bau.map( ce_bau => ce_bau * sub_strategies_technological[item].consumption_percent)
+		ce_bau = sub_strategies_technological[item].ce_bau
+		poblacion = sub_strategies_technological[item].poblacion
+		pib_billones_usd = sub_strategies_technological[item].PIB_billones_USD
+        //utiliza de entrada rficirencia base nb , consumo electico bau ce_bau
+
+		// console.log("n", n)
+		// console.log("sub_strategies_value", sub_strategies_value)
+		// console.log("sub_strategies_value_aux", sub_strategies_value_aux)
+		// console.log("sub_strategies_nb", sub_strategies_nb)
+		// console.log("sub_strategies_ce_bau", sub_strategies_ce_bau)
+		// console.log("sub_strategies_name", sub_strategies_name)
+        let data_ce = calculateElectricConsumptionEndUse(
+            n,
+            sub_strategies_value,
+            sub_strategies_value_aux,
+            sub_strategies_nb,
+            sub_strategies_ce_bau,
+            sub_strategies_name
+        )
+		let data_ce_without_name = data_ce[1]
+        data_model_upgrade.push(data_ce_without_name)  //en esta parte en vez de crear un array con los calculos de las 3 equios a BAt
+		if(sub_strategies_technological[item].id == "f001"){
+			data_upgrade.push(data_ce_without_name)
+			let ce_cp = sub_strategies_technological[item].ce_bau.map( ce_bau => ce_bau * consumption_percent_c_p)
+			let ce_i = sub_strategies_technological[item].ce_bau.map( ce_bau => ce_bau * consumption_percent_industrial)
+			let last_value_ce = ce_cp[n-1] + ce_i[n-1]
+			let last_value_residential = data_upgrade[0][data_upgrade[0].length - 1]
+			impact_total_residential_demand = Object.values(last_value_residential)[1] + last_value_ce
+			// console.log("data_upgrade pato 1", data_upgrade)
+			// console.log("last_value_ce pato 1", last_value_ce)
+			// console.log("last_value_residential pato 1", last_value_residential)
+			// console.log("sum pato 1", impact_total_residential_demand)
+			let residential_values = createDataForTospsis(impact_total_residential_demand, poblacion[n-1], pib_billones_usd[n-1], ce_bau[n-1], sub_strategies_technological[item].name)
+			data_topsis.push(residential_values)
+		}else if(sub_strategies_technological[item].id == "f002"){
+			data_upgrade.push(data_ce_without_name)
+			let ce_r = sub_strategies_technological[item].ce_bau.map( ce_bau => ce_bau * consumption_percent_residential)
+			let ce_i = sub_strategies_technological[item].ce_bau.map( ce_bau => ce_bau * consumption_percent_industrial)
+			// data_upgrade.push(ce_r)
+			// data_upgrade.push(ce_i)
+			//let suma_aux = totalSumStrategyData(ce_r,ce_i)
+			//console.log("data_upgrade pato 2", data_upgrade)
+			//console.log("suma_aux pato 2", suma_aux)
+			let last_value_ce = ce_r[n-1] + ce_i[n-1]
+			let last_value_cp = data_upgrade[0][data_upgrade[0].length - 1]
+			impact_total_demand_commercial_public = Object.values(last_value_cp)[1] + last_value_ce
+			// console.log("last_value_cp pato 1", last_value_cp)
+			// console.log("sum pato 2", impact_total_demand_commercial_public)
+			let commercal_public_values = createDataForTospsis(impact_total_demand_commercial_public, poblacion[n-1], pib_billones_usd[n-1], ce_bau[n-1], sub_strategies_technological[item].name)
+			data_topsis.push(commercal_public_values)
+		}else if(sub_strategies_technological[item].id == "f003"){
+			data_upgrade.push(data_ce_without_name)
+			let ce_r = sub_strategies_technological[item].ce_bau.map( ce_bau => ce_bau * consumption_percent_residential)
+			let ce_cp = sub_strategies_technological[item].ce_bau.map( ce_bau => ce_bau * consumption_percent_c_p)
+			// data_upgrade.push(ce_r)
+			// data_upgrade.push(ce_cp)
+			//let suma_aux = totalSumStrategyData(ce_r,ce_cp)
+			//console.log("data_upgrade pato 3", data_upgrade)
+			let last_value_ce = ce_r[n-1] + ce_cp[n-1]
+			let last_value_i = data_upgrade[0][data_upgrade[0].length - 1]
+			impact_total_industrial_demand = Object.values(last_value_i)[1] + last_value_ce
+			// console.log("last_value_i pato 1", last_value_i)
+			// console.log("sum pato 3", impact_total_industrial_demand)
+			let industrial_values = createDataForTospsis(impact_total_industrial_demand, poblacion[n-1], pib_billones_usd[n-1], ce_bau[n-1], sub_strategies_technological[item].name)
+			data_topsis.push(industrial_values)
+			//console.log("suma_aux pato 3", suma_aux)
+		}
+	})													//elijo el primer bat(residencial y completo con ce proyectado de industrial y comercial y publico y sumo)
+	let ce_bau_projected = ce_bau[n -1]
+	let population_projected = poblacion[n -1]
+	let pib_usd_projected = pib_billones_usd[n -1]
+	let impact_consumpt_light_elect_ve = ce_bau_projected + lightweight_sum
+	let impact_consumpt_heavy_elect_ve = ce_bau_projected + heavy_sum
+
+	let light_vehicle_values = createDataForTospsis(impact_consumpt_light_elect_ve, population_projected, pib_usd_projected, ce_bau_projected, "Electrificación del transporte ligero")
+	data_topsis.push(light_vehicle_values)
+
+	let heavy_vehicle_values = createDataForTospsis(impact_consumpt_heavy_elect_ve, population_projected, pib_usd_projected, ce_bau_projected, "Electrificación del transporte carga y pasajeros")
+	data_topsis.push(heavy_vehicle_values)
+
+	let total_elect_consump_ev = sumStrategyDatawithAccumulation(data_model_electrification)
+	let total_elect_consump_tehn_up = sumStrategyData(data_model_upgrade)
+	let total_elect_consump = totalSumStrategyData(total_elect_consump_ev,total_elect_consump_tehn_up)
+	createGraphIndicatorEndUse(total_elect_consump, ce_bau,poblacion, pib_billones_usd )
+}
+
+function dataGraphIndicatorsEndUse(strategies) {
+	let strategiesModels = strategies.models
+	let n_and_year = validateDate()
+	let n = n_and_year[0]
+	let strategies_array_copia = const_strategies
+	let k = 0
+	//let strategiesName = getStrategieName()
+	let strategies_array_copia_process = filterStrategiesByProcess(strategies_array_copia).models
+	for (let i = 0; i < strategies_array_copia_process.length; i++) {
+		let process_strategies_name = strategies_array_copia_process[i].name
+		try {
+			let current_strategies_name = strategiesModels[k].name
+			if (process_strategies_name == current_strategies_name) {
+				let proccess_strategies = strategies_array_copia_process[i].strategies
+				let curren_strategies = strategiesModels[k].strategies
+				let l = 0
+				for (let j = 0; j < proccess_strategies.length; j++) {
+						let process_strategy_name = proccess_strategies[j].name
+					try {
+						let current_strategy_name = curren_strategies[l].name
+						if (process_strategy_name == current_strategy_name) {
+							let value_new = curren_strategies[l].selected_value
+							let value_aux_new = curren_strategies[l].selected_value_aux
+							proccess_strategies[j].selected_value = value_new
+							proccess_strategies[j].selected_value_aux = value_aux_new
+							l++
+						}
+					} catch (error) {
+						console.log("El índice está fuera del rango de la matriz");
+					}
+				}
+				k++
+			}
+		} catch (error) {
+			console.log("El índice está fuera del rango de la matriz");
+		}
+	}
+	let electrification_strategies = strategies_array_copia_process[0]
+	let technological_upgrade_strategies = strategies_array_copia_process[1]
+	generateDataIndicatorEndUse(electrification_strategies.strategies, technological_upgrade_strategies.strategies, n)
+}
+
+function calculateLossFactor(n, ami, final_reduction, ami_bau, name) {
+    var increment_ami = ami / n
+    var data_ami = []
+    var data_plot = []
+    var data_plot_return = []
+    let j = 2
+    let factor_perdidas = 0
+    let creaincrement_ami = increment_ami
+    let final_reduction_formula = (1 - (final_reduction/ami_bau))
+    for (let a = 0; a < n; a++) {
+        data_ami.push(creaincrement_ami)
+        creaincrement_ami = creaincrement_ami + increment_ami
+    }
+	//console.log("data_ami", data_ami)
+	//console.log("final_reduction_formula", final_reduction_formula)
+    for (let i = 0; i < data_ami.length; i++) {
+        let data_plot_dict = {}
+        let anio = "202" + j
+        if (j > 9) {
+            j = 0
+            anio = "203" + j
+        }
+        j++
+		//console.log("ami_bau", ami_bau)
+        factor_perdidas = ami_bau * (1 - data_ami[i] * final_reduction_formula)
+		//console.log(" --- factor_perdidas", factor_perdidas)
+        data_plot_dict.Año = anio
+        data_plot_dict[name] = factor_perdidas
+        data_plot.push(data_plot_dict)
+        ami_bau = factor_perdidas
+    }
+    data_plot_return["Estrategias de descentralización y digitalización"] = data_plot
+    return [data_plot_return,data_plot]
+}
+
+function decentralizationAndDigitizationStrategies(sub_strategies, n, strategies_name) {
+    //console.log("-----decentralizationAndDigitizationStrategies ---  ")
+	let sub_strategies_key = Object.keys(sub_strategies)
+    sub_strategies_key.forEach(function (item, index) {
+        //utiliza de entrada rficirencia base nb , consumo electico bau ce_bau
+        let sub_strategies_name = sub_strategies[item].name
+        let sub_strategies_value = parseFloat(sub_strategies[item].selected_value) / 100// porcentaje de incorporacion ami
+		let sub_strategies_value_aux_mod = sub_strategies[item].selected_value_aux
+		let sub_strategies_value_aux
+		if (typeof sub_strategies_value_aux_mod === "string") {
+			sub_strategies_value_aux = parseFloat(sub_strategies[item].selected_value_aux) / 100// reduccion final dada por el usuario
+		} else if (typeof sub_strategies_value_aux_mod === "boolean") {
+			sub_strategies_value_aux = parseFloat(sub_strategies[item].final_reduction_bau)// reduccion final por defecto
+		}
+		let sub_strategies_ami_bau = parseFloat(sub_strategies[item].ami_bau)
+		// console.log("sub_strategies_name", sub_strategies_name)
+		// console.log("sub_strategies_value", sub_strategies_value)
+		// console.log("sub_strategies_value_aux", sub_strategies_value_aux)
+		// console.log("sub_strategies_ami_bau", sub_strategies_ami_bau)
+        let data_ce_consumpt = calculateLossFactor(
+            n,
+            sub_strategies_value,
+            sub_strategies_value_aux,
+            sub_strategies_ami_bau,
+            sub_strategies_name
+        )
+		console.log("data_ce_consumpt", data_ce_consumpt)
+		let data_ce = data_ce_consumpt[0]
+		const_loss_factor = data_ce_consumpt[1]
+        createChartUpgrade(
+            list_name,
+            strategies_name,
+            sub_strategies_name,
+            data_ce,
+            "chart_title_4",
+            "line-chart-4",
+            "graph-container-4"
+        )
+    })
+}
+
+function dataGraphStrategiesDistribution(strategies) {
+	//console.log(" --- dataGraphStrategiesDistribution --- ")
+	let strategiesModels = strategies.models
+	let n_and_year = validateDate()
+	let n = n_and_year[0]
+	//let strategiesName = getStrategieName()
+	let strategiesModelsKeys = Object.keys(strategiesModels)
+	strategiesModelsKeys.forEach(function (items, index) {
+		let strategies_name = strategiesModels[items].name
+		let sub_strategies = strategiesModels[items].strategies
+		decentralizationAndDigitizationStrategies(sub_strategies, n, strategies_name)
+	})
+}
+
 function updateChart(strategies_array) {
-	//console.log(getCurrentValues())
 	let current_values = getCurrentValues()
-	console.log("current_values",current_values)
-	strategies_const = filterStrategiesByIdValues(strategies_array, current_values)
-	plotDataStrategies(strategies_const)
+	//console.log("current_values", current_values)
+	let current_values_sliders = current_values[0]
+	let current_values_text = current_values[1]
+	strategies_const = filterStrategiesByIdValues(strategies_array, current_values_sliders, current_values_text)
+	let proccess = getProcessName()
+	if(proccess == "generation"){
+		plotDataStrategies(strategies_const)
+	}else if(proccess == "distribution"){
+		dataGraphStrategiesDistribution(strategies_const)
+	}else if(proccess == "end_use"){
+		dataGraphStrategiesEndUse(strategies_const)
+	}
 }
 
 document.getElementById("adjust_sub_estrategies_next").addEventListener("click", function () {
-	plotDataIndicators(strategies_const)
+	let proccess = getProcessName()
+	if(proccess == "generation"){
+		plotDataIndicators(strategies_const)
+	}else if(proccess == "distribution"){
+		console.log("falta flujo para distribucion", const_loss_factor)
+	}else if(proccess == "end_use"){
+		dataGraphIndicatorsEndUse(strategies_const)
+	}
 })
 
-function topsisValues(weights){
+function topsisValues(weights) {
 	let parent_object = {}
 	// let criterios_values = Object.assign({}, parent_object, {
 	// 	criteria_values: [
@@ -2070,7 +2965,7 @@ function topsisValues(weights){
 	data_topsis.push(criterios_values)
 	const dict_values = { data_topsis }
 	const s = JSON.stringify(dict_values)
-	//console.log(s)
+	console.log(s)
 	$.ajax({
 		url: "/dashboard/analysis",
 		type: "POST",
@@ -2091,77 +2986,44 @@ function topsisValues(weights){
 	})
 }
 
-function upgradeStrategyEndUse(n, nb, pi, np, name, consumo_bau) {
-	// Eficiencia actual promedio de las plantas térmicas
-	// η_BAU: 37.20 %
-	console.log("--upgradeStrategyEndUse--")
-	var incrementPi = pi / n
-	var incrementNp = np / n
-	var nb = 0.372
-	var dataPi = []
-	var dataNp = []
-	var consumo_bau = [38431.48958, 47251.72003, 55085.03816, 52372.57931, 43918.86529, 42678.89415, 52088.4272, 60911.15393, 58310.93145];
+// function upgradeStrategyEndUse(n, nb, pi, np, name, consumo_bau) {
+// 	// Eficiencia actual promedio de las plantas térmicas
+// 	// η_BAU: 37.20 %
+// 	console.log("--upgradeStrategyEndUse--")
+// 	var incrementPi = pi / n
+// 	var incrementNp = np / n
+// 	var nb = 0.372
+// 	var dataPi = []
+// 	var dataNp = []
+// 	var consumo_bau = [
+// 		38431.48958, 47251.72003, 55085.03816, 52372.57931, 43918.86529, 42678.89415, 52088.4272,
+// 		60911.15393, 58310.93145,
+// 	]
 
-	let creaIncrementPi = incrementPi;
-	for (let a = 0; a < n; a++) {
-		dataPi.push(creaIncrementPi)
-		creaIncrementPi = creaIncrementPi + incrementPi
-		console.log("--incrementPi--", incrementPi)
-	}
+// 	let creaIncrementPi = incrementPi
+// 	for (let a = 0; a < n; a++) {
+// 		dataPi.push(creaIncrementPi)
+// 		creaIncrementPi = creaIncrementPi + incrementPi
+// 		console.log("--incrementPi--", incrementPi)
+// 	}
 
-	let creaIncrementNp = incrementNp;
-	for (let a = 0; a < n; a++) {
-		dataNp.push(creaIncrementNp)
-		creaIncrementNp = creaIncrementNp + incrementNp
-		console.log("--incrementNp--", incrementNp)
-	}
+// 	let creaIncrementNp = incrementNp
+// 	for (let a = 0; a < n; a++) {
+// 		dataNp.push(creaIncrementNp)
+// 		creaIncrementNp = creaIncrementNp + incrementNp
+// 		console.log("--incrementNp--", incrementNp)
+// 	}
 
-	console.log("dataPi", dataPi)
-	console.log("dataNp", dataNp)
+// 	console.log("dataPi", dataPi)
+// 	console.log("dataNp", dataNp)
 
-	let cp = 0
-	for (let i = 0; i < dataNp.length; i++) {
-		cp = consumo_bau[i] * (1 - (1 - nb / dataNp[i]) * dataPi[i])
-		console.log("--cp--", cp)
-	}
-	return cp;
-}
-
-function transportElectStrategiesEndUse(n, nb, pi, np, name, consumo_bau) {
-	// Eficiencia actual promedio de las plantas térmicas
-	// η_BAU: 37.20 %
-	console.log("--transportElectStrategiesEndUse--")
-	var incrementPi = pi / n
-	var incrementNp = np / n
-	var nb = 0.372
-	var dataPi = []
-	var dataNp = []
-	var consumo_bau = [38431.48958, 47251.72003, 55085.03816, 52372.57931, 43918.86529, 42678.89415, 52088.4272, 60911.15393, 58310.93145];
-
-	let creaIncrementPi = incrementPi;
-	for (let a = 0; a < n; a++) {
-		dataPi.push(creaIncrementPi)
-		creaIncrementPi = creaIncrementPi + incrementPi
-		console.log("--incrementPi--", incrementPi)
-	}
-
-	let creaIncrementNp = incrementNp;
-	for (let a = 0; a < n; a++) {
-		dataNp.push(creaIncrementNp)
-		creaIncrementNp = creaIncrementNp + incrementNp
-		console.log("--incrementNp--", incrementNp)
-	}
-
-	console.log("dataPi", dataPi)
-	console.log("dataNp", dataNp)
-
-	let cp = 0
-	for (let i = 0; i < dataNp.length; i++) {
-		cp = consumo_bau[i] * (1 - (1 - nb / dataNp[i]) * dataPi[i])
-		console.log("--cp--", cp)
-	}
-	return cp;
-}
+// 	let cp = 0
+// 	for (let i = 0; i < dataNp.length; i++) {
+// 		cp = consumo_bau[i] * (1 - (1 - nb / dataNp[i]) * dataPi[i])
+// 		console.log("--cp--", cp)
+// 	}
+// 	return cp
+// }
 
 /* Desarrollo Nuevo */
 $(".btn-progress-next").on("click", function () {
