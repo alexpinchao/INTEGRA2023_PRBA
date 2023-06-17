@@ -594,6 +594,16 @@ sub_strategies_table = Table('SUB_ESTRATEGIA_GEN', metadata_obj,
                    Column('ESTRATEGIA_ID', String)
                    )
 
+# Method that returns the table SUB_ESTRATEGIAS  by update
+# DATE: 16/03/2023
+#Variables relation for end use indicators table schema
+sub_strategies_distribution_table = Table('SUB_ESTRATEGIA_DISTRIBUTION', metadata_obj,
+                   Column('SUB_ESTRATEGIA_ID', Integer,
+                          nullable=False, unique=True),
+                   Column('NOMBRE_SUB_ESTRATEGIA', String),
+                   Column('ESTRATEGIA_ID', String)
+                   )
+
 # Method that returns the table SUB_ESTRATEGIAS  by expansion
 # DATE: 16/03/2023
 #Variables relation for end use indicators table schema
@@ -970,6 +980,11 @@ _unit_dict = {'Consumo de fuentes primarias por tipo de central eléctrica': 'GW
               'Indicador de eficiencia energética': 'Porcentaje %',
               'Indicador intensidad energética primaria': 'Gwh',
               'Indicador intensidad de emisiones de carbono': 'Gwh',
+              'Estrategias de electrificación en el transporte': 'kWh',
+              'Estrategias de actualización tecnológica': 'kWh',
+              'Indicador consumo per cápita': 'MWh/persona',
+              'Indicador intensidad energética': 'kWh/USD',
+              'Indicador emisiones evitadas': 'MtCO2eq',
             }
 class SQL_connector():
     """Platform server connection class
@@ -1273,6 +1288,19 @@ class SQL_connector():
 
         return rows
     
+    def get_dist_sub_strategies(self):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """
+        query = select(sub_strategies_distribution_table)
+        result = self.engine.execute(query)
+        columns = [col for col in result.keys()]
+        rows = {'Estrategias de descentralización y digitalización':[dict(zip(columns,row)) for row in result.fetchall()]}
+        result.close()
+        return rows
+    
     def get_end_use_sub_strategies(self):
         """_summary_
 
@@ -1437,12 +1465,10 @@ class SQL_connector():
 
         _dict_strategies.update({'generation':_dict_gen_strategies})
 
-        # _dist_dist_strategies = {}
-        # _dist_dist_strategies.update(self.)
-        # _dist_dist_strategies.update(self.)
-        # _dist_dist_strategies.update(self.)
+        _dist_dist_strategies = {}
+        _dist_dist_strategies.update(self.get_dist_sub_strategies())
 
-        # _dict_strategies.update({'distribution':_dist_dist_strategies})
+        _dict_strategies.update({'distribution':_dist_dist_strategies})
 
         # _dict_end_use_strategies = {}
         # _dict_end_use_strategies.update(self.)
