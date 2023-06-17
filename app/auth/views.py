@@ -8,14 +8,16 @@ import secure
 
 secure_headers = secure.Secure()
 
+
 @auth.after_request
 def set_secure_headers(response):
     secure_headers.framework.flask(response)
     return response
 
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    return redirect(url_for('dashboard.main'))
+    # return redirect(url_for('dashboard.main'))
     login_form = LoginForm()
     val_name = False
     val_cont = False
@@ -31,7 +33,7 @@ def login():
         user = app.db_object.get_user(username)
         if user:
             user = user[0]
-            password_from_db =user['password']        
+            password_from_db = user['password']
             if check_password_hash(password_from_db, password):
                 user_data = UserData(username, password)
                 user = UserModel(user_data)
@@ -79,6 +81,7 @@ def signup():
             flash('El usuario ya existe.')
 
     return render_template('auth/signup.html', **context)
+
 
 @auth.route('account-recovery', methods=['GET', 'POST'])
 def recovery():
