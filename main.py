@@ -13,10 +13,10 @@ from jinja2 import UndefinedError
 from flask import Flask, request, make_response, render_template, redirect, session, url_for, flash, Response
 from app import create_app
 from flask_login import login_required, current_user
-from app.db import SQL_connector
+from app.db import SQLConnector
 
 app = create_app()
-app.db_object = SQL_connector()
+app.db_object = SQLConnector()
 
 
 @app.cli.command()

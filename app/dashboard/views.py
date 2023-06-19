@@ -804,8 +804,8 @@ def analysis():
         topsis = functionTopsis(dataframe, weiths)
         return topsis
     else:
-        strategies = app.db_object.get_Strategies()
-        description_strategies = app.db_object.get_description_Strategies()
+        strategies = app.db_object.get_strategies()
+        description_strategies = app.db_object.get_description_strategies()
         data, translating_dict = app.db_object.get_distribution()
         units = app.db_object.get_units()
         context = {

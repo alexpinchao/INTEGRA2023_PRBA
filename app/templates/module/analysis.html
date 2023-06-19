@@ -25,6 +25,20 @@ macros %} {% block head %} {{ super() }}
 	rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/css/bootstrap-slider.min.css"
 />
+
+  <!-- stonly-widget - copy into the head -->
+  <script>window.STONLY_WID = "557476f0-4f0d-11ed-871a-0a52ff1ec764";</script>
+  <script>
+    !function (s, t, o, n, l, y, w, g) {
+      s.StonlyWidget || ((w = s.StonlyWidget = function () {
+        w._api ? w._api.apply(w, arguments) : w.queue.push(arguments)
+      }).scriptPath = n, w.queue = [], (y = t.createElement(o)).async = !0,
+        (g = new XMLHttpRequest).open("GET", n + "version?v=" + Date.now(), !0), g.onreadystatechange = function () {
+          4 === g.readyState && (y.src = n + "stonly-widget.js?v=" + (200 === g.status ? g.responseText : Date.now()),
+            (l = t.getElementsByTagName(o)[0]).parentNode.insertBefore(y, l))
+        }, g.send())
+    }(window, document, "script", "https://stonly.com/js/widget/v2/");
+  </script>
 {% endblock %} {% block title %} {{ super() }} Análisis {% endblock %} {% block content %} {{
 super() }}
 <body onload="ActivateLink('analysis')">
