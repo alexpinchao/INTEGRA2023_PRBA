@@ -26,19 +26,28 @@ macros %} {% block head %} {{ super() }}
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/css/bootstrap-slider.min.css"
 />
 
-  <!-- stonly-widget - copy into the head -->
-  <script>window.STONLY_WID = "557476f0-4f0d-11ed-871a-0a52ff1ec764";</script>
-  <script>
-    !function (s, t, o, n, l, y, w, g) {
-      s.StonlyWidget || ((w = s.StonlyWidget = function () {
-        w._api ? w._api.apply(w, arguments) : w.queue.push(arguments)
-      }).scriptPath = n, w.queue = [], (y = t.createElement(o)).async = !0,
-        (g = new XMLHttpRequest).open("GET", n + "version?v=" + Date.now(), !0), g.onreadystatechange = function () {
-          4 === g.readyState && (y.src = n + "stonly-widget.js?v=" + (200 === g.status ? g.responseText : Date.now()),
-            (l = t.getElementsByTagName(o)[0]).parentNode.insertBefore(y, l))
-        }, g.send())
-    }(window, document, "script", "https://stonly.com/js/widget/v2/");
-  </script>
+<!-- stonly-widget - copy into the head -->
+<script>
+	window.STONLY_WID = "557476f0-4f0d-11ed-871a-0a52ff1ec764"
+</script>
+<script>
+	!(function (s, t, o, n, l, y, w, g) {
+		s.StonlyWidget ||
+			(((w = s.StonlyWidget =
+				function () {
+					w._api ? w._api.apply(w, arguments) : w.queue.push(arguments)
+				}).scriptPath = n),
+			(w.queue = []),
+			((y = t.createElement(o)).async = !0),
+			(g = new XMLHttpRequest()).open("GET", n + "version?v=" + Date.now(), !0),
+			(g.onreadystatechange = function () {
+				4 === g.readyState &&
+					((y.src = n + "stonly-widget.js?v=" + (200 === g.status ? g.responseText : Date.now())),
+					(l = t.getElementsByTagName(o)[0]).parentNode.insertBefore(y, l))
+			}),
+			g.send())
+	})(window, document, "script", "https://stonly.com/js/widget/v2/")
+</script>
 {% endblock %} {% block title %} {{ super() }} Análisis {% endblock %} {% block content %} {{
 super() }}
 <body onload="ActivateLink('analysis')">
@@ -1094,6 +1103,7 @@ super() }}
 														<div class="row d-flex align-items-center justify-content-center">
 															<a
 																class="btn btn-primary w-50"
+																id="topsis-start"
 																href="#summit"
 																onclick="weights_check()"
 															>
@@ -2854,11 +2864,11 @@ super() }}
 			let strategies_to_load = JSON.parse('{{ strategies_definition| tojson | safe }}')
 			// prettier-ignore
 			let units = JSON.parse('{{units | tojson | safe}}')
-			if (arr_ids.length === 0){
+			if (arr_ids.length === 0) {
 				console.log("array es cero")
 				$("#select_sub_strategies").addClass("btn-danger")
-			}else{
-				ActiveSection('scenarios_3')
+			} else {
+				ActiveSection("scenarios_3")
 				loadStrategies(strategies_to_load, arr_ids)
 				loadUnit(units)
 			}
@@ -2936,15 +2946,12 @@ super() }}
 			// let tr1 = _tr_.cloneNode(false)
 			// let td1 = _td_.cloneNode(false)
 			// let a1 = _a_.cloneNode(false)
-
 			// console.log("NEED items", items)
-
 			// if (items === "Estrategias de actualización") {
 			// 	itemsTittle = "Modelo matemático de actualización"
 			// } else {
 			// 	itemsTittle = "Modelo matemático de expansión"
 			// }
-
 			// a1.appendChild(document.createTextNode(itemsTittle || ""))
 			// td1.classList.add("fw-extrabold")
 			// td1.classList.add("showhr")
@@ -2953,12 +2960,10 @@ super() }}
 			// /* i.classList.add('fa-angle-right') */
 			// i1.classList.add("fa-caret-down")
 			// i1.classList.add("pe-1")
-
 			// td1.appendChild(i1)
 			// td1.appendChild(a1)
 			// tr1.appendChild(td1)
 			// tbody.appendChild(tr1)
-
 			// // let description = json_descripcion_final[items]
 			// // console.log("NEED description", description)
 			// let titles = ["Modelo matemático:", "Variables:"]
@@ -2968,7 +2973,6 @@ super() }}
 			// 	if (index == 1) {
 			// 		item = item.replace(/-/gi, "<br>")
 			// 	}
-
 			// 	let p = _p_.cloneNode(false)
 			// 	p.innerHTML =
 			// 		'<small class="fw-extrabold">' +
