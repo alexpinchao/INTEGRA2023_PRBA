@@ -1088,7 +1088,7 @@ function toggleAuxInput(input_name) {
 
 function loadAuxVariable(strategy) {
 	var variable_aux_html = document.querySelector("#strategy-variable-aux-example").cloneNode(true)
-	variable_aux_html.querySelector("#variable-aux-name-strategy").innerText = strategy.name
+	variable_aux_html.querySelector("#variable-aux-name-strategy").innerText = strategy.variable_aux
 	variable_aux_html.querySelector("#variable-aux-name-strategy").id =
 		"variable-aux-name-strategy-" + strategy.id
 	variable_aux_html
@@ -1325,9 +1325,13 @@ function loadStrategies(strategies_array, strategies_id_selected) {
 	removeSliders()
 	loadSliders(strategies_array)
 	loadInputsAux(strategies_array)
+
+	console.log("cuantas veces entra aqui")
+	updateChart(strategies_array)
 }
 
 function getCurrentValues() {
+	console.log("getCurrentValues")
 	let key_values = {}
 	let text_values = {}
 	document.querySelectorAll(".form-range-value").forEach(function (values) {
@@ -1342,6 +1346,8 @@ function getCurrentValues() {
 		}
 		key_values[key_id] = value_slider
 	})
+	console.log("getCurrentValues key_values", key_values)
+	console.log("getCurrentValues text_values", text_values)
 	return [key_values,text_values]
 }
 
@@ -2210,7 +2216,7 @@ function calculateElectricConsumptionVehicles(n, rm, vkt, name) {
 			anio = "203" + j
 		}
 		j++
-		ce_vehicles = data[i] * vkt[i]
+		ce_vehicles = (0.000001) * data[i] * vkt[i]
 		data_plot_dict.Año = anio
 		data_plot_dict[name] = ce_vehicles
 		data_plot.push(data_plot_dict)
@@ -2251,19 +2257,26 @@ function calculateElectricConsumptionVehiclesRmConstant(n, rm, vkt, name) {
 	return [data_plot_return,data_plot]
 }
 
-function calculateVkt(n, avkt, nv) {
-    var increment = nv / n
+function calculateVkt(n, avkt, nv, porcentaje_incremento) {
+	// el calculo del numero de vehiculos utiliza la formula  x1 = x2 / (% + 1) donde:
+	// x1 valor a calular en año anteior al seleccionado
+	// x2 valor del año actual
+	// % porcentaje del año actual
+	porcentaje_incremento = porcentaje_incremento.slice(0, n)
+	let porcen_rever = porcentaje_incremento.reverse()
     var data = []
     var array_vkt = []
     let vkt = 0
 
-    let creaIncrement = increment
+    let creaIncrement = nv
     for (let a = 0; a < n; a++) {
         data.push(creaIncrement)
-        creaIncrement = creaIncrement + increment
+        creaIncrement = creaIncrement/(porcen_rever[a] + 1)
+		console.log("creaIncrement",creaIncrement )
     }
+	data.reverse()
+	console.log("array numero de vehiculos",data )
     for (let i = 0; i < data.length; i++) {
-
         vkt = avkt * data[i]
         array_vkt.push(vkt)
     }
@@ -2271,19 +2284,23 @@ function calculateVkt(n, avkt, nv) {
 }
 
 function generateGhapTransportElectrification(sub_strategies, n, strategies_name) {
-	//console.log("---generateGhapTransportElectrification---  ")
+	console.log("---generateGhapTransportElectrification---  ")
 	let sub_strategies_key = Object.keys(sub_strategies)
 	sub_strategies_key.forEach(function (item, index) {
 		let sub_strategies_name = sub_strategies[item].name
 		let sub_strategies_value = parseFloat(sub_strategies[item].selected_value)	// NV numero de vehiculos
 		let sub_strategies_value_aux_mod = sub_strategies[item].selected_value_aux	// Rendimiento del motor
 		let sub_strategies_avkt = parseFloat(sub_strategies[item].avkt)
+		let sub_strategies_incremto_n_vehiculos = sub_strategies[item].incremto_n_vehiculos
+		//console.log("vkt sub_strategies_incremto_n_vehiculos",sub_strategies_incremto_n_vehiculos )
 		let sub_strategies_value_aux
 		let data_ce_vehicles
 
 		if (typeof sub_strategies_value_aux_mod === "string") {
 			sub_strategies_value_aux = parseFloat(sub_strategies[item].selected_value_aux) //rendimiento del motor desde slider
-			let vkt = calculateVkt(n, sub_strategies_avkt, sub_strategies_value)
+			let vkt = calculateVkt(n, sub_strategies_avkt, sub_strategies_value, sub_strategies_incremto_n_vehiculos)
+			// console.log("vkt calculado",vkt )
+			// console.log("sub_strategies_name",sub_strategies_name )
 			//utiliza de entrada el promedio de km recorridos(avkt), # de vehículos eléctricos (nv)
 			let data_consump_vehic = calculateElectricConsumptionVehicles(
 				n,
@@ -2292,18 +2309,11 @@ function generateGhapTransportElectrification(sub_strategies, n, strategies_name
 				sub_strategies_name
 			)
 			data_ce_vehicles = data_consump_vehic[0]
-			// createChartExpansion(
-			// 	list_name,
-			// 	strategies_name,
-			// 	sub_strategies_name,
-			// 	data_ce_vehicles,
-			// 	"chart_title_3",
-			// 	"line-chart-3",
-			// 	"graph-container-3"
-			// )
 		} else if (typeof sub_strategies_value_aux_mod === "boolean") {
-			sub_strategies_value_aux = parseFloat(sub_strategies[item].value_aux) // Rendimiento del motor constante
-			let vkt = calculateVkt(n, sub_strategies_avkt, sub_strategies_value)
+			sub_strategies_value_aux = parseFloat(sub_strategies[item].rm_Km_Lge) // Rendimiento del motor constante
+			let vkt = calculateVkt(n, sub_strategies_avkt, sub_strategies_value, sub_strategies_incremto_n_vehiculos)
+			// console.log("vkt calculado 2 ",vkt )
+			// console.log("sub_strategies_name 2 ",sub_strategies_name )
 			//utiliza de entrada el promedio de km recorridos(avkt), # de vehículos eléctricos (nv)
 			let data_consump_vehic = calculateElectricConsumptionVehiclesRmConstant(
 				n,
@@ -2312,15 +2322,6 @@ function generateGhapTransportElectrification(sub_strategies, n, strategies_name
 				sub_strategies_name
 			)
 			data_ce_vehicles = data_consump_vehic[0]
-			// createChartExpansion(
-			// 	list_name,
-			// 	strategies_name,
-			// 	sub_strategies_name,
-			// 	data_ce_vehicles,
-			// 	"chart_title_3",
-			// 	"line-chart-3",
-			// 	"graph-container-3"
-			// )
 		}
 		createChartExpansion(
 			list_name,
@@ -2371,10 +2372,10 @@ function calculateElectricConsumptionEndUse(n, np, pi, nb, ce_bau, name) {
 }
 
 function generateGhapTechnologicalUpdate(sub_strategies, n, strategies_name) {
-    //console.log("-----generateGhapTechnologicalUpdate ---  ")
+    console.log("-----generateGhapTechnologicalUpdate ---  ")
 	let sub_strategies_key = Object.keys(sub_strategies)
     sub_strategies_key.forEach(function (item, index) {
-        //utiliza de entrada rficirencia base nb , consumo electico bau ce_bau
+        //utiliza de entrada eficiencia base nb , consumo electico bau ce_bau
         let sub_strategies_name = sub_strategies[item].name
         let sub_strategies_value = parseFloat(sub_strategies[item].selected_value) / 100// nd eficiencia deseada
 		let sub_strategies_value_aux_mod = sub_strategies[item].selected_value_aux
@@ -2397,6 +2398,7 @@ function generateGhapTechnologicalUpdate(sub_strategies, n, strategies_name) {
             sub_strategies_name
         )
 		let data_ce = data_ce_consumpt[0]
+		console.log("date_ce ",data_ce )
         createChartUpgrade(
             list_name,
             strategies_name,
@@ -2410,7 +2412,7 @@ function generateGhapTechnologicalUpdate(sub_strategies, n, strategies_name) {
 }
 
 function dataGraphStrategiesEndUse(strategies) {
-	//console.log(" --- dataGraphStrategiesEndUse --- ")
+	console.log(" --- dataGraphStrategiesEndUse --- ")
 	let strategiesModels = strategies.models
 	let n_and_year = validateDate()
 	let n = n_and_year[0]
@@ -2571,6 +2573,10 @@ function generateAvoidEmissionsIndicator(total_elect_consump, ce_bau, fe ) {
 
 function createGraphIndicatorEndUse(total_elect_consump, ce_bau, poblacion, pib_billones_usd ) {
     let fe = 0.2
+	console.log("--- total_elect_consump", total_elect_consump)
+	console.log("-- ce_bau", ce_bau)
+	console.log("-- poblacion", poblacion)
+	console.log("-- pib_billones_usd", pib_billones_usd)
     //total_elect_consump es quien determina hasta donde se recorren los arrays complementarios que contienen datos del 2022 hasta 2030
     let c_per_cap = generatePerCapitaConsumptionindicator(total_elect_consump, poblacion)
     let energy_intensity = generateEnergyintensityindicator(total_elect_consump, pib_billones_usd)
@@ -2585,6 +2591,11 @@ function createGraphIndicatorEndUse(total_elect_consump, ce_bau, poblacion, pib_
 }
 
 function createDataForTospsis(impact, population, pib_usd, ce_bau_projected, name){
+	console.log("TOPSIS impact ", impact)
+	console.log("TOPSIS population ", population)
+	console.log("TOPSIS pib_usd ", pib_usd)
+	console.log("TOPSIS ce_bau_projected ", ce_bau_projected)
+	console.log("TOPSIS name ", name)
 	let parent_object = {}
 	let fe = 0.2
 	let data_topsis_return = Object.assign({}, parent_object, {
@@ -2596,7 +2607,7 @@ function createDataForTospsis(impact, population, pib_usd, ce_bau_projected, nam
 			},
 		],
 	})
-	//console.log("generar datos para topsis ",data_topsis_return )
+	console.log("TOPSIS data_topsis_return ",data_topsis_return )
 	return data_topsis_return
 }
 
@@ -2616,6 +2627,7 @@ function generateDataIndicatorEndUse(sub_strategies_electrification, sub_strateg
 		let sub_strategies_value_mod = sub_strategies_electrification[item].selected_value//NV numero de vehiculos
 		let sub_strategies_value_aux_mod = sub_strategies_electrification[item].selected_value_aux//  Rendimiento del motor
 		let sub_strategies_avkt = parseFloat(sub_strategies_electrification[item].avkt)
+		let sub_strategies_incremto_n_vehiculos = sub_strategies_electrification[item].incremto_n_vehiculos
 		let sub_strategies_value
 		let sub_strategies_value_aux
 		if (typeof sub_strategies_value_mod === "string") {
@@ -2628,7 +2640,7 @@ function generateDataIndicatorEndUse(sub_strategies_electrification, sub_strateg
 		// si la variable selected_value_aux existe pero es false significa que el usuario eleigio la estrategia pero no selecciono el RM
 		// si la variable selected_value_aux  es strgin significa que el usuario eligio la estrategia y modifico El rendimiento del motor
 		//utiliza de entrada el promedio de km recorridos(avkt), # de vehículos eléctricos (nv)
-		let vkt = calculateVkt(n, sub_strategies_avkt, sub_strategies_value)
+		let vkt = calculateVkt(n, sub_strategies_avkt, sub_strategies_value,sub_strategies_incremto_n_vehiculos)
 		let data_ce_vehicles
 		if (typeof sub_strategies_value_aux_mod === "string") {
 			sub_strategies_value_aux = parseFloat(sub_strategies_electrification[item].selected_value_aux) //rendimiento del motor desde slider
@@ -2640,7 +2652,7 @@ function generateDataIndicatorEndUse(sub_strategies_electrification, sub_strateg
 				sub_strategies_name
 			)
 		} else if (typeof sub_strategies_value_aux_mod === "boolean" || sub_strategies_value_aux_mod === undefined) {
-			sub_strategies_value_aux = parseFloat(sub_strategies_electrification[item].value_aux) // Rendimiento del motor constante
+			sub_strategies_value_aux = parseFloat(sub_strategies_electrification[item].rm_Km_Lge) // Rendimiento del motor constante
 			data_ce_vehicles = calculateElectricConsumptionVehiclesRmConstant(
 				n,
 				sub_strategies_value_aux,
@@ -2648,6 +2660,7 @@ function generateDataIndicatorEndUse(sub_strategies_electrification, sub_strateg
 				sub_strategies_name
 			)
 		}
+		console.log("indicadores data_ce_vehicles ", data_ce_vehicles)
 		let data_ce_ve_without_name = data_ce_vehicles[1]
 		data_model_electrification.push(data_ce_ve_without_name)
 		if (sub_strategies_electrification[item].id_tipo_vehiculo == "ve001") {
@@ -2666,7 +2679,7 @@ function generateDataIndicatorEndUse(sub_strategies_electrification, sub_strateg
 	})
 
 	lightweight_vehicles = sumStrategyData(lightweight_vehicles_array)  //suma todos lo valores de los arreglos para cada año
-	heavy_vehicles = sumStrategyData (heavy_vehicles_array)
+	heavy_vehicles = sumStrategyData(heavy_vehicles_array)
 
 	let lightweight_sum = lightweight_vehicles.reduce( (accumulator, currentValue) => { // suma todos los totales de todos los años para devolver un unico valor
 		return accumulator + currentValue
@@ -2786,9 +2799,15 @@ function generateDataIndicatorEndUse(sub_strategies_electrification, sub_strateg
 	let heavy_vehicle_values = createDataForTospsis(impact_consumpt_heavy_elect_ve, population_projected, pib_usd_projected, ce_bau_projected, "Electrificación del transporte carga y pasajeros")
 	data_topsis.push(heavy_vehicle_values)
 
+	console.log("data_model_electrification datos crudos" , data_model_electrification)
+	console.log("data_model_upgrade datos crudos" , data_model_upgrade)
 	let total_elect_consump_ev = sumStrategyDatawithAccumulation(data_model_electrification)
 	let total_elect_consump_tehn_up = sumStrategyData(data_model_upgrade)
+
+	console.log("total_elect_consump_ev datos sumados con acumlado" , total_elect_consump_ev)
+	console.log("total_elect_consump_tehn_up datos suma normal" , total_elect_consump_tehn_up)
 	let total_elect_consump = totalSumStrategyData(total_elect_consump_ev,total_elect_consump_tehn_up)
+	console.log("total_elect_consump suma total" , total_elect_consump)
 	createGraphIndicatorEndUse(total_elect_consump, ce_bau,poblacion, pib_billones_usd )
 }
 
@@ -3105,6 +3124,7 @@ function weights_check() {
 
 	if (sum_values_checker()) {
 		let values = get_weights_values()
+		console.log("aqui parece que llega el error",values)
 		weights["ambiental"] = values[0] / 100
 		weights["economico"] = values[1] / 100
 		weights["energetico"] = values[2] / 100

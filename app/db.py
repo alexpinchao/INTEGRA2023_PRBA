@@ -980,7 +980,7 @@ _unit_dict = {'Consumo de fuentes primarias por tipo de central eléctrica': 'GW
               'Indicador de eficiencia energética': 'Porcentaje %',
               'Indicador intensidad energética primaria': 'Gwh',
               'Indicador intensidad de emisiones de carbono': 'Gwh',
-              'Estrategias de electrificación en el transporte': 'kWh',
+              'Estrategias de electrificación en el transporte': 'GWh',
               'Estrategias de actualización tecnológica': 'kWh',
               'Indicador consumo per cápita': 'MWh/persona',
               'Indicador intensidad energética': 'kWh/USD',
