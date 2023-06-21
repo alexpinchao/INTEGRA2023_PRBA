@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% import 'module/modals.html' as modals %}
 
 {% block title %}
     {{ super() }}
@@ -19,7 +20,8 @@
                                   d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
                                   clip-rule="evenodd"></path>
                         </svg>
-                        Regresar al inicio</a>
+                        Regresar al inicio
+                    </a>
                 </p>
                 <div class="card border-0 shadow components-section flex-grow-1 mt-2">
                     <div class="card-body p-0">
@@ -36,28 +38,30 @@
                                         <div class="col-6 form-group pe-1">
                                             {{ signup_form.first_name.label(class_="my-0 fw-extrabold") }}
                                             <div class="input-group">
-                      <span class="input-group-text p-1" id="basic-addon1">
-                        <svg class="icon icon-xxs text-gray-600" fill="currentColor" viewBox="0 0 20 20"
-                             xmlns="http://www.w3.org/2000/svg">
-                          <path fill-rule="evenodd"
-                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                      </span>
+                                                  <span class="input-group-text p-1" id="basic-addon1">
+                                                    <svg class="icon icon-xxs text-gray-600" fill="currentColor"
+                                                         viewBox="0 0 20 20"
+                                                         xmlns="http://www.w3.org/2000/svg">
+                                                      <path fill-rule="evenodd"
+                                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
+                                                            clip-rule="evenodd"></path>
+                                                    </svg>
+                                                  </span>
                                                 {{ signup_form.first_name(class_="form-control p-1") }}
                                             </div>
                                         </div>
                                         <div class="col-6 form-group ps-1">
                                             {{ signup_form.last_name.label(class_="my-0 fw-extrabold") }}
                                             <div class="input-group">
-                      <span class="input-group-text p-1" id="basic-addon1">
-                        <svg class="icon icon-xxs text-gray-600" fill="currentColor" viewBox="0 0 20 20"
-                             xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
-                              clip-rule="evenodd"></path>
-                        </svg>
-                      </span>
+                                                  <span class="input-group-text p-1" id="basic-addon1">
+                                                    <svg class="icon icon-xxs text-gray-600" fill="currentColor"
+                                                         viewBox="0 0 20 20"
+                                                         xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
+                                                          clip-rule="evenodd"></path>
+                                                    </svg>
+                                                  </span>
                                                 {{ signup_form.last_name(class_="form-control p-1") }}
                                             </div>
                                         </div>
@@ -65,50 +69,60 @@
                                     <div class="form-group">
                                         {{ signup_form.username.label(class_="my-0 fw-extrabold") }}
                                         <div class="input-group">
-                    <span class="input-group-text p-1" id="basic-addon1">
-                      <svg class="icon icon-xxs text-gray-600" fill="currentColor" viewBox="0 0 20 20"
-                           xmlns="http://www.w3.org/2000/svg">
-                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-                      </svg>
-                    </span>
+                                            <span class="input-group-text p-1" id="basic-addon1">
+                                              <svg class="icon icon-xxs text-gray-600" fill="currentColor"
+                                                   viewBox="0 0 20 20"
+                                                   xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                                              </svg>
+                                            </span>
                                             {{ signup_form.username(class_="form-control p-1", placeholder_="usuario@empresa.com") }}
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         {{ signup_form.password.label(class_="my-0 fw-extrabold") }}
                                         <div class="input-group">
-                    <span class="input-group-text p-1" id="basic-addon1">
-                      <svg class="icon icon-xxs text-gray-600" fill="currentColor" viewBox="0 0 20 20"
-                           xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                              d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                              clip-rule="evenodd">
-                        </path>
-                      </svg>
-                    </span>
+                                            <span class="input-group-text p-1" id="basic-addon1">
+                                              <svg class="icon icon-xxs text-gray-600" fill="currentColor"
+                                                   viewBox="0 0 20 20"
+                                                   xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                      d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                                                      clip-rule="evenodd">
+                                                </path>
+                                              </svg>
+                                            </span>
                                             {{ signup_form.password(class_="form-control p-1", placeholder_="*********") }}
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         {{ signup_form.password_confirm.label(class_="my-0 fw-extrabold") }}
                                         <div class="input-group">
-                    <span class="input-group-text p-1" id="basic-addon1">
-                      <svg class="icon icon-xxs text-gray-600" fill="currentColor" viewBox="0 0 20 20"
-                           xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                              d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                              clip-rule="evenodd">
-                        </path>
-                      </svg>
-                    </span>
+                                            <span class="input-group-text p-1" id="basic-addon1">
+                                              <svg class="icon icon-xxs text-gray-600" fill="currentColor"
+                                                   viewBox="0 0 20 20"
+                                                   xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                      d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                                                      clip-rule="evenodd">
+                                                </path>
+                                              </svg>
+                                            </span>
                                             {{ signup_form.password_confirm(class_="form-control p-1", placeholder_="*********") }}
                                         </div>
                                     </div>
                                     <div class="form-group py-1">
-                                        {{ signup_form.terms(class_="checkbox") }} <small>Autorizo política de
-                                        tratamiento de datos *</small>
+                                        {{ signup_form.terms(class_="checkbox") }} <small>Autorizo <a class="fw-bold"
+                                                                                                      data-bs-toggle="modal"
+                                                                                                      href="#modal-policy-terms"
+                                                                                                      role="button"
+                                                                                                      aria-expanded="false"
+                                                                                                      aria-controls="modal-policy-terms">
+                                        política de
+                                        tratamiento de datos *</a></small>
                                     </div>
+                                    {{ modals.render_modal('policy','policy-terms','Politica de tratamiento de datos', "_") }}
                                     <div class="form-group p-0 text-center">
                                         {{ signup_form.submit(class_="button btn login-btn mt-1") }}
                                     </div>
