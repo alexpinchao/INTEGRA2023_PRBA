@@ -80,57 +80,6 @@ const datatable_config = {
     buttons: ["copyHtml5", "excelHtml5", "csvHtml5", "pdfHtml5"],
 };
 
-const chart_config = {
-    type: "bar",
-    data: {
-        labels: "labels",
-        datasets: "mydatasets",
-    },
-    options: {
-        responsive: true,
-        scales: {
-            xAxes: [
-                {
-                    stacked: false,
-                    scaleLabel: {
-                        display: true,
-                        labelString: "Año",
-                    },
-                },
-            ],
-            yAxes: [
-                {
-                    stacked: false,
-                    scaleLabel: {
-                        display: true,
-                        labelString: "unit",
-                    },
-                    id: "y",
-                },
-            ],
-        },
-        title: {
-            display: true,
-            text: "table_name",
-        },
-        legend: {
-            position: "bottom",
-        },
-        animation: {
-            onComplete: () => {
-                delayed = true
-            },
-            delay: (context) => {
-                let delay = 0
-                if (context.type === "data" && context.mode === "default" && !delayed) {
-                    delay = context.dataIndex * 300 + context.datasetIndex * 100
-                }
-                return delay
-            },
-        },
-    },
-}
-
 // Test code
 $(".progress").each(function (_, progress) {
     var steps = $("> div.right > div", progress)
