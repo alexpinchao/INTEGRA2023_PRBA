@@ -11325,18 +11325,31 @@ nav .container a {
 }
 
 .min-vh-85 {
-    min-height: 78vh !important;
+    min-height: 80vh !important;
 }
 
-#table_variables_wrapper *.dataTables_scrollBody {
-    max-height: 50vh !important;
-    height: 50vh;
+.min-vh-card {
+    min-height: 80vh !important;
 }
 
-@media (max-width: 1200px) {
-    #table_variables_wrapper *.dataTables_scrollBody {
-        max-height: 25vh !important;
+*.dataTables_scrollBody {
+    max-height: 20vh !important;
+}
+
+@media (min-width: 576px) {
+    *.dataTables_scrollBody {
+        max-height: 20vh !important;
     }
+}
+
+@media (min-width: 1200px) {
+    *.dataTables_scrollBody {
+        max-height: 52vh !important;
+    }
+}
+
+#table_indicators_wrapper .dataTables_scrollBody {
+    max-height: 55vh !important;
 }
 
 .min-vh-100 {
@@ -28969,8 +28982,7 @@ label {
 
 .table td,
 .table th {
-    font-size: 0.875rem;
-    white-space: nowrap;
+    font-size: 0.675rem;
 }
 
 .table.user-table thead th {
@@ -30686,4 +30698,8 @@ article .h6 {
     background-repeat: no-repeat;
     background-position: right calc(0.125em + 1.25rem) center;
     background-size: calc(0.75em + 0.5rem) calc(0.75em + 0.5rem);
+}
+
+.aser.fw-normal {
+    cursor: pointer;
 }
