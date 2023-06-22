@@ -94,3 +94,5 @@ $(".progress").each(function (_, progress) {
         $(el).prevAll().slice(1).addClass("prev")
     }
 })
+
+
