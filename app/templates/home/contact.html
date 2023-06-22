@@ -31,7 +31,7 @@
                                     <span class="text-muted mb-4">Pruebe estableciendo un canal de comunicación con nosotros y atenderemos todas sus inquietudes.</span>
                                 </div>
                                 <div class="col-12 col-lg-5 order-lg-2">
-                                    <form class="form" role="form" action="{{ url_for('index') }}" method="POST">
+                                    <form class="form" role="form" action="{{ url_for('contact') }}" method="POST">
                                         <div class="form-group pb-1">
                                             <label class="control-label fw-bold" for="name">Nombre</label>
                                             <input id="name" class="form-control p-1" name="name"/>
@@ -46,7 +46,8 @@
                                                         <option value="{{ i }}">+{{ i }}</option>
                                                     {% endfor %}
                                                 </select>
-                                                <input type="text" class="form-control w-50 p-1" name="number"
+                                                <input id="number" type="text" class="form-control w-50 p-1"
+                                                       name="number"
                                                        aria-label="Text input with dropdown button"/>
                                             </div>
                                         </div>

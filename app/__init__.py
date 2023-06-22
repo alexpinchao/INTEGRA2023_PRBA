@@ -7,6 +7,7 @@ from .config import Config
 from .auth import auth
 from .dashboard import dashboard
 from flask_login import LoginManager
+from flask_mail import Mail
 from .models import UserModel
 from flask_sqlalchemy import SQLAlchemy
 from flask_compress import Compress
@@ -17,6 +18,8 @@ login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 
 ext = Sitemap()
+
+mail = Mail()
 
 
 @login_manager.user_loader
@@ -45,6 +48,7 @@ def create_app():
     ext.init_app(app)
     app.config.from_object(Config)
     login_manager.init_app(app)
+    mail = Mail(app)
     app.register_blueprint(auth)
     app.register_blueprint(dashboard)
 
