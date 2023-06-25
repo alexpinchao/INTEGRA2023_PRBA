@@ -9,8 +9,9 @@ classes of the server, additionally it attends the HTTP requests for the root ad
 """
 import unittest
 
-from flask import request, make_response, render_template, redirect, session, Response
+from flask import request, url_for, make_response, render_template, redirect, session, Response
 from app import create_app
+from app.email import send_email
 from flask_login import login_required, current_user
 from app.db import SQLConnector
 
@@ -142,6 +143,20 @@ def contact():
         'anonymous': True,
         'user_ip': "UserIp",
     }
+    if request.method == 'POST':
+        contact_data = request.form.to_dict()
+        print(contact_data)
+        '''email = contact_data.email.data
+        print(email)
+        contacto_context = {
+            'correo': contact_data.email.data,
+            'nombre': contact_data.name.data,
+            'numero': 'contact_data.numero.data',
+            'asunto': 'contact_data.asunto.data',
+            'mensaje': 'contact_data.menssage.data',
+        }'''
+        # send_email(email, contacto_context)
+        return redirect(url_for('home'))
     if current_user.is_authenticated:
         user_ip = session.get('user_ip')
         username = current_user.id
