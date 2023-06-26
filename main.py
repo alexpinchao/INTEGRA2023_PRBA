@@ -7,9 +7,10 @@ classes of the server, additionally it attends the HTTP requests for the root ad
          Alex Pinchao
 @Date: 12-07-2022  
 """
+from datetime import datetime
 import unittest
 
-from flask import request, url_for, make_response, render_template, redirect, session, Response
+from flask import request, url_for, make_response, render_template, redirect, session, Response, flash
 from app import create_app
 from app.email import send_email
 from flask_login import login_required, current_user
@@ -145,18 +146,20 @@ def contact():
     }
     if request.method == 'POST':
         contact_data = request.form.to_dict()
-        print(contact_data)
-        '''email = contact_data.email.data
-        print(email)
         contacto_context = {
-            'correo': contact_data.email.data,
-            'nombre': contact_data.name.data,
-            'numero': 'contact_data.numero.data',
-            'asunto': 'contact_data.asunto.data',
-            'mensaje': 'contact_data.menssage.data',
-        }'''
-        # send_email(email, contacto_context)
-        return redirect(url_for('home'))
+            'mail': contact_data.get('mail'),
+            'name': contact_data.get('name'),
+            'identifier': contact_data.get('identifier', '+57'),
+            'number': contact_data.get('number'),
+            'organization': contact_data.get('organization', 'NA'),
+            'message': contact_data.get('message', 'NA'),
+            'type_contact': 'contacto',
+            'date': datetime.now().strftime("%x"),
+            'hour': datetime.now().strftime("%X")
+        }
+        send_email(contact_data.get('mail'), contacto_context)
+        flash("Mensaje enviado")
+
     if current_user.is_authenticated:
         user_ip = session.get('user_ip')
         username = current_user.id
@@ -167,6 +170,25 @@ def contact():
         }
     return render_template('home/contact.html', **context)
 
+
+#
+@app.route('/email', methods=['GET'])
+def email():
+    context = {
+        'mail': "contact_data.get('mail')",
+        'name': "contact_data.get('name')",
+        'identifier': "contact_data.get('identifier', '+57')",
+        'number': "contact_data.get('number')",
+        'organization': "contact_data.get('organization', 'NA')",
+        'message': "contact_data.get('message', 'NA')",
+        'type_contact': 'contacto',
+        'date': datetime.now().strftime("%x"),
+        'hour': datetime.now().strftime("%X")
+    }
+    return render_template('home/email_template.html', **context)
+
+
+#
 
 # DONE
 @app.route('/robots.txt')

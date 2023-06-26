@@ -20,7 +20,8 @@ class Config:
     MAIL_PORT = 587
     MAIL_USE_TLS = True
     MAIL_USERNAME = 'web.noreply.app@gmail.com'
-    MAIL_DEFAULT_SENDER = 'web.noreply.app@gmail.com'
-    MAIL_PASSWORD = 'Flask_APP/54'
+    MAIL_ADMIN = 'mateo.barrera@correounivalle.edu.co'
+    MAIL_DEFAULT_SENDER = 'INTEGRA'
+    MAIL_PASSWORD = 'schemiuyrgvxzdhm'
 
     PERMANENT_SESSION_LIFETIME = timedelta(minutes=20)

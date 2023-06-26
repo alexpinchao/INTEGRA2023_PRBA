@@ -6,7 +6,7 @@ This module include methods for send mail from.
 @Date: 12-07-2022  
 """
 from threading import Thread
-from flask import current_app, render_template, url_for
+from flask import current_app, render_template
 from flask_mail import Message
 from app import mail
 
@@ -30,29 +30,10 @@ def send_email(to, context):
         context (_type_): _description_
     """
     app = current_app._get_current_object()
-    msg = Message(context['asunto'], recipients=[to])
-    msg.html = render_template('email_template.html', **context)
-    # win_print(template='correo_contato.html', context=context, msg=msg)
+    msg = Message("Integra: " + context['type_contact'],
+                  recipients=[to, app.config["MAIL_ADMIN"]],
+                  sender=app.config["MAIL_DEFAULT_SENDER"])
+    msg.html = render_template('home/email_template.html', **context)
+    print('Ready to send message...')
     thr = Thread(target=send_async_email, args=[app, msg])
     thr.start()
-
-
-def win_print(template, context, msg):
-    """_summary_
-
-    Args:
-        template (_type_): _description_
-        context (_type_): _description_
-        msg (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
-    # Ejecutar Js para generar el pdf
-    # ...
-    app = current_app._get_current_object()
-    render_template(template, **context)
-    with app.open_resource("ok.pdf") as fp:
-        msg.attach("ok.pdf", "application/pdf", fp.read())
-
-    return msg
