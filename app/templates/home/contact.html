@@ -34,40 +34,41 @@
                                     <form class="form" role="form" action="{{ url_for('contact') }}" method="POST">
                                         <div class="form-group pb-1">
                                             <label class="control-label fw-bold" for="name">Nombre</label>
-                                            <input id="name" class="form-control p-1" name="name"/>
+                                            <input id="name" class="form-control p-1" name="name" required/>
                                         </div>
                                         <div class="form-group pb-1">
                                             <label class="control-label fw-bold" for="number">Número de contacto</label>
                                             <div class="input-group">
                                                 <select class="form-select p-1" id="identifier"
-                                                        aria-label="Example select with button addon">
+                                                        aria-label="Example select with button addon" name="identifier">
                                                     <option selected>+57</option>
                                                     {% for i in range(1,200) %}
                                                         <option value="{{ i }}">+{{ i }}</option>
                                                     {% endfor %}
                                                 </select>
-                                                <input id="number" type="text" class="form-control w-50 p-1"
+                                                <input id="number" type="tel" class="form-control w-50 p-1"
                                                        name="number"
-                                                       aria-label="Text input with dropdown button"/>
+                                                       aria-label="Text input with dropdown button" required
+                                                       minlength="9"
+                                                       maxlength="14"/>
                                             </div>
                                         </div>
                                         <div class="form-group pb-1">
-                                            <label class="control-label" for="organization">Organización</label>
-                                            <div class="input-group">
-                                                <input id="organization" class="form-control p-1"/>
-                                            </div>
+                                            <label class="control-label fw-bold" for="organization">Organización</label>
+                                            <input id="organization" class="form-control p-1" name="organization"/>
                                         </div>
                                         <div class="form-group pb-1">
-                                            <label class="control-label fw-bold" for="email">Correo electrónico</label>
-                                            <input id="email" class="form-control p-1" type="email"/>
+                                            <label class="control-label fw-bold" for="mail">Correo electrónico</label>
+                                            <input id="mail" class="form-control p-1" type="email" name="mail"
+                                                   required/>
                                         </div>
                                         <div class="form-group pb-1">
                                             <label class="control-label fw-bold" for="message">Mensaje</label>
                                             <textarea id="message" type="text-area" class="form-control p-1"
-                                                      name="message"></textarea>
+                                                      name="message" required></textarea>
                                         </div>
                                         <div class="form-group form-check pt-1">
-                                            <input type="checkbox" class="form-check-input" id="policy-terms"/>
+                                            <input type="checkbox" class="form-check-input" id="policy-terms" required/>
                                             <label class="form-check-label" for="policy-terms"><small><a
                                                     class="fw-bold"
                                                     data-bs-toggle="modal"
@@ -133,20 +134,4 @@
         </section>
     </main>
 
-{% endblock %}
-
-{% block scripts %}
-    {{ super() }}
-    <script>
-        $(window).on('resize', function () {
-            var win = $(this);
-            if (win.width() > 600) {
-
-                $('#123').addClass('btn-lg');
-
-            } else {
-                $('#123').removeClass('btn-lg');
-            }
-        });
-    </script>
 {% endblock %}

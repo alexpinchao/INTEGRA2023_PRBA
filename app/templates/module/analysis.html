@@ -19,7 +19,7 @@
 {% extends 'base.html' %} {% import 'module/modals.html' as modals %} {% import 'macros.html' as
 macros %} {% block head %} {{ super() }}
     <!-- Datatables CSS -->
-    <link rel="stylesheet" href="//cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css"/>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/progress.css') }}"/>
     <link
             rel="stylesheet"
@@ -274,11 +274,12 @@ macros %} {% block head %} {{ super() }}
                                                 <div class="col-12 col-md-6 d-flex ps-4">
                                                     <div class="steps justified-text">
                                                         <div class="row step h-auto">
-                                                            <div class="step-title fs-6">Generación de escenario</div>
+                                                            <div class="step-title fs-6">Construcción del escenario
+                                                            </div>
                                                             <p class="small fw-light">
                                                                 Seleccione el proceso de generación, distribución o uso
-                                                                final, junto
-                                                                con el año de referencia, para llevar a cabo el
+                                                                final, junto con el año de referencia, para llevar a
+                                                                cabo el
                                                                 análisis.
                                                             </p>
                                                         </div>
@@ -286,8 +287,8 @@ macros %} {% block head %} {{ super() }}
                                                             <div class="step-title fs-6">Selección de estrategias</div>
                                                             <p class="small fw-light">
                                                                 Seleccione las estrategias de su interés en la lista de
-                                                                estrategias
-                                                                proporcionada por la plataforma Integra.
+                                                                estrategias disponibles proporcionadas por la plataforma
+                                                                Integra.
                                                             </p>
                                                         </div>
                                                         <div class="row step h-auto">
@@ -306,16 +307,15 @@ macros %} {% block head %} {{ super() }}
                                                             <p class="small fw-light">
                                                                 Analice el comportamiento de los indicadores de
                                                                 eficiencia
-                                                                energética con base a los ajustes que has proporcionado.
+                                                                energética con base a los ajustes que ha proporcionado.
                                                             </p>
                                                         </div>
                                                         <div class="row step h-auto">
                                                             <div class="step-title fs-6">Clasificación de estrategias
                                                             </div>
                                                             <p class="small fw-light">
-                                                                Finalmente, comparare las estrategias y determine el
-                                                                orden de
-                                                                clasificación de acuerdo con sus preferencias.
+                                                                Finalmente, compare las estrategias y determine el
+                                                                orden de clasificación de acuerdo con su preferencia.
                                                             </p>
                                                         </div>
                                                     </div>
@@ -366,15 +366,15 @@ macros %} {% block head %} {{ super() }}
                                                                         </svg>
                                                                     </button>
                                                                     <div class="dropdown-menu">
-                                                                        <a class="dropdown-item"
+                                                                        <a href="#" class="dropdown-item"
                                                                            onclick="choice('generation')"
                                                                         >Generación</a
                                                                         >
-                                                                        <a class="dropdown-item"
+                                                                        <a href="#" class="dropdown-item"
                                                                            onclick="choice('distribution')"
                                                                         >Distribución</a
                                                                         >
-                                                                        <a class="dropdown-item"
+                                                                        <a href="#" class="dropdown-item"
                                                                            onclick="choice('end_use')"
                                                                         >Uso final</a
                                                                         >
@@ -472,9 +472,9 @@ macros %} {% block head %} {{ super() }}
                                             <div class="row mb-0 mt-2 m-0">
                                                 <div class="col-12 mb-1 px-0 align-self-stretch flex-fill">
                                                     <p class="m-0">
-                                                        En esta sección, encontrarás los escenarios previamente
+                                                        En esta sección, encontrará los escenarios previamente
                                                         construidos.
-                                                        Aquí podrás visualizarlos, editarlos y compararlos con
+                                                        Aquí podrá visualizarlos, editarlos y compararlos con
                                                         escenarios de
                                                         procesos equivalentes.
                                                     </p>
@@ -1059,8 +1059,8 @@ macros %} {% block head %} {{ super() }}
                                                 <div class="card border-1 flex-fill p-2 ms-1">
                                                     <div class="card-body p-1 flex-fill">
                                                         <div class="d-block mb-3 mb-sm-0">
-                                                            <p class="fs-5 fw-extrabold pb-3">Selección de pesos por
-                                                                criterio</p>
+                                                            <p class="fs-5 fw-extrabold pb-3">Selección de ponderación
+                                                                por criterio</p>
                                                         </div>
                                                         <div class="row d-block d-md-flex align-items-center">
                                                             <div class="col-12 col-md-4 justify-content-center d-flex">

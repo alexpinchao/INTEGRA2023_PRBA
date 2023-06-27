@@ -1137,6 +1137,7 @@
     --bs-body-line-height: 1.5;
     --bs-body-color: #374151;
     --bs-body-bg: #f2f4f6;
+    --bs-body-text-align: left;
 }
 
 *,
@@ -1745,8 +1746,8 @@ progress {
 .container-md,
 .container-sm {
     width: 100%;
-    padding-right: auto;
-    padding-left: auto;
+    padding-right: initial;
+    padding-left: initial;
     margin-right: auto;
     margin-left: auto;
 }
@@ -28982,7 +28983,7 @@ label {
 
 .table td,
 .table th {
-    font-size: 0.675rem;
+    font-size: 0.875rem;
 }
 
 .table.user-table thead th {
@@ -30703,3 +30704,5 @@ article .h6 {
 .aser.fw-normal {
     cursor: pointer;
 }
+
+/* sourceMappingURL=volt.css.map*/
