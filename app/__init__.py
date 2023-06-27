@@ -10,16 +10,18 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from .models import UserModel
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.ext.automap import automap_base
+from flask_admin.contrib.sqla import ModelView
+from flask_admin import Admin
 from flask_compress import Compress
 from flask_sitemap import Sitemap
 from flask_minify import Minify
 
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
-
 ext = Sitemap()
-
 mail = Mail()
+db = SQLAlchemy()
 
 
 @login_manager.user_loader
@@ -45,13 +47,22 @@ def create_app():
     app = Flask(__name__)
     Compress(app)
     Minify(app=app, html=True, js=True, cssless=True)
-    ext.init_app(app)
+
     app.config.from_object(Config)
     login_manager.init_app(app)
-    mail = Mail(app)
+    db.init_app(app)
+    with app.app_context():
+        # Configuración de automap
+        Base = automap_base()
+        Base.prepare(db.engine, reflect=True)
+
+        # Obtener las clases mapeadas automáticamente
+        User = Base.classes.users
+    ext.init_app(app)
+    mail.init_app(app)
+
     app.register_blueprint(auth)
     app.register_blueprint(dashboard)
-
-    SQLAlchemy(app)
+    admin = Admin(app, name='microblog', template_mode='bootstrap3')
 
     return app

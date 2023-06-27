@@ -11,7 +11,7 @@ class Config:
     # Session Cookie
     SECRET_KEY = 'SUPER SECRET'
     # SQLAlchemy config
-    SQLALCHEMY_DATABASE_URI = 'sqlite://app/sqlite/NewDB.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///app/sqlite/NewDB.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SITEMAP_INCLUDE_RULES_WITHOUT_PARAMS = True
 
@@ -24,4 +24,6 @@ class Config:
     MAIL_DEFAULT_SENDER = 'INTEGRA'
     MAIL_PASSWORD = 'schemiuyrgvxzdhm'
 
+    # ADMIN
+    FLASK_ADMIN_SWATCH = 'cerulean'
     PERMANENT_SESSION_LIFETIME = timedelta(minutes=20)
