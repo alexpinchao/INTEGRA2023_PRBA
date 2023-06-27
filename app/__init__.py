@@ -21,6 +21,7 @@ login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 ext = Sitemap()
 mail = Mail()
+admin = Admin()
 db = SQLAlchemy()
 
 
@@ -57,12 +58,16 @@ def create_app():
         Base.prepare(db.engine, reflect=True)
 
         # Obtener las clases mapeadas automáticamente
-        User = Base.classes.users
+        for element in Base.classes:
+            print(element)
+        Login = Base.classes.login
+
     ext.init_app(app)
     mail.init_app(app)
 
     app.register_blueprint(auth)
     app.register_blueprint(dashboard)
     admin = Admin(app, name='microblog', template_mode='bootstrap3')
+    admin.add_view(ModelView(Login, db.session))
 
     return app

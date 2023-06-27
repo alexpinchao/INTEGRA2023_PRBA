@@ -4,7 +4,11 @@ Contains the definition of the relational model and execution methods for reques
 """
 from sqlalchemy import create_engine
 from sqlalchemy import MetaData, Table, Column, Integer, String, Float
+from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.sql import select, insert
+from app import db, admin
+
+from flask_admin.contrib.sqla import ModelView
 
 # Table schema definition
 metadata_obj = MetaData()
@@ -584,7 +588,15 @@ projections_end_use_table = Table('proyeccion_escenario_bau_uso_final', metadata
                                          nullable=False, unique=True),
                                   Column('Consumo_eléctrico_total', String)
                                   )
+engine = create_engine("sqlite:///app/sqlite/NewDB.db")
+metadata_obj.reflect(engine, only=['users', 'login'])
+Base = automap_base(metadata=metadata_obj)
 
+Base.prepare()
+for element in Base.classes:
+    print(element)
+Users, Login = Base.classes.users, Base.classes.login
+admin.add_view(ModelView(Users, db.session))
 # END schema definition
 
 _translating_dict = {'NT1': 'Nivel de tensión 1',
