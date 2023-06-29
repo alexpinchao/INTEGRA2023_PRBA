@@ -6,14 +6,14 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="x-ua-compatible" content="ie=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="author" content="Team Integra2023" />
+		<meta name="author" content="Team Inteegra" />
 		<meta name="msapplication-TileColor" content="#ffffff" />
 		<meta name="theme-color" content="#ffffff" />
 		<meta
 			name="description"
-			content="IntegraAPP is a tool that allows managing energy efficiency indicators associated with the processes of generation, distribution and final use of electrical energy in Colombia"
+			content="Inteegra is a tool that allows managing energy efficiency indicators associated with the processes of generation, distribution and final use of electrical energy in Colombia"
 		/>
-		<meta name="keywords" content="Engineer, Efficiency, Electricity, Integra2023, Colombia" />
+		<meta name="keywords" content="Engineer, Efficiency, Electricity, Inteegra, Colombia" />
 		<meta name="twitter:card" content="summary" />
 		<meta name="twitter:creator" content="@materile_19" />
 		<!-- Main stylesheet -->
@@ -73,7 +73,7 @@
 		<meta name="msapplication-TileColor" content="#da532c" />
 		<meta name="theme-color" content="#ffffff" />
 
-		<title>{% block title %} INTEGRA2023 |{% endblock %}</title>
+		<title>{% block title %} Inteegra |{% endblock %}</title>
 		{% endblock %}
 	</head>
 	<body id="body-pd">
@@ -112,14 +112,14 @@
 		{% endfor %} {% block content %}
 		<div class="preloader">
 			<div class="text-loader pb-5">
-				<p class="h1 fw-extrabold text-black">INTEGRA</p>
+				{#<p class="h1 fw-extrabold text-black">INTEEGRA</p>#}
 				<span class="sidebar-icon p-2">
 					<img
-						class="icon icon-md"
-						src="{{url_for('static',filename='images/Integration.svg')}}"
-						height="128"
-						width="128"
-						alt="Logo IntegraAPP "
+						class="icon icon-lg"
+						src="{{url_for('static',filename='images/Inteegra_2-min.svg')}}"
+						height="120"
+                        width="480"
+						alt="Logo Inteegra"
 					/>
 				</span>
 			</div>
@@ -136,8 +136,9 @@
 		</div>
 
 		{% block cookies %} {% if not cookies_check() %} {# show a cookie consent banner #}
-		<div id="cookie-consent-container">{% include 'consent.html' %}</div>
-
+        <section>
+        <div id="cookie-consent-container">{% include 'consent.html' %}</div>
+        </section>
 		<script type="text/javascript">
 			function fn_cookies(user_select) {
 				if (user_select) {
@@ -219,7 +220,7 @@
 			{
 				"@context": "https://schema.org",
 				"@type": "WebTool",
-				"headline": "IntegraAPP",
+				"headline": "Inteegra",
 				"image": [
 					"https://example.com/photos/1x1/photo.jpg",
 					"https://example.com/photos/4x3/photo.jpg",
