@@ -3,7 +3,7 @@
 Contains the definition of the relational model and execution methods for requests to the database.
 """
 from sqlalchemy import create_engine
-from sqlalchemy import MetaData, Table, Column, Integer, String, Float
+from sqlalchemy import MetaData, Table, Column, Integer, String, Float, ForeignKey
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.sql import select, insert
 from app import db, admin
@@ -13,14 +13,6 @@ from flask_admin.contrib.sqla import ModelView
 # Table schema definition
 metadata_obj = MetaData()
 
-# Users table schema
-users_table = Table('users', metadata_obj,
-                    Column('id_login', Integer,
-                           primary_key=True, nullable=False),
-                    Column('name', String),
-                    Column('organization', String)
-                    )
-
 # Login table schema
 login_table = Table('login', metadata_obj,
                     Column('idlogin', Integer,
@@ -28,6 +20,17 @@ login_table = Table('login', metadata_obj,
                     Column('user', String),
                     Column('password', String)
                     )
+
+# Users table schema
+users_table = Table('users', metadata_obj,
+                    Column('iduser', Integer,
+                           primary_key=True, nullable=False),
+                    Column('id_login', Integer,
+                           ForeignKey('login.idlogin'), nullable=False),
+                    Column('name', String),
+                    Column('organization', String)
+                    )
+
 
 # Emissions Factor table schema
 emission_table = Table('FEmision', metadata_obj,
@@ -588,7 +591,7 @@ projections_end_use_table = Table('proyeccion_escenario_bau_uso_final', metadata
                                          nullable=False, unique=True),
                                   Column('Consumo_eléctrico_total', String)
                                   )
-engine = create_engine("sqlite:///app/sqlite/NewDB.db")
+'''engine = create_engine("sqlite:///app/sqlite/NewDB.db")
 metadata_obj.reflect(engine, only=['users', 'login'])
 Base = automap_base(metadata=metadata_obj)
 
@@ -596,7 +599,7 @@ Base.prepare()
 for element in Base.classes:
     print(element)
 Users, Login = Base.classes.users, Base.classes.login
-admin.add_view(ModelView(Users, db.session))
+admin.add_view(ModelView(Users, db.session))'''
 # END schema definition
 
 _translating_dict = {'NT1': 'Nivel de tensión 1',
@@ -933,7 +936,7 @@ class SQLConnector:
     def __init__(self) -> None:
         """Parameterized constructor
         """
-        self.engine = create_engine('sqlite:///app/sqlite/NewDB.db')
+        self.engine = create_engine('sqlite:///app/sqlite/TestDB.db')
         self.connection = self.engine.connect()
 
     def get_user(self, user):
