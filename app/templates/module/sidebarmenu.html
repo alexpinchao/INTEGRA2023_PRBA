@@ -1,5 +1,5 @@
 <nav id="sidebarMenu" class="sidebar d-lg-block text-white collapse rounded" data-simplebar="init">
-	<div class="sidebar-inner px-1 pt-5 pt-lg-0">
+	<div class="sidebar-inner px-1 pt-5 pt-lg-0 overflow-hidden">
 		<div
 			class="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center p-4"
 		>
@@ -39,16 +39,14 @@
 		<ul class="nav flex-column pt-3">
 			<li class="nav-item d-none d-lg-flex justify-content-center">
 				<a class="navbar-brand d-flex align-items-center" href="{{url_for('index')}}">
-					<span class="sidebar-icon my-2">
+					<span class="sidebar-icon my-2" id="sidebar-inteegra-icon">
 						<img
-							class="icon icon-xs"
-							src="{{url_for('static',filename='images/Integration.svg')}}"
-							height="48"
-							width="48"
-							alt="Logo IntegraAPP"
+							class="icon icon-md"
+							src="{{url_for('static',filename='images/Inteegra_2-min.svg')}}"
+							height="30" width="120"
+							alt="Logo Inteegra"
 						/>
 					</span>
-					<span class="px-1 fs-4 text-black fw-extrabold icon-text">Integra</span>
 				</a>
 			</li>
 			<li role="separator" class="dropdown-divider mt-3 mb-3 border-gray-700 d-none d-md-flex"></li>
