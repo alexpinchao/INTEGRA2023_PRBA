@@ -2,6 +2,7 @@
 
 this file contains the configures parameters used by the server.
 """
+import os
 from datetime import timedelta
 
 
@@ -11,7 +12,8 @@ class Config:
     # Session Cookie
     SECRET_KEY = 'SUPER SECRET'
     # SQLAlchemy config
-    SQLALCHEMY_DATABASE_URI = 'sqlite://///home/mateo/PycharmProjects/INTEGRA2023_PRBA/app/sqlite/NewDB.db'
+    DB_URI = os.path.abspath('app/sqlite/NewDB.db')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + DB_URI
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SITEMAP_INCLUDE_RULES_WITHOUT_PARAMS = True
 
