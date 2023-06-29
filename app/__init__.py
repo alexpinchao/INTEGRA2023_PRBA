@@ -8,6 +8,7 @@ from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.automap import automap_base
 from flask_admin.contrib.sqla import ModelView
+from .admin import AdminModelView
 from .config import Config
 from .models import UserModel
 from .auth import auth
@@ -60,14 +61,15 @@ def create_app():
 
         try:
             array = Base.classes.keys()
-            admin.add_view(ModelView(Base.classes.get('login'), db.session, 'Login'))
-            admin.add_view(ModelView(Base.classes.get('users'), db.session, 'Users'))
+            admin.add_view(AdminModelView(Base.classes.get('login'), db.session, 'Login'))
+            admin.add_view(AdminModelView(Base.classes.get('users'), db.session, 'Users'))
             array.remove('login')
             array.remove('users')
             for element in array:
-                admin.add_view(ModelView(Base.classes.get(element), db.session, element.replace('_', ' ').capitalize(), category="Source Data"))
+                admin.add_view(AdminModelView(Base.classes.get(element), db.session, element.replace('_', ' ').capitalize(), category="Source Data"))
         except AttributeError as e:
             raise e
+
 
     ext.init_app(app)
     mail.init_app(app)
