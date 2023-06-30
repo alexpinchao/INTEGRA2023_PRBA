@@ -705,19 +705,20 @@ strategies_definition = {
                         "id": "f001",
                         "name": "Equipos en el sector residencial a BAT",
                         "description": "N/A",
-                        "variable": "Eficiencia deseada",
+                        "variable": "Porcentaje de integración",
                         "upper_value": 100,
                         "lower_value": 0,
-                        "value": 46, #valor por defecto para mostrar en los sliders es constante
-                        "year": 2025, #  para todos los años [2022 ... 2030 ] (viene de informe)
+                        "value": 50, # valor por defecto de porcentaje de integracion, su valor se reemplaza ...
+                        "year": 2025,# con el valor de pi_bau [2022 ... 2030] dependiendo del año
                         "unit": "%",
-                        "variable_aux": "Porcentaje de integración",
+                        "variable_aux": "Eficiencia deseada",
                         "upper_value_aux": 100,
                         "lower_value_aux": 0,
-                        "value_aux": 39, # valor por defecto de porcentaje de integracion, su valor se reemplaza ...
-                        "year_aux": 2025, # con el valor de pi_bau [2022 ... 2030] dependiendo del año
+                        "value_aux": 46, # valor por defecto para mostrar en los sliders es constante
+                        "year_aux": 2025,# para todos los años [2022 ... 2030 ] (viene de informe)
                         "unit_aux": "%",
                         "nb": 0.338571429, # valor constante para todos los años [2022 .. 2030 ]
+                        "np": 46, # valor constante para todos los años [2022 .. 2030 ]
                         "consumption_percent": 0.365870975887343,
                         "ce_bau": [75787.66778, 77602.11774, 79114.00883, 80850.5365, 82748.11192, 84635.31618, 86473.81712, 88286.0776, 90113.08465,],
                         "poblacion": [51609470, 52156250, 52691440, 53216590, 53732420, 54237750, 54731190, 55211260, 55678080,],
@@ -748,19 +749,20 @@ strategies_definition = {
                         "id": "f002",
                         "name": "Equipos en el sector comercial y público a BAT",
                         "description": "N/A",
-                        "variable": "Eficiencia deseada",
+                        "variable": "Porcentaje de integración",
                         "upper_value": 100,
                         "lower_value": 0,
-                        "value": 60.2, #valor por defecto- sale de tabla adjuntada en informe
+                        "value": 50,
                         "year": 2025,
                         "unit": "%",
-                        "variable_aux": "Porcentaje de integración",
+                        "variable_aux": "Eficiencia deseada",
                         "upper_value_aux": 100,
                         "lower_value_aux": 0,
-                        "value_aux": 39,
+                        "value_aux": 60.2, #valor por defecto- sale de tabla adjuntada en informe
                         "year_aux": 2025,
                         "unit_aux": "%",
                         "nb": 0.42,
+                        "np": 60.2,
                         "consumption_percent": 0.247125862010456,
                         "ce_bau": [75787.66778, 77602.11774, 79114.00883, 80850.5365, 82748.11192, 84635.31618, 86473.81712, 88286.0776, 90113.08465,],
                         "poblacion": [51609470, 52156250, 52691440, 53216590, 53732420, 54237750, 54731190, 55211260, 55678080,],
@@ -791,19 +793,20 @@ strategies_definition = {
                         "id": "f003",
                         "name": "Equipos en el sector industrial a BAT",
                         "description": "N/A",
-                        "variable": "Eficiencia deseada",
+                        "variable": "Porcentaje de integración",
                         "upper_value": 100,
                         "lower_value": 0,
-                        "value": 82.25,
+                        "value": 50,
                         "year": 2025,
                         "unit": "%",
-                        "variable_aux": "Porcentaje de integración",
+                        "variable_aux": "Eficiencia deseada",
                         "upper_value_aux": 100,
                         "lower_value_aux": 0,
-                        "value_aux": 39,
+                        "value_aux": 82.25,
                         "year_aux": 2025,
                         "unit_aux": "%",
                         "nb": 0.7225,
+                        "np": 82.25,
                         "consumption_percent": 0.3870031621022,
                         "ce_bau": [75787.66778, 77602.11774, 79114.00883, 80850.5365, 82748.11192, 84635.31618, 86473.81712, 88286.0776, 90113.08465,],
                         "poblacion": [51609470, 52156250, 52691440, 53216590, 53732420, 54237750, 54731190, 55211260, 55678080,],
@@ -871,6 +874,8 @@ def analysis():
         weiths = []
         dataframe = []
         for row in data_result:
+            print("row")
+            print(row)
             keys = row.keys()
             if [*row.keys()][0] == "criteria_values":
                 row_values = row.values()
@@ -884,6 +889,9 @@ def analysis():
                 for row_val in row_values:
                     for val in row_val:
                         number = [*val.values()]
+                        for i in range(len(number)):
+                            if number[i] < 0:
+                                number[i] = 0
                         values.append(number)
         criterios_name = ["EFICIENCIA", "IEP", "IEC"]
         dataframe.append(values)
