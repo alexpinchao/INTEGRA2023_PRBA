@@ -8,6 +8,7 @@ from flask_admin.contrib.sqla import ModelView
 class ModelView(ModelView):
     can_delete = False
     create_modal = True
+    page_size = 10
 
     def is_accessible(self):
         return current_user.is_authenticated

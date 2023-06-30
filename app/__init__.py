@@ -62,16 +62,20 @@ def create_app():
         try:
             array = Base.classes.keys()
             admin.add_view(ModelView(Base.classes.get('login'), db.session, 'Login', menu_icon_type='fa',
-                                     menu_icon_value='fa-key'))
+                                     menu_icon_value='fa-key', menu_class_name='nav-item'))
             admin.add_view(ModelView(Base.classes.get('users'), db.session, 'Users', menu_icon_type='fa',
-                                     menu_icon_value='fa-users'))
+                                     menu_icon_value='fa-users', menu_class_name='nav-item'))
             array.remove('login')
             array.remove('users')
+            admin.add_category('Source Data', class_name='nav-item', icon_type='fa',
+                               icon_value='fa-database')
             for element in array:
-                admin.add_view(ModelView(Base.classes.get(element), db.session, element.replace('_', ' ').capitalize(),
-                                         category="Source Data", menu_icon_type='fa', menu_icon_value='fa-database'))
+                admin.add_view(
+                    ModelView(Base.classes.get(element), db.session, element.replace('_', ' ').capitalize(),
+                              category='Source Data', menu_icon_type='fa', menu_icon_value='fa-table'))
+
         except AttributeError as e:
-            raise e
+            print(e)
 
     ext.init_app(app)
     mail.init_app(app)
