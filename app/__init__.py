@@ -7,8 +7,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.automap import automap_base
-from flask_admin.contrib.sqla import ModelView
-from .admin import AdminModelView
+from .admin import ModelView, MyAdminIndexView
 from .config import Config
 from .models import UserModel
 from .auth import auth
@@ -22,7 +21,8 @@ login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 ext = Sitemap()
 mail = Mail()
-admin = Admin(name='microblog', template_mode='bootstrap3')
+admin = Admin(name='Inteegra', index_view=MyAdminIndexView(),
+              template_mode='bootstrap4')
 db = SQLAlchemy()
 
 
@@ -61,15 +61,17 @@ def create_app():
 
         try:
             array = Base.classes.keys()
-            admin.add_view(AdminModelView(Base.classes.get('login'), db.session, 'Login'))
-            admin.add_view(AdminModelView(Base.classes.get('users'), db.session, 'Users'))
+            admin.add_view(ModelView(Base.classes.get('login'), db.session, 'Login', menu_icon_type='fa',
+                                     menu_icon_value='fa-key'))
+            admin.add_view(ModelView(Base.classes.get('users'), db.session, 'Users', menu_icon_type='fa',
+                                     menu_icon_value='fa-users'))
             array.remove('login')
             array.remove('users')
             for element in array:
-                admin.add_view(AdminModelView(Base.classes.get(element), db.session, element.replace('_', ' ').capitalize(), category="Source Data"))
+                admin.add_view(ModelView(Base.classes.get(element), db.session, element.replace('_', ' ').capitalize(),
+                                         category="Source Data", menu_icon_type='fa', menu_icon_value='fa-database'))
         except AttributeError as e:
             raise e
-
 
     ext.init_app(app)
     mail.init_app(app)

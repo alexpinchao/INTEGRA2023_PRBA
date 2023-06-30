@@ -31,7 +31,6 @@ users_table = Table('users', metadata_obj,
                     Column('organization', String)
                     )
 
-
 # Emissions Factor table schema
 emission_table = Table('FEmision', metadata_obj,
                        Column('Año', Integer, nullable=False, unique=True),

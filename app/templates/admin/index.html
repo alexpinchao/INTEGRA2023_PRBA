@@ -1,5 +1,39 @@
 {% extends 'admin/master.html' %}
+{% block head %}
+    {{ super() }}
+    <title> {% block title %} Inteegra | admin{% endblock %}</title>
+{% endblock %}
+
+{% block brand %}
+    <img class="icon p-0" src="{{ url_for('static',filename='images/Inteegra_2-min.svg') }}" height="30" width="120"
+         alt="Logo Inteegra">
+{% endblock %}
+
 
 {% block body %}
-  <p>Hello world</p>
+    <p>Hello world</p>
 {% endblock %}
+
+
+{#{% extends 'admin/base.html' %}
+
+
+{% block brand %}
+    <img class="icon p-0" src="{{ url_for('static',filename='images/Inteegra_2-min.svg') }}" height="30" width="120"
+         alt="Logo Inteegra">
+{% endblock %}
+
+{% block access_control %}
+    {% if current_user.is_authenticated %}
+        <div class="dropdown show">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="icon-user"></i> {{ current_user.login }} <span class="caret"></span>
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="btn" href="{{ url_for('home') }}">Log out</a>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}#}
