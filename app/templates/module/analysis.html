@@ -2899,8 +2899,8 @@ macros %} {% block head %} {{ super() }}
                     $("#select_sub_strategies").addClass("btn-danger")
                 } else {
                     ActiveSection("scenarios_3")
-                    loadStrategies(strategies_to_load, arr_ids)
                     loadUnit(units)
+                    loadStrategies(strategies_to_load, arr_ids)
                 }
             }
 
