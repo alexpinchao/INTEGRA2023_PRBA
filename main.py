@@ -11,13 +11,16 @@ from datetime import datetime
 import unittest
 
 from flask import request, url_for, make_response, render_template, redirect, session, Response, flash
-from app import create_app
+from app import create_app, db
 from app.email import send_email
 from flask_login import login_required, current_user
-from app.db import SQLConnector
+from app.database import SQLConnector
 
 app = create_app()
 app.db_object = SQLConnector()
+
+
+# users = db.table('users', db.metadata, autoload=True, autoload_with=db.engine)
 
 
 @app.cli.command()
