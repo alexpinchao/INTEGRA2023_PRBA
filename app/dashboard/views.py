@@ -61,7 +61,7 @@ strategies_definition = {
                     # END STRATEGY TEST #
                     {
                         "id": "x001",
-                        "name": "Generación eléctrica a partir de parque térmico",
+                        "name": "Generación eléctrica a partir de plantas termicas",
                         "description": "N/A",
                         "variable": "Capacidad Instalada",
                         "upper_value": 10,
@@ -187,7 +187,7 @@ strategies_definition = {
                 "strategies": [
                     {
                         "id": "y001",
-                        "name": "Mejoras de eficiencia en parque térmico",
+                        "name": "Mejoras de eficiencia en plantas termicas",
                         "description": "N/A",
                         "variable": "Eficiencia deseada",
                         "upper_value": 100,
@@ -712,8 +712,8 @@ strategies_definition = {
                         "year": 2025,# con el valor de pi_bau [2022 ... 2030] dependiendo del año
                         "unit": "%",
                         "variable_aux": "Eficiencia deseada",
-                        "upper_value_aux": 100,
-                        "lower_value_aux": 0,
+                        "upper_value_aux": 62.86,
+                        "lower_value_aux": 33.86,
                         "value_aux": 46, # valor por defecto para mostrar en los sliders es constante
                         "year_aux": 2025,# para todos los años [2022 ... 2030 ] (viene de informe)
                         "unit_aux": "%",
@@ -756,8 +756,8 @@ strategies_definition = {
                         "year": 2025,
                         "unit": "%",
                         "variable_aux": "Eficiencia deseada",
-                        "upper_value_aux": 100,
-                        "lower_value_aux": 0,
+                        "upper_value_aux": 77.33,
+                        "lower_value_aux": 42,
                         "value_aux": 60.2, #valor por defecto- sale de tabla adjuntada en informe
                         "year_aux": 2025,
                         "unit_aux": "%",
@@ -800,8 +800,8 @@ strategies_definition = {
                         "year": 2025,
                         "unit": "%",
                         "variable_aux": "Eficiencia deseada",
-                        "upper_value_aux": 100,
-                        "lower_value_aux": 0,
+                        "upper_value_aux": 87.75,   # internacional
+                        "lower_value_aux": 72.25,   # actual
                         "value_aux": 82.25,
                         "year_aux": 2025,
                         "unit_aux": "%",

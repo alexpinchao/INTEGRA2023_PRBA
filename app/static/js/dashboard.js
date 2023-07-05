@@ -157,7 +157,7 @@ function createChartExpansion(
         unit = units[indicator]
         if (unit == "Porcentaje %") {
             array = array.map(function (x) {
-                return x * 100
+                return parseFloat((x * 100).toFixed(3))
             })
         }
     }
@@ -295,7 +295,7 @@ function createChartUpgrade(
         unit = units[indicator]
         if (unit == "Porcentaje %") {
             array = array.map(function (x) {
-                return x * 100
+                return parseFloat((x * 100).toFixed(3))
             })
         }
     }
@@ -430,7 +430,7 @@ function createChartIndicador1(
         unit = units[indicator]
         if (unit == "Porcentaje %") {
             array = array.map(function (x) {
-                return x * 100
+                return parseFloat((x * 100).toFixed(3))
             })
         }
     }
@@ -568,7 +568,7 @@ function createChartIndicador2(
         unit = units[indicator]
         if (unit == "Porcentaje %") {
             array = array.map(function (x) {
-                return x * 100
+                return parseFloat((x * 100).toFixed(3))
             })
         }
     }
@@ -706,7 +706,7 @@ function createChartIndicador3(
         unit = units[indicator]
         if (unit == "Porcentaje %") {
             array = array.map(function (x) {
-                return x * 100
+                return parseFloat((x * 100).toFixed(3))
             })
         }
     }
@@ -1372,8 +1372,8 @@ function modifyData(data) {
 }
 
 function validateNameIndicatorEficiency(name) {
-    if (name == "Generación eléctrica a partir de parque térmico") {
-        name = "Eficiencia energética en parque térmico"
+    if (name == "Generación eléctrica a partir de plantas termicas") {
+        name = "Eficiencia energética en plantas termicas"
     } else if (name == "Generación eléctrica a partir de plantas hidráulicas") {
         name = "Eficiencia energética plantas hidráulicas"
     } else if (name == "Generación eléctrica a partir de plantas de Auto y Cogeneración") {
@@ -1387,8 +1387,8 @@ function validateNameIndicatorEficiency(name) {
 }
 
 function validateNameIndicatorIep(name) {
-    if (name == "Generación eléctrica a partir de parque térmico") {
-        name = "Intensidad energética primaria en parque térmico"
+    if (name == "Generación eléctrica a partir de plantas termicas") {
+        name = "Intensidad energética primaria en plantas termicas"
     } else if (name == "Generación eléctrica a partir de plantas hidráulicas") {
         name = "Intensidad energética primaria en plantas hidráulicas"
     } else if (name == "Generación eléctrica a partir de plantas de Auto y Cogeneración") {
@@ -1402,8 +1402,8 @@ function validateNameIndicatorIep(name) {
 }
 
 function validateNameIndicatorIec(name) {
-    if (name == "Generación eléctrica a partir de parque térmico") {
-        name = "Emisiones de carbono en parque térmico"
+    if (name == "Generación eléctrica a partir de plantas termicas") {
+        name = "Emisiones de carbono en plantas termicas"
     } else if (name == "Generación eléctrica a partir de plantas hidráulicas") {
         name = "Emisiones de carbono en plantas hidráulicas"
     } else if (name == "Generación eléctrica a partir de plantas de Auto y Cogeneración") {
@@ -1712,7 +1712,7 @@ function createStrategyUpgradeComplementary(sub_strategies, strategies_array_cop
 
 function emissionFactor(name) {
     let fe = 0
-    if (name == "Generación eléctrica a partir de parque térmico") {
+    if (name == "Generación eléctrica a partir de plantas termicas") {
         fe = 0.126379
     } else if (name == "Generación eléctrica a partir de plantas de Auto y Cogeneración") {
         fe = 0.126379
