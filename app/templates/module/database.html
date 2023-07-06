@@ -823,10 +823,6 @@
             SetSelectName("select-dropdown", list_name)
             // prettier-ignore
             var json_file = JSON.parse('{{data_indicators | tojson | safe}}')
-
-            console.log("json_file--")
-            console.log(json_file)
-
             var keys_list = Object.keys(json_file[list_name])
             var keys_list_2 = []
             var keys_list_3 = []
@@ -835,10 +831,6 @@
             var json_aux_ind = []
             var json_aux_des = []
             var json_desagregacion = []
-
-            // keys_list.forEach(function (item, index) {
-            //   var name = item;
-            // });
 
             keys_list.forEach(function (item, index) {
                 // var name = item;
@@ -850,7 +842,6 @@
             })
 
             keys_list_2 = Object.keys(json_aux_ind)
-
             keys_list_2.forEach(function (item2, index) {
                 keys_list_3 = Object.keys(json_aux_des)
                 keys_list_3.forEach(function (item3, index) {
@@ -865,7 +856,6 @@
                 json_datos.push(json_aux_ind[item2]["FORMULA_RELACIONES"])
                 json_datos.push(json_desagregacion)
                 json_datos.push(json_aux_ind[item2]["VARIABLES"])
-
                 var indicador_nombre = json_aux_ind[item2]["INDICADOR_AGREGADO"]
                 json_table[indicador_nombre] = json_datos
                 json_desagregacion = []
@@ -875,8 +865,6 @@
         }
 
         function loadTable_variables_ind(list_name, json_new) {
-            console.log("json_new_descripcion", json_new)
-
             var list_names = Object.keys(json_new)
             var table = _table_.cloneNode(false)
             var tbody = _tbody_.cloneNode(false),
@@ -903,14 +891,11 @@
                 var keys_list = json_new[items]
                 // prettier-ignore
                 var translate_array = JSON.parse('{{translating_dict | tojson | safe}}')
-                console.log("keys_list_que_necesito", keys_list)
                 var titles = ["Descripción:", "Formula:", "_", "Variables:"]
                 var tr = _tr_.cloneNode(false)
                 var td = _td_.cloneNode(false)
                 var description_html = _ul_.cloneNode(false)
                 keys_list.forEach(function (item, index) {
-                    console.log("item_que_necesito", item)
-
                     if (index == 2) {
                         item.forEach(function (subitem) {
                             var description
@@ -1068,10 +1053,6 @@
             var json_file = JSON.parse('{{data | tojson | safe}}')
             var keys_list = Object.keys(json_file[list_name])
 
-            console.log("---variables---")
-            console.log("json_file", json_file)
-            console.log("keys_list", keys_list)
-
             if (list_name == "end_use") {
                 keys_list = keys_list.filter(function (key_l) {
                     return key_l !== "PIB en USD"
@@ -1091,9 +1072,6 @@
                 keys_list_2.shift()
                 json_new[item] = keys_list_2
             })
-
-            console.log("list_name", list_name)
-            console.log("json_new", json_new)
 
             loadTable_variables(list_name, json_new)
         }
@@ -1146,7 +1124,6 @@
             })
 
             table.appendChild(tbody)
-
             table.id = "table_variables"
             table.classList.add("table")
             table.classList.add("table-centered")
@@ -1259,7 +1236,6 @@
 
             var al = Math.floor(Math.random() * 255)
             var al2 = Math.floor(Math.random() * 255)
-
             var b_colorslist = [
                 "rgba(" + al + ", 99, 132, 0.7)",
                 "rgba(" + al + ", 162, 235, 0.7)",
@@ -1278,21 +1254,15 @@
             ]
             /* const table_name = key; */
             const table_name = indicator
-
             document.getElementById("chart_title").innerHTML = table_name
             // prettier-ignore
             var json_file = JSON.parse('{{data | tojson | safe}}')
-
             var table = json_file[list_name][table_name]
-
             var keys = Object.keys(table[0])
-
             var labels = table.map(function (e) {
                 return e[keys[0]]
             })
-
             labels = labels.slice(0, 12)
-
             var data = table.map(function (e) {
                 return e[row]
             })
@@ -1419,26 +1389,11 @@
     </script>
 
     <script type="text/javascript">
-        // var _table_ = document.createElement('table'),
-        //     _tr_ = document.createElement('tr'),
-        //     _th_ = document.createElement('th'),
-        //     _td_ = document.createElement('td'),
-        //     _thead_ = document.createElement('thead'),
-        //     _tbody_ = document.createElement('tbody'),
-        //     _i_ = document.createElement('i'),
-        //     _a_ = document.createElement('a');
-        //     var last_indicator = '';
-        //     var limite_graficas = false;
-
         function update_list_ind_linea_base(list_name) {
             SetSelectName("cadena_valor", list_name)
-
             document.getElementById("cadena_valor").disabled = false
             // prettier-ignore
             var json_file = JSON.parse('{{data_indicators | tojson | safe}}')
-            console.log("data_indicators")
-            console.log(json_file)
-
             var keys_list = Object.keys(json_file[list_name])
             var keys_list_2 = []
             var keys_list_3 = []
@@ -1458,7 +1413,6 @@
             })
 
             keys_list_2 = Object.keys(json_aux_ind)
-
             keys_list_2.forEach(function (item2, index) {
                 keys_list_3 = Object.keys(json_aux_des)
                 keys_list_3.forEach(function (item3, index) {
@@ -1484,16 +1438,13 @@
 
         function update_list_agregados(list_name) {
             SetSelectName("select-dropdown-linea", list_name)
-
             document.getElementById("cadena_valor").disabled = true
             // prettier-ignore
             var json_file = JSON.parse('{{data_total_indicators | tojson | safe}}')
             var keys_list_2 = []
             var json_table = {}
             limite_graficas = true
-
             var keys_list = Object.keys(json_file)
-
             keys_list.forEach(function (item, index) {
                 var json_aux = json_file[item]
                 keys_list_2 = Object.keys(json_aux)
@@ -1547,7 +1498,6 @@
             })
 
             table.appendChild(tbody)
-
             table.id = "table_variables_linea_base"
             table.classList.add("table")
             table.classList.add("table-centered")
@@ -1644,21 +1594,14 @@
         }
 
         function create_chart_indic(list_name, indicator2, key) {
-            console.log("create_chart_indic tercera funcion")
-            console.log("list_name", list_name)
-            console.log("indicator2", indicator2)
-            console.log("key", key)
-
             var row1 = key[0]
             var row2 = row1.replace("$CO_2eq$", "CO2eq")
             var row = row2.replace(/ /gi, "_")
             //hubo necesidad de quitar los saltos de linea que se crean cuando se hace el replace para matjax
             var indicador3 = indicator2.replace(/\n/gi, "")
             indicator = indicador3
-
             var al = Math.floor(Math.random() * 255)
             var al2 = Math.floor(Math.random() * 255)
-
             var b_colorslist = [
                 "rgba(" + al + ", " + al2 + ", 132, 0.7)",
                 "rgba(" + al + ", " + al2 + ", 235, 0.7)",
