@@ -20,7 +20,7 @@ def return_indicators_calculation():
     """
     data, translating_dict = app.db_object.get_distribution()
     array_default = []
-    array_default1 = [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000]
+    array_default1 = [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000]
     array_default.append(array_default1)
     array_default.append(array_default1)
 
@@ -55,7 +55,7 @@ def return_indicators_calculation():
         varible_return = []
         for n in loop_data:
             anio.append(n["Año"])
-            if (len(varible_return) < 11):
+            if (len(varible_return) < 12):
                 x = n[variable].replace(",", ".")
                 y = float(x)
                 varible_return.append(y)
@@ -111,14 +111,14 @@ def return_indicators_calculation():
         """
         varible_return = []
         for n in data_input_1:
-            if len(varible_return) < 11:
+            if len(varible_return) < 12:
                 salida_dict = {}
                 salida_dict.update({"Año": n["Año"], nombre_variable: n["Total"]})
                 varible_return.append(salida_dict)
         return varible_return
 
     generation_total_generation = loopData(data_generation_total_generation, "Generacion_Total")
-    generation_consumo = loopData(data_generation_consumo, "Total_Consumo_generacion_GWh")
+    generation_consumo = loopData(data_generation_consumo, "Consumo_Total")
     generation_emisiones_total = loopData(data_generation_emisiones_total, "EmisionCO2_Total")
     generation_emisiones_SIN = loopData(data_generation_emisiones_SIN, "EmisionCO2_SIN_Total")
 
@@ -178,5 +178,6 @@ def return_indicators_calculation():
     dict_total_indicadores.update({"Generación": dict_generacion})
     dict_total_indicadores.update({"Distribución": dict_distribuciones})
     dict_total_indicadores.update({"Uso final": dict_uso_final})
-    print(dict_total_indicadores)
+    #print("dict_total_indicadores")
+    #print(dict_total_indicadores)
     return dict_total_indicadores

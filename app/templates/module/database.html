@@ -1264,7 +1264,7 @@
             })
             labels = labels.slice(0, 12)
             var data = table.map(function (e) {
-                return e[row]
+                return e[row].replace(",", ".")
             })
             length = data.length
             var array = []
@@ -1277,9 +1277,9 @@
                     row == "V_Urbano" ||
                     row == "Vivienda_Total"
                 ) {
-                    array.push(parseFloat(data[j]) / 1000000)
+                    array.push((parseFloat(data[j]) / 1000000 ).toFixed(3))
                 } else {
-                    array.push(parseFloat(data[j]))
+                    array.push(parseFloat(data[j]).toFixed(3))
                 }
             }
             var unit = ""
@@ -1289,7 +1289,8 @@
                 unit = units[indicator]
                 if (unit == "Porcentaje %") {
                     array = array.map(function (x) {
-                        return x * 100
+                        let y = x * 100
+                        return parseFloat(y).toFixed(3)
                     })
                 }
             }
@@ -1648,7 +1649,7 @@
             length = data.length
             var array = []
             for (var j = 0; j < length; j++) {
-                array.push(parseFloat(data[j]))
+                array.push(parseFloat(data[j]).toFixed(3))
             }
             var unit = ""
             // prettier-ignore
@@ -1664,7 +1665,8 @@
                             row1 == "Eficiencia de la generación eléctrica")
                     ) {
                         array = array.map(function (x) {
-                            return x * 100
+                            let y = x * 100
+                            return parseFloat(y.toFixed(3))
                         })
                     }
                 }

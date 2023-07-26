@@ -71,6 +71,7 @@ strategies_definition = {
                         "unit": "GW",
                         "fp": 35.2576182447618 / 100,
                         "id_relation": "r001",
+                        "generacion_historica": 12268, # generacion historica de 2021, se usa como base para los calculos
                         "values_CI": [ # valor por defecto para la capacidad instalada se toma desde informe (escenario de actualizacion) [2022 ...2030]
                             5.74083,
                             6,
@@ -95,6 +96,7 @@ strategies_definition = {
                         "unit": "GW",
                         "fp": 51.4937014 / 100,
                         "id_relation": "r002",
+                        "generacion_historica": 58118.491688874,
                         "values_CI": [
                             11.944792,
                             13,
@@ -119,6 +121,7 @@ strategies_definition = {
                         "unit": "GW",
                         "fp": 91.3033263 / 100,
                         "id_relation": "r003",
+                        "generacion_historica": 5254.93081734859,
                         "values_CI": [
                             1.329,
                             1.361,
@@ -143,6 +146,7 @@ strategies_definition = {
                         "unit": "GW",
                         "fp": 34.7849019 / 100,
                         "id_relation": "r004",
+                        "generacion_historica": 60.46,
                         "values_CI": [
                             0.01842,
                             2,
@@ -167,6 +171,7 @@ strategies_definition = {
                         "unit": "GW",
                         "fp": 36.8224441 / 100,
                         "id_relation": "r005",
+                        "generacion_historica": 323.02,
                         "values_CI": [
                             0.290114,
                             1,
@@ -207,9 +212,9 @@ strategies_definition = {
                             53.91,
                             56.00,
                         ],
-                        "values_BAU": [
-                            17730.94,
-                            19359.14,
+                        "values_BAU": [ # valores de salida de la generacion para cada planta dada por el escenario de actualizacion
+                            17730.94,   # viene desde el informe ... solo se usa si la planta no ha sido seleccionada en la estrategia
+                            19359.14,   # de eapansion de otro modo los valores se toma de la salida de la est. de expansion por cada planta
                             19359.14,
                             19359.14,
                             19359.14,
@@ -928,6 +933,7 @@ def database():
 
     dict_total_indicadores = return_indicators_calculation()
     print("------------entra a database-------")
+    #print(data)
     # print(data)
     # print(data)
     """     json_data = json.dumps(data, ensure_ascii=False)

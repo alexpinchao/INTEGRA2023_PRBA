@@ -1307,12 +1307,14 @@ function generateGhapExpansion(sub_strategies, n, strategies_name) {
         let sub_strategies_name = sub_strategies[item].name
         let sub_strategies_value = parseFloat(sub_strategies[item].selected_value)
         let sub_strategies_fp = parseFloat(sub_strategies[item].fp)
+        let sub_strategies_gen_historico = parseFloat(sub_strategies[item].generacion_historica)
 
         let data_model_expansion = modelExpansionEstrategy(
             n,
             sub_strategies_value,
             sub_strategies_fp,
-            sub_strategies_name
+            sub_strategies_name,
+            sub_strategies_gen_historico
         )
         createChartExpansion(
             list_name,
@@ -1530,12 +1532,14 @@ function generateDataIndicatorWithBau(sub_strategies_expansion, sub_strategies_u
         let sub_strategies_expansion_name = sub_strategies_expansion[item].name
         let sub_strategies_expansion_value = parseFloat(sub_strategies_expansion[item].selected_value)
         let sub_strategies_expansion_fp = parseFloat(sub_strategies_expansion[item].fp)
+        let sub_strategies_expansion_gen_historico = parseFloat(sub_strategies_expansion[item].generacion_historica)
 
         let data_model_expansion1 = modelExpansionEstrategy(
             n,
             sub_strategies_expansion_value,
             sub_strategies_expansion_fp,
-            sub_strategies_expansion_name
+            sub_strategies_expansion_name,
+            sub_strategies_expansion_gen_historico
         )
         data_model_expansion.push(data_model_expansion1)
         //createChartExpansion(list_name, strategies_name, sub_strategies_name, data_model_expansion, "chart_title_3", "line-chart-3","graph-container-3");
@@ -1570,12 +1574,14 @@ function generateDataIndicatorWithBau2(sub_strategies_expansion, sub_strategies_
         let sub_strategies_expansion_name = sub_strategies_expansion[item].name
         let sub_strategies_expansion_value = parseFloat(sub_strategies_expansion[item].value)
         let sub_strategies_expansion_fp = parseFloat(sub_strategies_expansion[item].fp)
+        let sub_strategies_expansion_gen_historico = parseFloat(sub_strategies_expansion[item].generacion_historica)
 
         let data_model_expansion1 = modelExpansionEstrategy(
             n,
             sub_strategies_expansion_value,
             sub_strategies_expansion_fp,
-            sub_strategies_expansion_name
+            sub_strategies_expansion_name,
+            sub_strategies_expansion_gen_historico
         )
         data_model_expansion.push(data_model_expansion1)
         //createChartExpansion(list_name, strategies_name, sub_strategies_name, data_model_expansion, "chart_title_3", "line-chart-3","graph-container-3");
@@ -1610,12 +1616,14 @@ function generateDataIndicatorWithValues(sub_strategies_expansion, sub_strategie
         let sub_strategies_expansion_name = sub_strategies_expansion[item].name
         let sub_strategies_expansion_value = parseFloat(sub_strategies_expansion[item].selected_value)
         let sub_strategies_expansion_fp = parseFloat(sub_strategies_expansion[item].fp)
+        let sub_strategies_expansion_gen_historico = parseFloat(sub_strategies_expansion[item].generacion_historica)
 
         let data_model_expansion1 = modelExpansionEstrategy(
             n,
             sub_strategies_expansion_value,
             sub_strategies_expansion_fp,
-            sub_strategies_expansion_name
+            sub_strategies_expansion_name,
+            sub_strategies_expansion_gen_historico
         )
         data_model_expansion.push(data_model_expansion1)
         //createChartExpansion(list_name, strategies_name, sub_strategies_name, data_model_expansion, "chart_title_3", "line-chart-3","graph-container-3");
@@ -1852,7 +1860,8 @@ function plotDataStrategies(strategies) {
                                 let newSubStrategies = modelExpansionEstrategyOnlyData(
                                     n,
                                     parseFloat(sub_strategies_values.selected_value),
-                                    sub_strategies_values.fp
+                                    sub_strategies_values.fp,
+                                    sub_strategies_values.generacion_historica
                                 )
                                 return newSubStrategies
                             })[0],
@@ -1950,7 +1959,8 @@ function plotDataIndicators(strategies) {
                                 let newSubStrategies = modelExpansionEstrategyOnlyData(
                                     n,
                                     parseFloat(sub_strategies_values.selected_value),
-                                    sub_strategies_values.fp
+                                    sub_strategies_values.fp,
+                                    sub_strategies_values.generacion_historica
                                 )
                                 return newSubStrategies
                             })[0],
@@ -2045,7 +2055,7 @@ function plotDataIndicators(strategies) {
     }
 }
 
-function modelExpansionEstrategyOnlyData(n, valorObjetivo, fp) {
+function modelExpansionEstrategyOnlyData(n, valorObjetivo, fp, generacion_historica) {
     var increment = valorObjetivo / n
     var data = []
     var data_Return = []
@@ -2063,19 +2073,36 @@ function modelExpansionEstrategyOnlyData(n, valorObjetivo, fp) {
     return data_Return
 }
 
-function modelExpansionEstrategy(n, valorObjetivo, fp, name) {
-    var increment = valorObjetivo / n
+function modelExpansionEstrategy(n, valorObjetivo, fp, name, generacion_historica) {
+    // if ( valorObjetivo ){
+
+    // }
+    let c_i_base = generacion_historica / (8760* fp)
+    console.log("generacion_historica")
+    console.log(generacion_historica)
+    console.log("c_i_base")
+    console.log(c_i_base)
+    console.log("fp")
+    console.log(fp)
+
+    var increment = (valorObjetivo - c_i_base)/ n
     var data = []
     var data_plot = []
     var data_plot_return = []
     let j = 2
     let gp = 0
 
-    let creaIncrement = increment
+    let creaIncrement = c_i_base + increment
     for (let a = 0; a < n; a++) {
         data.push(creaIncrement)
         creaIncrement = creaIncrement + increment
     }
+    console.log("increment")
+    console.log(increment)
+
+    console.log("data")
+    console.log(data)
+
     for (let i = 0; i < data.length; i++) {
         let data_plot_dict = {}
         let anio = "202" + j
