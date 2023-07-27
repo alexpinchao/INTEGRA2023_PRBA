@@ -916,16 +916,17 @@ _unit_dict = {'Consumo de fuentes primarias por tipo de central eléctrica': 'GW
               'Consumo eléctrico total': 'Gwh',
               'Factor de pérdidas': 'Porcentaje %',
               'Generación total': 'Gwh',
-              'Estrategias de actualización': 'Gwh',
-              'Estrategias de expansión': 'Gwh',
+              'Estrategias de actualización': 'Consumo eléctrico(Gwh)',
+              'Estrategias de expansión': 'Generación eléctrica(Gwh)',
               'Indicador de eficiencia energética': 'Porcentaje %',
-              'Indicador intensidad energética primaria': 'Gwh',
-              'Indicador intensidad de emisiones de carbono': 'Gwh',
+              'Indicador intensidad energética primaria': 'kWh/USD',
+              'Indicador intensidad de emisiones de carbono': 'gCO2eq/USD',
               'Estrategias de electrificación en el transporte': 'GWh',
               'Estrategias de actualización tecnológica': 'kWh',
               'Indicador consumo per cápita': 'MWh/persona',
               'Indicador intensidad energética': 'kWh/USD',
               'Indicador emisiones evitadas': 'MtCO2eq',
+              'Digitalización y gestión de la medida': 'Porcentaje %',
               }
 
 
@@ -1212,7 +1213,7 @@ class SQLConnector:
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
         rows = {
-            'Estrategias de descentralización y digitalización': [dict(zip(columns, row)) for row in result.fetchall()]}
+            'Digitalización y gestión de la medida': [dict(zip(columns, row)) for row in result.fetchall()]}
         result.close()
         return rows
 

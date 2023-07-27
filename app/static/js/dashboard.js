@@ -1374,8 +1374,8 @@ function modifyData(data) {
 }
 
 function validateNameIndicatorEficiency(name) {
-    if (name == "Generación eléctrica a partir de plantas termicas") {
-        name = "Eficiencia energética en plantas termicas"
+    if (name == "Generación eléctrica a partir de plantas térmicas") {
+        name = "Eficiencia energética en plantas térmicas"
     } else if (name == "Generación eléctrica a partir de plantas hidráulicas") {
         name = "Eficiencia energética plantas hidráulicas"
     } else if (name == "Generación eléctrica a partir de plantas de Auto y Cogeneración") {
@@ -1389,8 +1389,8 @@ function validateNameIndicatorEficiency(name) {
 }
 
 function validateNameIndicatorIep(name) {
-    if (name == "Generación eléctrica a partir de plantas termicas") {
-        name = "Intensidad energética primaria en plantas termicas"
+    if (name == "Generación eléctrica a partir de plantas térmicas") {
+        name = "Intensidad energética primaria en plantas térmicas"
     } else if (name == "Generación eléctrica a partir de plantas hidráulicas") {
         name = "Intensidad energética primaria en plantas hidráulicas"
     } else if (name == "Generación eléctrica a partir de plantas de Auto y Cogeneración") {
@@ -1404,8 +1404,8 @@ function validateNameIndicatorIep(name) {
 }
 
 function validateNameIndicatorIec(name) {
-    if (name == "Generación eléctrica a partir de plantas termicas") {
-        name = "Emisiones de carbono en plantas termicas"
+    if (name == "Generación eléctrica a partir de plantas térmicas") {
+        name = "Emisiones de carbono en plantas térmicas"
     } else if (name == "Generación eléctrica a partir de plantas hidráulicas") {
         name = "Emisiones de carbono en plantas hidráulicas"
     } else if (name == "Generación eléctrica a partir de plantas de Auto y Cogeneración") {
@@ -1720,7 +1720,7 @@ function createStrategyUpgradeComplementary(sub_strategies, strategies_array_cop
 
 function emissionFactor(name) {
     let fe = 0
-    if (name == "Generación eléctrica a partir de plantas termicas") {
+    if (name == "Generación eléctrica a partir de plantas térmicas") {
         fe = 0.126379
     } else if (name == "Generación eléctrica a partir de plantas de Auto y Cogeneración") {
         fe = 0.126379
@@ -2886,21 +2886,37 @@ function dataGraphIndicatorsEndUse(strategies) {
     )
 }
 
-function calculateLossFactor(n, ami, final_reduction, ami_bau, name) {
-    var increment_ami = ami / n
+function calculateLossFactor(n, ami, final_reduction, ami_bau, name, type) {
     var data_ami = []
     var data_plot = []
     var data_plot_return = []
     let j = 2
     let factor_perdidas = 0
-    let creaincrement_ami = increment_ami
     let final_reduction_formula = 1 - final_reduction / ami_bau
-    for (let a = 0; a < n; a++) {
-        data_ami.push(creaincrement_ami)
-        creaincrement_ami = creaincrement_ami + increment_ami
+    
+    if (type == 2){
+        console.log("---- entra a progresivo")
+        let  ami_progre = ami
+        for (m = 0; m< n ; m ++){
+            data_ami.push(ami_progre)
+            ami_progre = ami_progre * (2/3)
+        }
+        data_ami.reverse();
+    }else {
+        console.log("---- entra a lineal")
+        var increment_ami = ami / n
+        let creaincrement_ami = increment_ami
+        for (let a = 0; a < n; a++) {
+            data_ami.push(creaincrement_ami)
+            creaincrement_ami = creaincrement_ami + increment_ami
+        }
     }
-    //console.log("data_ami", data_ami)
-    //console.log("final_reduction_formula", final_reduction_formula)
+    console.log("---- ami_bau", ami_bau)
+    console.log("---- ami objetivo", ami)
+    console.log("---- final_reduction", final_reduction)
+
+    console.log("data_ami", data_ami)
+    console.log("--- final_reduction_formula", final_reduction_formula)
     for (let i = 0; i < data_ami.length; i++) {
         let data_plot_dict = {}
         let anio = "202" + j
@@ -2909,15 +2925,15 @@ function calculateLossFactor(n, ami, final_reduction, ami_bau, name) {
             anio = "203" + j
         }
         j++
-        //console.log("ami_bau", ami_bau)
+        console.log("---- ami_bau", ami_bau)
         factor_perdidas = ami_bau * (1 - data_ami[i] * final_reduction_formula)
-        //console.log(" --- factor_perdidas", factor_perdidas)
+        console.log(" --- factor_perdidas", factor_perdidas)
         data_plot_dict.Año = anio
         data_plot_dict[name] = factor_perdidas
         data_plot.push(data_plot_dict)
-        ami_bau = factor_perdidas
+        //ami_bau = factor_perdidas
     }
-    data_plot_return["Estrategias de descentralización y digitalización"] = data_plot
+    data_plot_return["Digitalización y gestión de la medida"] = data_plot
     return [data_plot_return, data_plot]
 }
 
@@ -2927,6 +2943,7 @@ function decentralizationAndDigitizationStrategies(sub_strategies, n, strategies
     sub_strategies_key.forEach(function (item, index) {
         //utiliza de entrada rficirencia base nb , consumo electico bau ce_bau
         let sub_strategies_name = sub_strategies[item].name
+        let sub_strategies_type = sub_strategies[item].type
         let sub_strategies_value = parseFloat(sub_strategies[item].selected_value) / 100 // porcentaje de incorporacion ami
         let sub_strategies_value_aux_mod = sub_strategies[item].selected_value_aux
         let sub_strategies_value_aux
@@ -2945,7 +2962,8 @@ function decentralizationAndDigitizationStrategies(sub_strategies, n, strategies
             sub_strategies_value,
             sub_strategies_value_aux,
             sub_strategies_ami_bau,
-            sub_strategies_name
+            sub_strategies_name,
+            sub_strategies_type
         )
         //console.log("data_ce_consumpt", data_ce_consumpt)
         let data_ce = data_ce_consumpt[0]
@@ -2963,8 +2981,9 @@ function decentralizationAndDigitizationStrategies(sub_strategies, n, strategies
 }
 
 function dataGraphStrategiesDistribution(strategies) {
-    //console.log(" --- dataGraphStrategiesDistribution --- ")
+    console.log(" --- dataGraphStrategiesDistribution --- ")
     let strategiesModels = strategies.models
+    console.log(" --- dataGraphStrategiesDistribution strategiesModels --- ", strategiesModels)
     let n_and_year = validateDate()
     let n = n_and_year[0]
     //let strategiesName = getStrategieName()
