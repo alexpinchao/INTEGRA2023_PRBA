@@ -54,9 +54,7 @@
         <section id="main">
             <div class="row mt-2">
                 <div class="col-12 d-flex flex-column">
-                    <div
-                            class="card border-0 shadow components-section flex-grow-1 pt-3 px-2 px-md-4 px-xxl-5"
-                    >
+                    <div class="card border-0 shadow components-section flex-grow-1 pt-3 px-2 px-md-4 px-xxl-5">
                         <div class="card-body p-0">
                             <div class="row mt-4 mt-lg-4">
                                 <div class="col-12 px-4 px-md-2">
@@ -71,15 +69,15 @@
                             </div>
                             <div class="row main-row">
                                 <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
-                                    <!-- <a href="#nothing" onclick="ActiveSection('nothing')"> -->
-                                    <a href="#stages" data-bs-toggle="modal" data-bs-target="#modal-analysis-1">
+                                    <a href="#projections" onclick="ActiveSection('projections')">
+{#                                    <a href="#stages" data-bs-toggle="modal" data-bs-target="#modal-analysis-1">#}
                                         <div class="card border-1 shadow card-effect">
                                             <div class="card-body">
                                                 {# TEMPORAL #}
-                                                <img class="image comming-soon top-0 end-0"
-                                                     src="{{ url_for('static',filename='images/proximamente3.png') }}"
-                                                     height="84"
-                                                     width="104" alt="Próximamente logo.">
+{#                                                <img class="image comming-soon top-0 end-0"#}
+{#                                                     src="{{ url_for('static',filename='images/proximamente3.png') }}"#}
+{#                                                     height="84"#}
+{#                                                     width="104" alt="Próximamente logo.">#}
                                                 {# TEMPORAL #}
                                                 <div class="row d-block d-xl-flex align-items-center">
                                                     <div
@@ -118,15 +116,15 @@
                                 </div>
 
                                 <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
-                                    {#<a href="#calculation" onclick="ActiveSection('calculation')">#}
-                                    <a href="#stages" data-bs-toggle="modal" data-bs-target="#modal-analysis-1">
+                                    <a href="#calculation" onclick="ActiveSection('calculation')">
+{#                                    <a href="#stages" data-bs-toggle="modal" data-bs-target="#modal-analysis-1">#}
                                         <div class="card border-1 shadow card-effect">
                                             <div class="card-body">
                                                 {#                                              {# TEMPORAL #}
-                                                <img class="image comming-soon top-0 end-0"
-                                                     src="{{ url_for('static',filename='images/proximamente3.png') }}"
-                                                     height="84"
-                                                     width="104" alt="Próximamente logo.">
+{#                                                <img class="image comming-soon top-0 end-0"#}
+{#                                                     src="{{ url_for('static',filename='images/proximamente3.png') }}"#}
+{#                                                     height="84"#}
+{#                                                     width="104" alt="Próximamente logo.">#}
                                                 {# TEMPORAL #}
                                                 <div class="row d-block d-xl-flex align-items-center">
                                                     <div
@@ -170,145 +168,98 @@
                 </div>
             </div>
         </section>
-
-        <!-- <section id="base-line" hidden>
-      section header
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
-        <div class="d-block">
-          <nav aria-label="breadcrumb" class="d-none d-md-inline-block pt-2">
-            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
-              <li class="breadcrumb-item">
-                <a href="{{url_for('dashboard.main')}}">
-                  <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
-                    </path>
-                  </svg>
-                </a>
-              </li>
-              <li class="breadcrumb-item"><a href="#" onclick="ActiveSection('main')">Cálculo  de indicadores</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Línea base</li>
-            </ol>
-          </nav>
-        </div>
-      </div>
-      <div class="row mb-2 min-vh-85">
-        <div class="col-12">
-          <div class="card border-0 shadow h-100">
-            <div class="card-body px-1 px-md-3 d-flex flex-column">
-              <div class="row mb-2">
-                <div class="col-12">
-                  <span class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z">
-                      </path>
-                    </svg>
-                  </span>
-                  <span class="h2 fw-extrabold">Línea base</span>
-                  <p class="m-1">Tándem de indicadores para la industria eléctrica.</p>
-                </div>
-              </div>
-              <div class="row flex-fill px-1">
-                <div class="card border-1 shadow mx-2 mx-md-0">
-                  <div class="card-header p-0">
-                    <div class="row justify-content-between m-0">
-                      Dropdown menu
-                      <div class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between flex-grow-1">
-                        <div class="d-block mb-3 mb-sm-0 align-items-center">
-                          <span class="sidebar-icon">
-                            <svg class="icon-shape icon-xxs" fill="black" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M88 48C101.3 48 112 58.75 112 72V120C112 133.3 101.3 144 88 144H40C26.75 144 16 133.3 16 120V72C16 58.75 26.75 48 40 48H88zM480 64C497.7 64 512 78.33 512 96C512 113.7 497.7 128 480 128H192C174.3 128 160 113.7 160 96C160 78.33 174.3 64 192 64H480zM480 224C497.7 224 512 238.3 512 256C512 273.7 497.7 288 480 288H192C174.3 288 160 273.7 160 256C160 238.3 174.3 224 192 224H480zM480 384C497.7 384 512 398.3 512 416C512 433.7 497.7 448 480 448H192C174.3 448 160 433.7 160 416C160 398.3 174.3 384 192 384H480zM16 232C16 218.7 26.75 208 40 208H88C101.3 208 112 218.7 112 232V280C112 293.3 101.3 304 88 304H40C26.75 304 16 293.3 16 280V232zM88 368C101.3 368 112 378.7 112 392V440C112 453.3 101.3 464 88 464H40C26.75 464 16 453.3 16 440V392C16 378.7 26.75 368 40 368H88z" />
-                            </svg>
-                          </span>
-                          <span class="fs-5 fw-extrabold mb-2">Indicadores de eficiencia energética</span>
-                        </div>
-                      </div>
-                      <div class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between justify-content-xl-center">
-                        <span class="h6 fw-bold p-1"><strong>Nivel de desagregación</strong> </span>
-                        <div class="btn-group p-1">
-                          <button id="select-dropdown" type="button"
-                            class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            <span>Seleccionar</span>
-                            <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"></path>
-                            </svg>
-                          </button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" onclick="update_list_agregados('Agregados')" href="#">Agregados</a>
-                            <a class="dropdown-item" onclick="update_list_desagregados('generation')" href="#">Desagregados</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between justify-content-xl-center">
-                        <span class="h6 fw-bold p-1"><strong>Cadena de Valor</strong> </span>
-                        <div class="btn-group p-1">
-                          <button type="button" id="cadena_valor"
-                            class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            <span>Seleccionar</span>
-                            <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"></path>
-                            </svg>
-                          </button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" onclick="update_list_ind('generation')">Generación</a>
-                            <a class="dropdown-item" onclick="update_list_ind('distribution')">Distribución</a>
-                            <a class="dropdown-item" onclick="update_list_ind('end_use')">Uso final</a>
-                          </div>
-                        </div>
-                      </div>
+        <section id="projections" hidden>
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+            <div class="d-block">
+              <nav aria-label="breadcrumb" class="d-none d-md-inline-block pt-2">
+                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                  <li class="breadcrumb-item">
+                    <a href="{{url_for('dashboard.main')}}">
+                      <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                        </path>
+                      </svg>
+                    </a>
+                  </li>
+                  <li class="breadcrumb-item"><a href="#" onclick="ActiveSection('main')">Escenario base</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Proyecciones</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+          <div class="row mb-2 min-vh-85">
+            <div class="col-12">
+              <div class="card border-0 shadow h-100">
+                <div class="card-body px-1 px-md-3 d-flex flex-column">
+                  <div class="row mb-2">
+                    <div class="col-12">
+                      <span class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon">
+                          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">><path d="M20 12a2 2 0 0 0-.703.133l-2.398-1.963c.059-.214.101-.436.101-.67C17 8.114 15.886 7 14.5 7S12 8.114 12 9.5c0 .396.1.765.262 1.097l-2.909 3.438A2.06 2.06 0 0 0 9 14c-.179 0-.348.03-.512.074l-2.563-2.563C5.97 11.348 6 11.179 6 11c0-1.108-.892-2-2-2s-2 .892-2 2 .892 2 2 2c.179 0 .348-.03.512-.074l2.563 2.563A1.906 1.906 0 0 0 7 16c0 1.108.892 2 2 2s2-.892 2-2c0-.237-.048-.46-.123-.671l2.913-3.442c.227.066.462.113.71.113a2.48 2.48 0 0 0 1.133-.281l2.399 1.963A2.077 2.077 0 0 0 18 14c0 1.108.892 2 2 2s2-.892 2-2-.892-2-2-2z"></path></svg>
+                      </span>
+                      <span class="h2 fw-extrabold">Proyecciones</span>
                     </div>
                   </div>
-                  <div class="card-body px-1 px-md-3 py-1">
-                    <div class="row mb-2 mt-2 m-0">
-                      <div class="col-12 col-xl-4 mb-1 px-0 d-flex align-self-stretch flex-fill">
-                        <div class="card border-0 flex-fill">
-                          <div class="card-body align-self-stretch p-2">
-                            Section Table
-                            <div class="table-responsive info-table" id="table_content_1"></div>
-                          </div>
+                    <div class="row flex-fill px-4">
+                        <div class="d-block pt-3 w-75">
+                            <p class="m-1 fs-5 fw-extrabold">Descripción</p>
+                            <p>Con el objetivo de validar el Escenario BAU y crear una metodología de evaluación de
+                        estrategias de eficiencia energética funcional posterior al año 2030, el cual es el año de
+                        análisis de la mayoría de políticas públicas energéticas del país, se realizaron
+                        proyecciones de las series de datos históricas de las variables asociadas a la cadena de
+                        valor de la energía eléctrica en Colombia. Las proyecciones son una herramienta esencial
+                        para generar información relevante y actualizada que permita a los tomadores de decisiones
+                        realizar su labor de manera más informadas y precisa sobre el sector eléctrico en el futuro.
+                            </p>
                         </div>
-                      </div>
-                      <div class="col-12 col-xl-8 mb-1 px-0 d-flex align-self-stretch">
-                        <div class="card border-0 flex-fill">
-                          <div class="card-header p-1 d-sm-flex flex-row align-items-center">
-                            <div class="card-body p-0">
-                              Graph Section
-                              <div class="row mb-2 mt-2 m-0">
-                                <div class="col-12 col-xl-12 mb-1 px-0 d-flex align-self-stretch">
-                                  <div class="card border-0 flex-fill">
-                                    <div class="card-header d-sm-flex flex-row align-items-center flex-0">
-                                      <div class="d-block mb-3 mb-sm-0">
-                                        <span class="fs-5 fw-extrabold mb-2" id="chart_title_1">Indicador seleccionado</span>
-                                      </div>
-                                    </div>
-                                    <div class="card-body p-1 flex-fill" id="graph-container_1">
-                                      <canvas id="line-chart_1" width="100%" height="50%"></canvas>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                        <div class="d-block p-4 w-25">
+                            <img
+                                 src="{{ url_for('static',filename='/images/projections-man.svg') }}"
+                                 alt="Context image - Image about projections"
+                                 focusable="false">
                         </div>
-                      </div>
                     </div>
+                    {# Inicio zona de contenido  #}
+                    <div class="row flex-fill px-4">
+                        <div class="d-block p-4 w-25">
+                            <img
+                                 src="{{ url_for('static',filename='/images/choose.svg') }}"
+                                 alt="Context image - Image about projections"
+                                 focusable="false">
+                        </div>
+                        <div class="d-block pt-3 w-75">
+                            <p>En la validación del Escenario BAU para las variables de cada proceso, se contemplaron las siguientes comparaciones:</p>
+                        <div class="d-flex align-items-center mb-3">
+                            <svg class="icon icon-md me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Para la Generación, se comparó la proyección de los datos históricos de la variable Energía eléctrica generada (G) con la generación asociada a la CEN del Escenario 0.2 de la Unidad de Planeación Minero Energética - UPME.
+                            </span>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <svg class="icon icon-md me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Para la Distribución, se comparó la proyección de los datos históricos de la variable de energía facturada y componente D del CU, con los estimados y resultados reportados por parte de la Superintendencia Servicios Públicos Domiciliarios.
+                            </span>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <svg class="icon icon-md me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Para el Uso final, se comparó la proyección de los datos históricos de la variable Demanda de energía eléctrica (DEE) con el escenario medio de la proyección de la demanda de energía eléctrica realizado en el año 2021 por la UPME.
+                            </span>
+                        </div>
+                        </div>
+                    </div>
+                    {# Fin zona de contenido  #}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section> -->
+        </section>
 
         <section id="calculation" hidden>
             <!-- section header -->
