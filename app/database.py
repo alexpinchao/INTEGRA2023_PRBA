@@ -61,23 +61,22 @@ emission_table = Table('FEmision', metadata_obj,
 # Electric generation consumption table schema
 consumption_table = Table('G_Consumo', metadata_obj,
                           Column('Año', Integer, nullable=False, unique=True),
-                          Column('C_CH_Agua_GWh', String),
-                          Column('C_CT_carbon_kTon', String),
-                          Column('C_CT_Gas_Mpc', String),
-                          Column('C_CT_Diesel_kBL', String),
-                          Column('C_CT_Fueloil_kBL', String),
-                          Column('C_CT_kerosene_kBL', String),
+                          Column('C_CT_carbon_GWh', String),
+                          Column('C_CT_Gas_GWh', String),
+                          Column('C_CT_Diesel_GWh', String),
+                          Column('C_CT_Fueloil_GWh', String),
+                          Column('C_CT_Kerosene_GWh', String),
+                          Column('C_CT_Total_GWh', String),
                           #Column('C_CE_Viento_GWh', String),
                           #Column('C_CS_Sol_GWh', String),
-                          Column('C_CAyC_Bagazo_kTon', String),
-                          Column('C_CAyC_Carbon_kTon', String),
-                          Column('C_CAyC_Gas_Mpc', String),
-                          Column('C_CAyC_Hidro_GWh', String),
-                          Column('C_CAyC_Petroleo_kBL', String),
-                          Column('C_CAyC_Renovables_GWh', String),
-                          Column('C_CAyC_Diesel_kBL', String),
-                          Column('C_CAyC_Gaslicuado_kBL', String),
-                          Column('Total_Consumo_generacion_GWh', String)
+                          Column('C_CAyC_Bagazo_GWh', String),
+                          Column('C_CAyC_Carbon_GWh', String),
+                          Column('C_CAyC_Gas_GWh', String),
+                          Column('C_CAyC_Petroleo_GWh', String),
+                          Column('C_CAyC_Diesel_GWh', String),
+                          Column('C_CAyC_Gaslicuado_GWh', String),
+                          Column('C_CAyC_Total', String),
+                          Column('Consumo_Total', String)
                           )
 
 # Electric generation table schema
@@ -464,7 +463,9 @@ data_desag_dist_table = Table('DATOS_DESAGREGACION_DISTRIBUCION', metadata_obj,
                               Column('Costo_de_pérdidas_equivalentes_en_distribución_Nivel_de_Tensión_II', String),
                               Column('Costo_de_pérdidas_equivalentes_en_distribución_Nivel_de_Tensión_III', String),
                               Column('IAAD_Nivel_de_Tensión_I', String),
-                              Column('IAAD_Nivel_de_Tensión_II_y_III', String)
+                              Column('IAAD_Nivel_de_Tensión_II_y_III', String),
+                              Column('Saidi', String),
+                              Column('Saifi', String)
                               )
 
 # Method that returns the table DESAGREGACION
@@ -498,7 +499,7 @@ data_desag_end_use_table = Table('DATOS_DESAGREGACION_USO_FINAL', metadata_obj,
                                  Column('Consumo_residencial_per_cápita', String),
                                  Column('Consumo_per_cápita_urbano', String),
                                  Column('Consumo_per_cápita_rural', String),
-                                 Column('Consumo_residencial_por_vivienda', String),
+                                 #Column('Consumo_residencial_por_vivienda', String),
                                  Column('Intensidad_energética_del_sector_industrial', String),
                                  Column('Intensidad_energética_del_sector_comercial_y_público', String)
                                  )
@@ -639,22 +640,24 @@ _translating_dict = {'NT1': 'Nivel de tensión 1',
                      'Factor_de_pérdidas': 'Factor de pérdidas',
 
                      'C_CH_Agua_GWh': 'Consumo en centrales hidroeléctricas',
-                     'C_CT_carbon_kTon': 'Consumo en centrales térmicas de Carbón',
-                     'C_CT_Gas_Mpc': 'Consumo en centrales térmicas de Gas natural',
-                     'C_CT_Diesel_kBL': 'Consumo en centrales térmicas de Diesel',
-                     'C_CT_Fueloil_kBL': 'Consumo en centrales térmicas de Fueloil',
-                     'C_CT_kerosene_kBL': 'Consumo en centrales térmicas de Kerosene',
-                     'C_CE_Viento_GWh': 'Consumo en centrales eólicas',
-                     'C_CS_Sol_GWh': 'Consumo en centrales solares',
-                     'C_CAyC_Bagazo_kTon': 'Consumo de Bagazo en centrales AyC',
-                     'C_CAyC_Carbon_kTon': 'Consumo de Carbón en centrales AyC',
-                     'C_CAyC_Gas_Mpc': 'Consumo de Gas natural en centrales AyC',
-                     'C_CAyC_Hidro_GWh': 'Consumo de Hidro en centrales AyC',
-                     'C_CAyC_Petroleo_kBL': 'Consumo de Petróleo en centrales AyC',
-                     'C_CAyC_Renovables_GWh': 'Consumo de Renovables en centrales AyC',
-                     'C_CAyC_Diesel_kBL': 'Consumo de Diesel en centrales AyC',
-                     'C_CAyC_Gaslicuado_kBL': 'Consumo de Gas licuado en centrales AyC',
-                     'Total_Consumo_generacion_GWh': 'Consumo total de la generación eléctrica',
+                     'C_CT_carbon_GWh': 'Consumo en centrales térmicas de Carbón',
+                     'C_CT_Gas_GWh': 'Consumo en centrales térmicas de Gas natural',
+                     'C_CT_Diesel_GWh': 'Consumo en centrales térmicas de Diesel',
+                     'C_CT_Fueloil_GWh': 'Consumo en centrales térmicas de Fueloil',
+                     'C_CT_Kerosene_GWh': 'Consumo en centrales térmicas de Kerosene',
+                     'C_CT_Total_GWh': 'Consumo total en centrales térmicas',
+                     #'C_CE_Viento_GWh': 'Consumo en centrales eólicas',
+                     #'C_CS_Sol_GWh': 'Consumo en centrales solares',
+                     'C_CAyC_Bagazo_GWh': 'Consumo de Bagazo en centrales AyC',
+                     'C_CAyC_Carbon_GWh': 'Consumo de Carbón en centrales AyC',
+                     'C_CAyC_Gas_GWh': 'Consumo de Gas natural en centrales AyC',
+                     #'C_CAyC_Hidro_GWh': 'Consumo de Hidro en centrales AyC',
+                     'C_CAyC_Petroleo_GWh': 'Consumo de Petróleo en centrales AyC',
+                     #'C_CAyC_Renovables_GWh': 'Consumo de Renovables en centrales AyC',
+                     'C_CAyC_Diesel_GWh': 'Consumo de Diesel en centrales AyC',
+                     'C_CAyC_Gaslicuado_GWh': 'Consumo de Gas licuado en centrales AyC',
+                     'C_CAyC_Total': 'Consumo total en centrales AyC',
+                     'Consumo_Total': 'Consumo total de la generación eléctrica',
 
                      'ECO2_CT_Carbon': 'Emisiones $CO_2$ Centrales Térmicas de Carbón',
                      'ECO2_CT_Gas': 'Emisiones $CO_2$ Centrales Térmicas de Gas natural',
@@ -913,16 +916,17 @@ _unit_dict = {'Consumo de fuentes primarias por tipo de central eléctrica': 'GW
               'Consumo eléctrico total': 'Gwh',
               'Factor de pérdidas': 'Porcentaje %',
               'Generación total': 'Gwh',
-              'Estrategias de actualización': 'Gwh',
-              'Estrategias de expansión': 'Gwh',
+              'Estrategias de actualización': 'Consumo eléctrico(Gwh)',
+              'Estrategias de expansión': 'Generación eléctrica(Gwh)',
               'Indicador de eficiencia energética': 'Porcentaje %',
-              'Indicador intensidad energética primaria': 'Gwh',
-              'Indicador intensidad de emisiones de carbono': 'Gwh',
+              'Indicador intensidad energética primaria': 'kWh/USD',
+              'Indicador intensidad de emisiones de carbono': 'gCO2eq/USD',
               'Estrategias de electrificación en el transporte': 'GWh',
               'Estrategias de actualización tecnológica': 'kWh',
               'Indicador consumo per cápita': 'MWh/persona',
               'Indicador intensidad energética': 'kWh/USD',
               'Indicador emisiones evitadas': 'MtCO2eq',
+              'Digitalización y gestión de la medida': 'Porcentaje %',
               }
 
 
@@ -1209,7 +1213,7 @@ class SQLConnector:
         result = self.engine.execute(query)
         columns = [col for col in result.keys()]
         rows = {
-            'Estrategias de descentralización y digitalización': [dict(zip(columns, row)) for row in result.fetchall()]}
+            'Digitalización y gestión de la medida': [dict(zip(columns, row)) for row in result.fetchall()]}
         result.close()
         return rows
 
