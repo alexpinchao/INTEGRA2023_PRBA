@@ -379,49 +379,6 @@
                           </div>
                         </div>
                       </div> -->
-                                            <div
-                                                    class="mx-0 my-1 col-xl-4 col-md-12 d-flex align-items-center justify-content-between justify-content-xl-center"
-                                            >
-                                                <span class="h6 fw-bold p-1"><strong>Cadena de Valor</strong> </span>
-                                                <div class="btn-group p-1">
-                                                    <button
-                                                            type="button"
-                                                            id="cadena_valor_project"
-                                                            class="btn btn-sm btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
-                                                            data-bs-toggle="dropdown"
-                                                            aria-haspopup="true"
-                                                            aria-expanded="false"
-                                                    >
-                                                        <span>Seleccionar</span>
-                                                        <svg
-                                                                class="icon icon-xs"
-                                                                fill="currentColor"
-                                                                viewBox="0 0 20 20"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                        >
-                                                            <path
-                                                                    fill-rule="evenodd"
-                                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                                    clip-rule="evenodd"
-                                                            ></path>
-                                                        </svg>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item"
-                                                           onclick="update_list_project('generation')"
-                                                        >Generación</a
-                                                        >
-                                                        <a class="dropdown-item"
-                                                           onclick="update_list_project('distribution')"
-                                                        >Distribución</a
-                                                        >
-                                                        <a class="dropdown-item"
-                                                           onclick="update_list_project('end_use')"
-                                                        >Uso final</a
-                                                        >
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="card-body px-1 px-md-3 py-1">
@@ -560,11 +517,9 @@
         var limite_graficas = false
 
         function update_list_project(list_name) {
-            SetSelectName("cadena_valor_project", list_name)
             //prettier-ignore
             let json_file = JSON.parse('{{data_projections | tojson | safe}}')
             for (const value_chain in json_file) {
-                console.log(value_chain)
                 let keys_list = Object.keys(json_file[value_chain])
                 let keys_list_2 = []
                 let json_new = {}
@@ -576,8 +531,6 @@
                     keys_list_2.shift()
                     json_new[item] = keys_list_2
                 })
-                console.log(value_chain)
-                console.log(json_new)
                 loadTable_projections(value_chain, json_new)
             }
         }
