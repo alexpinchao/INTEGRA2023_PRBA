@@ -2937,9 +2937,133 @@ function calculateLossFactor(n, ami, final_reduction, ami_bau, name, type) {
     return [data_plot_return, data_plot]
 }
 
+function distributionIndicatorsEEP(fdp, ener_facturada_equ) {
+    let name = "Emisiones equivalentes de las pérdidas de distribución"
+    let fe = 0.2 //Factor de emisióin [gCO2eq/Wh]
+    let eep = 0 // (consumo*fe) /pib
+    let anio = ""
+    let k = 2
+    let data_plot_eep = []
+    var data_plot_return = []
+
+    for (var i = 0; i < fdp.length; i++) {
+        let data_plot_dict = {}
+        anio = "202" + k
+        if (k > 9) {
+            k = 0
+            anio = "203" + k
+        }
+        k++
+        let temp = (fdp[i]*ener_facturada_equ[i]/(1-fdp[i]))/1000000
+        eep = temp* fe
+        data_plot_dict.Año = anio
+        data_plot_dict[name] = eep
+        data_plot_eep.push(data_plot_dict)
+    }
+    data_plot_return["Indicador emisiones equivalentes de las pérdidas de distribución"] = data_plot_eep
+    createChartIndicador3(
+        list_name,
+        "Indicador emisiones equivalentes de las pérdidas de distribución",
+        name,
+        data_plot_return,
+        "chart_title_7",
+        "line-chart-7",
+        "graph-container-7"
+    )
+    return data_plot_return
+}
+
+function distributionIndicatorsCEP(fdp, costo_dist, ener_facturada_equ, USD_promedio) {
+    let name = "Costo equivalente a pérdidas ADD en Millones de USD"
+    let cep = 0 // (consumo /pib)/1000
+    let anio = ""
+    let k = 2
+    let data_plot_cep = []
+    var data_plot_return = []
+    for (var i = 0; i < fdp.length; i++) {
+        let data_plot_dict = {}
+        anio = "202" + k
+        if (k > 9) {
+            k = 0
+            anio = "203" + k
+        }
+        k++
+        cep = (fdp[i]*ener_facturada_equ[i]/(1 - fdp[i]))*(costo_dist[i]/USD_promedio)
+        //data_plot_dict = {"Año": anio, "Indicador costo equivalente a pérdidas": cep};
+        data_plot_dict.Año = anio
+        data_plot_dict[name] = cep
+        data_plot_cep.push(data_plot_dict)
+    }
+    data_plot_return["Indicador costo equivalente a pérdidas"] = data_plot_cep
+    createChartIndicador2(
+        list_name,
+        "Indicador costo equivalente a pérdidas",
+        name,
+        data_plot_return,
+        "chart_title_6",
+        "line-chart-6",
+        "graph-container-6"
+    )
+    return data_plot_return
+}
+
+function distributionIndicatorFPD(fdp) {
+    let name = "Factor de pérdidas"
+    //let eficiency = 0
+    let data_plot = []
+    let k = 2
+    let anio_fdp = ""
+    let data_plot_return = []
+    for (var i = 0; i < fdp.length; i++) {
+        let data_plot_dict = {}
+        anio_fdp = "202" + k
+        if (k > 9) {
+            k = 0
+            anio_fdp = "203" + k
+        }
+        k++
+        //eficiency = generacion[i] / consumo[i]
+        data_plot_dict.Año = anio_fdp
+        data_plot_dict[name] = fdp[i]
+        data_plot.push(data_plot_dict)
+    }
+    data_plot_return["Indicador de factor de pérdidas"] = data_plot
+    createChartIndicador1(
+        list_name,
+        "Indicador de factor de pérdidas",
+        name,
+        data_plot_return,
+        "chart_title_5",
+        "line-chart-5",
+        "graph-container-5"
+    )
+    return data_plot_return
+}
+
+function createGraphIndicatorDistribution(fdp) {
+    //datos de db desde 2022 hasta 2030, no es necesario agregar año porque el sistem recorre hasta el año que necesita
+    //Costo distribución ADD  [$/kWh] [base 2015]
+    //Energía Facturada equivalentes ADD  [kW] año
+
+    let costo_dist = [0.1297, 0.1525, 0.1796, 0.2112, 0.2477, 0.2895, 0.3369, 0.3902, 0.4498]
+    let ener_facturada_equ = [315764251618.68, 320723989171.48, 325683726724.28, 330643464277.08, 335603201829.88, 340562939382.68, 345522676935.48, 350482414488.28, 355442152041.08]
+
+    let USD_promedio = 2743000000 // factor de conversion
+    let fdp_ = distributionIndicatorFPD(fdp)
+    let cep = distributionIndicatorsCEP(fdp, costo_dist, ener_facturada_equ, USD_promedio) //Costo equivalente a pérdidas ADD  en Millones de USD [base 2015]
+    let eep = distributionIndicatorsEEP(fdp, ener_facturada_equ) //Emisiones equivalentes de las pérdidas de distribución TCO2eq/año
+    console.log("fdp_",fdp_)
+    console.log("cep",cep)
+    console.log("eep",eep)
+    //let values = prepareDataTopsis(fdp, cep, eep, name)
+    //data_topsis.push(values)
+
+}
+
 function decentralizationAndDigitizationStrategies(sub_strategies, n, strategies_name) {
     //console.log("-----decentralizationAndDigitizationStrategies ---  ")
     let sub_strategies_key = Object.keys(sub_strategies)
+    let loss_factor_total = []
     sub_strategies_key.forEach(function (item, index) {
         //utiliza de entrada rficirencia base nb , consumo electico bau ce_bau
         let sub_strategies_name = sub_strategies[item].name
@@ -2965,9 +3089,16 @@ function decentralizationAndDigitizationStrategies(sub_strategies, n, strategies
             sub_strategies_name,
             sub_strategies_type
         )
-        //console.log("data_ce_consumpt", data_ce_consumpt)
         let data_ce = data_ce_consumpt[0]
         const_loss_factor = data_ce_consumpt[1]
+        let array_data = []
+        //loss_factor_total.push(const_loss_factor)
+        for (let array of const_loss_factor){
+            array_data.push(Object.values(array)[1])
+        }
+
+        console.log("array_data", array_data)
+        loss_factor_total.push(array_data)
         createChartUpgrade(
             list_name,
             strategies_name,
@@ -2976,9 +3107,27 @@ function decentralizationAndDigitizationStrategies(sub_strategies, n, strategies
             "chart_title_4",
             "line-chart-4",
             "graph-container-4"
-        )
-    })
+            )
+        })
+        //console.log("loss_factor_total", loss_factor_total)
+        let resultado = promedioElemento(loss_factor_total);
+        createGraphIndicatorDistribution(resultado)
+        //console.log("resultado", resultado)
+
 }
+
+function promedioElemento(arrays) {
+    let resultado = [];
+    let longitud = arrays[0].length;
+    for (let i = 0; i < longitud; i++) {
+      let suma = 0;
+      for (let array of arrays) {
+        suma += array[i];
+      }
+      resultado.push(suma / arrays.length);
+    }
+    return resultado;
+  }
 
 function dataGraphStrategiesDistribution(strategies) {
     console.log(" --- dataGraphStrategiesDistribution --- ")

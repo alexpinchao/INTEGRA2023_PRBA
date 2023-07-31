@@ -927,6 +927,9 @@ _unit_dict = {'Consumo de fuentes primarias por tipo de central eléctrica': 'GW
               'Indicador intensidad energética': 'kWh/USD',
               'Indicador emisiones evitadas': 'MtCO2eq',
               'Digitalización y gestión de la medida': 'Porcentaje %',
+              'Indicador de factor de pérdidas': 'Porcentaje %',
+              'Indicador costo equivalente a pérdidas': 'Millones USD',
+              'Indicador emisiones equivalentes de las pérdidas de distribución': 'TCO2eq/año',
               }
 
 
