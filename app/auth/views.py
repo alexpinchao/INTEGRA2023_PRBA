@@ -40,7 +40,7 @@ def login():
                     flash('Su usuario aun no ha sido validado en el sistema')
                     flash('El proceso de validación se efectuara por parte de un administrador de INTEEGRA')
                     return redirect(url_for('home'))
-                user_data = UserData(username, password)
+                user_data = UserData(username, password, username)
                 user = UserModel(user_data)
                 login_user(user)
                 flash('Bienvenido de nuevo ' + str(user_data_db['name']).split()[0])

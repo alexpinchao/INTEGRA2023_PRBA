@@ -20,7 +20,7 @@ class UserData:
     self.username = username
     self.password = password """
 
-    def __init__(self, username, password, mail,data=None):
+    def __init__(self, username, password, mail, data=None):
         self.username = username
         self.password = password
         self.mail = mail
