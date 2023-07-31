@@ -70,14 +70,14 @@
                             <div class="row main-row">
                                 <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
                                     <a href="#projections" onclick="ActiveSection('projections')">
-{#                                    <a href="#stages" data-bs-toggle="modal" data-bs-target="#modal-analysis-1">#}
+                                        {#                                    <a href="#stages" data-bs-toggle="modal" data-bs-target="#modal-analysis-1">#}
                                         <div class="card border-1 shadow card-effect">
                                             <div class="card-body">
                                                 {# TEMPORAL #}
-{#                                                <img class="image comming-soon top-0 end-0"#}
-{#                                                     src="{{ url_for('static',filename='images/proximamente3.png') }}"#}
-{#                                                     height="84"#}
-{#                                                     width="104" alt="Próximamente logo.">#}
+                                                {#                                                <img class="image comming-soon top-0 end-0"#}
+                                                {#                                                     src="{{ url_for('static',filename='images/proximamente3.png') }}"#}
+                                                {#                                                     height="84"#}
+                                                {#                                                     width="104" alt="Próximamente logo.">#}
                                                 {# TEMPORAL #}
                                                 <div class="row d-block d-xl-flex align-items-center">
                                                     <div
@@ -117,14 +117,14 @@
 
                                 <div class="col-12 col-sm-6 col-xl-4 my-4 flex-grow-1">
                                     <a href="#calculation" onclick="ActiveSection('calculation')">
-{#                                    <a href="#stages" data-bs-toggle="modal" data-bs-target="#modal-analysis-1">#}
+                                        {#                                    <a href="#stages" data-bs-toggle="modal" data-bs-target="#modal-analysis-1">#}
                                         <div class="card border-1 shadow card-effect">
                                             <div class="card-body">
                                                 {#                                              {# TEMPORAL #}
-{#                                                <img class="image comming-soon top-0 end-0"#}
-{#                                                     src="{{ url_for('static',filename='images/proximamente3.png') }}"#}
-{#                                                     height="84"#}
-{#                                                     width="104" alt="Próximamente logo.">#}
+                                                {#                                                <img class="image comming-soon top-0 end-0"#}
+                                                {#                                                     src="{{ url_for('static',filename='images/proximamente3.png') }}"#}
+                                                {#                                                     height="84"#}
+                                                {#                                                     width="104" alt="Próximamente logo.">#}
                                                 {# TEMPORAL #}
                                                 <div class="row d-block d-xl-flex align-items-center">
                                                     <div
@@ -169,96 +169,115 @@
             </div>
         </section>
         <section id="projections" hidden>
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
-            <div class="d-block">
-              <nav aria-label="breadcrumb" class="d-none d-md-inline-block pt-2">
-                <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
-                  <li class="breadcrumb-item">
-                    <a href="{{url_for('dashboard.main')}}">
-                      <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
-                        </path>
-                      </svg>
-                    </a>
-                  </li>
-                  <li class="breadcrumb-item"><a href="#" onclick="ActiveSection('main')">Escenario base</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Proyecciones</li>
-                </ol>
-              </nav>
-            </div>
-          </div>
-          <div class="row mb-2 min-vh-85">
-            <div class="col-12">
-              <div class="card border-0 shadow h-100">
-                <div class="card-body px-1 px-md-3 d-flex flex-column">
-                  <div class="row mb-2">
-                    <div class="col-12">
-                      <span class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon">
-                          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">><path d="M20 12a2 2 0 0 0-.703.133l-2.398-1.963c.059-.214.101-.436.101-.67C17 8.114 15.886 7 14.5 7S12 8.114 12 9.5c0 .396.1.765.262 1.097l-2.909 3.438A2.06 2.06 0 0 0 9 14c-.179 0-.348.03-.512.074l-2.563-2.563C5.97 11.348 6 11.179 6 11c0-1.108-.892-2-2-2s-2 .892-2 2 .892 2 2 2c.179 0 .348-.03.512-.074l2.563 2.563A1.906 1.906 0 0 0 7 16c0 1.108.892 2 2 2s2-.892 2-2c0-.237-.048-.46-.123-.671l2.913-3.442c.227.066.462.113.71.113a2.48 2.48 0 0 0 1.133-.281l2.399 1.963A2.077 2.077 0 0 0 18 14c0 1.108.892 2 2 2s2-.892 2-2-.892-2-2-2z"></path></svg>
-                      </span>
-                      <span class="h2 fw-extrabold">Proyecciones</span>
-                    </div>
-                  </div>
-                    <div class="row flex-fill px-4">
-                        <div class="d-block pt-3 w-75">
-                            <p class="m-1 fs-5 fw-extrabold">Descripción</p>
-                            <p>Con el objetivo de validar el Escenario BAU y crear una metodología de evaluación de
-                        estrategias de eficiencia energética funcional posterior al año 2030, el cual es el año de
-                        análisis de la mayoría de políticas públicas energéticas del país, se realizaron
-                        proyecciones de las series de datos históricas de las variables asociadas a la cadena de
-                        valor de la energía eléctrica en Colombia. Las proyecciones son una herramienta esencial
-                        para generar información relevante y actualizada que permita a los tomadores de decisiones
-                        realizar su labor de manera más informadas y precisa sobre el sector eléctrico en el futuro.
-                            </p>
-                        </div>
-                        <div class="d-block p-4 w-25">
-                            <img
-                                 src="{{ url_for('static',filename='/images/projections-man.svg') }}"
-                                 alt="Context image - Image about projections"
-                                 focusable="false">
-                        </div>
-                    </div>
-                    {# Inicio zona de contenido  #}
-                    <div class="row flex-fill px-4">
-                        <div class="d-block p-4 w-25">
-                            <img
-                                 src="{{ url_for('static',filename='/images/choose.svg') }}"
-                                 alt="Context image - Image about projections"
-                                 focusable="false">
-                        </div>
-                        <div class="d-block pt-3 w-75">
-                            <p>En la validación del Escenario BAU para las variables de cada proceso, se contemplaron las siguientes comparaciones:</p>
-                        <div class="d-flex align-items-center mb-3">
-                            <svg class="icon icon-md me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                            <span>Para la Generación, se comparó la proyección de los datos históricos de la variable Energía eléctrica generada (G) con la generación asociada a la CEN del Escenario 0.2 de la Unidad de Planeación Minero Energética - UPME.
-                            </span>
-                        </div>
-                        <div class="d-flex align-items-center mb-3">
-                            <svg class="icon icon-md me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                            <span>Para la Distribución, se comparó la proyección de los datos históricos de la variable de energía facturada y componente D del CU, con los estimados y resultados reportados por parte de la Superintendencia Servicios Públicos Domiciliarios.
-                            </span>
-                        </div>
-                        <div class="d-flex align-items-center mb-3">
-                            <svg class="icon icon-md me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                            <span>Para el Uso final, se comparó la proyección de los datos históricos de la variable Demanda de energía eléctrica (DEE) con el escenario medio de la proyección de la demanda de energía eléctrica realizado en el año 2021 por la UPME.
-                            </span>
-                        </div>
-                        </div>
-                    </div>
-                    {# Fin zona de contenido  #}
-                  </div>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+                <div class="d-block">
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block pt-2">
+                        <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                            <li class="breadcrumb-item">
+                                <a href="{{ url_for('dashboard.main') }}">
+                                    <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="#" onclick="ActiveSection('main')">Escenario base</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Proyecciones</li>
+                        </ol>
+                    </nav>
                 </div>
-              </div>
             </div>
-          </div>
+            <div class="row mb-2 min-vh-85">
+                <div class="col-12">
+                    <div class="card border-0 shadow h-100">
+                        <div class="card-body px-1 px-md-3 d-flex flex-column">
+                            <div class="row mb-2">
+                                <div class="col-12">
+                      <span class="icon-shape icon-xs icon-shape-primary rounded me-4 me-sm-0 card-effect-icon">
+                          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"
+                               xmlns="http://www.w3.org/2000/svg">><path
+                                  d="M20 12a2 2 0 0 0-.703.133l-2.398-1.963c.059-.214.101-.436.101-.67C17 8.114 15.886 7 14.5 7S12 8.114 12 9.5c0 .396.1.765.262 1.097l-2.909 3.438A2.06 2.06 0 0 0 9 14c-.179 0-.348.03-.512.074l-2.563-2.563C5.97 11.348 6 11.179 6 11c0-1.108-.892-2-2-2s-2 .892-2 2 .892 2 2 2c.179 0 .348-.03.512-.074l2.563 2.563A1.906 1.906 0 0 0 7 16c0 1.108.892 2 2 2s2-.892 2-2c0-.237-.048-.46-.123-.671l2.913-3.442c.227.066.462.113.71.113a2.48 2.48 0 0 0 1.133-.281l2.399 1.963A2.077 2.077 0 0 0 18 14c0 1.108.892 2 2 2s2-.892 2-2-.892-2-2-2z"></path></svg>
+                      </span>
+                                    <span class="h2 fw-extrabold">Proyecciones</span>
+                                </div>
+                            </div>
+                            <div class="row flex-fill px-4">
+                                <div class="d-block pt-3 w-75">
+                                    <p class="m-1 fs-5 fw-extrabold">Descripción</p>
+                                    <p>Con el objetivo de validar el Escenario BAU y crear una metodología de evaluación
+                                        de
+                                        estrategias de eficiencia energética funcional posterior al año 2030, el cual es
+                                        el año de
+                                        análisis de la mayoría de políticas públicas energéticas del país, se realizaron
+                                        proyecciones de las series de datos históricas de las variables asociadas a la
+                                        cadena de
+                                        valor de la energía eléctrica en Colombia. Las proyecciones son una herramienta
+                                        esencial
+                                        para generar información relevante y actualizada que permita a los tomadores de
+                                        decisiones
+                                        realizar su labor de manera más informadas y precisa sobre el sector eléctrico
+                                        en el futuro.
+                                    </p>
+                                </div>
+                                <div class="d-block p-4 w-25">
+                                    <img
+                                            src="{{ url_for('static',filename='/images/projections-man.svg') }}"
+                                            alt="Context image - Image about projections"
+                                            focusable="false">
+                                </div>
+                            </div>
+                            {# Inicio zona de contenido  #}
+                            <div class="row flex-fill px-4">
+                                <div class="d-block p-4 w-25">
+                                    <img
+                                            src="{{ url_for('static',filename='/images/choose.svg') }}"
+                                            alt="Context image - Image about projections"
+                                            focusable="false">
+                                </div>
+                                <div class="d-block pt-3 w-75">
+                                    <p>En la validación del Escenario BAU para las variables de cada proceso, se
+                                        contemplaron las siguientes comparaciones:</p>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <svg class="icon icon-md me-2" fill="currentColor" viewBox="0 0 20 20"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                  clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>Para la Generación, se comparó la proyección de los datos históricos de la variable Energía eléctrica generada (G) con la generación asociada a la CEN del Escenario 0.2 de la Unidad de Planeación Minero Energética - UPME.
+                            </span>
+                                    </div>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <svg class="icon icon-md me-2" fill="currentColor" viewBox="0 0 20 20"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                  clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>Para la Distribución, se comparó la proyección de los datos históricos de la variable de energía facturada y componente D del CU, con los estimados y resultados reportados por parte de la Superintendencia Servicios Públicos Domiciliarios.
+                            </span>
+                                    </div>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <svg class="icon icon-md me-2" fill="currentColor" viewBox="0 0 20 20"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                  clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span>Para el Uso final, se comparó la proyección de los datos históricos de la variable Demanda de energía eléctrica (DEE) con el escenario medio de la proyección de la demanda de energía eléctrica realizado en el año 2021 por la UPME.
+                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                            {# Fin zona de contenido  #}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
         </section>
 
         <section id="calculation" hidden>
@@ -412,7 +431,11 @@
                                                     <div class="card-body align-self-stretch p-2">
                                                         <!-- Section Table -->
                                                         <div class="table-responsive info-table"
-                                                             id="table_content"></div>
+                                                             id="table_content-generation"></div>
+                                                        <div class="table-responsive info-table"
+                                                             id="table_content-distribution"></div>
+                                                        <div class="table-responsive info-table"
+                                                             id="table_content-end_use"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -539,24 +562,27 @@
         function update_list_project(list_name) {
             SetSelectName("cadena_valor_project", list_name)
             //prettier-ignore
-            var json_file = JSON.parse('{{data_projections | tojson | safe}}')
-            var keys_list = Object.keys(json_file[list_name])
-            var keys_list_2 = []
-            var json_new = {}
+            let json_file = JSON.parse('{{data_projections | tojson | safe}}')
+            for (const value_chain in json_file) {
+                console.log(value_chain)
+                let keys_list = Object.keys(json_file[value_chain])
+                let keys_list_2 = []
+                let json_new = {}
 
-            keys_list.forEach(function (item, index) {
-                var name = item
-                var json_aux = json_file[list_name][item]
-                //saco la linea 0 donde estan los titulos
-                keys_list_2 = Object.keys(json_aux[0])
-                keys_list_2.shift()
-                json_new[item] = keys_list_2
-            })
-
-            loadTable_variables(list_name, json_new)
+                keys_list.forEach(function (item, index) {
+                    let name = item
+                    let json_aux = json_file[value_chain][item]
+                    keys_list_2 = Object.keys(json_aux[0])
+                    keys_list_2.shift()
+                    json_new[item] = keys_list_2
+                })
+                console.log(value_chain)
+                console.log(json_new)
+                loadTable_projections(value_chain, json_new)
+            }
         }
 
-        function loadTable_variables(list_name, json_new) {
+        function loadTable_projections(list_name, json_new) {
             var list_names = Object.keys(json_new)
             var table = _table_.cloneNode(false)
             var tbody = _tbody_.cloneNode(false),
@@ -601,7 +627,8 @@
             })
 
             table.appendChild(tbody)
-            table.id = "table_projections"
+            let table_name = "table_projections_" + list_name
+            table.id = table_name
             table.classList.add("table")
             table.classList.add("table-centered")
             table.classList.add("table-nowrap")
@@ -628,21 +655,22 @@
                 th.classList.add("border-0")
                 tr.appendChild(th)
                 thead.appendChild(tr)
-                thead.classList.add("thead-light")
+                thead.classList.add("d-none")
                 table.appendChild(thead)
                 return columnSet
             }
 
-            var el = document.getElementById("table_content")
+            let table_container = "table_content-" + list_name
+            var el = document.getElementById(table_container)
             el.innerHTML = ""
             el.appendChild(table)
-            const datatablesSimple = document.getElementById("table_projections")
+            const datatablesSimple = document.getElementById(table_name)
             if (datatablesSimple) {
                 let tables = new DataTable(datatablesSimple, datatable_config)
             }
-
-            var table_handler = $("#table_projections").DataTable()
-            $("#table_projections tbody").on("click", "tr", function () {
+            let jq_table = "#" + table_name
+            var table_handler = $(jq_table).DataTable()
+            $(jq_table + " tbody").on("click", "tr", function () {
                 var td_select = this.childNodes[0]
                 if (td_select.classList.contains("showhr")) {
                     $(this)
