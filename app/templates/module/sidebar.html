@@ -1,8 +1,12 @@
 <nav class="navbar navbar-dark navbar-theme-primary navbar-expand-lg sticky-top px-4 col-12 d-lg-none">
   <a class="navbar-brand d-flex align-items-center" href="{{url_for('index')}}">
     <span class="sidebar-icon px-0">
-      <img class="icon" src="{{url_for('static',filename='images/Inteegra_2.svg')}}" height="30" width="120"
-        alt="Logo IntegraAPP ">
+						<img
+							class="icon icon-md"
+							src="{{url_for('static',filename='images/Inteegra_2-min.svg')}}"
+							height="30" width="120"
+							alt="Logo Inteegra"
+						/>
     </span>
     {#<span class="px-1 fs-4 text-black fw-extrabold">Integra</span>#}
   </a>
@@ -15,7 +19,7 @@
         <div class="media d-flex align-items-center">
           <img class="avatar rounded-circle" alt="Image placeholder" src="{{url_for('static',filename='images/user.jpg')}}">
           <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
-            <span class="mb-0 font-small fw-bold text-gray-900">Nombre Usuario</span>
+            <span class="mb-0 font-small fw-bold text-gray-900">{{ current_user.name }}</span>
           </div>
         </div>
       </div>

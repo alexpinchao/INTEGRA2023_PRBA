@@ -28,6 +28,11 @@ class UserData:
             self.organization = data['organization']
             self.position = data['position']
             self.phone = data['phone']
+        else:
+            self.name = "Invitado"
+            self.organization = "Invitado"
+            self.position = "Invitado"
+            self.phone = "Invitado"
 
 
 class UserModel(UserMixin):
@@ -45,6 +50,10 @@ class UserModel(UserMixin):
         """
         self.id = user_data.username
         self.password = user_data.password
+        self.name = user_data.name
+        self.position = user_data.position
+        self.organization = user_data.organization
+        self.phone = user_data.phone
 
     @staticmethod
     def query(user_id):

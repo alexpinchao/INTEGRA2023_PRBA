@@ -43,7 +43,7 @@ def login():
                 user_data = UserData(username, password)
                 user = UserModel(user_data)
                 login_user(user)
-                flash('Bienvenido de Nuevo.')
+                flash('Bienvenido de nuevo ' + str(user_data_db['name']).split()[0])
                 session['username'] = username
                 session['admin_session'] = False
                 return redirect(url_for('dashboard.main'))
