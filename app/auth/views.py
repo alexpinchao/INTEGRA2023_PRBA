@@ -77,7 +77,7 @@ def signup():
                 print(user_new)
                 app.db_object.set_user_data(
                     user_new['idlogin'], name=username, organization="Univalle")
-                user_data = UserData(username, password_hash)
+                user_data = UserData(username, password_hash, username)
                 user = UserModel(user_data)
                 login_user(user)
                 flash('Bienvenido!')
