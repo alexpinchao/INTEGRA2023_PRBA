@@ -26,6 +26,8 @@ class UserData:
         if data:
             self.name = data['name']
             self.organization = data['organization']
+            self.position = data['position']
+            self.phone = data['phone']
 
 
 class UserModel(UserMixin):

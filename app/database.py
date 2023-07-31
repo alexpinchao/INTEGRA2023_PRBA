@@ -28,7 +28,10 @@ users_table = Table('users', metadata_obj,
                     Column('id_login', Integer,
                            ForeignKey('login.idlogin'), nullable=False),
                     Column('name', String),
-                    Column('organization', String)
+                    Column('organization', String),
+                    Column('position', String),
+                    Column('phone', String),
+                    Column('validated', String)
                     )
 
 # Emissions Factor table schema

@@ -1,248 +1,255 @@
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		{% block head %}
-		<!-- Document meta -->
-		<meta charset="utf-8" />
-		<meta http-equiv="x-ua-compatible" content="ie=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="author" content="Team Inteegra" />
-		<meta name="msapplication-TileColor" content="#ffffff" />
-		<meta name="theme-color" content="#ffffff" />
-		<meta
-			name="description"
-			content="Inteegra is a tool that allows managing energy efficiency indicators associated with the processes of generation, distribution and final use of electrical energy in Colombia"
-		/>
-		<meta name="keywords" content="Engineer, Efficiency, Electricity, Inteegra, Colombia" />
-		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:creator" content="@materile_19" />
-		<!-- Main stylesheet -->
-		<link
-			rel="stylesheet"
-			type="text/css"
-			href="{{url_for('static',filename='css/preloader.css')}}"
-		/>
-		<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/volt.css')}}" />
-		<!-- font awesome -->
-		<link
-			rel="preload"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-			rel="preload"
-			as="style"
-			onload="this.rel = 'stylesheet'"
-		/>
-		<!-- Sweet Alert -->
-		<link
-			type="text/css"
-			href="{{url_for('static',filename='vendor/sweetalert2/dist/sweetalert2.min.css')}}"
-			rel="preload"
-			as="style"
-			onload="this.rel = 'stylesheet'"
-		/>
-		<!-- Notyf -->
-		<link
-			type="text/css"
-			href="{{url_for('static',filename='vendor/notyf/notyf.min.css')}}"
-			rel="preload"
-			as="style"
-			onload="this.rel = 'stylesheet'"
-		/>
-		<link
-			rel="apple-touch-icon"
-			sizes="180x180"
-			href="{{url_for('static',filename='images/apple-touch-icon.png')}}"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="32x32"
-			href="{{url_for('static',filename='images/favicon-32x32.png')}}"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="16x16"
-			href="{{url_for('static',filename='images/favicon-16x16.png')}}"
-		/>
-		<link rel="manifest" href="{{url_for('static',filename='images/site.webmanifest')}}" />
-		<link
-			rel="mask-icon"
-			href="{{url_for('static',filename='images/safari-pinned-tab.svg')}}"
-			color="#5bbad5"
-		/>
-		<meta name="msapplication-TileColor" content="#da532c" />
-		<meta name="theme-color" content="#ffffff" />
+<head>
+    {% block head %}
+        <!-- Document meta -->
+        <meta charset="utf-8"/>
+        <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="author" content="Team Inteegra"/>
+        <meta name="msapplication-TileColor" content="#ffffff"/>
+        <meta name="theme-color" content="#ffffff"/>
+        <meta
+                name="description"
+                content="Inteegra is a tool that allows managing energy efficiency indicators associated with the processes of generation, distribution and final use of electrical energy in Colombia"
+        />
+        <meta name="keywords" content="Engineer, Efficiency, Electricity, Inteegra, Colombia"/>
+        <meta name="twitter:card" content="summary"/>
+        <meta name="twitter:creator" content="@materile_19"/>
+        <!-- Main stylesheet -->
+        <link
+                rel="stylesheet"
+                type="text/css"
+                href="{{ url_for('static',filename='css/preloader.css') }}"
+        />
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/volt.css') }}"/>
+        <!-- font awesome -->
+        <link
+                rel="preload"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+                rel="preload"
+                as="style"
+                onload="this.rel = 'stylesheet'"
+        />
+        <!-- Sweet Alert -->
+        <link
+                type="text/css"
+                href="{{ url_for('static',filename='vendor/sweetalert2/dist/sweetalert2.min.css') }}"
+                rel="preload"
+                as="style"
+                onload="this.rel = 'stylesheet'"
+        />
+        <!-- Notyf -->
+        <link
+                type="text/css"
+                href="{{ url_for('static',filename='vendor/notyf/notyf.min.css') }}"
+                rel="preload"
+                as="style"
+                onload="this.rel = 'stylesheet'"
+        />
+        <link
+                rel="apple-touch-icon"
+                sizes="180x180"
+                href="{{ url_for('static',filename='images/apple-touch-icon.png') }}"
+        />
+        <link
+                rel="icon"
+                type="image/png"
+                sizes="32x32"
+                href="{{ url_for('static',filename='images/favicon-32x32.png') }}"
+        />
+        <link
+                rel="icon"
+                type="image/png"
+                sizes="16x16"
+                href="{{ url_for('static',filename='images/favicon-16x16.png') }}"
+        />
+        <link rel="manifest" href="{{ url_for('static',filename='images/site.webmanifest') }}"/>
+        <link
+                rel="mask-icon"
+                href="{{ url_for('static',filename='images/safari-pinned-tab.svg') }}"
+                color="#5bbad5"
+        />
+        <meta name="msapplication-TileColor" content="#da532c"/>
+        <meta name="theme-color" content="#ffffff"/>
 
-		<title>{% block title %} Inteegra |{% endblock %}</title>
-		{% endblock %}
-	</head>
-	<body id="body-pd">
-		{% block body %} {% block navbar %} {% endblock %}
+        <title>{% block title %} Inteegra |{% endblock %}</title>
+    {% endblock %}
+</head>
+<body id="body-pd">
+{% block body %} {% block navbar %} {% endblock %}
 
-		<!-- Handler for flask flash messages -->
-		{% for message in get_flashed_messages() %}
-		<div class="position-fixed top-0 end-0 p-3" style="z-index: 99999">
-			<div
-				id="liveToast"
-				class="toast show"
-				role="alert"
-				aria-live="assertive"
-				aria-atomic="true"
-				data-bs-delay="2000"
-			>
-				<div class="toast-header">
-					<span class="dot rounded-circle bg-secondary me-2"></span>
-					<strong class="me-auto">Mensaje</strong>
-					<small>ahora</small>
-				</div>
-				<div class="toast-body">{{message}}</div>
-			</div>
-		</div>
-		<script>
-			function load() {
-				setTimeout(function () {
-					$("#liveToast").fadeOut("fast")
-				}, 3000)
-			}
-			window.addEventListener("load", toastClose, true)
-			function toastClose() {
-				load()
-			}
-		</script>
-		{% endfor %} {% block content %}
-		<div class="preloader">
-			<div class="text-loader pb-5">
-				{#<p class="h1 fw-extrabold text-black">INTEEGRA</p>#}
-				<span class="sidebar-icon p-2">
+    <!-- Handler for flask flash messages -->
+    <div class="position-fixed top-0 end-0" style="z-index: 99999">
+        {% for message in get_flashed_messages() %}
+            <div class="p-1 px-2">
+                <div
+                        id="liveToast"
+                        class="toast show"
+                        role="alert"
+                        aria-live="assertive"
+                        aria-atomic="true"
+                        data-bs-delay="2000"
+                >
+                    <div class="toast-header">
+                        <span class="dot rounded-circle bg-secondary me-2"></span>
+                        <strong class="me-auto">Mensaje</strong>
+                        <small>ahora</small>
+                    </div>
+                    <div class="toast-body">{{ message }}</div>
+                </div>
+            </div>
+            <script>
+                function load() {
+                    setTimeout(function () {
+                        $(".toast").fadeOut("fast")
+                    }, 3000)
+                }
+
+                window.addEventListener("load", toastClose, true)
+
+                function toastClose() {
+                    load()
+                }
+            </script>
+        {% endfor %}
+    </div>
+    {% block content %}
+        <div class="preloader">
+            <div class="text-loader pb-5">
+                {#<p class="h1 fw-extrabold text-black">INTEEGRA</p>#}
+                <span class="sidebar-icon p-2">
 					<img
-						class="icon icon-lg"
-						src="{{url_for('static',filename='images/Inteegra_2-min.svg')}}"
-						height="120"
-                        width="480"
-						alt="Logo Inteegra"
-					/>
+                            class="icon icon-lg"
+                            src="{{ url_for('static',filename='images/Inteegra_2-min.svg') }}"
+                            height="120"
+                            width="480"
+                            alt="Logo Inteegra"
+                    />
 				</span>
-			</div>
-			<div class="loader my-5">
-				<div class="duo duo1">
-					<div class="dott dott-a"></div>
-					<div class="dott dott-b"></div>
-				</div>
-				<div class="duo duo2">
-					<div class="dott dott-a"></div>
-					<div class="dott dott-b"></div>
-				</div>
-			</div>
-		</div>
+            </div>
+            <div class="loader my-5">
+                <div class="duo duo1">
+                    <div class="dott dott-a"></div>
+                    <div class="dott dott-b"></div>
+                </div>
+                <div class="duo duo2">
+                    <div class="dott dott-a"></div>
+                    <div class="dott dott-b"></div>
+                </div>
+            </div>
+        </div>
 
-		{% block cookies %} {% if not cookies_check() %} {# show a cookie consent banner #}
-        <section>
-        <div id="cookie-consent-container">{% include 'consent.html' %}</div>
-        </section>
-		<script type="text/javascript">
-			function fn_cookies(user_select) {
-				if (user_select) {
-					document.cookie = "cookie_consent=true; Secure; SameSite=Strict"
-					document.getElementById("cookie-consent-container").hidden = true
-				}
-			}
-		</script>
-		{% endif %} {% endblock %} {% endblock %} {% block scripts%}
-		<!-- Core -->
-		<script
-			type="text/javascript"
-			src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-		></script>
-		<script type="text/javascript" src="{{url_for('static',filename='js/popper.min.js')}}"></script>
-		<script
-			type="text/javascript"
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-		></script>
-		<!-- Local scripts -->
-		<script type="text/javascript" src="{{url_for('static',filename='js/scripts.js')}}"></script>
+        {% block cookies %} {% if not cookies_check() %} {# show a cookie consent banner #}
+            <section>
+                <div id="cookie-consent-container">{% include 'consent.html' %}</div>
+            </section>
+            <script type="text/javascript">
+                function fn_cookies(user_select) {
+                    if (user_select) {
+                        document.cookie = "cookie_consent=true; Secure; SameSite=Strict"
+                        document.getElementById("cookie-consent-container").hidden = true
+                    }
+                }
+            </script>
+        {% endif %} {% endblock %} {% endblock %} {% block scripts %}
+    <!-- Core -->
+    <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+    ></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/popper.min.js') }}"></script>
+    <script
+            type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+    ></script>
+    <!-- Local scripts -->
+    <script type="text/javascript" src="{{ url_for('static',filename='js/scripts.js') }}"></script>
 
-		<script type="text/javascript">
-			function preloaderFn() {
-				$(".preloader").fadeOut("fast")
-			}
-			window.addEventListener("load", preloaderClose, true)
-			function preloaderClose() {
-				preloaderFn()
-			}
-		</script>
+    <script type="text/javascript">
+        function preloaderFn() {
+            $(".preloader").fadeOut("fast")
+        }
 
-		<!-- Vendor JS -->
-		<script
-			type="text/javascript"
-			src="{{url_for('static',filename='js/src/on-screen.umd.min.js')}}"
-		></script>
-		<!-- Slider -->
-		<script
-			type="text/javascript"
-			src="{{url_for('static',filename='js/src/nouislider.min.js')}}"
-		></script>
-		<!-- Smooth scroll -->
-		<script
-			type="text/javascript"
-			src="{{url_for('static',filename='js/src/smooth-scroll.polyfills.min.js')}}"
-		></script>
-		<!-- Charts -->
-		<!--     <script type="text/javascript" src="{{url_for('static',filename='js/src/chartist.min.js')}}"></script>
+        window.addEventListener("load", preloaderClose, true)
+
+        function preloaderClose() {
+            preloaderFn()
+        }
+    </script>
+
+    <!-- Vendor JS -->
+    <script
+            type="text/javascript"
+            src="{{ url_for('static',filename='js/src/on-screen.umd.min.js') }}"
+    ></script>
+    <!-- Slider -->
+    <script
+            type="text/javascript"
+            src="{{ url_for('static',filename='js/src/nouislider.min.js') }}"
+    ></script>
+    <!-- Smooth scroll -->
+    <script
+            type="text/javascript"
+            src="{{ url_for('static',filename='js/src/smooth-scroll.polyfills.min.js') }}"
+    ></script>
+    <!-- Charts -->
+    <!--     <script type="text/javascript" src="{{url_for('static',filename='js/src/chartist.min.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static',filename='js/src/chartist-plugin-tooltip.min.js')}}"></script> -->
-		<!-- Datepicker -->
-		<script
-			type="text/javascript"
-			src="{{url_for('static',filename='js/src/datepicker.min.js')}}"
-		></script>
-		<!-- Sweet Alerts 2 -->
-		<script
-			type="text/javascript"
-			src="{{url_for('static',filename='js/src/sweetalert2.all.min.js')}}"
-		></script>
-		<!-- Moment JS -->
-		<!--     <script type="text/javascript" src="{{url_for('static',filename='js/src/moment.js')}}"></script> -->
-		<!-- Notyf -->
-		<script
-			type="text/javascript"
-			src="{{url_for('static',filename='js/src/notyf.min.js')}}"
-		></script>
-		<!-- Simplebar -->
-		<script
-			type="text/javascript"
-			src="{{url_for('static',filename='js/src/simplebar.min.js')}}"
-		></script>
+    <!-- Datepicker -->
+    <script
+            type="text/javascript"
+            src="{{ url_for('static',filename='js/src/datepicker.min.js') }}"
+    ></script>
+    <!-- Sweet Alerts 2 -->
+    <script
+            type="text/javascript"
+            src="{{ url_for('static',filename='js/src/sweetalert2.all.min.js') }}"
+    ></script>
+    <!-- Moment JS -->
+    <!--     <script type="text/javascript" src="{{url_for('static',filename='js/src/moment.js')}}"></script> -->
+    <!-- Notyf -->
+    <script
+            type="text/javascript"
+            src="{{ url_for('static',filename='js/src/notyf.min.js') }}"
+    ></script>
+    <!-- Simplebar -->
+    <script
+            type="text/javascript"
+            src="{{ url_for('static',filename='js/src/simplebar.min.js') }}"
+    ></script>
 
-		<!-- Volt JS -->
-		<script type="text/javascript" src="{{url_for('static',filename='js/src/volt.js')}}"></script>
+    <!-- Volt JS -->
+    <script type="text/javascript" src="{{ url_for('static',filename='js/src/volt.js') }}"></script>
 
-		<!-- Schema genator -->
-		<script type="application/ld+json">
-			{
-				"@context": "https://schema.org",
-				"@type": "WebTool",
-				"headline": "Inteegra",
-				"image": [
-					"https://example.com/photos/1x1/photo.jpg",
-					"https://example.com/photos/4x3/photo.jpg",
-					"https://example.com/photos/16x9/photo.jpg"
-				],
-				"datePublished": "2022-05-26T08:00:00+08:00",
-				"dateModified": "2015-09-22T09:20:00+08:00",
-				"author": [
-					{
-						"@type": "Person",
-						"name": "Mateo Barrera",
-						"url": "http://example.com/profile/janedoe123"
-					},
-					{
-						"@type": "Person",
-						"name": "Alex Pinchao",
-						"url": "http://example.com/profile/johndoe123"
-					}
-				]
-			}
-		</script>
+    <!-- Schema genator -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebTool",
+            "headline": "Inteegra",
+            "image": [
+                "https://example.com/photos/1x1/photo.jpg",
+                "https://example.com/photos/4x3/photo.jpg",
+                "https://example.com/photos/16x9/photo.jpg"
+            ],
+            "datePublished": "2022-05-26T08:00:00+08:00",
+            "dateModified": "2015-09-22T09:20:00+08:00",
+            "author": [
+                {
+                    "@type": "Person",
+                    "name": "Mateo Barrera",
+                    "url": "http://example.com/profile/janedoe123"
+                },
+                {
+                    "@type": "Person",
+                    "name": "Alex Pinchao",
+                    "url": "http://example.com/profile/johndoe123"
+                }
+            ]
+        }
+    </script>
 
-		{% endblock %} {% endblock %}
-	</body>
+{% endblock %} {% endblock %}
+</body>
 </html>
