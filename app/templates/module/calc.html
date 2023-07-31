@@ -207,19 +207,22 @@
                             <div class="row flex-fill px-4">
                                 <div class="d-block pt-3 w-75">
                                     <p class="m-1 fs-5 fw-extrabold">Descripción</p>
-                                    <p>Con el objetivo de validar el Escenario BAU y crear una metodología de evaluación
-                                        de
-                                        estrategias de eficiencia energética funcional posterior al año 2030, el cual es
-                                        el año de
-                                        análisis de la mayoría de políticas públicas energéticas del país, se realizaron
-                                        proyecciones de las series de datos históricas de las variables asociadas a la
-                                        cadena de
-                                        valor de la energía eléctrica en Colombia. Las proyecciones son una herramienta
-                                        esencial
-                                        para generar información relevante y actualizada que permita a los tomadores de
-                                        decisiones
-                                        realizar su labor de manera más informadas y precisa sobre el sector eléctrico
-                                        en el futuro.
+                                    <p>Las proyecciones son una herramienta esencial para generar información relevante
+                                        y actualizada que permita a los tomadores de decisiones realizar su labor de
+                                        manera más informadas y precisa sobre el sector eléctrico en el futuro.
+                                        Un método de proyección es una técnica estadística que se utiliza para predecir
+                                        el valor futuro de una serie de tiempo en función de sus valores previos y/o de
+                                        otras variables relacionadas.
+                                        Las proyecciones se realizaron con el objetivo de validar el Escenario BAU y
+                                        crear una metodología de evaluación
+                                        de estrategias de eficiencia energética funcional posterior al año 2030, el cual
+                                        es el año de análisis de la mayoría de políticas públicas energéticas del país.
+                                        Estos métodos son utilizados en el análisis de
+                                        series de tiempo para hacer pronósticos de eventos futuros y tomar decisiones
+                                        basadas en esos pronósticos.
+                                        En este estudio se pretenden aplicar modelos de proyección a largo plazo, es
+                                        decir anualmente, sobre las series de datos históricas de las variables
+                                        asociadas a la cadena de valor de la energía eléctrica nacional.
                                     </p>
                                 </div>
                                 <div class="d-block p-4 w-25">
@@ -231,6 +234,126 @@
                             </div>
                             {# Inicio zona de contenido  #}
                             <div class="row flex-fill px-4">
+                                <div class="d-block pt-3">
+                                    <div class="d-flex align-items-center mb-3">
+                                        A continuación se indican las variables asociadas a la cadena de valor de la
+                                        energía eléctrica de Colombia que se pretenden proyectar hasta el año 2030,
+                                        indicando la frecuencia de muestreo y la fuente de las series de datos. Así
+                                        mismo, se define el tratamiento previo de las series de datos necesario para
+                                        emplear modelos de proyección, se realiza una revisión del estado del arte de
+                                        los métodos de proyección existentes, y finalmente, se indican los estadísticos
+                                        empleados para comparar y seleccionar los métodos de proyección a utilizar.
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive">
+                                            <table class="table table-centered table-nowrap mb-0 rounded">
+                                                <thead class="thead-light">
+                                                <tr>
+                                                    <th class="border-0 rounded-start">Tipo</th>
+                                                    <th class="border-0">Variable</th>
+                                                    <th class="border-0">Desagregación</th>
+                                                    <th class="border-0">Frecuencia de muestreo</th>
+                                                    <th class="border-0 rounded-end">Fuente</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>Variable de interés</td>
+                                                    <td class="fw-bold d-flex align-items-center">
+                                                        Energía eléctrica generada <br> G [GWh]
+                                                    </td>
+                                                    <td><strong>Nivel 1:</strong> Energía eléctrica generada total.</td>
+                                                    <td>Trimestralmente desde el año 2000 hasta el año 2021. 88 datos en
+                                                        total.
+                                                    </td>
+                                                    <td>Sinergox - XM</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Variable de interés</td>
+                                                    <td class="fw-bold d-flex align-items-center">
+                                                        Energía primaria consumida <br> C [GWh]
+                                                    </td>
+                                                    <td><strong>Nivel 1:</strong> Energía primaria consumida total.</td>
+                                                    <td>Trimestralmente desde el año 2000 hasta el año 2021. 88 datos en
+                                                        total.
+                                                    </td>
+                                                    <td>BECO - UPME</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Variable de interés</td>
+                                                    <td class="fw-bold d-flex align-items-center">
+                                                        Energía Facturada <br> EF [GWh]
+                                                    </td>
+                                                    <td><strong>Nivel 1:</strong> Energía eléctrica facturada total.
+                                                    </td>
+                                                    <td>Trimestralmente desde el año 2010 hasta el año 2021. 44 datos en
+                                                        total.
+                                                    </td>
+                                                    <td>LAC ADD- XM</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Variable de interés</td>
+                                                    <td class="fw-bold d-flex align-items-center">
+                                                        Costo de distribución eléctrica <br> CD [$/kWh]
+                                                    </td>
+                                                    <td><strong>Nivel 1:</strong> Costo asociado a la distribución
+                                                        eléctrica.
+                                                    </td>
+                                                    <td>Trimestralmente desde el año 2010 hasta el año 2021. 44 datos en
+                                                        total.
+                                                    </td>
+                                                    <td>LAC ADD - XM</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Variable de interés</td>
+                                                    <td class="fw-bold d-flex align-items-center">
+                                                        Demanda de energía eléctrica <br> DEE [GWh]
+                                                    </td>
+                                                    <td><strong>Nivel 1:</strong> Energía eléctrica consumida total en
+                                                        el uso final.
+                                                    </td>
+                                                    <td>Trimestralmente desde el año 2000 hasta el año 2021. 88 datos en
+                                                        total.
+                                                    </td>
+                                                    <td>UPME</td>
+                                                </tr>
+                                                <tr></tr>
+                                                <tr>
+                                                    <td>Variable exógena</td>
+                                                    <td class="fw-bold d-flex align-items-center">
+                                                        Producto Interno Bruto <br> PIB
+                                                        [billones de dólares]
+                                                    </td>
+                                                    <td><strong>Nivel 1:</strong> PIB real base 2015: PIB nacional a
+                                                        precios constantes del 2015.
+                                                    </td>
+                                                    <td>Trimestralmente desde el año 2000 hasta el año 2030. 124 datos
+                                                        en
+                                                        total.
+                                                    </td>
+                                                    <td>UPME</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Variable exógena</td>
+                                                    <td class="fw-bold d-flex align-items-center">
+                                                        Población <br> POB
+                                                        [miles de personas]
+                                                    </td>
+                                                    <td><strong>Nivel 1:</strong> Población total de Colombia.
+                                                    </td>
+                                                    <td>Trimestralmente desde el año 2000 hasta el año 2030. 124 datos
+                                                        en
+                                                        total.
+                                                    </td>
+                                                    <td>UPME</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row flex-fill px-4 mt-2">
                                 <div class="d-block p-4 w-25">
                                     <img
                                             src="{{ url_for('static',filename='/images/choose.svg') }}"
@@ -257,7 +380,7 @@
                                                   d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                                   clip-rule="evenodd"></path>
                                         </svg>
-                                        <span>Para la Distribución, se comparó la proyección de los datos históricos de la variable de energía facturada y componente D del CU, con los estimados y resultados reportados por parte de la Superintendencia Servicios Públicos Domiciliarios.
+                                        <span>Para la Distribución, se comparó la proyección de los datos históricos de la variable de energía facturada y componente de Distribución del CU, con los estimados y resultados reportados por parte de la Superintendencia Servicios Públicos Domiciliarios.
                             </span>
                                     </div>
                                     <div class="d-flex align-items-center mb-3">
