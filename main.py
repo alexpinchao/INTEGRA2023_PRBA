@@ -149,7 +149,7 @@ def contact():
     }
     if request.method == 'POST':
         contact_data = request.form.to_dict()
-        contacto_context = {
+        contact_context = {
             'mail': contact_data.get('mail'),
             'name': contact_data.get('name'),
             'identifier': contact_data.get('identifier', '+57'),
@@ -160,7 +160,7 @@ def contact():
             'date': datetime.now().strftime("%x"),
             'hour': datetime.now().strftime("%X")
         }
-        send_email(contact_data.get('mail'), contacto_context)
+        send_email(contact_data.get('mail'), contact_context)
         flash("Mensaje enviado")
 
     if current_user.is_authenticated:

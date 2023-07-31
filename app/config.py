@@ -11,6 +11,7 @@ class Config:
     """
     # Session Cookie
     SECRET_KEY = 'SUPER SECRET'
+    TIMEZONE = 'US/Eastern'
     # SQLAlchemy config
     DB_URI = os.path.abspath('app/sqlite/TestDB.db')
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + DB_URI
