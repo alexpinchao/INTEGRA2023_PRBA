@@ -663,7 +663,7 @@ strategies_definition = {
                     },
                     {
                         "id": "e006",
-                        "name": "Electrificación del transporte de carga y pasajeros taxis",
+                        "name": "Electrificación del transporte ligero taxis",
                         "description": "N/A",
                         "variable": "Número de vehículos eléctricos",
                         "upper_value": 10000,
@@ -705,7 +705,7 @@ strategies_definition = {
                     },
                     {
                         "id": "e007",
-                        "name": "Electrificación del transporte de carga y pasajeros camiones",
+                        "name": "Electrificación del transporte de carga camiones",
                         "description": "N/A",
                         "variable": "Número de vehículos eléctricos",
                         "upper_value": 10000,

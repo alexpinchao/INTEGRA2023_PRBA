@@ -2389,7 +2389,7 @@ function dataGraphStrategiesEndUse(strategies) {
 
 function sumStrategyDatawithAccumulation(data_model_electrification) {
     let arrays = data_model_electrification.map((arr) => arr.map((obj) => Object.values(obj)[1]))
-    let sumaTotal = 0
+    let sumaTotal = 38.88612 // se inicia en este valor ya que para el analisis desde 2022 -2030 para el año 2021 ya se tiene este valor de electrificación
     const resultado = []
     for (let i = 0; i < arrays[0].length; i++) {
         let suma = 0
