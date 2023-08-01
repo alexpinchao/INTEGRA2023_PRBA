@@ -100,15 +100,16 @@ def home():
     Returns:
         server response: Home-page for platform welcome
     """
-    text_module_db = 'En el módulo de base de datos se recopila información de las variables e indicadores de ' \
+    text_module_db = 'En este módulo se recopila la información de las variables y los indicadores de ' \
                      'eficiencia energética asociados a los procesos de generación, distribución y uso final de la ' \
-                     'energía eléctrica en Colombia.'
-    text_module_calc = 'En este módulo se visualiza la tendencia histórica de los indicadores de eficiencia ' \
-                       'energética del sector eléctrico en Colombia y se incluye la especificación de los modelos de ' \
-                       'proyección empleados de cara a la evaluación de estrategias de eficiencia energética'
-    text_module_anl = 'En este módulo se construyen y evalúan las estrategias de eficiencia energética mediante ' \
-                      'criterios económicos, ambientales y energéticos, al ser proyectadas hacia los años de interés,' \
-                      'permitiendo definir las estrategias más viables para el país.'
+                     'energía eléctrica en Colombia, visualizando su tendencia histórica.'
+    text_module_calc = 'En este módulo se presenta la especificación del modelo de proyección para las variables, ' \
+                       'empleadas en la evaluación de estrategias de eficiencia energética del sector eléctrico ' \
+                       'en Colombia. También se incluye la visualización de los resultados de proyección con la ' \
+                       'tendencia histórica de las variables hasta el 2030.'
+    text_module_anl = 'En este módulo se construyen y evalúan las estrategias de eficiencia energética asociadas al ' \
+                      'sector eléctrico colombiano, mediante criterios económicos, ambientales y energéticos, ' \
+                      'permitiendo definir las estrategias más viables para el país, según el año de análisis.'
 
     if current_user.is_authenticated:
         user_ip = session.get('user_ip')
