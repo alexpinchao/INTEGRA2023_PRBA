@@ -40,7 +40,7 @@
 								src="{{url_for('static',filename='images/user.jpg')}}"
 							/>
 							<div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
-								<span class="mb-0 font-small fw-bold text-gray-900">Nombre Usuario</span>
+								<span class="mb-0 font-small fw-bold text-gray-900">{{ current_user.name }}</span>
 							</div>
 						</div>
 					</a>
@@ -63,7 +63,8 @@
 							</svg>
 							Configuración
 						</a>
-						<a class="dropdown-item d-flex align-items-center" href="#">
+						<a class="dropdown-item d-flex align-items-center" href="#" data-bs-toggle="tooltip" data-bs-placement="left"
+                                        title="Consulte con el administrador del sitio para acceder a este apartado.">
 							<svg
 								class="dropdown-icon text-gray-400 me-2"
 								fill="currentColor"

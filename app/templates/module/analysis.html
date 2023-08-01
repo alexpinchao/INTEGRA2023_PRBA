@@ -2718,6 +2718,7 @@ macros %} {% block head %} {{ super() }}
             _tbody_ = document.createElement("tbody"),
             _i_ = document.createElement("i"),
             _a_ = document.createElement("a"),
+            _span_ = document.createElement("span"),
             _ul_ = document.createElement("ul"),
             _p_ = document.createElement("p")
 
@@ -2777,8 +2778,11 @@ macros %} {% block head %} {{ super() }}
                 let a = _a_.cloneNode(false)
                 let strategies_name = strategies_models[items].name
                 let sub_strategies = strategies_models[items].strategies
+                let descripcion= strategies_models[items].descripcion
                 let sub_strategies_keys = Object.keys(sub_strategies)
                 a.appendChild(document.createTextNode(strategies_name || ""))
+                a.setAttribute("title", descripcion)
+
                 td.classList.add("fw-extrabold")
                 td.classList.add("showhr")
                 let i = _i_.cloneNode(false)

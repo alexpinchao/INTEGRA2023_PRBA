@@ -37,6 +37,7 @@ strategies_definition = {
             {
                 "id": "d001",
                 "name": "Estrategias de expansión",
+                "descripcion": "Son aquellas asociadas al cambio en la generación eléctrica debido a la variación de la capacidad instalada en las plantas eléctricas",
                 "strategies": [
                     # STRATEGY TEST #
                     # {
@@ -189,6 +190,7 @@ strategies_definition = {
             {
                 "id": "d002",
                 "name": "Estrategias de actualización",
+                "descripcion": "Son aquellas que buscan reducir el consumo de fuentes primarias en las plantas de generación eléctrica, mediante una mejora en la eficiencia de las tecnologías empleadas a través de un recambio tecnológico. Cada estrategia considera la generación eléctrica modelada en las estrategias de expansión",
                 "strategies": [
                     {
                         "id": "y001",
@@ -375,6 +377,7 @@ strategies_definition = {
             {
                 "id": "z001",
                 "name": "Digitalización y gestión de la medida",
+                "descripcion": "Digitalización y gestión de la medida es bbbbbbbbbbb",
                 "strategies": [
                     {
                         "id": "w001",
@@ -446,6 +449,7 @@ strategies_definition = {
             {
                 "id": "u001",
                 "name": "Estrategias de electrificación en el transporte",
+                "descripcion": "Son estrategias de descarbonización que buscan incluir el uso de vehículos eléctricos en las diferentes categorías del parque automotor colombiano, calculando el consumo eléctrico necesario para suplir esta demanda",
                 "strategies": [
                     {
                         "id": "e001",
@@ -659,7 +663,7 @@ strategies_definition = {
                     },
                     {
                         "id": "e006",
-                        "name": "Electrificación del transporte de carga y pasajeros taxis",
+                        "name": "Electrificación del transporte ligero taxis",
                         "description": "N/A",
                         "variable": "Número de vehículos eléctricos",
                         "upper_value": 10000,
@@ -701,7 +705,7 @@ strategies_definition = {
                     },
                     {
                         "id": "e007",
-                        "name": "Electrificación del transporte de carga y pasajeros camiones",
+                        "name": "Electrificación del transporte de carga camiones",
                         "description": "N/A",
                         "variable": "Número de vehículos eléctricos",
                         "upper_value": 10000,
@@ -746,6 +750,7 @@ strategies_definition = {
             {
                 "id": "u002",
                 "name": "Estrategias de actualización tecnológica",
+                "descripcion": "Estas estrategias están asociadas a la reducción del consumo eléctrico en los sectores de uso final, dado un cambio de tecnologías que tienden a una mejor eficiencia energética. La máxima eficiencia a alcanzar en el año de análisis, es aquella correspondiente a la mejor tecnología que se espera estará disponible en Colombia (BAT) para la fecha",
                 "strategies": [
                     {
                         "id": "f001",

@@ -35,10 +35,15 @@ def login():
             user = user[0]
             password_from_db = user['password']
             if check_password_hash(password_from_db, password):
-                user_data = UserData(username, password)
+                user_data_db = app.db_object.get_user_data(user['idlogin'])[0]
+                if user_data_db['validated'] == 'False':
+                    flash('Su usuario aun no ha sido validado en el sistema')
+                    flash('El proceso de validación se efectuara por parte de un administrador de INTEEGRA')
+                    return redirect(url_for('home'))
+                user_data = UserData(username, password, username)
                 user = UserModel(user_data)
                 login_user(user)
-                flash('Bienvenido de Nuevo.')
+                flash('Bienvenido de nuevo ' + str(user_data_db['name']).split()[0])
                 session['username'] = username
                 session['admin_session'] = False
                 return redirect(url_for('dashboard.main'))
@@ -72,7 +77,7 @@ def signup():
                 print(user_new)
                 app.db_object.set_user_data(
                     user_new['idlogin'], name=username, organization="Univalle")
-                user_data = UserData(username, password_hash)
+                user_data = UserData(username, password_hash, username)
                 user = UserModel(user_data)
                 login_user(user)
                 flash('Bienvenido!')

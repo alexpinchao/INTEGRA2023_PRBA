@@ -20,6 +20,7 @@ let data_topsis = []
 var strategies_const
 let const_strategies = {}
 let const_loss_factor = {}
+let data_for_topsis_dist = []
 var al = Math.floor(Math.random() * 255)
 var b_colorslist = [
     "rgba(" + al + ", 99, 132, 0.8)",
@@ -1126,7 +1127,7 @@ function filterStrategiesById(array, ids) {
                         .map((inStrategies) => {
                             let newEltValue
                             if (typeof inStrategies.pi_bau !== "undefined") {
-                                let new_value = inStrategies.pi_bau[n - 1] * 100
+                                let new_value = (inStrategies.pi_bau[n - 1] * 100).toFixed(1)
                                 //console.log(" auidaa new_value_aux", new_value_aux)
                                 newEltValue = Object.assign({}, inStrategies, {
                                     value: new_value,
@@ -1766,6 +1767,7 @@ function prepareDataTopsis(eficiency, iep, iec, name) {
             },
         ],
     })
+    console.log("data_topsis_return", data_topsis_return)
     return data_topsis_return
 }
 
@@ -1797,6 +1799,7 @@ function createDataChartTopsis(data) {
 function createGraphIndicator(create_data_indicator_generation, create_data_indicator_consume) {
     let generacion = create_data_indicator_generation
     let consumo = create_data_indicator_consume
+    let data_topsis = []
     //datos de pib desde 2022 hasta 2030, no es necesario agregar año porque el sistem recorre hasta el año que necesita
     let pib = [
         344.1612833, 355.4685381, 367.8705797, 380.837696, 394.8857455, 408.9742253, 423.1216551,
@@ -2056,12 +2059,13 @@ function plotDataIndicators(strategies) {
 }
 
 function modelExpansionEstrategyOnlyData(n, valorObjetivo, fp, generacion_historica) {
-    var increment = valorObjetivo / n
+    let c_i_base = generacion_historica / (8760* fp)
+    var increment = (valorObjetivo - c_i_base)/ n
     var data = []
     var data_Return = []
     let gp = 0
 
-    let creaIncrement = increment
+    let creaIncrement = c_i_base + increment
     for (let a = 0; a < n; a++) {
         data.push(creaIncrement)
         creaIncrement = creaIncrement + increment
@@ -2074,17 +2078,7 @@ function modelExpansionEstrategyOnlyData(n, valorObjetivo, fp, generacion_histor
 }
 
 function modelExpansionEstrategy(n, valorObjetivo, fp, name, generacion_historica) {
-    // if ( valorObjetivo ){
-
-    // }
     let c_i_base = generacion_historica / (8760* fp)
-    console.log("generacion_historica")
-    console.log(generacion_historica)
-    console.log("c_i_base")
-    console.log(c_i_base)
-    console.log("fp")
-    console.log(fp)
-
     var increment = (valorObjetivo - c_i_base)/ n
     var data = []
     var data_plot = []
@@ -2097,12 +2091,6 @@ function modelExpansionEstrategy(n, valorObjetivo, fp, name, generacion_historic
         data.push(creaIncrement)
         creaIncrement = creaIncrement + increment
     }
-    console.log("increment")
-    console.log(increment)
-
-    console.log("data")
-    console.log(data)
-
     for (let i = 0; i < data.length; i++) {
         let data_plot_dict = {}
         let anio = "202" + j
@@ -2401,7 +2389,7 @@ function dataGraphStrategiesEndUse(strategies) {
 
 function sumStrategyDatawithAccumulation(data_model_electrification) {
     let arrays = data_model_electrification.map((arr) => arr.map((obj) => Object.values(obj)[1]))
-    let sumaTotal = 0
+    let sumaTotal = 38.88612 // se inicia en este valor ya que para el analisis desde 2022 -2030 para el año 2021 ya se tiene este valor de electrificación
     const resultado = []
     for (let i = 0; i < arrays[0].length; i++) {
         let suma = 0
@@ -2592,7 +2580,7 @@ function generateDataIndicatorEndUse(
     let lightweight_vehicles_array = [] //almacena los valores de las estrategegias de electr del transporte ligero
     let heavy_vehicles = []
     let heavy_vehicles_array = [] //almacena los valores de las estrategegias de electr del transporte pesado
-    // let data_topsis = []
+    data_topsis = []
     let sub_strategies_key = Object.keys(sub_strategies_electrification)
     sub_strategies_key.forEach(function (item, index) {
         //let data_electrification = []
@@ -2895,7 +2883,7 @@ function calculateLossFactor(n, ami, final_reduction, ami_bau, name, type) {
     let final_reduction_formula = 1 - final_reduction / ami_bau
     
     if (type == 2){
-        console.log("---- entra a progresivo")
+        //console.log("---- entra a progresivo")
         let  ami_progre = ami
         for (m = 0; m< n ; m ++){
             data_ami.push(ami_progre)
@@ -2903,7 +2891,7 @@ function calculateLossFactor(n, ami, final_reduction, ami_bau, name, type) {
         }
         data_ami.reverse();
     }else {
-        console.log("---- entra a lineal")
+        //console.log("---- entra a lineal")
         var increment_ami = ami / n
         let creaincrement_ami = increment_ami
         for (let a = 0; a < n; a++) {
@@ -2911,12 +2899,12 @@ function calculateLossFactor(n, ami, final_reduction, ami_bau, name, type) {
             creaincrement_ami = creaincrement_ami + increment_ami
         }
     }
-    console.log("---- ami_bau", ami_bau)
-    console.log("---- ami objetivo", ami)
-    console.log("---- final_reduction", final_reduction)
+    // console.log("---- ami_bau", ami_bau)
+    // console.log("---- ami objetivo", ami)
+    // console.log("---- final_reduction", final_reduction)
 
-    console.log("data_ami", data_ami)
-    console.log("--- final_reduction_formula", final_reduction_formula)
+    // console.log("data_ami", data_ami)
+    // console.log("--- final_reduction_formula", final_reduction_formula)
     for (let i = 0; i < data_ami.length; i++) {
         let data_plot_dict = {}
         let anio = "202" + j
@@ -2925,9 +2913,9 @@ function calculateLossFactor(n, ami, final_reduction, ami_bau, name, type) {
             anio = "203" + j
         }
         j++
-        console.log("---- ami_bau", ami_bau)
+        //console.log("---- ami_bau", ami_bau)
         factor_perdidas = ami_bau * (1 - data_ami[i] * final_reduction_formula)
-        console.log(" --- factor_perdidas", factor_perdidas)
+        //console.log(" --- factor_perdidas", factor_perdidas)
         data_plot_dict.Año = anio
         data_plot_dict[name] = factor_perdidas
         data_plot.push(data_plot_dict)
@@ -2937,9 +2925,192 @@ function calculateLossFactor(n, ami, final_reduction, ami_bau, name, type) {
     return [data_plot_return, data_plot]
 }
 
+function distributionIndicatorsEEP(fdp, ener_facturada_equ) {
+    let name = "Emisiones equivalentes de las pérdidas de distribución"
+    let fe = 0.2 //Factor de emisióin [gCO2eq/Wh]
+    let eep = 0 // (consumo*fe) /pib
+    let anio = ""
+    let k = 2
+    let data_plot_eep = []
+    var data_plot_return = []
+
+    for (var i = 0; i < fdp.length; i++) {
+        let data_plot_dict = {}
+        anio = "202" + k
+        if (k > 9) {
+            k = 0
+            anio = "203" + k
+        }
+        k++
+        let temp = (fdp[i]*ener_facturada_equ[i]/(1-fdp[i]))/1000000
+        eep = temp* fe
+        data_plot_dict.Año = anio
+        data_plot_dict[name] = eep
+        data_plot_eep.push(data_plot_dict)
+    }
+    data_plot_return["Indicador emisiones equivalentes de las pérdidas de distribución"] = data_plot_eep
+    createChartIndicador3(
+        list_name,
+        "Indicador emisiones equivalentes de las pérdidas de distribución",
+        name,
+        data_plot_return,
+        "chart_title_7",
+        "line-chart-7",
+        "graph-container-7"
+    )
+    return data_plot_return
+}
+
+function distributionIndicatorsCEP(fdp, costo_dist, ener_facturada_equ, USD_promedio) {
+    let name = "Costo equivalente a pérdidas ADD en Millones de USD"
+    let cep = 0 // (consumo /pib)/1000
+    let anio = ""
+    let k = 2
+    let data_plot_cep = []
+    var data_plot_return = []
+    for (var i = 0; i < fdp.length; i++) {
+        let data_plot_dict = {}
+        anio = "202" + k
+        if (k > 9) {
+            k = 0
+            anio = "203" + k
+        }
+        k++
+        cep = (fdp[i]*ener_facturada_equ[i]/(1 - fdp[i]))*(costo_dist[i]/USD_promedio)
+        //data_plot_dict = {"Año": anio, "Indicador costo equivalente a pérdidas": cep};
+        data_plot_dict.Año = anio
+        data_plot_dict[name] = cep
+        data_plot_cep.push(data_plot_dict)
+    }
+    data_plot_return["Indicador costo equivalente a pérdidas"] = data_plot_cep
+    createChartIndicador2(
+        list_name,
+        "Indicador costo equivalente a pérdidas",
+        name,
+        data_plot_return,
+        "chart_title_6",
+        "line-chart-6",
+        "graph-container-6"
+    )
+    return data_plot_return
+}
+
+function distributionIndicatorFPD(fdp) {
+    let name = "Factor de pérdidas"
+    //let eficiency = 0
+    let data_plot = []
+    let k = 2
+    let anio_fdp = ""
+    let data_plot_return = []
+    for (var i = 0; i < fdp.length; i++) {
+        let data_plot_dict = {}
+        anio_fdp = "202" + k
+        if (k > 9) {
+            k = 0
+            anio_fdp = "203" + k
+        }
+        k++
+        //eficiency = generacion[i] / consumo[i]
+        data_plot_dict.Año = anio_fdp
+        data_plot_dict[name] = fdp[i]
+        data_plot.push(data_plot_dict)
+    }
+    data_plot_return["Indicador de factor de pérdidas"] = data_plot
+    createChartIndicador1(
+        list_name,
+        "Indicador de factor de pérdidas",
+        name,
+        data_plot_return,
+        "chart_title_5",
+        "line-chart-5",
+        "graph-container-5"
+    )
+    return data_plot_return
+}
+
+function createGraphIndicatorDistribution(fdp) {
+    //datos de db desde 2022 hasta 2030, no es necesario agregar año porque el sistem recorre hasta el año que necesita
+    //Costo distribución ADD  [$/kWh] [base 2015]
+    //Energía Facturada equivalentes ADD  [kW] año
+    let costo_dist = [0.1297, 0.1525, 0.1796, 0.2112, 0.2477, 0.2895, 0.3369, 0.3902, 0.4498]
+    let ener_facturada_equ = [315764251618.68, 320723989171.48, 325683726724.28, 330643464277.08, 335603201829.88, 340562939382.68, 345522676935.48, 350482414488.28, 355442152041.08]
+    let USD_promedio = 2743000000 // factor de conversion
+    let fdp_ = distributionIndicatorFPD(fdp)
+    let cep = distributionIndicatorsCEP(fdp, costo_dist, ener_facturada_equ, USD_promedio) //Costo equivalente a pérdidas ADD  en Millones de USD [base 2015]
+    let eep = distributionIndicatorsEEP(fdp, ener_facturada_equ) //Emisiones equivalentes de las pérdidas de distribución TCO2eq/año
+
+    //lanza topsis, utiliza una variavle global para mantener las difertens strategias, ya que en las
+    // graficas de distribucion se promedian
+    PrepareDataTopsisDistribution(data_for_topsis_dist)
+}
+
+function DataTopsisDistribution(fdp_, cep, eep, name_type_ami) {
+    let parent_object = {}
+    //let name_type_ami = modifyName(name)
+    let fdp_last = Object.values(fdp_)[0].slice(-1)[0]
+    let fdp_last_value = Object.values(fdp_last)[1]
+    let dfp_last_name = Object.keys(fdp_last)[1]
+
+    let cep_last = Object.values(cep)[0].slice(-1)[0]
+    let cep_las_value = Object.values(cep_last)[1]
+    let cep_las_name = Object.keys(cep_last)[1]
+
+    let eep_last = Object.values(eep)[0].slice(-1)[0]
+    let eep_last_value = Object.values(eep_last)[1]
+    let eep_last_name = Object.keys(eep_last)[1]
+
+    let data_topsis_return = Object.assign({}, parent_object, {
+        [name_type_ami]: [
+            {
+                [dfp_last_name]: fdp_last_value,
+                [cep_las_name]: cep_las_value,
+                [eep_last_name]: eep_last_value,
+            },
+        ],
+    })
+    console.log("data_topsis_return ...", data_topsis_return)
+    return data_topsis_return
+}
+
+function PrepareDataTopsisDistribution(data) {
+    //datos de db desde 2022 hasta 2030, no es necesario agregar año porque el sistem recorre hasta el año que necesita
+    //Costo distribución ADD  [$/kWh] [base 2015]
+    //Energía Facturada equivalentes ADD  [kW] año
+    //console.log("DATA TOPSIS",  data)
+    data_topsis = []
+    let costo_dist = [0.1297, 0.1525, 0.1796, 0.2112, 0.2477, 0.2895, 0.3369, 0.3902, 0.4498]
+    let ener_facturada_equ = [315764251618.68, 320723989171.48, 325683726724.28, 330643464277.08, 335603201829.88, 340562939382.68, 345522676935.48, 350482414488.28, 355442152041.08]
+
+    let USD_promedio = 2743000000 // factor de conversion
+    for (let array of data){
+
+        //console.log("array",array)
+        let a_data = []
+        let name
+        for (let array2 of array) {
+            a_data.push(Object.values(array2)[1])
+            name = Object.keys(array2)[1]
+        }
+        //console.log("a_data",a_data)
+        //console.log("name",name)
+        let fdp_ = distributionIndicatorFPD(a_data)
+        let cep = distributionIndicatorsCEP(a_data, costo_dist, ener_facturada_equ, USD_promedio) //Costo equivalente a pérdidas ADD  en Millones de USD [base 2015]
+        let eep = distributionIndicatorsEEP(a_data, ener_facturada_equ) //Emisiones equivalentes de las pérdidas de distribución TCO2eq/año
+        //console.log("fdp_",fdp_)
+        //console.log("cep",cep)
+        //console.log("eep",eep)
+        let values = DataTopsisDistribution(fdp_, cep, eep, name)
+        data_topsis.push(values)
+    }
+    //console.log("data_topsis", data_topsis)
+}
+
+let average_loss_factor
 function decentralizationAndDigitizationStrategies(sub_strategies, n, strategies_name) {
     //console.log("-----decentralizationAndDigitizationStrategies ---  ")
     let sub_strategies_key = Object.keys(sub_strategies)
+    let loss_factor_total = []
+    data_for_topsis_dist = []
     sub_strategies_key.forEach(function (item, index) {
         //utiliza de entrada rficirencia base nb , consumo electico bau ce_bau
         let sub_strategies_name = sub_strategies[item].name
@@ -2965,9 +3136,18 @@ function decentralizationAndDigitizationStrategies(sub_strategies, n, strategies
             sub_strategies_name,
             sub_strategies_type
         )
-        //console.log("data_ce_consumpt", data_ce_consumpt)
         let data_ce = data_ce_consumpt[0]
         const_loss_factor = data_ce_consumpt[1]
+        let array_data = []
+        //loss_factor_total.push(const_loss_factor)
+        for (let array of const_loss_factor) {
+            array_data.push(Object.values(array)[1])
+        }
+
+        //console.log("array_data", array_data)
+        //console.log("const_loss_factor ", const_loss_factor)
+        loss_factor_total.push(array_data)
+        data_for_topsis_dist.push(const_loss_factor)
         createChartUpgrade(
             list_name,
             strategies_name,
@@ -2978,12 +3158,31 @@ function decentralizationAndDigitizationStrategies(sub_strategies, n, strategies
             "graph-container-4"
         )
     })
+    //console.log("loss_factor_total", loss_factor_total)
+    //console.log("data_for_topsis_dist", data_for_topsis_dist)
+    average_loss_factor = promedioElemento(loss_factor_total);
+    //createGraphIndicatorDistribution(average_loss_factor)
+    //PrepareDataTopsisDistribution(data_for_topsis_dist)
+    //console.log("resultado", resultado)
+}
+
+function promedioElemento(arrays) {
+    let resultado = [];
+    let longitud = arrays[0].length;
+    for (let i = 0; i < longitud; i++) {
+        let suma = 0;
+        for (let array of arrays) {
+            suma += array[i];
+        }
+        resultado.push(suma / arrays.length);
+    }
+    return resultado;
 }
 
 function dataGraphStrategiesDistribution(strategies) {
-    console.log(" --- dataGraphStrategiesDistribution --- ")
+    //console.log(" --- dataGraphStrategiesDistribution --- ")
     let strategiesModels = strategies.models
-    console.log(" --- dataGraphStrategiesDistribution strategiesModels --- ", strategiesModels)
+    //console.log(" --- dataGraphStrategiesDistribution strategiesModels --- ", strategiesModels)
     let n_and_year = validateDate()
     let n = n_and_year[0]
     //let strategiesName = getStrategieName()
@@ -3020,7 +3219,7 @@ document.getElementById("adjust_sub_estrategies_next").addEventListener("click",
     if (proccess == "generation") {
         plotDataIndicators(strategies_const)
     } else if (proccess == "distribution") {
-        console.log("falta flujo para distribucion", const_loss_factor)
+        createGraphIndicatorDistribution(average_loss_factor)
     } else if (proccess == "end_use") {
         dataGraphIndicatorsEndUse(strategies_const)
     }

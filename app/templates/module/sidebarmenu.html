@@ -12,7 +12,7 @@
 					/>
 				</div>
 				<div class="ms-auto">
-					<h2 class="h5 mb-3">{{ user }}</h2>
+					<h2 class="h5 mb-3">{{ current_user.name }}</h2>
 					<a
 						href="{{ url_for('auth.logout')}}"
 						class="btn btn-primary btn-sm d-inline-flex align-items-center"

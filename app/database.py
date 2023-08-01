@@ -28,7 +28,10 @@ users_table = Table('users', metadata_obj,
                     Column('id_login', Integer,
                            ForeignKey('login.idlogin'), nullable=False),
                     Column('name', String),
-                    Column('organization', String)
+                    Column('organization', String),
+                    Column('position', String),
+                    Column('phone', String),
+                    Column('validated', String)
                     )
 
 # Emissions Factor table schema
@@ -921,12 +924,15 @@ _unit_dict = {'Consumo de fuentes primarias por tipo de central eléctrica': 'GW
               'Indicador de eficiencia energética': 'Porcentaje %',
               'Indicador intensidad energética primaria': 'kWh/USD',
               'Indicador intensidad de emisiones de carbono': 'gCO2eq/USD',
-              'Estrategias de electrificación en el transporte': 'GWh',
-              'Estrategias de actualización tecnológica': 'kWh',
+              'Estrategias de electrificación en el transporte': 'Consumo eléctrico(GWh)',
+              'Estrategias de actualización tecnológica': 'Consumo eléctrico(GWh)',
               'Indicador consumo per cápita': 'MWh/persona',
               'Indicador intensidad energética': 'kWh/USD',
               'Indicador emisiones evitadas': 'MtCO2eq',
               'Digitalización y gestión de la medida': 'Porcentaje %',
+              'Indicador de factor de pérdidas': 'Porcentaje %',
+              'Indicador costo equivalente a pérdidas': 'Millones USD',
+              'Indicador emisiones equivalentes de las pérdidas de distribución': 'TCO2eq/año',
               }
 
 
