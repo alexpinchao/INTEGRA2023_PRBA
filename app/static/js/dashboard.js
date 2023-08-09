@@ -60,6 +60,10 @@ document.getElementById("visalization_indicators_prev").addEventListener("click"
     cleanGrahpIndicators()
 })
 
+document.getElementById("visalization_topsis_prev").addEventListener("click", function () {
+    cleanGrahpTopsis()
+})
+
 function cleanGrahpVariables() {
     if (chart_element_3) {
         chart_element_3.destroy()
@@ -86,11 +90,17 @@ function cleanGrahpIndicators() {
     }
 }
 
+function cleanGrahpTopsis() {
+    if (chart_element_8) {
+        chart_element_8.destroy()
+        document.getElementById("chart_title_8").innerHTML = " "
+    }
+}
+
 function checkParameters() {
     var year_selected = document.getElementById("fecha").innerText
     var text_process_selected = $("#process-selected").find("span").text()
     var name_scenario = document.getElementById("name-input").value
-    console.log(name_scenario)
     if (
         !(year_selected === "Seleccionar") &&
         !(text_process_selected === "Seleccionar") &&
@@ -137,7 +147,6 @@ function createChartExpansion(
     const table_name = indicator
     document.getElementById(chart_title).innerHTML = table_name
     var json_file = dataModel_pruebas_expansion
-    //console.log("graficas analisis createChartExpansion", json_file)
     var table = json_file[table_name]
     var keys = Object.keys(table[0])
     var labels = table.map(function (e) {
@@ -255,7 +264,6 @@ function createChartExpansion(
                 chart_element_3 = new Chart(document.getElementById(line_chart), config)
             }
             last_indicator_3 = indicator
-            //console.log("last_indicator_3", last_indicator_3)
         }
     }
 }
@@ -275,7 +283,6 @@ function createChartUpgrade(
     const table_name = indicator
     document.getElementById(chart_title).innerHTML = table_name
     var json_file = dataModel_pruebas_expansion
-    //console.log("graficas analisis createChartUpgrade", json_file)
     var table = json_file[table_name]
     var keys = Object.keys(table[0])
     var labels = table.map(function (e) {
@@ -391,7 +398,6 @@ function createChartUpgrade(
             chart_element_4 = new Chart(document.getElementById(line_chart), config)
         }
         last_indicator_4 = indicator
-        //console.log("last_indicator_4", last_indicator_4)
     }
 }
 
@@ -410,7 +416,6 @@ function createChartIndicador1(
     const table_name = indicator
     document.getElementById(chart_title).innerHTML = table_name
     var json_file = dataModel_pruebas_expansion
-    //console.log("graficas analisis createChartIndicador1", json_file)
     var table = json_file[table_name]
     var keys = Object.keys(table[0])
     var labels = table.map(function (e) {
@@ -528,7 +533,6 @@ function createChartIndicador1(
                 chart_element_5 = new Chart(document.getElementById(line_chart), config)
             }
             last_indicator_5 = indicator
-            //console.log("last_indicator_5", last_indicator_5)
         }
     }
 }
@@ -548,7 +552,6 @@ function createChartIndicador2(
     const table_name = indicator
     document.getElementById(chart_title).innerHTML = table_name
     var json_file = dataModel_pruebas_expansion
-    //console.log("graficas analisis createChartIndicador2", json_file)
     var table = json_file[table_name]
     var keys = Object.keys(table[0])
     var labels = table.map(function (e) {
@@ -666,7 +669,6 @@ function createChartIndicador2(
                 chart_element_6 = new Chart(document.getElementById(line_chart), config)
             }
             last_indicator_6 = indicator
-            //console.log("last_indicator_6", last_indicator_6)
         }
     }
 }
@@ -686,7 +688,6 @@ function createChartIndicador3(
     const table_name = indicator
     document.getElementById(chart_title).innerHTML = table_name
     var json_file = dataModel_pruebas_expansion
-    //console.log("graficas analisis createChartIndicador3", json_file)
     var table = json_file[table_name]
     var keys = Object.keys(table[0])
     var labels = table.map(function (e) {
@@ -804,7 +805,6 @@ function createChartIndicador3(
                 chart_element_7 = new Chart(document.getElementById(line_chart), config)
             }
             last_indicator_7 = indicator
-            //console.log("last_indicator_7", last_indicator_7)
         }
     }
 }
@@ -824,7 +824,6 @@ function createChartTopsis(
     const table_name = indicator
     document.getElementById(chart_title).innerHTML = table_name
     var json_file = dataModel_pruebas_expansion
-    //console.log("graficas analisis createChartTopsis", json_file)
     var table = json_file[table_name]
     var keys = Object.keys(table[0])
     var labels = table.map(function (e) {
@@ -942,7 +941,6 @@ function createChartTopsis(
                 chart_element_8 = new Chart(document.getElementById(line_chart), config)
             }
             last_indicator_8 = indicator
-            //console.log("last_indicator_8", last_indicator_8)
         }
     }
 }
@@ -1110,7 +1108,6 @@ function filterStrategiesById(array, ids) {
     let anio = n_and_year[1]
     let exist = false
     let exist_ = false
-    //console.log("-- filterStrategiesById --")
     if (array.process == "Uso final") {
         exist = true
     } else if (array.process == "Distribución") {
@@ -1128,14 +1125,12 @@ function filterStrategiesById(array, ids) {
                             let newEltValue
                             if (typeof inStrategies.pi_bau !== "undefined") {
                                 let new_value = (inStrategies.pi_bau[n - 1] * 100).toFixed(1)
-                                //console.log(" auidaa new_value_aux", new_value_aux)
                                 newEltValue = Object.assign({}, inStrategies, {
                                     value: new_value,
                                     year: anio,
                                 })
                             } else if (typeof inStrategies.num_vehic_elect !== "undefined") {
                                 let new_value = Math.round(inStrategies.num_vehic_elect[n - 1])
-                                //console.log(" auidaa new_value", new_value)
                                 newEltValue = Object.assign({}, inStrategies, {
                                     value: new_value,
                                     year: anio,
@@ -1157,14 +1152,12 @@ function filterStrategiesById(array, ids) {
                             let newEltValue
                             if (typeof inStrategies.values_CI !== "undefined") {
                                 let new_value = Math.round(inStrategies.values_CI[n - 1])
-                                //console.log(" auidaa new_value_aux", new_value_aux)
                                 newEltValue = Object.assign({}, inStrategies, {
                                     value_aux: new_value,
                                     year: anio,
                                 })
                             } else if (typeof inStrategies.efi_deseada_base !== "undefined") {
                                 let new_value = Math.round(inStrategies.efi_deseada_base[n - 1])
-                                //console.log(" auidaa new_value", new_value)
                                 newEltValue = Object.assign({}, inStrategies, {
                                     value: new_value,
                                     year: anio,
@@ -1258,8 +1251,6 @@ function loadStrategies(strategies_array, strategies_id_selected) {
     removeSliders()
     loadSliders(strategies_array)
     loadInputsAux(strategies_array)
-
-    //console.log("cuantas veces entra aqui")
     updateChart(strategies_array)
 }
 
@@ -1279,8 +1270,6 @@ function getCurrentValues() {
         }
         key_values[key_id] = value_slider
     })
-    //console.log("getCurrentValues key_values", key_values)
-    //console.log("getCurrentValues text_values", text_values)
     return [key_values, text_values]
 }
 
@@ -1767,7 +1756,6 @@ function prepareDataTopsis(eficiency, iep, iec, name) {
             },
         ],
     })
-    console.log("data_topsis_return", data_topsis_return)
     return data_topsis_return
 }
 
@@ -1795,11 +1783,11 @@ function createDataChartTopsis(data) {
     })
 }
 
-//let data_topsis = []
 function createGraphIndicator(create_data_indicator_generation, create_data_indicator_consume) {
     let generacion = create_data_indicator_generation
     let consumo = create_data_indicator_consume
-    let data_topsis = []
+    console.log("data_topsis GEN", data_topsis)
+    data_topsis = []
     //datos de pib desde 2022 hasta 2030, no es necesario agregar año porque el sistem recorre hasta el año que necesita
     let pib = [
         344.1612833, 355.4685381, 367.8705797, 380.837696, 394.8857455, 408.9742253, 423.1216551,
@@ -1823,6 +1811,7 @@ function createGraphIndicator(create_data_indicator_generation, create_data_indi
         let values = prepareDataTopsis(eficiency, iep, iec, name)
         data_topsis.push(values)
     })
+    console.log("data_topsis GEN", data_topsis)
 }
 
 function plotDataStrategies(strategies) {
@@ -2240,15 +2229,12 @@ function generateGhapTransportElectrification(sub_strategies, n, strategies_name
         let sub_strategies_value_aux_mod = sub_strategies[item].selected_value_aux // Rendimiento del motor
         let sub_strategies_avkt = parseFloat(sub_strategies[item].avkt)
         let sub_strategies_incremto_n_vehiculos = sub_strategies[item].incremto_n_vehiculos
-        //console.log("vkt sub_strategies_incremto_n_vehiculos",sub_strategies_incremto_n_vehiculos )
         let sub_strategies_value_aux
         let data_ce_vehicles
 
         if (typeof sub_strategies_value_aux_mod === "string") {
             sub_strategies_value_aux = parseFloat(sub_strategies[item].selected_value_aux) //rendimiento del motor desde slider
             let vkt = calculateVkt(n, sub_strategies_avkt, sub_strategies_value, sub_strategies_incremto_n_vehiculos)
-            // console.log("vkt calculado",vkt )
-            // console.log("sub_strategies_name",sub_strategies_name )
             //utiliza de entrada el promedio de km recorridos(avkt), # de vehículos eléctricos (nv)
             let data_consump_vehic = calculateElectricConsumptionVehicles(
                 n,
@@ -2260,8 +2246,6 @@ function generateGhapTransportElectrification(sub_strategies, n, strategies_name
         } else if (typeof sub_strategies_value_aux_mod === "boolean") {
             sub_strategies_value_aux = parseFloat(sub_strategies[item].rm_Km_Lge) // Rendimiento del motor constante
             let vkt = calculateVkt(n, sub_strategies_avkt, sub_strategies_value, sub_strategies_incremto_n_vehiculos)
-            // console.log("vkt calculado 2 ",vkt )
-            // console.log("sub_strategies_name 2 ",sub_strategies_name )
             //utiliza de entrada el promedio de km recorridos(avkt), # de vehículos eléctricos (nv)
             let data_consump_vehic = calculateElectricConsumptionVehiclesRmConstant(
                 n,
@@ -2356,7 +2340,6 @@ function generateGhapTechnologicalUpdate(sub_strategies, n, strategies_name) {
 			np_constant
         )
         let data_ce = data_ce_consumpt[0]
-        //console.log("1 date_ce ", data_ce)
         createChartUpgrade(
             list_name,
             strategies_name,
@@ -2416,7 +2399,6 @@ function sumStrategyData(data_model_electrification) {
         })
         return array_sum
     })
-    //console.log("NEED ", result);
     return result
 }
 
@@ -2531,29 +2513,13 @@ function generateAvoidEmissionsIndicator(total_elect_consump, ce_bau, fe) {
 
 function createGraphIndicatorEndUse(total_elect_consump, ce_bau, poblacion, pib_billones_usd) {
     let fe = 0.2
-    // console.log("--- total_elect_consump", total_elect_consump)
-    // console.log("-- ce_bau", ce_bau)
-    // console.log("-- poblacion", poblacion)
-    // console.log("-- pib_billones_usd", pib_billones_usd)
     //total_elect_consump es quien determina hasta donde se recorren los arrays complementarios que contienen datos del 2022 hasta 2030
     let c_per_cap = generatePerCapitaConsumptionindicator(total_elect_consump, poblacion)
     let energy_intensity = generateEnergyintensityindicator(total_elect_consump, pib_billones_usd)
     let avoid_emissions = generateAvoidEmissionsIndicator(total_elect_consump, ce_bau, fe)
-    // console.log("--- createGraphIndicatorEndUse --- ")
-    // console.log("c_per_cap", c_per_cap)
-    // console.log("energy_intensity", energy_intensity)
-    // console.log("avoid_emissions", avoid_emissions)
-
-    // let values = prepareDataTopsis(c_per_cap, iep, iec, name)
-    // data_topsis.push(values)
 }
 
 function createDataForTospsis(impact, population, pib_usd, ce_bau_projected, name) {
-    // console.log("TOPSIS impact ", impact)
-    // console.log("TOPSIS population ", population)
-    // console.log("TOPSIS pib_usd ", pib_usd)
-    // console.log("TOPSIS ce_bau_projected ", ce_bau_projected)
-    // console.log("TOPSIS name ", name)
     let parent_object = {}
     let fe = 0.2
     let data_topsis_return = Object.assign({}, parent_object, {
@@ -2565,7 +2531,6 @@ function createDataForTospsis(impact, population, pib_usd, ce_bau_projected, nam
             },
         ],
     })
-    //console.log("TOPSIS data_topsis_return ", data_topsis_return)
     return data_topsis_return
 }
 
@@ -2580,11 +2545,11 @@ function generateDataIndicatorEndUse(
     let lightweight_vehicles_array = [] //almacena los valores de las estrategegias de electr del transporte ligero
     let heavy_vehicles = []
     let heavy_vehicles_array = [] //almacena los valores de las estrategegias de electr del transporte pesado
+    console.log("data_topsis END", data_topsis)
     data_topsis = []
     let sub_strategies_key = Object.keys(sub_strategies_electrification)
     sub_strategies_key.forEach(function (item, index) {
         //let data_electrification = []
-        //console.log("-----TransportElectrification---------  ")
         let sub_strategies_name = sub_strategies_electrification[item].name
         let sub_strategies_value_mod = sub_strategies_electrification[item].selected_value //NV numero de vehiculos
         let sub_strategies_value_aux_mod = sub_strategies_electrification[item].selected_value_aux //  Rendimiento del motor
@@ -2622,19 +2587,16 @@ function generateDataIndicatorEndUse(
                 sub_strategies_name
             )
         }
-        console.log("indicadores data_ce_vehicles ", data_ce_vehicles)
         let data_ce_ve_without_name = data_ce_vehicles[1]
         data_model_electrification.push(data_ce_ve_without_name)
         if (sub_strategies_electrification[item].id_tipo_vehiculo == "ve001") {
             // data_electrification.push(data_ce_ve_without_name)
             // let last_value_cv = data_electrification[0][data_electrification[0].length - 1]
-            //console.log("last_value_cv", last_value_cv)
             //lightweight_vehicles.push(Object.values(last_value_cv)[1])
             lightweight_vehicles_array.push(data_ce_ve_without_name)
         } else {
             // data_electrification.push(data_ce_ve_without_name)
             // let last_value_cv = data_electrification[0][data_electrification[0].length - 1]
-            //console.log("last_value_cv", last_value_cv)
             //heavy_vehicles.push(Object.values(last_value_cv)[1])
             heavy_vehicles_array.push(data_ce_ve_without_name)
         }
@@ -2696,13 +2658,6 @@ function generateDataIndicatorEndUse(
         poblacion = sub_strategies_technological[item].poblacion
         pib_billones_usd = sub_strategies_technological[item].PIB_billones_USD
         //utiliza de entrada eficiencia base nb , consumo electico bau ce_bau
-
-        // console.log("2 n", n)
-        // console.log("2 sub_strategies_value", sub_strategies_value)
-        // console.log("2 sub_strategies_value_aux", sub_strategies_value_aux)
-        // console.log("2 sub_strategies_nb", sub_strategies_nb)
-        // console.log("2 sub_strategies_ce_bau", sub_strategies_ce_bau)
-        // console.log("2 sub_strategies_name", sub_strategies_name)
         let data_ce = calculateElectricConsumptionEndUse(
             n,
             sub_strategies_value,
@@ -2713,7 +2668,6 @@ function generateDataIndicatorEndUse(
 			np_constant_
         )
         let data_ce_without_name = data_ce[1]
-		//console.log("2 data_ce_without_name", data_ce_without_name)
         data_model_upgrade.push(data_ce_without_name) //en esta parte en vez de crear un array con los calculos de las 3 equios a BAt
         if (sub_strategies_technological[item].id == "f001") {
             data_upgrade.push(data_ce_without_name)
@@ -2726,10 +2680,6 @@ function generateDataIndicatorEndUse(
             let last_value_ce = ce_cp[n - 1] + ce_i[n - 1]
             let last_value_residential = data_upgrade[0][data_upgrade[0].length - 1]
             impact_total_residential_demand = Object.values(last_value_residential)[1] + last_value_ce
-            // console.log("data_upgrade pato 1", data_upgrade)
-            // console.log("last_value_ce pato 1", last_value_ce)
-            // console.log("last_value_residential pato 1", last_value_residential)
-            // console.log("sum pato 1", impact_total_residential_demand)
             let residential_values = createDataForTospsis(
                 impact_total_residential_demand,
                 poblacion[n - 1],
@@ -2746,16 +2696,9 @@ function generateDataIndicatorEndUse(
             let ce_i = sub_strategies_technological[item].ce_bau.map(
                 (ce_bau) => ce_bau * consumption_percent_industrial
             )
-            // data_upgrade.push(ce_r)
-            // data_upgrade.push(ce_i)
-            //let suma_aux = totalSumStrategyData(ce_r,ce_i)
-            //console.log("data_upgrade pato 2", data_upgrade)
-            //console.log("suma_aux pato 2", suma_aux)
             let last_value_ce = ce_r[n - 1] + ce_i[n - 1]
             let last_value_cp = data_upgrade[0][data_upgrade[0].length - 1]
             impact_total_demand_commercial_public = Object.values(last_value_cp)[1] + last_value_ce
-            // console.log("last_value_cp pato 1", last_value_cp)
-            // console.log("sum pato 2", impact_total_demand_commercial_public)
             let commercal_public_values = createDataForTospsis(
                 impact_total_demand_commercial_public,
                 poblacion[n - 1],
@@ -2772,15 +2715,9 @@ function generateDataIndicatorEndUse(
             let ce_cp = sub_strategies_technological[item].ce_bau.map(
                 (ce_bau) => ce_bau * consumption_percent_c_p
             )
-            // data_upgrade.push(ce_r)
-            // data_upgrade.push(ce_cp)
-            //let suma_aux = totalSumStrategyData(ce_r,ce_cp)
-            //console.log("data_upgrade pato 3", data_upgrade)
             let last_value_ce = ce_r[n - 1] + ce_cp[n - 1]
             let last_value_i = data_upgrade[0][data_upgrade[0].length - 1]
             impact_total_industrial_demand = Object.values(last_value_i)[1] + last_value_ce
-            // console.log("last_value_i pato 1", last_value_i)
-            // console.log("sum pato 3", impact_total_industrial_demand)
             let industrial_values = createDataForTospsis(
                 impact_total_industrial_demand,
                 poblacion[n - 1],
@@ -2789,7 +2726,6 @@ function generateDataIndicatorEndUse(
                 sub_strategies_technological[item].name
             )
             data_topsis.push(industrial_values)
-            //console.log("suma_aux pato 3", suma_aux)
         }
     }) //elijo el primer bat(residencial y completo con ce proyectado de industrial y comercial y publico y sumo)
     let ce_bau_projected = ce_bau[n - 1]
@@ -2815,17 +2751,11 @@ function generateDataIndicatorEndUse(
         "Electrificación del transporte carga y pasajeros"
     )
     data_topsis.push(heavy_vehicle_values)
-
-    //console.log("data_model_electrification datos crudos", data_model_electrification)
-    //console.log("data_model_upgrade datos crudos", data_model_upgrade)
     let total_elect_consump_ev = sumStrategyDatawithAccumulation(data_model_electrification)
     let total_elect_consump_tehn_up = sumStrategyData(data_model_upgrade)
-
-    //console.log("total_elect_consump_ev datos sumados con acumlado", total_elect_consump_ev)
-    //console.log("total_elect_consump_tehn_up datos suma normal", total_elect_consump_tehn_up)
     let total_elect_consump = totalSumStrategyData(total_elect_consump_ev, total_elect_consump_tehn_up)
-    //console.log("total_elect_consump suma total", total_elect_consump)
     createGraphIndicatorEndUse(total_elect_consump, ce_bau, poblacion, pib_billones_usd)
+    console.log("data_topsis END", data_topsis)
 }
 
 function dataGraphIndicatorsEndUse(strategies) {
@@ -2883,7 +2813,7 @@ function calculateLossFactor(n, ami, final_reduction, ami_bau, name, type) {
     let final_reduction_formula = 1 - final_reduction / ami_bau
     
     if (type == 2){
-        //console.log("---- entra a progresivo")
+        //console.log("----progresivo")
         let  ami_progre = ami
         for (m = 0; m< n ; m ++){
             data_ami.push(ami_progre)
@@ -2891,7 +2821,7 @@ function calculateLossFactor(n, ami, final_reduction, ami_bau, name, type) {
         }
         data_ami.reverse();
     }else {
-        //console.log("---- entra a lineal")
+        //console.log("----lineal")
         var increment_ami = ami / n
         let creaincrement_ami = increment_ami
         for (let a = 0; a < n; a++) {
@@ -2899,12 +2829,6 @@ function calculateLossFactor(n, ami, final_reduction, ami_bau, name, type) {
             creaincrement_ami = creaincrement_ami + increment_ami
         }
     }
-    // console.log("---- ami_bau", ami_bau)
-    // console.log("---- ami objetivo", ami)
-    // console.log("---- final_reduction", final_reduction)
-
-    // console.log("data_ami", data_ami)
-    // console.log("--- final_reduction_formula", final_reduction_formula)
     for (let i = 0; i < data_ami.length; i++) {
         let data_plot_dict = {}
         let anio = "202" + j
@@ -2913,9 +2837,7 @@ function calculateLossFactor(n, ami, final_reduction, ami_bau, name, type) {
             anio = "203" + j
         }
         j++
-        //console.log("---- ami_bau", ami_bau)
         factor_perdidas = ami_bau * (1 - data_ami[i] * final_reduction_formula)
-        //console.log(" --- factor_perdidas", factor_perdidas)
         data_plot_dict.Año = anio
         data_plot_dict[name] = factor_perdidas
         data_plot.push(data_plot_dict)
@@ -3068,7 +2990,6 @@ function DataTopsisDistribution(fdp_, cep, eep, name_type_ami) {
             },
         ],
     })
-    console.log("data_topsis_return ...", data_topsis_return)
     return data_topsis_return
 }
 
@@ -3076,33 +2997,26 @@ function PrepareDataTopsisDistribution(data) {
     //datos de db desde 2022 hasta 2030, no es necesario agregar año porque el sistem recorre hasta el año que necesita
     //Costo distribución ADD  [$/kWh] [base 2015]
     //Energía Facturada equivalentes ADD  [kW] año
-    //console.log("DATA TOPSIS",  data)
+    console.log("data_topsis DIST", data_topsis)
     data_topsis = []
     let costo_dist = [0.1297, 0.1525, 0.1796, 0.2112, 0.2477, 0.2895, 0.3369, 0.3902, 0.4498]
     let ener_facturada_equ = [315764251618.68, 320723989171.48, 325683726724.28, 330643464277.08, 335603201829.88, 340562939382.68, 345522676935.48, 350482414488.28, 355442152041.08]
 
     let USD_promedio = 2743000000 // factor de conversion
     for (let array of data){
-
-        //console.log("array",array)
         let a_data = []
         let name
         for (let array2 of array) {
             a_data.push(Object.values(array2)[1])
             name = Object.keys(array2)[1]
         }
-        //console.log("a_data",a_data)
-        //console.log("name",name)
         let fdp_ = distributionIndicatorFPD(a_data)
         let cep = distributionIndicatorsCEP(a_data, costo_dist, ener_facturada_equ, USD_promedio) //Costo equivalente a pérdidas ADD  en Millones de USD [base 2015]
         let eep = distributionIndicatorsEEP(a_data, ener_facturada_equ) //Emisiones equivalentes de las pérdidas de distribución TCO2eq/año
-        //console.log("fdp_",fdp_)
-        //console.log("cep",cep)
-        //console.log("eep",eep)
         let values = DataTopsisDistribution(fdp_, cep, eep, name)
         data_topsis.push(values)
     }
-    //console.log("data_topsis", data_topsis)
+    console.log("data_topsis DIST", data_topsis)
 }
 
 let average_loss_factor
@@ -3124,10 +3038,6 @@ function decentralizationAndDigitizationStrategies(sub_strategies, n, strategies
             sub_strategies_value_aux = parseFloat(sub_strategies[item].final_reduction_bau) // reduccion final por defecto
         }
         let sub_strategies_ami_bau = parseFloat(sub_strategies[item].ami_bau)
-        // console.log("sub_strategies_name", sub_strategies_name)
-        // console.log("sub_strategies_value", sub_strategies_value)
-        // console.log("sub_strategies_value_aux", sub_strategies_value_aux)
-        // console.log("sub_strategies_ami_bau", sub_strategies_ami_bau)
         let data_ce_consumpt = calculateLossFactor(
             n,
             sub_strategies_value,
@@ -3143,9 +3053,6 @@ function decentralizationAndDigitizationStrategies(sub_strategies, n, strategies
         for (let array of const_loss_factor) {
             array_data.push(Object.values(array)[1])
         }
-
-        //console.log("array_data", array_data)
-        //console.log("const_loss_factor ", const_loss_factor)
         loss_factor_total.push(array_data)
         data_for_topsis_dist.push(const_loss_factor)
         createChartUpgrade(
@@ -3158,12 +3065,9 @@ function decentralizationAndDigitizationStrategies(sub_strategies, n, strategies
             "graph-container-4"
         )
     })
-    //console.log("loss_factor_total", loss_factor_total)
-    //console.log("data_for_topsis_dist", data_for_topsis_dist)
     average_loss_factor = promedioElemento(loss_factor_total);
     //createGraphIndicatorDistribution(average_loss_factor)
     //PrepareDataTopsisDistribution(data_for_topsis_dist)
-    //console.log("resultado", resultado)
 }
 
 function promedioElemento(arrays) {
@@ -3182,7 +3086,6 @@ function promedioElemento(arrays) {
 function dataGraphStrategiesDistribution(strategies) {
     //console.log(" --- dataGraphStrategiesDistribution --- ")
     let strategiesModels = strategies.models
-    //console.log(" --- dataGraphStrategiesDistribution strategiesModels --- ", strategiesModels)
     let n_and_year = validateDate()
     let n = n_and_year[0]
     //let strategiesName = getStrategieName()
@@ -3196,7 +3099,6 @@ function dataGraphStrategiesDistribution(strategies) {
 
 function updateChart(strategies_array) {
     let current_values = getCurrentValues()
-    //console.log("current_values", current_values)
     let current_values_sliders = current_values[0]
     let current_values_text = current_values[1]
     strategies_const = filterStrategiesByIdValues(
@@ -3236,10 +3138,11 @@ function topsisValues(weights) {
     criterios_values = Object.assign({}, parent_object, {
         criteria_values: [weights],
     })
+    console.log("data_topsis LAST: ",data_topsis)
     data_topsis.push(criterios_values)
     const dict_values = {data_topsis}
     const s = JSON.stringify(dict_values)
-    console.log(s)
+    //console.log(s)
     $.ajax({
         url: "/dashboard/analysis",
         type: "POST",
@@ -3248,8 +3151,8 @@ function topsisValues(weights) {
         data: JSON.stringify(s),
         success: function (data, status, xhr) {
             // success callback function
-            //console.log("data respon", data)
             console.log("status: " + status)
+            //console.log("data: " ,data)
             createDataChartTopsis(data)
             data_topsis.pop()
         },
@@ -3342,7 +3245,6 @@ function weights_check() {
 
     if (sum_values_checker()) {
         let values = get_weights_values()
-        //console.log("aqui parece que llega el error", values)
         weights["ambiental"] = values[0] / 100
         weights["economico"] = values[1] / 100
         weights["energetico"] = values[2] / 100
