@@ -406,7 +406,7 @@ strategies_definition = {
                         "variable": "Porcentaje de incorporación AMI",
                         "upper_value": 100,
                         "lower_value": 0,
-                        "value": 50,
+                        "value": 85,
                         "year": 2025,
                         "unit": "%",
                         "variable_aux": "Reducción final",
@@ -426,7 +426,7 @@ strategies_definition = {
                         "variable": "Porcentaje de incorporación AMI",
                         "upper_value": 100,
                         "lower_value": 0,
-                        "value": 50,
+                        "value": 70,
                         "year": 2025,
                         "unit": "%",
                         "variable_aux": "Reducción final",
@@ -1042,10 +1042,18 @@ def main():
         admin_session = eval(request.form["admin-session"])
         session["admin_session"] = admin_session
 
-    text_module_db = "En el módulo de base de datos se recopila información de las variables e indicadores de eficiencia energética asociados a los procesos de generación, distribución y uso final de la energía eléctrica en Colombia."
-    text_module_calc = "En el módulo de escenario base "
-    text_module_anl = "En el módulo de escenario base ...."
-    text_module_conf = "En el apartado de Configuración se puede acceder a la información del usuario y ajustes referentes a las credenciales empleadas en el acceso a la herramienta."
+    text_module_db = 'En este módulo se recopila la información de las variables y los indicadores de ' \
+                     'eficiencia energética asociados a los procesos de generación, distribución y uso final de la ' \
+                     'energía eléctrica en Colombia, visualizando su tendencia histórica.'
+    text_module_calc = 'En este módulo se presenta la especificación del modelo de proyección para las variables, ' \
+                       'empleadas en la evaluación de estrategias de eficiencia energética del sector eléctrico ' \
+                       'en Colombia. También se incluye la visualización de los resultados de proyección con la ' \
+                       'tendencia histórica de las variables hasta el 2030.'
+    text_module_anl = 'En este módulo se construyen y evalúan las estrategias de eficiencia energética asociadas al ' \
+                      'sector eléctrico colombiano, mediante criterios económicos, ambientales y energéticos, ' \
+                      'permitiendo definir las estrategias más viables para el país, según el año de análisis.'
+    text_module_conf = 'En el apartado de Configuración se puede acceder a la información del usuario y ajustes '\
+                       'referentes con las credenciales empleadas en el acceso a la herramienta.'
 
     context = {
         "anonymous": False,
