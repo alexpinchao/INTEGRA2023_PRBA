@@ -540,10 +540,20 @@
                                                         </div>
                                                         <div id="button-graph-line-chart"
                                                              class="d-flex d-none align-center justify-content-end">
-                                                            <button type="button" class="btn btn-sm btn-primary"
+                                                            <button type="button" class="btn btn-primary px-1 py-0"
                                                                     onclick="download_line_chart()">
-                                                                Descargar
-                                                                gráfica
+                                                                <span>
+                                                                <svg class="icon icon-xs"
+                                                                     fill="currentColor"
+                                                                     xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                     height="16" viewBox="0 0 24 24" fill="white">
+                                                                    <path d="m12 16 4-5h-3V4h-2v7H8z"></path>
+                                                                    <path d="M20 18H4v-7H2v7c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-7h-2v7z"></path>
+                                                                </svg>
+                                                                </span>
+                                                                <span class="small">
+                                                                    Guardar .png
+                                                                </span>
                                                             </button>
                                                         </div>
                                                     </div>
@@ -756,10 +766,20 @@
                                                         </div>
                                                         <div id="button-graph-line-chart_linea_base"
                                                              class="d-flex d-none align-center justify-content-end">
-                                                            <button type="button" class="btn btn-sm btn-primary"
+                                                            <button type="button" class="btn btn-primary px-1 py-0"
                                                                     onclick="download_line_chart_linea_base()">
-                                                                Descargar
-                                                                gráfica
+                                                                <span>
+                                                                <svg class="icon icon-xs"
+                                                                     fill="currentColor"
+                                                                     xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                     height="16" viewBox="0 0 24 24" fill="white">
+                                                                    <path d="m12 16 4-5h-3V4h-2v7H8z"></path>
+                                                                    <path d="M20 18H4v-7H2v7c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-7h-2v7z"></path>
+                                                                </svg>
+                                                                </span>
+                                                                <span class="small">
+                                                                    Guardar .png
+                                                                </span>
                                                             </button>
                                                         </div>
                                                     </div>
@@ -1402,7 +1422,7 @@
             const linkSource = "data:image/jpg" + image_data;
             const downloadLink = document.createElement("a");
             downloadLink.href = linkSource;
-            downloadLink.download = 'Grafica_Variables.jpg';
+            downloadLink.download = 'Grafica_Variables.png';
             downloadLink.click();
         }
     </script>
@@ -1832,7 +1852,7 @@
             const linkSource = "data:image/jpg" + image_data;
             const downloadLink = document.createElement("a");
             downloadLink.href = linkSource;
-            downloadLink.download = 'Grafica_Indicadores.jpg';
+            downloadLink.download = 'Grafica_Indicadores.png';
             downloadLink.click();
         }
     </script>
