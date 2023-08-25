@@ -1019,7 +1019,7 @@
                             })
                     } else if (td_select.classList.contains("aser")) {
                         var child = $(this).prevAll("tr:has(.showhr)")[0].innerText
-                        var data = table_handler.row(this).data()
+                        data = table_handler.row(this).data()
                         // prettier-ignore
                         var translate_array = JSON.parse('{{translating_dict | tojson | safe}}')
                         var row = [Object.keys(translate_array).find((key) => translate_array[key] == data)]
@@ -1199,8 +1199,12 @@
                             .nextUntil("tr:has(.showhr)")
                             .toggle("slow", function () {
                             })
+                        $(".aser.bg-gray-200").removeClass("bg-gray-200")
+
                     } else if (td_select.classList.contains("aser")) {
                         var child = $(this).prevAll("tr:has(.showhr)")[0].innerText
+
+                        td_select.classList.toggle("bg-gray-200")
                         var data = table_handler.row(this).data()
                         // prettier-ignore
                         var translate_array = JSON.parse('{{translating_dict | tojson | safe}}')
@@ -1222,8 +1226,10 @@
                                     .nextUntil("tr:has(.showhr)")
                                     .toggle("slow", function () {
                                     })
+                                $(".aser.bg-gray-200").removeClass("bg-gray-200")
                             } else if (td_select.classList.contains("aser")) {
                                 var child = $(this).prevAll("tr:has(.showhr)")[0].innerText
+                                td_select.classList.toggle("bg-gray-200")
                                 var data = table_handler.row(this).data()
                                 // prettier-ignore
                                 var translate_array = JSON.parse('{{translating_dict | tojson | safe}}')
@@ -1339,9 +1345,11 @@
                     chart_element.data.datasets = chart_element.data.datasets.filter(
                         (data) => data.label != row_table
                     )
+                    $(".bg-gray-200").removeClass(".bg-gray-200");
                     chart_element.update()
                 }
             } else {
+                $(".bg-gray-200").removeClass(".bg-gray-200");
                 keys_list = [row_table]
                 var mydatasets = [
                     {
@@ -1591,7 +1599,9 @@
                             .nextUntil("tr:has(.showhr)")
                             .toggle("slow", function () {
                             })
+                        $(".aser.bg-gray-200").removeClass("bg-gray-200")
                     } else if (td_select.classList.contains("aser")) {
+                        td_select.classList.toggle("bg-gray-200")
                         var child = $(this).prevAll("tr:has(.showhr)")[0].innerText
                         var data = table_handler.row(this).data()
                         // prettier-ignore
@@ -1614,7 +1624,9 @@
                                     .nextUntil("tr:has(.showhr)")
                                     .toggle("slow", function () {
                                     })
+                                $(".aser.bg-gray-200").removeClass("bg-gray-200")
                             } else if (td_select.classList.contains("aser")) {
+                                td_select.classList.toggle("bg-gray-200")
                                 var child = $(this).prevAll("tr:has(.showhr)")[0].innerText
                                 var data = table_handler.row(this).data()
                                 // prettier-ignore
@@ -1759,6 +1771,7 @@
                     chart_element.data.datasets.push(update_dataset)
                     chart_element.update()
                 } else {
+                    $(".bg-gray-200").removeClass(".bg-gray-200");
                     keys_list = keys_list.filter((data) => data != row2)
                     chart_element.data.datasets = chart_element.data.datasets.filter(
                         (data) => data.label != row2
@@ -1766,6 +1779,7 @@
                     chart_element.update()
                 }
             } else {
+                $(".bg-gray-200").removeClass(".bg-gray-200");
                 keys_list = [row2]
                 var mydatasets = [
                     {
