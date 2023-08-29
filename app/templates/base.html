@@ -127,9 +127,14 @@
                             alt="Logo Inteegra"
                     />
 				</span>
+                <span class="new-loader">
+                <div class="plug-1"></div>
+                <div class="plug-2"></div>
+                </span>
             </div>
-            <div class="loader my-5">
-                <div class="duo duo1">
+
+            {#    <div class="loader my-5">
+                               <div class="duo duo1">
                     <div class="dott dott-a"></div>
                     <div class="dott dott-b"></div>
                 </div>
@@ -137,7 +142,7 @@
                     <div class="dott dott-a"></div>
                     <div class="dott dott-b"></div>
                 </div>
-            </div>
+            </div>#}
         </div>
 
         {% block cookies %} {% if not cookies_check() %} {# show a cookie consent banner #}
@@ -168,7 +173,7 @@
 
     <script type="text/javascript">
         function preloaderFn() {
-            $(".preloader").fadeOut("fast")
+            {#$(".preloader").fadeOut("fast")#}
         }
 
         window.addEventListener("load", preloaderClose, true)
