@@ -985,7 +985,7 @@ class SQLConnector:
     # Incompleto
     # Verificación y creación de usuario
     def set_user(self, user, password):
-        """Save users credential on database
+        """Save users credential on databaseser
 
         Args:
             user (str): user identification.
