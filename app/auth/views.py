@@ -65,6 +65,7 @@ def signup():
     if signup_form.validate_on_submit():
         username = signup_form.username.data
         password = signup_form.password.data
+
         users_db = app.db_object.get_user(username)
 
         if not users_db:
