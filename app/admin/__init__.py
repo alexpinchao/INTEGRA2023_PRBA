@@ -1,6 +1,6 @@
 import os.path as op
 import pandas as pd
-from flask import request, redirect, url_for
+from flask import request, redirect, url_for, current_app as app
 from flask_login import current_user
 from flask_admin import AdminIndexView
 from flask_admin import helpers, expose
@@ -35,7 +35,7 @@ class DataModelView(ModelView):
             filename = field.data.filename
             path = op.join(op.dirname(__file__), 'data/')
 
-            print(request.path.split("/")[2])
+            request_table = request.path.split("/")[2]
             if filename[-4:] == '.csv':
                 df = pd.read_csv(path + filename)
             elif filename[-5:] == '.xlsx':
@@ -43,8 +43,10 @@ class DataModelView(ModelView):
             else:
                 raise StopValidation('File format is not supported.')
 
+            df.to_sql(name=request_table, con=app.db_object.get_engine())
+            return True
 
-        return True
+        return False
 
     def __init__(self, model, *args, **kwargs):
         print("Se ejecuta al menos")
@@ -64,9 +66,6 @@ class DataModelView(ModelView):
             }
         }
         super(DataModelView, self).__init__(model, *args, **kwargs)
-
-
-
 
 
 class MyFileAdminView(FileAdmin):

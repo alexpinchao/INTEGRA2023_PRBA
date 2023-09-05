@@ -948,6 +948,9 @@ class SQLConnector:
         self.engine = create_engine('sqlite:///app/sqlite/TestDB.db')
         self.connection = self.engine.connect()
 
+    def get_engine(self):
+        return self.engine
+
     def get_user(self, user):
         """Get user from login table by username
 
@@ -1490,6 +1493,10 @@ class SQLConnector:
         end_use_dict.update(self.get_end_use_energy())
         _dict.update({'end_use': end_use_dict})
         return _dict, _translating_dict
+
+    def update_from_admin(self, table, data):
+        pass
+
 
     @staticmethod
     def get_units():
