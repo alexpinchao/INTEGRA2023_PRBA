@@ -1,9 +1,11 @@
 from flask import (
     render_template,
+    send_from_directory,
     redirect,
     flash,
     url_for,
     session,
+    jsonify,
     request,
     current_app as app,
 )
@@ -67,7 +69,7 @@ strategies_definition = {
                         "variable": "Capacidad Instalada",
                         "upper_value": 10,
                         "lower_value": 0,
-                        "value": 6,
+                        "value": 10,
                         "year": 2025,
                         "unit": "GW",
                         "fp": 35.2576182447618 / 100,
@@ -909,10 +911,57 @@ def functionTopsis(output, weiths):
     return rank_alternatives
 
 
+@dashboard.route("/guia_usuario")
+def guia_usuario():
+    print("enviar pdf")
+    return send_from_directory("dashboard", "test.pdf")
+
+@dashboard.route("/edit_scenary/")
+def edit_scenary():
+    # obtener el id de la URL
+    id = request.args.get('id')
+    print(f"id xx: {id}")
+
+    edit = app.db_object.get_data_table_strategies_variable_value(id)
+    print(f"este es sub: {edit}")
+    # hacer algo con el id, por ejemplo buscarlo en una base de datos
+    # enviar una respuesta en formato JSON
+    return jsonify(
+        edit
+        # tus datos de respuesta
+        )
+
+@dashboard.route('/editData', methods=['GET', 'POST'])
+def editData():
+    id = request.form.get("id")
+    all_data= request.form.get("all_data")
+    data_indicators= request.form.get("data_indicators")
+
+    print(f"id:  {id} ,all_data: {all_data} , data_indicators: {data_indicators}")
+    resultado = app.db_object.update_strategy_with_id(id, all_data, data_indicators)
+    if resultado:
+        flash("Scenary add successfully")
+        print("succes")
+        return jsonify({"mensaje": "success"})
+    else:
+        print("failure")
+        return jsonify({"mensaje": "failure"})
+
+@dashboard.route("/delete/<id>")
+def delete(id):
+    print(id)
+    delete_ = app.db_object.delete_strategy_with_id(id)
+    # if delete_:
+    #     return "succes"
+    # else:
+    #     return "failed"
+    return redirect(url_for('dashboard.analysis'))
+
 # @login_required
 @dashboard.route("/analysis", methods=["GET", "POST"])
 def analysis():
     admin_session = session.get("admin_session")
+    print(f"admin session {admin_session}")  # REVISAR VARIABLES EN LA SESION
     if request.method == "POST":
         output = request.get_json()
         # This is the output that was stored in the JSON within the browser
@@ -951,6 +1000,13 @@ def analysis():
         topsis = functionTopsis(dataframe, weiths)
         return topsis
     else:
+        # data2 = [
+        #     {'id': 1, 'nombre': 'Juan', 'proceso': 1990, 'año': 1990},
+        #     {'id': 2, 'nombre': 'Pedro', 'proceso': 1990, 'año': 1995},
+        #     {'id': 3, 'nombre': 'Maria', 'proceso': 1990, 'año': 2000},
+        # ]
+        data_table_init = app.db_object.get_data_table_strategies("alex")
+        #https://www.youtube.com/watch?v=IgCfZkR8wME
         strategies = app.db_object.get_strategies()
         description_strategies = app.db_object.get_description_strategies()
         data, translating_dict = app.db_object.get_distribution()
@@ -965,6 +1021,7 @@ def analysis():
             "units": units,
             "translating_dict": translating_dict,
             "admin_session": admin_session,
+            "data_table_init": data_table_init,
         }
         return render_template("module/analysis.html", **context)
 
@@ -1067,3 +1124,14 @@ def main():
     }
 
     return render_template("module/main.html", **context)
+
+# @login_required
+# @dashboard.route("/table", methods=["GET", "POST"])
+# def table():
+#     data = [
+#         {'id': 1, 'nombre': 'Juan', 'proceso': 1990, 'año': 1990},
+#         {'id': 2, 'nombre': 'Pedro', 'proceso': 1990, 'año': 1995},
+#         {'id': 3, 'nombre': 'Maria', 'proceso': 1990, 'año': 2000},
+#     ]
+#     print(f"esta pasando por aqui o no")
+#     return render_template("module/table.html", data=data)

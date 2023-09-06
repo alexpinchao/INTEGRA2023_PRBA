@@ -40,6 +40,8 @@ var colorslist = [
 ]
 
 var units_array = []
+var for_save_indicators= []
+var id_edit
 
 function loadUnit(units) {
     units_array = units
@@ -62,6 +64,14 @@ document.getElementById("visalization_indicators_prev").addEventListener("click"
 
 document.getElementById("visalization_topsis_prev").addEventListener("click", function () {
     cleanGrahpTopsis()
+})
+
+document.getElementById("guardar").addEventListener("click", function () {
+    saveDataStrategy(strategies_const);
+})
+
+document.getElementById("guardar_editado").addEventListener("click", function () {
+    editDataStrategy(strategies_const,id_edit)
 })
 
 function cleanGrahpVariables() {
@@ -106,7 +116,7 @@ function checkParameters() {
         !(text_process_selected === "Seleccionar") &&
         !(name_scenario == null)
     ) {
-        loadParameters(name_scenario, text_process_selected)
+        loadParameters(name_scenario, text_process_selected, year_selected)
         ActiveSection("scenarios_2")
         return
     } else {
@@ -123,12 +133,15 @@ function checkParameters() {
     }
 }
 
-function loadParameters(name, process) {
+function loadParameters(name, process, year_selected) {
     document.querySelectorAll("#scenario-name-macro").forEach(function (element) {
         element.innerHTML = name
     })
     document.querySelectorAll("#scenario-process-macro").forEach(function (element) {
         element.innerHTML = process
+    })
+    document.querySelectorAll("#scenario-anio-macro").forEach(function (element) {
+        element.innerHTML = year_selected
     })
 }
 
@@ -1103,6 +1116,8 @@ function filterStrategiesByProcess(strategies_array) {
 }
 
 function filterStrategiesById(array, ids) {
+    // console.log("array", array)
+    // console.log("ids", ids)
     let n_and_year = validateDate()
     let n = n_and_year[0]
     let anio = n_and_year[1]
@@ -1153,7 +1168,7 @@ function filterStrategiesById(array, ids) {
                             if (typeof inStrategies.values_CI !== "undefined") {
                                 let new_value = Math.round(inStrategies.values_CI[n - 1])
                                 newEltValue = Object.assign({}, inStrategies, {
-                                    value_aux: new_value,
+                                    value: new_value,
                                     year: anio,
                                 })
                             } else if (typeof inStrategies.efi_deseada_base !== "undefined") {
@@ -1189,7 +1204,9 @@ function filterStrategiesByIdRelationated(array, ids) {
 function filterStrategiesByIdValues(array, idsValues, idsValuesText) {
     let ids = Object.keys(idsValues)
     let exist = false
-    //console.log("--- filterStrategiesByIdValues ---")
+    console.log("--- filterStrategiesByIdValues ---array ", array)
+    console.log("--- filterStrategiesByIdValues ---idsValues ", idsValues)
+    console.log("--- filterStrategiesByIdValues --- idsValuesText" ,idsValuesText)
     if (Object.keys(idsValuesText).length > 0) {
         exist = true
     }
@@ -1343,6 +1360,10 @@ function generateGhapUpgrade(sub_strategies, n, strategies_name) {
         )
     })
 }
+
+// funcion que recive un objeto tipo json 
+// y devuelve el nombre y el valor 
+// en dos arrays independientes
 
 function modifyData(data) {
     let dataReturn = []
@@ -1783,16 +1804,85 @@ function createDataChartTopsis(data) {
     })
 }
 
+function createTotalValueForSave(generacion,consumo, pib){
+    let total_data_generation = []
+    let total_data_consumption = []
+    let data_consumption_emissions = []
+    let n_year = validateDate();
+    let n = n_year[0]
+    const fe_const = 0.126379
+
+    console.log("generacion", generacion)
+    console.log("consumo", consumo)
+    let keys_genrartion = Object.keys(generacion)
+    keys_genrartion.forEach(function (item, index) {
+        let genration_item = generacion[item]
+        let consume_item = consumo[item]
+        console.log("genration_item", genration_item)
+        console.log("consume_item", consume_item)
+
+        let data_generacion_total = modifyData(genration_item)
+        let data_consumo_total = modifyData(consume_item)
+
+        console.log("data_generacion_total", data_generacion_total)
+        console.log("data_consumo_total", data_consumo_total)
+
+        let data_generacion = data_generacion_total[0]
+        let name = data_generacion_total[1]
+        let data_consumo = data_consumo_total[0]
+        // saco el ultimo valor y lo almaceno en un acumulador
+        const [lastElementGen] = [...data_generacion].reverse();
+        total_data_generation.push(lastElementGen)
+        const [lastElementCom] = [...data_consumo].reverse();
+        total_data_consumption.push(lastElementCom)
+        let fe = emissionFactor(name)
+        console.log("name ",name )
+        console.log("fe ",fe  )
+        if (fe !== 0){
+            const [lastElementComEm] = [...data_consumo].reverse();
+            console.log("entr al if lastElementComEm  ",lastElementComEm  )
+            data_consumption_emissions.push(lastElementComEm)
+        }
+    })
+    const sumGen = total_data_generation.reduce((accumulator, currentValue) => accumulator + currentValue);
+    console.log("sumGen",sumGen);
+    const sumCon = total_data_consumption.reduce((accumulator, currentValue) => accumulator + currentValue);
+    console.log("sumCon",sumCon);
+    const sumConEmissions = data_consumption_emissions.reduce((accumulator, currentValue) => accumulator + currentValue);
+    console.log("sumConEmissions",sumConEmissions);
+    console.log("pib[n-1] ", pib[n-1]);
+    console.log("fe_const ", fe_const);
+    let eficiency = sumGen / sumCon
+    let iep = (sumCon / pib[n-1] ) /1000
+    let iec = (sumConEmissions*fe_const )/pib[n-1]
+    console.log("eficiency "+eficiency);
+    console.log("iep "+iep);
+    console.log("iec "+iec);
+
+    for_save_indicators.push(eficiency,iep,iec)
+
+    // let values = prepareDataTopsis(eficiency, iep, iec, name)
+    // data_topsis.push(values)
+}
+
 function createGraphIndicator(create_data_indicator_generation, create_data_indicator_consume) {
     let generacion = create_data_indicator_generation
     let consumo = create_data_indicator_consume
-    console.log("data_topsis GEN", data_topsis)
-    data_topsis = []
+    //console.log("data_topsis GEN", data_topsis)
+
+
+    //   data_topsis = []
+
+
     //datos de pib desde 2022 hasta 2030, no es necesario agregar año porque el sistem recorre hasta el año que necesita
     let pib = [
         344.1612833, 355.4685381, 367.8705797, 380.837696, 394.8857455, 408.9742253, 423.1216551,
         437.1906672, 451.7446956,
     ]
+    //funcion solo para el guardado de varibles totales
+    //para posterior comparacion con otros escenarios
+    createTotalValueForSave(generacion,consumo, pib)
+
     let keys_genrartion = Object.keys(generacion)
     keys_genrartion.forEach(function (item, index) {
         let genration_item = generacion[item]
@@ -2811,7 +2901,7 @@ function calculateLossFactor(n, ami, final_reduction, ami_bau, name, type) {
     let j = 2
     let factor_perdidas = 0
     let final_reduction_formula = 1 - final_reduction / ami_bau
-    
+
     if (type == 2){
         //console.log("----progresivo")
         let  ami_progre = ami
@@ -3099,6 +3189,7 @@ function dataGraphStrategiesDistribution(strategies) {
 
 function updateChart(strategies_array) {
     let current_values = getCurrentValues()
+    console.log("current_values", current_values)
     let current_values_sliders = current_values[0]
     let current_values_text = current_values[1]
     strategies_const = filterStrategiesByIdValues(
@@ -3108,6 +3199,7 @@ function updateChart(strategies_array) {
     )
     let proccess = getProcessName()
     if (proccess == "generation") {
+        console.log("PRIMER ERROR ",strategies_const )
         plotDataStrategies(strategies_const)
     } else if (proccess == "distribution") {
         dataGraphStrategiesDistribution(strategies_const)
@@ -3119,6 +3211,7 @@ function updateChart(strategies_array) {
 document.getElementById("adjust_sub_estrategies_next").addEventListener("click", function () {
     let proccess = getProcessName()
     if (proccess == "generation") {
+        data_topsis = []
         plotDataIndicators(strategies_const)
     } else if (proccess == "distribution") {
         createGraphIndicatorDistribution(average_loss_factor)
@@ -3161,6 +3254,207 @@ function topsisValues(weights) {
             console.log("Error: " + errorMessage)
         },
     })
+}
+
+function editDataStrategy(strategies_const, id){
+    let all_data = generateDataToSave(strategies_const)
+    let datos = new FormData();
+
+    datos.append("id", id)
+    datos.append("all_data", JSON.stringify(all_data))
+    datos.append("data_indicators", JSON.stringify(for_save_indicators))
+
+    fetch("/dashboard/editData", {
+        method: "POST",
+        body: datos
+    })
+    .then(respuesta => respuesta.json())
+    .then(json => {
+        console.log(json);
+    })
+    .catch(error => {
+        console.log(error);
+    })
+}
+
+function generateDataToSave(strategies_const){
+    let all_data = []
+    for (var i = 0; i< strategies_const.models.length; i ++){
+        let id_strategy = strategies_const.models[i].id
+        for ( var j = 0; j < strategies_const.models[i].strategies.length; j ++){
+            let data = {}
+            let id_sub_strategy =  strategies_const.models[i].strategies[j].id
+            let value =  strategies_const.models[i].strategies[j].selected_value
+            let value_aux =  strategies_const.models[i].strategies[j].selected_value_aux
+            data["id_strategy"] = id_strategy
+            data["id_sub_strategy"] = id_sub_strategy
+            data["value"] = value
+            data["value_aux"] = value_aux //(nuevoValor === 0) ? "valor por defecto" : nuevoValor;
+            all_data.push(data)
+            //console.log("strategies_const. all_data " ,all_data);
+        }
+    }
+    console.log("strategies_const. all_data 2" ,all_data);
+    return all_data
+}
+
+function saveDataStrategy(strategies_const){
+    let all_data = generateDataToSave(strategies_const)
+    let datos = new FormData();
+    let id_user = "alex"
+    let strategy_name = document.getElementById("name-input").value
+    let type = $("#process-selected").find("span").text()
+    let n_and_year = validateDate()
+    let anio = n_and_year[1]
+
+    datos.append("user", id_user)
+    datos.append("strategy_name", strategy_name)
+    datos.append("type", type)
+    datos.append("año", anio)
+    datos.append("all_data", JSON.stringify(all_data))
+    datos.append("data_indicators", JSON.stringify(for_save_indicators))
+
+    fetch("/auth/saveData", {
+        method: "POST",
+        body: datos
+    })
+    .then(respuesta => respuesta.json())
+    .then(json => {
+        console.log(json);
+    })
+    .catch(error => {
+        console.log(error);
+    })
+}
+
+function getProcessName2(processName) {
+    if (processName == "Generación") {
+        processName = "generation"
+    } else if (processName == "Distribución") {
+        processName = "distribution"
+    } else if (processName == "Uso final") {
+        processName = "end_use"
+    }
+    return processName
+}
+
+function filterStrategiesByIdValuesFromEdit(array, idsValues, idsValuesText, year) {
+    let ids = Object.keys(idsValues)
+    let exist = false
+    //console.log("--- filterStrategiesByIdValues ---")
+    if (Object.keys(idsValuesText).length > 0) {
+        exist = true
+    }
+    let new_array = array.models
+        .filter((model) => model.strategies.some((strategy) => ids.includes(strategy.id)))
+        .map((model) => {
+            let newElt
+            if (exist) {
+                newElt = Object.assign({}, model, {
+                    strategies: model.strategies
+                        .filter((strategy) => ids.includes(strategy.id))
+                        .map((inStrategies) => {
+                            let newEltValue = Object.assign({}, inStrategies, {
+                                year: year,
+                                value: idsValues[ids.find((strategiId) => strategiId == inStrategies.id)],
+                                value_aux:
+                                    idsValuesText[ids.find((strategiId) => strategiId == inStrategies.id)],
+                            })
+                            return newEltValue
+                        }),
+                })
+            } else {
+                newElt = Object.assign({}, model, {
+                    strategies: model.strategies
+                        .filter((strategy) => ids.includes(strategy.id))
+                        .map((inStrategies) => {
+                            let newEltValue = Object.assign({}, inStrategies, {
+                                year: year,
+                                value: idsValues[ids.find((strategiId) => strategiId == inStrategies.id)],
+                            })
+                            return newEltValue
+                        }),
+                })
+            }
+            return newElt
+        })
+    array.models = new_array
+    return array
+}
+
+function set(){
+    $("#adjust_sub_estrategies_prev").addClass("btn-danger")
+}
+
+function lanzarEdit(strategies_array) {
+    let button = document.getElementById("adjust_sub_estrategies_prev");
+    button.addEventListener("click", set)
+    //boton.setAttribute("disabled", "true");
+    //$("#adjust_sub_estrategies_prev").addClass("btn-danger")
+
+    // $("#adjust_sub_estrategies_prev").addClass("btn-danger")
+    let div = document.getElementById("prueba");
+    div.style.display = "none";
+    let div2 = document.getElementById("guardar");
+    div2.style.display = "none";
+
+    ActiveSection("scenarios_3")
+    var parent = document.getElementById("template_strategies").cloneNode(true)
+    parent.querySelector("#process").innerHTML = strategies_array.process
+    strategies_array.models.forEach((model) => {
+        var model_html = loadModel(model, parent)
+        model.strategies.forEach((strategy) => {
+            model_html
+                .querySelector("#strategies-model-id")
+                .appendChild(loadStrategy(strategy, model_html, model.id))
+        })
+        model_html.querySelector("#strategies-model-id").id = "strategies-model-" + model.id
+        /* model_html.querySelector("#strategies-model-id").id = "strategies-model-" + model.id */
+        parent.querySelector("#accordion-strategies").appendChild(model_html)
+    })
+    document.getElementById("test-clone").innerHTML = ""
+    document.getElementById("test-clone").appendChild(parent)
+    removeSliders()
+    loadSliders(strategies_array)
+    loadInputsAux(strategies_array)
+    updateChart(strategies_array)
+}
+
+function viewScenary(id, scenary_name, proccess, year) {
+    console.log("id " + id + " scenary_name " + scenary_name + " proccess " + proccess + " year " + year)
+    id_edit = id
+    //set initial variables
+    SetSelectName("process-selected", getProcessName2(proccess))
+    document.getElementById("fecha").innerHTML = String(year)
+    document.getElementById("fecha").value = String(year)
+    loadParameters(scenary_name, proccess, year)
+
+    fetch(`/dashboard/edit_scenary?id=${id}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la respuesta');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(" response", data)
+            let objeto_values = data.reduce((acc, elem) => {
+                acc[elem.id_sub_strategy] = elem.value;
+                return acc;
+            }, {});
+
+            let objeto_values_aux = data.reduce((acc, elem) => {
+                if (elem.value_aux != null) {
+                    acc[elem.id_sub_strategy] = elem.value_aux;
+                }
+                return acc;
+            }, {});
+            const_strategies = JSON.parse(JSON.stringify(strategies_to_load))
+            strategies_array = filterStrategiesByProcess(strategies_to_load)
+            strategies_to_show = filterStrategiesByIdValuesFromEdit(strategies_array, objeto_values, objeto_values_aux, year)
+            lanzarEdit(strategies_array)
+        })
+        .catch(error => console.error(error));
 }
 
 /* Desarrollo Nuevo */
