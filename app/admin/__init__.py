@@ -35,12 +35,11 @@ class DataModelView(ModelView):
         if field.data:
             filename = field.data.filename
             print(filename)
-            path = op.join(op.dirname(__file__), 'data/')
             request_table = request.path.split("/")[2]
             if filename[-4:] == '.csv':
-                df = pd.read_csv(path + filename)
+                df = pd.read_csv(field.data)
             elif filename[-5:] == '.xlsx':
-                df = pd.read_excel(path + filename, engine='openpyxl')
+                df = pd.read_excel(field.data, engine='openpyxl')
             else:
                 raise StopValidation('File format is not supported.')
 
@@ -61,10 +60,9 @@ class DataModelView(ModelView):
         self.export_types = ['csv', 'xlsx']
         path = op.join(op.dirname(__file__), 'data')
         self.form_extra_fields = {
-            'file': FileUploadField('file', namegen=self.prefix_name, base_path=path, validators=[self.file_validation])
+            'file': FileUploadField('file', namegen=self.prefix_name, base_path=path, validators=[self.file_validation], allowed_extensions=self.export_types)
         }
-        self.form_overrides = dict(
-            file=FileUploadField('file', namegen=self.prefix_name, base_path=path, validators=[self.file_validation]))
+        # self.form_overrides = dict(file=FileUploadField('file', namegen=self.prefix_name, base_path=path, validators=[self.file_validation]))
         self.form_args = {
             'file': {
                 'label': 'File',
