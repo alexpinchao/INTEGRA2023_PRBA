@@ -7,6 +7,7 @@ from flask_admin import helpers, expose
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib.fileadmin import FileAdmin
 from flask_admin.form.upload import FileUploadField
+from werkzeug.utils import secure_filename
 from wtforms.validators import StopValidation
 
 
@@ -33,8 +34,8 @@ class DataModelView(ModelView):
     def file_validation(form, field):
         if field.data:
             filename = field.data.filename
+            print(filename)
             path = op.join(op.dirname(__file__), 'data/')
-
             request_table = request.path.split("/")[2]
             if filename[-4:] == '.csv':
                 df = pd.read_csv(path + filename)
@@ -43,10 +44,16 @@ class DataModelView(ModelView):
             else:
                 raise StopValidation('File format is not supported.')
 
-            df.to_sql(name=request_table, con=app.db_object.get_engine())
+            app.db_object.update_from_admin(table=request_table, data=df.to_dict())
+            # df.to_sql(name=request_table, con=app.db_object.get_engine())
             return True
 
         return False
+
+    @staticmethod
+    def prefix_name(obj, file_data):
+        parts = op.splitext(file_data.filename)
+        return secure_filename('file-%s%s' % parts)
 
     def __init__(self, model, *args, **kwargs):
         print("Se ejecuta al menos")
@@ -54,9 +61,10 @@ class DataModelView(ModelView):
         self.export_types = ['csv', 'xlsx']
         path = op.join(op.dirname(__file__), 'data')
         self.form_extra_fields = {
-            'file': FileUploadField('file', base_path=path, validators=[self.file_validation])
+            'file': FileUploadField('file', namegen=self.prefix_name, base_path=path, validators=[self.file_validation])
         }
-        self.form_overrides = dict(file=FileUploadField('file', base_path=path, validators=[self.file_validation]))
+        self.form_overrides = dict(
+            file=FileUploadField('file', namegen=self.prefix_name, base_path=path, validators=[self.file_validation]))
         self.form_args = {
             'file': {
                 'label': 'File',

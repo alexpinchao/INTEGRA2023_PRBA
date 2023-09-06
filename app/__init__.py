@@ -63,9 +63,9 @@ def create_app():
         try:
             array = Base.classes.keys()
             admin.add_view(UserModelView(Base.classes.get('login'), db.session, name='Login', menu_icon_type='fa',
-                                     menu_icon_value='fa-key', menu_class_name='nav-item'))
+                                         menu_icon_value='fa-key', menu_class_name='nav-item'))
             admin.add_view(DataModelView(Base.classes.get('users'), db.session, name='Users', menu_icon_type='fa',
-                                     menu_icon_value='fa-users', menu_class_name='nav-item'))
+                                         menu_icon_value='fa-users', menu_class_name='nav-item'))
             array.remove('login')
             array.remove('users')
             admin.add_category('Source Data', class_name='nav-item', icon_type='fa',

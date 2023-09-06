@@ -70,8 +70,8 @@ consumption_table = Table('G_Consumo', metadata_obj,
                           Column('C_CT_Fueloil_GWh', String),
                           Column('C_CT_Kerosene_GWh', String),
                           Column('C_CT_Total_GWh', String),
-                          #Column('C_CE_Viento_GWh', String),
-                          #Column('C_CS_Sol_GWh', String),
+                          # Column('C_CE_Viento_GWh', String),
+                          # Column('C_CS_Sol_GWh', String),
                           Column('C_CAyC_Bagazo_GWh', String),
                           Column('C_CAyC_Carbon_GWh', String),
                           Column('C_CAyC_Gas_GWh', String),
@@ -502,7 +502,7 @@ data_desag_end_use_table = Table('DATOS_DESAGREGACION_USO_FINAL', metadata_obj,
                                  Column('Consumo_residencial_per_cápita', String),
                                  Column('Consumo_per_cápita_urbano', String),
                                  Column('Consumo_per_cápita_rural', String),
-                                 #Column('Consumo_residencial_por_vivienda', String),
+                                 # Column('Consumo_residencial_por_vivienda', String),
                                  Column('Intensidad_energética_del_sector_industrial', String),
                                  Column('Intensidad_energética_del_sector_comercial_y_público', String)
                                  )
@@ -649,14 +649,14 @@ _translating_dict = {'NT1': 'Nivel de tensión 1',
                      'C_CT_Fueloil_GWh': 'Consumo en centrales térmicas de Fueloil',
                      'C_CT_Kerosene_GWh': 'Consumo en centrales térmicas de Kerosene',
                      'C_CT_Total_GWh': 'Consumo total en centrales térmicas',
-                     #'C_CE_Viento_GWh': 'Consumo en centrales eólicas',
-                     #'C_CS_Sol_GWh': 'Consumo en centrales solares',
+                     # 'C_CE_Viento_GWh': 'Consumo en centrales eólicas',
+                     # 'C_CS_Sol_GWh': 'Consumo en centrales solares',
                      'C_CAyC_Bagazo_GWh': 'Consumo de Bagazo en centrales AyC',
                      'C_CAyC_Carbon_GWh': 'Consumo de Carbón en centrales AyC',
                      'C_CAyC_Gas_GWh': 'Consumo de Gas natural en centrales AyC',
-                     #'C_CAyC_Hidro_GWh': 'Consumo de Hidro en centrales AyC',
+                     # 'C_CAyC_Hidro_GWh': 'Consumo de Hidro en centrales AyC',
                      'C_CAyC_Petroleo_GWh': 'Consumo de Petróleo en centrales AyC',
-                     #'C_CAyC_Renovables_GWh': 'Consumo de Renovables en centrales AyC',
+                     # 'C_CAyC_Renovables_GWh': 'Consumo de Renovables en centrales AyC',
                      'C_CAyC_Diesel_GWh': 'Consumo de Diesel en centrales AyC',
                      'C_CAyC_Gaslicuado_GWh': 'Consumo de Gas licuado en centrales AyC',
                      'C_CAyC_Total': 'Consumo total en centrales AyC',
@@ -1495,8 +1495,7 @@ class SQLConnector:
         return _dict, _translating_dict
 
     def update_from_admin(self, table, data):
-        pass
-
+        print(data)
 
     @staticmethod
     def get_units():
