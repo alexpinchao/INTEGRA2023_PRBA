@@ -57,6 +57,7 @@ class DataModelView(ModelView):
     def __init__(self, model, *args, **kwargs):
         print("Se ejecuta al menos")
         self.can_export = True
+        self.column_display_pk = True
         self.export_types = ['csv', 'xlsx']
         path = op.join(op.dirname(__file__), 'data')
         self.form_extra_fields = {

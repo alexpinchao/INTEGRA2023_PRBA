@@ -4,7 +4,8 @@ Contains the definition of the relational model and execution methods for reques
 """
 from sqlalchemy import create_engine
 from sqlalchemy import MetaData, Table, Column, Integer, String, Float, ForeignKey
-from sqlalchemy.sql import select, insert
+from sqlalchemy.sql import select, insert, update
+from sqlalchemy.orm import sessionmaker
 
 
 # Table schema definition
@@ -1492,15 +1493,51 @@ class SQLConnector:
         return _dict, _translating_dict
 
     def update_from_admin(self, table, data):
-        print(data)
         if table == 'users':
-            print("Por buen camino")
+            for record in data:
+                record = self.rename_key(record)
+                try:
+                    query = update(users_table).values(record).where(users_table.c.iduser == record['iduser'])
+                    result = self.engine.execute(query)
+                    if result.rowcount == 0:
+                        query = insert(users_table).values(record)
+                        self.engine.execute(query)
+                except:
+                    pass
+            return True
+        if table == 'viviendas':
+            for record in data:
+                record = self.rename_key(record, typ='capitalized')
+                try:
+                    query = update(households_table).values(record)
+                    result = self.engine.execute(query)
+                    if result.rowcount == 0:
+                        query = insert(users_table).values(record)
+                        self.engine.execute(query)
+                except:
+                    pass
+            return True
         else:
-            pass
+            return False
 
     @staticmethod
     def get_units():
         return _unit_dict
+
+    @staticmethod
+    def rename_key(dicts, typ='none'):
+        output_dic = dict()
+        for key in dicts:
+            new_key = key
+            if typ != 'capitalized':
+                new_key = new_key.lower()
+            try:
+                new_key = new_key.replace(' ', '_')
+            except:
+                pass
+
+            output_dic[new_key] = dicts[key]
+        return output_dic
 
 
 """ class Contact(db.Model):
