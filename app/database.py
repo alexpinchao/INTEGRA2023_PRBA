@@ -4,11 +4,8 @@ Contains the definition of the relational model and execution methods for reques
 """
 from sqlalchemy import create_engine
 from sqlalchemy import MetaData, Table, Column, Integer, String, Float, ForeignKey
-from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.sql import select, insert
-from app import db, admin
 
-from flask_admin.contrib.sqla import ModelView
 
 # Table schema definition
 metadata_obj = MetaData()
@@ -1496,6 +1493,10 @@ class SQLConnector:
 
     def update_from_admin(self, table, data):
         print(data)
+        if table == 'users':
+            print("Por buen camino")
+        else:
+            pass
 
     @staticmethod
     def get_units():
