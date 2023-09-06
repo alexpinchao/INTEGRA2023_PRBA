@@ -1493,6 +1493,7 @@ class SQLConnector:
         return _dict, _translating_dict
 
     def update_from_admin(self, table, data):
+        print(data)
         if table == 'users':
             for record in data:
                 record = self.rename_key(record)

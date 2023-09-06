@@ -43,9 +43,7 @@ class DataModelView(ModelView):
             else:
                 raise StopValidation('File format is not supported.')
 
-            app.db_object.update_from_admin(table=request_table, data=df.to_dict())
-            # df.to_sql(name=request_table, con=app.db_object.get_engine())
-            return True
+            return app.db_object.update_from_admin(table=request_table, data=df.to_dict(orient='records'))
 
         return False
 
