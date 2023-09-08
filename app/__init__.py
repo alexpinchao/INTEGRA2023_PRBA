@@ -77,7 +77,7 @@ def create_app():
 
         except AttributeError as e:
             print(e)
-        path = op.join(op.dirname(__file__), 'data')
+        path = op.join(op.dirname(__file__), 'static')
         admin.add_view(MyFileAdminView(path, '/Data/', name='Upload Data'))
 
     ext.init_app(app)
