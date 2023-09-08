@@ -5,12 +5,13 @@ Contains the definition of the relational model and execution methods for reques
 from sqlalchemy import create_engine
 from sqlalchemy import MetaData, Table, Column, Integer, String, Float, ForeignKey
 from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.sql import select, insert
+from sqlalchemy.sql import select, insert, update
 from app import db, admin
+
+from flask_admin.contrib.sqla import ModelView
 from flask import json
 import datetime
 
-from flask_admin.contrib.sqla import ModelView
 
 # Table schema definition
 metadata_obj = MetaData()
@@ -621,7 +622,6 @@ table_save_strategies_values = Table("SAVE_STRATEGY_VALUES", metadata_obj,
                         Column("value", String),
                         Column("value_aux", String)
                         )
-
 
 '''engine = create_engine("sqlite:///app/sqlite/NewDB.db")
 metadata_obj.reflect(engine, only=['users', 'login'])
@@ -1631,7 +1631,7 @@ class SQLConnector:
         result.close()
         print(f"rows: {rows}")
         return rows
-    
+
     # def get_data_table_strategies(self):
     #     distribution_dict = {}
     #     _dict = {}
@@ -1674,9 +1674,53 @@ class SQLConnector:
             print(f"Error inserting data: {type(e)} - {e}")
             return False
 
+    def update_from_admin(self, table, data):
+        print(data)
+        if table == 'users':
+            for record in data:
+                record = self.rename_key(record)
+                try:
+                    query = update(users_table).values(record).where(users_table.c.iduser == record['iduser'])
+                    result = self.engine.execute(query)
+                    if result.rowcount == 0:
+                        query = insert(users_table).values(record)
+                        self.engine.execute(query)
+                except:
+                    pass
+            return True
+        if table == 'viviendas':
+            for record in data:
+                record = self.rename_key(record, typ='capitalized')
+                try:
+                    query = update(households_table).values(record)
+                    result = self.engine.execute(query)
+                    if result.rowcount == 0:
+                        query = insert(users_table).values(record)
+                        self.engine.execute(query)
+                except:
+                    pass
+            return True
+        else:
+            return False
+
     @staticmethod
     def get_units():
         return _unit_dict
+
+    @staticmethod
+    def rename_key(dicts, typ='none'):
+        output_dic = dict()
+        for key in dicts:
+            new_key = key
+            if typ != 'capitalized':
+                new_key = new_key.lower()
+            try:
+                new_key = new_key.replace(' ', '_')
+            except:
+                pass
+
+            output_dic[new_key] = dicts[key]
+        return output_dic
 
 
 """ class Contact(db.Model):
