@@ -2,12 +2,13 @@
 
 this file allows to import all the dependencies for the platform initialization.
 """
+import os.path as op
 from flask.app import Flask
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.automap import automap_base
-from .admin import ModelView, MyAdminIndexView
+from .admin import UserModelView, MyAdminIndexView, MyFileAdminView, DataModelView
 from .config import Config
 from .models import UserModel
 from .auth import auth
@@ -61,21 +62,23 @@ def create_app():
 
         try:
             array = Base.classes.keys()
-            admin.add_view(ModelView(Base.classes.get('login'), db.session, 'Login', menu_icon_type='fa',
-                                     menu_icon_value='fa-key', menu_class_name='nav-item'))
-            admin.add_view(ModelView(Base.classes.get('users'), db.session, 'Users', menu_icon_type='fa',
-                                     menu_icon_value='fa-users', menu_class_name='nav-item'))
+            admin.add_view(UserModelView(Base.classes.get('login'), db.session, name='Login', menu_icon_type='fa',
+                                         menu_icon_value='fa-key', menu_class_name='nav-item'))
+            admin.add_view(DataModelView(Base.classes.get('users'), db.session, name='Users', menu_icon_type='fa',
+                                         menu_icon_value='fa-users', menu_class_name='nav-item'))
             array.remove('login')
             array.remove('users')
             admin.add_category('Source Data', class_name='nav-item', icon_type='fa',
                                icon_value='fa-database')
             for element in array:
                 admin.add_view(
-                    ModelView(Base.classes.get(element), db.session, element.replace('_', ' ').capitalize(),
-                              category='Source Data', menu_icon_type='fa', menu_icon_value='fa-table'))
+                    DataModelView(Base.classes.get(element), db.session, element.replace('_', ' ').capitalize(),
+                                  category='Source Data', menu_icon_type='fa', menu_icon_value='fa-table'))
 
         except AttributeError as e:
             print(e)
+        path = op.join(op.dirname(__file__), 'static')
+        admin.add_view(MyFileAdminView(path, '/Data/', name='Upload Data'))
 
     ext.init_app(app)
     mail.init_app(app)

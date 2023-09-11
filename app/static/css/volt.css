@@ -30630,12 +30630,6 @@ article .h6 {
     z-index: 99;
 }
 
-.services-setion-block,
-.about-setion-block,
-.news-setion-block {
-    display: flex;
-}
-
 .slider-volt {
     width: 100% !important;
 }

@@ -66,7 +66,9 @@
                                 <div class="col-12 px-4 px-md-2">
                                     <h3 class="fw-extrabold">Bienvenido a la base de datos</h3>
                                     <p class="mb-0 justified-text">
-                                        En este módulo se recopila la información de las variables y los indicadores de eficiencia energética asociados a los procesos de generación, distribución y uso final de la energía eléctrica en Colombia, visualizando su tendencia histórica.
+                                        En este módulo se recopila la información de las variables y los indicadores de
+                                        eficiencia energética asociados a los procesos de generación, distribución y uso
+                                        final de la energía eléctrica en Colombia, visualizando su tendencia histórica.
                                     </p>
                                 </div>
                             </div>
@@ -533,13 +535,26 @@
                                                 <div class="card border-0 flex-fill">
                                                     <div class="card-body p-1 flex-fill">
                                                         <!-- Graph Section -->
-                                                        <div class="d-block mb-3 mb-sm-1 text-center">
-															<span class="fs-6 fw-bold pb-4" id="chart_title"
-                                                            >Variable seleccionada</span
-                                                            >
-                                                        </div>
-                                                        <div class="mt-2" id="graph-container">
+                                                        <div class="d-block mt-5" id="graph-container">
                                                             <canvas id="line-chart" width="100%" height="50vh"></canvas>
+                                                        </div>
+                                                        <div id="button-graph-line-chart"
+                                                             class="d-flex d-none align-center justify-content-end">
+                                                            <button type="button" class="btn btn-primary px-1 py-0"
+                                                                    onclick="download_line_chart()">
+                                                                <span>
+                                                                <svg class="icon icon-xs"
+                                                                     fill="currentColor"
+                                                                     xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                     height="16" viewBox="0 0 24 24" fill="white">
+                                                                    <path d="m12 16 4-5h-3V4h-2v7H8z"></path>
+                                                                    <path d="M20 18H4v-7H2v7c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-7h-2v7z"></path>
+                                                                </svg>
+                                                                </span>
+                                                                <span class="small">
+                                                                    Guardar .png
+                                                                </span>
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -742,19 +757,30 @@
                                                 <div class="card border-0 flex-fill">
                                                     <div class="card-body p-1 flex-fill">
                                                         <!-- Graph Section -->
-                                                        <div class="d-block mb-3 mb-sm-1 text-center">
-                                                                        <span class="fs-6 fw-bold pb-4"
-                                                                              id="chart_title_1"
-                                                                        >Indicador seleccionado</span
-                                                                        >
-
-                                                        </div>
-                                                        <div class="mt-2" id="graph-container_linea_base">
+                                                        <div class="mt-5" id="graph-container_linea_base">
                                                             <canvas
                                                                     id="line-chart_linea_base"
                                                                     width="100%"
                                                                     height="50vh"
                                                             ></canvas>
+                                                        </div>
+                                                        <div id="button-graph-line-chart_linea_base"
+                                                             class="d-flex d-none align-center justify-content-end">
+                                                            <button type="button" class="btn btn-primary px-1 py-0"
+                                                                    onclick="download_line_chart_linea_base()">
+                                                                <span>
+                                                                <svg class="icon icon-xs"
+                                                                     fill="currentColor"
+                                                                     xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                     height="16" viewBox="0 0 24 24" fill="white">
+                                                                    <path d="m12 16 4-5h-3V4h-2v7H8z"></path>
+                                                                    <path d="M20 18H4v-7H2v7c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-7h-2v7z"></path>
+                                                                </svg>
+                                                                </span>
+                                                                <span class="small">
+                                                                    Guardar .png
+                                                                </span>
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -993,7 +1019,7 @@
                             })
                     } else if (td_select.classList.contains("aser")) {
                         var child = $(this).prevAll("tr:has(.showhr)")[0].innerText
-                        var data = table_handler.row(this).data()
+                        data = table_handler.row(this).data()
                         // prettier-ignore
                         var translate_array = JSON.parse('{{translating_dict | tojson | safe}}')
                         var row = [Object.keys(translate_array).find((key) => translate_array[key] == data)]
@@ -1173,8 +1199,12 @@
                             .nextUntil("tr:has(.showhr)")
                             .toggle("slow", function () {
                             })
+                        $(".aser.bg-gray-200").removeClass("bg-gray-200")
+
                     } else if (td_select.classList.contains("aser")) {
                         var child = $(this).prevAll("tr:has(.showhr)")[0].innerText
+
+                        td_select.classList.toggle("bg-gray-200")
                         var data = table_handler.row(this).data()
                         // prettier-ignore
                         var translate_array = JSON.parse('{{translating_dict | tojson | safe}}')
@@ -1196,8 +1226,10 @@
                                     .nextUntil("tr:has(.showhr)")
                                     .toggle("slow", function () {
                                     })
+                                $(".aser.bg-gray-200").removeClass("bg-gray-200")
                             } else if (td_select.classList.contains("aser")) {
                                 var child = $(this).prevAll("tr:has(.showhr)")[0].innerText
+                                td_select.classList.toggle("bg-gray-200")
                                 var data = table_handler.row(this).data()
                                 // prettier-ignore
                                 var translate_array = JSON.parse('{{translating_dict | tojson | safe}}')
@@ -1252,7 +1284,6 @@
             ]
             /* const table_name = key; */
             const table_name = indicator
-            document.getElementById("chart_title").innerHTML = table_name
             // prettier-ignore
             var json_file = JSON.parse('{{data | tojson | safe}}')
             var table = json_file[list_name][table_name]
@@ -1275,7 +1306,7 @@
                     row == "V_Urbano" ||
                     row == "Vivienda_Total"
                 ) {
-                    array.push((parseFloat(data[j]) / 1000000 ).toFixed(3))
+                    array.push((parseFloat(data[j]) / 1000000).toFixed(3))
                 } else {
                     array.push(parseFloat(data[j]).toFixed(3))
                 }
@@ -1314,9 +1345,11 @@
                     chart_element.data.datasets = chart_element.data.datasets.filter(
                         (data) => data.label != row_table
                     )
+                    $(".bg-gray-200").removeClass(".bg-gray-200");
                     chart_element.update()
                 }
             } else {
+                $(".bg-gray-200").removeClass(".bg-gray-200");
                 keys_list = [row_table]
                 var mydatasets = [
                     {
@@ -1364,8 +1397,10 @@
                             ],
                         },
                         title: {
-                            display: false,
+                            display: true,
                             text: table_name,
+                            fontSize: 22,
+                            padding: 15,
                         },
                         legend: {
                             position: "bottom",
@@ -1385,8 +1420,18 @@
                     },
                 }
                 chart_element = new Chart(document.getElementById("line-chart"), config)
+                document.getElementById("button-graph-line-chart").classList.remove("d-none");
             }
             last_indicator = indicator
+        }
+
+        function download_line_chart() {
+            var image_data = chart_element.toBase64Image();
+            const linkSource = "data:image/jpg" + image_data;
+            const downloadLink = document.createElement("a");
+            downloadLink.href = linkSource;
+            downloadLink.download = 'Grafica_Variables.png';
+            downloadLink.click();
         }
     </script>
 
@@ -1554,7 +1599,9 @@
                             .nextUntil("tr:has(.showhr)")
                             .toggle("slow", function () {
                             })
+                        $(".aser.bg-gray-200").removeClass("bg-gray-200")
                     } else if (td_select.classList.contains("aser")) {
+                        td_select.classList.toggle("bg-gray-200")
                         var child = $(this).prevAll("tr:has(.showhr)")[0].innerText
                         var data = table_handler.row(this).data()
                         // prettier-ignore
@@ -1577,7 +1624,9 @@
                                     .nextUntil("tr:has(.showhr)")
                                     .toggle("slow", function () {
                                     })
+                                $(".aser.bg-gray-200").removeClass("bg-gray-200")
                             } else if (td_select.classList.contains("aser")) {
+                                td_select.classList.toggle("bg-gray-200")
                                 var child = $(this).prevAll("tr:has(.showhr)")[0].innerText
                                 var data = table_handler.row(this).data()
                                 // prettier-ignore
@@ -1622,7 +1671,6 @@
             ]
             /* const table_name = key; */
             const table_name = indicator
-            document.getElementById("chart_title_1").innerHTML = table_name
             if (list_name == "Agregados") {
                 // prettier-ignore
                 var json_file = JSON.parse('{{data_total_indicators | tojson | safe}}')
@@ -1723,6 +1771,7 @@
                     chart_element.data.datasets.push(update_dataset)
                     chart_element.update()
                 } else {
+                    $(".bg-gray-200").removeClass(".bg-gray-200");
                     keys_list = keys_list.filter((data) => data != row2)
                     chart_element.data.datasets = chart_element.data.datasets.filter(
                         (data) => data.label != row2
@@ -1730,6 +1779,7 @@
                     chart_element.update()
                 }
             } else {
+                $(".bg-gray-200").removeClass(".bg-gray-200");
                 keys_list = [row2]
                 var mydatasets = [
                     {
@@ -1782,8 +1832,10 @@
                             ],
                         },
                         title: {
-                            display: false,
+                            display: true,
                             text: table_name,
+                            fontSize: 24,
+                            padding: 15,
                         },
                         legend: {
                             position: "bottom",
@@ -1803,9 +1855,19 @@
                     },
                 }
                 chart_element = new Chart(document.getElementById("line-chart_linea_base"), config)
+                document.getElementById("button-graph-line-chart_linea_base").classList.remove("d-none");
                 limite_graficas = false
             }
             last_indicator = indicator
+        }
+
+        function download_line_chart_linea_base() {
+            var image_data = chart_element.toBase64Image();
+            const linkSource = "data:image/jpg" + image_data;
+            const downloadLink = document.createElement("a");
+            downloadLink.href = linkSource;
+            downloadLink.download = 'Grafica_Indicadores.png';
+            downloadLink.click();
         }
     </script>
 

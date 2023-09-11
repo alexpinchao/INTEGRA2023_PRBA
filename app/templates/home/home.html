@@ -136,7 +136,7 @@
                         <div class="card-body p-0">
                             <div class="container marketing">
                                 <!-- Three columns of text below the carousel -->
-                                <div class="row py-3 d-flex justify-content-center services-setion-block" id="services">
+                                <div class="row py-3 d-flex justify-content-center" id="services">
                                     <h1 class="fw-extrabold text-center">Servicios</h1>
                                     <div class="col-12 col-lg-4 flex-grow-1 p-2">
                                         <a class="a-effect-home" href="{{ url_for('dashboard.database') }}">
@@ -201,7 +201,7 @@
                                 </div>
                                 <!-- START THE FEATURETTES -->
                                 <hr class="featurette-divider">
-                                <div class="row py-3 d-flex justify-content-center featurette pt-5 about-setion-block"
+                                <div class="row py-3 d-flex justify-content-center featurette py-5"
                                      id="about">
                                     <h1 class="fw-extrabold text-center pb-2">Acerca del proyecto</h1>
                                     <div class="col-10 col-md-4 card m-0 login-image home">
@@ -227,10 +227,10 @@
                                     </div>
                                 </div>
                                 <hr class="featurette-divider">
-                                <div class="row py-3 d-flex justify-content-center featurette news-setion-block"
+                                <div class="row py-5 d-flex justify-content-center featurette"
                                      id="news">
-                                    <div class="col-12 order-1">
-                                        <div class="card-body p-0">
+                                    <div class="col-12 order-1 m-0">
+                                        <div class="card-body p-0 m-0">
                                             <div id="myCarousel-news" class="carousel slide p-0 m-0"
                                                  data-bs-ride="carousel">
                                                 <div class="carousel-inner">
@@ -270,7 +270,7 @@
                                                                     Noticias</h1>
                                                                 <h2 class="text-white d-block h6">¿Ha encontrado un
                                                                     fallo al interior de la herramienta? <br>
-                                                                    Comuníquese cuanto antes con nosotros y ayúdanos a
+                                                                    Comuníquese cuanto antes con nosotros y ayúdenos a
                                                                     mejorar.</h2>
                                                             </div>
                                                         </div>
@@ -294,6 +294,50 @@
                     {% block footer %}
                         {% include 'module/footer.html' %}
                     {% endblock %}
+                    <div>
+                        <div class="card">
+                            <div class="card-body">
+                                <button type="button" class="btn btn-block w-25 p-1" data-bs-toggle="modal" data-bs-target="#modalNotification">
+                                    Citar herramienta
+                                </button>
+                                <!-- Modal Content -->
+                                <div class="modal fade" id="modalNotification" tabindex="-1" role="dialog" aria-labelledby="modalTitleNotify" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <p class="modal-title h4" id="modalTitleNotify">Inteegra</p>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="py-3 text-center">
+                                                    <i class="fa-solid fa-quote-left me-1"></i>
+                                                    <i class="fa-solid fa-quote-right ms-1"></i>
+                                                    <p class="mt-2" id="cite-text">Universidad Tecnológica de Pereira, Universidad del Valle. INTEEGRA: Herramienta para la gestión de indicadores de eficiencia energética en el sector eléctrico colombiano. 2023. http://integra.fernandoleiton.com/home</p>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" id="btn-clipboard" class="btn btn-sm btn-primary w-50" onclick="copy_to_clipboard()">Copiar al portapapeles <i class="fa-regular fa-clipboard mx-1"></i></button>
+                                            </div>
+                                            <script>
+                                                function copy_to_clipboard() {
+                                                    setTimeout(function() {
+                                                        $("#btn-clipboard").html("Copiar al portapapeles <i class='fa-regular fa-clipboard mx-1'></i>").removeClass("btn-success");
+                                                        }, 1000);
+                                                      // Get the text field
+                                                      let copyText = document.getElementById("cite-text");
+
+                                                      // Copy the text inside the text field
+                                                      navigator.clipboard.writeText(copyText.innerText);
+                                                      $("#btn-clipboard").html("Copiado!<i class='fa-solid fa-check ms-2'></i>").addClass("btn-success");
+                                                }
+                                                </script>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
