@@ -1,4 +1,4 @@
-from flask import render_template, redirect, flash, url_for, session, current_app as app
+from flask import render_template, redirect, flash, url_for, request,jsonify, session, current_app as app
 from app.forms import LoginForm, SignupForm, RecoveryForm
 from . import auth
 from app.models import UserData, UserModel
@@ -104,3 +104,22 @@ def logout():
     logout_user()
     flash('Regresa Pronto.')
     return redirect(url_for('auth.login'))
+
+@auth.route('/saveData', methods=['GET', 'POST'])
+def saveData():
+    strategy_name = request.form.get("strategy_name")
+    chain_type = request.form.get("type")
+    id_user = request.form.get("user")
+    anio= request.form.get("año")
+    all_data= request.form.get("all_data")
+    data_indicators= request.form.get("data_indicators")
+
+    print(f"id_user:  {id_user} , strategy_name: {strategy_name}, anio: {anio}, chain_type: {chain_type}, all_data: {all_data} , data_indicators: {data_indicators}")
+    resultado = app.db_object.set_save_strategy(strategy_name, id_user, chain_type, anio, all_data, data_indicators)
+    if resultado:
+        flash("Scenary add successfully")
+        print("succes")
+        return jsonify({"mensaje": "success"})
+    else:
+        print("failure")
+        return jsonify({"mensaje": "failure"})

@@ -5,10 +5,13 @@ Contains the definition of the relational model and execution methods for reques
 from sqlalchemy import create_engine
 from sqlalchemy import MetaData, Table, Column, Integer, String, Float, ForeignKey
 from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.sql import select, insert
+from sqlalchemy.sql import select, insert, update
 from app import db, admin
 
 from flask_admin.contrib.sqla import ModelView
+from flask import json
+import datetime
+
 
 # Table schema definition
 metadata_obj = MetaData()
@@ -594,6 +597,32 @@ projections_end_use_table = Table('proyeccion_escenario_bau_uso_final', metadata
                                          nullable=False, unique=True),
                                   Column('Consumo_eléctrico_total', String)
                                   )
+
+'''
+function saveDateStrategies
+'''
+table_save_strategies = Table("SAVE_STRATEGY", metadata_obj,
+                        Column("id", Integer,
+                                primary_key=True, nullable=False, autoincrement=True),
+                        Column("strategy_name", String),
+                        Column("user", String),
+                        Column("type", String),
+                        Column("anio", Integer),
+                        Column("environmental_indicator", Integer),
+                        Column("economic_indicator", Integer),
+                        Column("energy_indicator", Integer),
+                        Column("date", String)
+                        )
+table_save_strategies_values = Table("SAVE_STRATEGY_VALUES", metadata_obj,
+                        Column("id", Integer,
+                                primary_key=True, nullable=False, autoincrement=True),
+                        Column("id_strategy_name", Integer),
+                        Column("id_strategy", String),
+                        Column("id_sub_strategy", String),
+                        Column("value", String),
+                        Column("value_aux", String)
+                        )
+
 '''engine = create_engine("sqlite:///app/sqlite/NewDB.db")
 metadata_obj.reflect(engine, only=['users', 'login'])
 Base = automap_base(metadata=metadata_obj)
@@ -985,7 +1014,7 @@ class SQLConnector:
     # Incompleto
     # Verificación y creación de usuario
     def set_user(self, user, password):
-        """Save users credential on databaseser
+        """Save users credential on database
 
         Args:
             user (str): user identification.
@@ -1491,9 +1520,207 @@ class SQLConnector:
         _dict.update({'end_use': end_use_dict})
         return _dict, _translating_dict
 
+    def update_strategy_with_id(self, id, new_data_values, new_indicators_values):
+        """Save users credential on database
+
+        Args:
+            user (str): user identification.
+            password (str -hash value-): user-provided password.
+
+        Returns:
+            dict: query result from validation --select-- for the given user credentials.
+        """
+        print(f"id: {id}")
+        fecha_actual = datetime.datetime.today()
+        fecha_formateada = fecha_actual.strftime("%d/%m/%Y")
+        data_insert = json.loads(new_indicators_values)
+        query = table_save_strategies.update().where(table_save_strategies.c.id == id).values(
+                environmental_indicator= data_insert[0],
+                economic_indicator = data_insert[1],
+                energy_indicator = data_insert[2],
+                date = fecha_formateada
+                )
+        try:
+            result = self.engine.execute(query)
+            num_filas_actualizadas = result.rowcount
+            print(f"Update success. {num_filas_actualizadas}")
+            query2 = table_save_strategies_values.delete().where(table_save_strategies_values.c.id_strategy_name == id)
+            result2 = self.engine.execute(query2)
+            num_filas_eliminadas2 = result2.rowcount
+            print(f"Delete success. {num_filas_eliminadas2}")
+            rows = json.loads(new_data_values)
+            for row in rows:
+                row['id_strategy_name'] = id
+            self.engine.execute(table_save_strategies_values.insert(), rows)
+            print(f"Insert success.")
+            return True
+        except Exception as e:
+            print(f"Error inserting data: {type(e)} - {e}")
+            return False
+
+    def delete_strategy_with_id(self, id):
+        """Save users credential on database
+
+        Args:
+            user (str): user identification.
+            password (str -hash value-): user-provided password.
+
+        Returns:
+            dict: query result from validation --select-- for the given user credentials.
+        """
+        print(f"id: {id}")
+
+        query = table_save_strategies.delete().where(table_save_strategies.c.id == id)
+        result = self.engine.execute(query)
+        num_filas_eliminadas = result.rowcount
+        if num_filas_eliminadas > 0:
+            query2 = table_save_strategies_values.delete().where(table_save_strategies_values.c.id_strategy_name == id)
+            result2 = self.engine.execute(query2)
+            num_filas_eliminadas2 = result2.rowcount
+            if num_filas_eliminadas2 > 0:
+                print("The delation was successful.")
+                return True
+            else:
+                print("The delation failed sub.")
+        else:
+            print("The delation failed scenary.")
+            return False
+
+    def get_data_table_strategies_variable_value(self, id):
+        """Save users credential on database
+
+        Args:
+            user (str): user identification.
+            password (str -hash value-): user-provided password.
+
+        Returns:
+            dict: query result from validation --select-- for the given user credentials.
+        """
+        # query_1 = insert(login_table).values(user=user, password=password)
+        # result = self.engine.execute(query_1)
+        print(f"id: {id}")
+
+        query = select(table_save_strategies_values).where(table_save_strategies_values.c.id_strategy_name == id)
+        result = self.engine.execute(query)
+        columns = [col for col in result.keys()]
+        print(f"columns: {columns}")
+        rows = [dict(zip(columns, row)) for row in result.fetchall()]
+        result.close()
+        print(f"rows: {rows}")
+        return rows
+
+    def get_data_table_strategies(self, user):
+        """Save users credential on database
+
+        Args:
+            user (str): user identification.
+            password (str -hash value-): user-provided password.
+
+        Returns:
+            dict: query result from validation --select-- for the given user credentials.
+        """
+        # query_1 = insert(login_table).values(user=user, password=password)
+        # result = self.engine.execute(query_1)
+        print(f"user: {user}")
+
+        query_2 = select(table_save_strategies).where(table_save_strategies.c.user == user)
+        result = self.engine.execute(query_2)
+        columns = [col for col in result.keys()]
+        print(f"columns: {columns}")
+        rows = [dict(zip(columns, row)) for row in result.fetchall()]
+        result.close()
+        print(f"rows: {rows}")
+        return rows
+
+    # def get_data_table_strategies(self):
+    #     distribution_dict = {}
+    #     _dict = {}
+    #     distribution_dict.update(self.get_table_strategies())
+    #     _dict.update({'distribution': distribution_dict})
+    #     return _dict
+
+    def set_save_strategy(self, strategy_name,user,chain_type, anio, all_data, data_indicators):
+        """Save users strategies on database
+
+        Args:
+            id_login (int): index of login table from method
+            name (_type_): _description_
+            organization (_type_): _description_
+        """
+        fecha_actual = datetime.datetime.today()
+        fecha_formateada = fecha_actual.strftime("%d/%m/%Y")
+        print("La fecha actual es:", fecha_formateada)
+        data_insert = json.loads(data_indicators)
+        stmt = insert(table_save_strategies).values(
+                strategy_name=strategy_name,
+                user=user,
+                type=chain_type,
+                anio=anio,
+                environmental_indicator= data_insert[0],
+                economic_indicator = data_insert[1],
+                energy_indicator = data_insert[2],
+                date= fecha_formateada
+            )
+        try:
+            result_proxy = self.engine.execute(stmt)
+            strategy_id = result_proxy.inserted_primary_key[0]
+            rows = json.loads(all_data)
+            for row in rows:
+                row['id_strategy_name'] =strategy_id
+            self.engine.execute(table_save_strategies_values.insert(), rows)
+            print(f"Data inserted correctly id: {strategy_id}")
+            return True
+        except Exception as e:
+            print(f"Error inserting data: {type(e)} - {e}")
+            return False
+
+    def update_from_admin(self, table, data):
+        print(data)
+        if table == 'users':
+            for record in data:
+                record = self.rename_key(record)
+                try:
+                    query = update(users_table).values(record).where(users_table.c.iduser == record['iduser'])
+                    result = self.engine.execute(query)
+                    if result.rowcount == 0:
+                        query = insert(users_table).values(record)
+                        self.engine.execute(query)
+                except:
+                    pass
+            return True
+        if table == 'viviendas':
+            for record in data:
+                record = self.rename_key(record, typ='capitalized')
+                try:
+                    query = update(households_table).values(record)
+                    result = self.engine.execute(query)
+                    if result.rowcount == 0:
+                        query = insert(users_table).values(record)
+                        self.engine.execute(query)
+                except:
+                    pass
+            return True
+        else:
+            return False
+
     @staticmethod
     def get_units():
         return _unit_dict
+
+    @staticmethod
+    def rename_key(dicts, typ='none'):
+        output_dic = dict()
+        for key in dicts:
+            new_key = key
+            if typ != 'capitalized':
+                new_key = new_key.lower()
+            try:
+                new_key = new_key.replace(' ', '_')
+            except:
+                pass
+
+            output_dic[new_key] = dicts[key]
+        return output_dic
 
 
 """ class Contact(db.Model):
