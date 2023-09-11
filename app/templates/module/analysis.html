@@ -1381,7 +1381,7 @@ macros %} {% block head %} {{ super() }}
                 ],
             },
         }
-        var strategies_to_load = JSON.parse('{{ strategies_definition| tojson | safe }}')
+        var strategies_to_load_edit = JSON.parse('{{ strategies_definition| tojson | safe }}')
         let units = JSON.parse('{{units | tojson | safe}}')
     </script>
 
@@ -1596,7 +1596,7 @@ macros %} {% block head %} {{ super() }}
                     }
                 })
                 // prettier-ignore
-                // let strategies_to_load = JSON.parse('{{ strategies_definition| tojson | safe }}')
+                let strategies_to_load = JSON.parse('{{ strategies_definition| tojson | safe }}')
                 // prettier-ignore
                 // let units = JSON.parse('{{units | tojson | safe}}')
                 if (arr_ids.length === 0) {

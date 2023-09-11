@@ -610,7 +610,8 @@ table_save_strategies = Table("SAVE_STRATEGY", metadata_obj,
                         Column("environmental_indicator", Integer),
                         Column("economic_indicator", Integer),
                         Column("energy_indicator", Integer),
-                        Column("date", String)
+                        Column("date", String),
+                        Column("update_date", String)
                         )
 table_save_strategies_values = Table("SAVE_STRATEGY_VALUES", metadata_obj,
                         Column("id", Integer,
@@ -1538,7 +1539,7 @@ class SQLConnector:
                 environmental_indicator= data_insert[0],
                 economic_indicator = data_insert[1],
                 energy_indicator = data_insert[2],
-                date = fecha_formateada
+                update_date = fecha_formateada
                 )
         try:
             result = self.engine.execute(query)

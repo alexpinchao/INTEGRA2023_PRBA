@@ -41,6 +41,8 @@ var colorslist = [
 
 var units_array = []
 var for_save_indicators= []
+var for_save_generation= []
+var for_save_consumption= []
 var id_edit
 
 function loadUnit(units) {
@@ -98,6 +100,9 @@ function cleanGrahpIndicators() {
         chart_element_7.destroy()
         document.getElementById("chart_title_7").innerHTML = " "
     }
+    for_save_generation=[]
+    for_save_consumption = []
+    for_save_indicators = []
 }
 
 function cleanGrahpTopsis() {
@@ -1116,8 +1121,6 @@ function filterStrategiesByProcess(strategies_array) {
 }
 
 function filterStrategiesById(array, ids) {
-    // console.log("array", array)
-    // console.log("ids", ids)
     let n_and_year = validateDate()
     let n = n_and_year[0]
     let anio = n_and_year[1]
@@ -1204,9 +1207,6 @@ function filterStrategiesByIdRelationated(array, ids) {
 function filterStrategiesByIdValues(array, idsValues, idsValuesText) {
     let ids = Object.keys(idsValues)
     let exist = false
-    console.log("--- filterStrategiesByIdValues ---array ", array)
-    console.log("--- filterStrategiesByIdValues ---idsValues ", idsValues)
-    console.log("--- filterStrategiesByIdValues --- idsValuesText" ,idsValuesText)
     if (Object.keys(idsValuesText).length > 0) {
         exist = true
     }
@@ -1804,29 +1804,24 @@ function createDataChartTopsis(data) {
     })
 }
 
-function createTotalValueForSave(generacion,consumo, pib){
+function createTotalValueForSave(generacion,consumo){
     let total_data_generation = []
     let total_data_consumption = []
     let data_consumption_emissions = []
     let n_year = validateDate();
     let n = n_year[0]
     const fe_const = 0.126379
+    let pib = [
+        344.1612833, 355.4685381, 367.8705797, 380.837696, 394.8857455, 408.9742253, 423.1216551,
+        437.1906672, 451.7446956,
+    ]
 
-    console.log("generacion", generacion)
-    console.log("consumo", consumo)
     let keys_genrartion = Object.keys(generacion)
     keys_genrartion.forEach(function (item, index) {
         let genration_item = generacion[item]
         let consume_item = consumo[item]
-        console.log("genration_item", genration_item)
-        console.log("consume_item", consume_item)
-
         let data_generacion_total = modifyData(genration_item)
         let data_consumo_total = modifyData(consume_item)
-
-        console.log("data_generacion_total", data_generacion_total)
-        console.log("data_consumo_total", data_consumo_total)
-
         let data_generacion = data_generacion_total[0]
         let name = data_generacion_total[1]
         let data_consumo = data_consumo_total[0]
@@ -1836,31 +1831,18 @@ function createTotalValueForSave(generacion,consumo, pib){
         const [lastElementCom] = [...data_consumo].reverse();
         total_data_consumption.push(lastElementCom)
         let fe = emissionFactor(name)
-        console.log("name ",name )
-        console.log("fe ",fe  )
         if (fe !== 0){
             const [lastElementComEm] = [...data_consumo].reverse();
-            console.log("entr al if lastElementComEm  ",lastElementComEm  )
             data_consumption_emissions.push(lastElementComEm)
         }
     })
     const sumGen = total_data_generation.reduce((accumulator, currentValue) => accumulator + currentValue);
-    console.log("sumGen",sumGen);
     const sumCon = total_data_consumption.reduce((accumulator, currentValue) => accumulator + currentValue);
-    console.log("sumCon",sumCon);
-    const sumConEmissions = data_consumption_emissions.reduce((accumulator, currentValue) => accumulator + currentValue);
-    console.log("sumConEmissions",sumConEmissions);
-    console.log("pib[n-1] ", pib[n-1]);
-    console.log("fe_const ", fe_const);
+    const sumConEmissions = data_consumption_emissions.length > 0 ? data_consumption_emissions.reduce((accumulator, currentValue) => accumulator + currentValue) : 0;
     let eficiency = sumGen / sumCon
     let iep = (sumCon / pib[n-1] ) /1000
     let iec = (sumConEmissions*fe_const )/pib[n-1]
-    console.log("eficiency "+eficiency);
-    console.log("iep "+iep);
-    console.log("iec "+iec);
-
     for_save_indicators.push(eficiency,iep,iec)
-
     // let values = prepareDataTopsis(eficiency, iep, iec, name)
     // data_topsis.push(values)
 }
@@ -1868,12 +1850,6 @@ function createTotalValueForSave(generacion,consumo, pib){
 function createGraphIndicator(create_data_indicator_generation, create_data_indicator_consume) {
     let generacion = create_data_indicator_generation
     let consumo = create_data_indicator_consume
-    //console.log("data_topsis GEN", data_topsis)
-
-
-    //   data_topsis = []
-
-
     //datos de pib desde 2022 hasta 2030, no es necesario agregar año porque el sistem recorre hasta el año que necesita
     let pib = [
         344.1612833, 355.4685381, 367.8705797, 380.837696, 394.8857455, 408.9742253, 423.1216551,
@@ -1881,7 +1857,8 @@ function createGraphIndicator(create_data_indicator_generation, create_data_indi
     ]
     //funcion solo para el guardado de varibles totales
     //para posterior comparacion con otros escenarios
-    createTotalValueForSave(generacion,consumo, pib)
+    for_save_generation.push(...generacion)
+    for_save_consumption.push(...consumo)
 
     let keys_genrartion = Object.keys(generacion)
     keys_genrartion.forEach(function (item, index) {
@@ -2135,6 +2112,7 @@ function plotDataIndicators(strategies) {
             }
         })
     }
+    createTotalValueForSave(for_save_generation, for_save_consumption)
 }
 
 function modelExpansionEstrategyOnlyData(n, valorObjetivo, fp, generacion_historica) {
@@ -2607,6 +2585,12 @@ function createGraphIndicatorEndUse(total_elect_consump, ce_bau, poblacion, pib_
     let c_per_cap = generatePerCapitaConsumptionindicator(total_elect_consump, poblacion)
     let energy_intensity = generateEnergyintensityindicator(total_elect_consump, pib_billones_usd)
     let avoid_emissions = generateAvoidEmissionsIndicator(total_elect_consump, ce_bau, fe)
+    //seleccion de ultimo valor del array (se hace para obtener los indicadores que se van guardar)
+    let last_c_per_cap = Object.values(Object.values(c_per_cap)[0].at(-1))[1]
+    let last_energy_intensity = Object.values(Object.values(energy_intensity)[0].at(-1))[1]
+    let last_avoid_emissions = Object.values(Object.values(avoid_emissions)[0].at(-1))[1]
+    //array order: enviromental_indicator, economic_indicator, energy_indicator
+    for_save_indicators.push(last_avoid_emissions,last_energy_intensity,last_c_per_cap)
 }
 
 function createDataForTospsis(impact, population, pib_usd, ce_bau_projected, name) {
@@ -2695,13 +2679,14 @@ function generateDataIndicatorEndUse(
     lightweight_vehicles = sumStrategyData(lightweight_vehicles_array)  //suma todos lo valores de los arreglos para cada año
     heavy_vehicles = sumStrategyData(heavy_vehicles_array)
 
+    //se inicializan valores para la suma ya que para los años antes del analisis ya habia vehiculos en colombia 
     let lightweight_sum = lightweight_vehicles.reduce((accumulator, currentValue) => {
         // suma todos los totales de todos los años para devolver un unico valor
         return accumulator + currentValue
-    })
+    }, 22.400)
     let heavy_sum = heavy_vehicles.reduce((accumulator, currentValue) => {
         return accumulator + currentValue
-    })
+    }, 16.48)
 
     let data_model_upgrade = []
     let ce_bau = [],
@@ -2960,6 +2945,7 @@ function distributionIndicatorsEEP(fdp, ener_facturada_equ) {
         data_plot_dict[name] = eep
         data_plot_eep.push(data_plot_dict)
     }
+    console.log("data_plot_eep que esta pasando ", data_plot_eep)
     data_plot_return["Indicador emisiones equivalentes de las pérdidas de distribución"] = data_plot_eep
     createChartIndicador3(
         list_name,
@@ -3051,9 +3037,17 @@ function createGraphIndicatorDistribution(fdp) {
     let cep = distributionIndicatorsCEP(fdp, costo_dist, ener_facturada_equ, USD_promedio) //Costo equivalente a pérdidas ADD  en Millones de USD [base 2015]
     let eep = distributionIndicatorsEEP(fdp, ener_facturada_equ) //Emisiones equivalentes de las pérdidas de distribución TCO2eq/año
 
+    //select last value for create indicators to save
+    let last_fdp_ = Object.values(Object.values(fdp_)[0].at(-1))[1]
+    let last_cep = Object.values(Object.values(cep)[0].at(-1))[1]
+    let last_eep = Object.values(Object.values(eep)[0].at(-1))[1]
+
+    //array order: enviromental_indicator, economic_indicator, energy_indicator
+    for_save_indicators.push(last_eep,last_cep,last_fdp_)
+
     //lanza topsis, utiliza una variavle global para mantener las difertens strategias, ya que en las
     // graficas de distribucion se promedian
-    PrepareDataTopsisDistribution(data_for_topsis_dist)
+   PrepareDataTopsisDistribution(data_for_topsis_dist)
 }
 
 function DataTopsisDistribution(fdp_, cep, eep, name_type_ami) {
@@ -3083,6 +3077,84 @@ function DataTopsisDistribution(fdp_, cep, eep, name_type_ami) {
     return data_topsis_return
 }
 
+function distributionIndicatorFPDToTopsis(fdp) {
+    let name = "Factor de pérdidas"
+    //let eficiency = 0
+    let data_plot = []
+    let k = 2
+    let anio_fdp = ""
+    let data_plot_return = []
+    for (var i = 0; i < fdp.length; i++) {
+        let data_plot_dict = {}
+        anio_fdp = "202" + k
+        if (k > 9) {
+            k = 0
+            anio_fdp = "203" + k
+        }
+        k++
+        //eficiency = generacion[i] / consumo[i]
+        data_plot_dict.Año = anio_fdp
+        data_plot_dict[name] = fdp[i]
+        data_plot.push(data_plot_dict)
+    }
+    data_plot_return["Indicador de factor de pérdidas"] = data_plot
+    return data_plot_return
+}
+
+
+function distributionIndicatorsCEPtoTopsis(fdp, costo_dist, ener_facturada_equ, USD_promedio) {
+    let name = "Costo equivalente a pérdidas ADD en Millones de USD"
+    let cep = 0 // (consumo /pib)/1000
+    let anio = ""
+    let k = 2
+    let data_plot_cep = []
+    var data_plot_return = []
+    for (var i = 0; i < fdp.length; i++) {
+        let data_plot_dict = {}
+        anio = "202" + k
+        if (k > 9) {
+            k = 0
+            anio = "203" + k
+        }
+        k++
+        cep = (fdp[i]*ener_facturada_equ[i]/(1 - fdp[i]))*(costo_dist[i]/USD_promedio)
+        //data_plot_dict = {"Año": anio, "Indicador costo equivalente a pérdidas": cep};
+        data_plot_dict.Año = anio
+        data_plot_dict[name] = cep
+        data_plot_cep.push(data_plot_dict)
+    }
+    data_plot_return["Indicador costo equivalente a pérdidas"] = data_plot_cep
+    return data_plot_return
+}
+
+
+function distributionIndicatorsEEPToTopsis(fdp, ener_facturada_equ) {
+    let name = "Emisiones equivalentes de las pérdidas de distribución"
+    let fe = 0.2 //Factor de emisióin [gCO2eq/Wh]
+    let eep = 0 // (consumo*fe) /pib
+    let anio = ""
+    let k = 2
+    let data_plot_eep = []
+    var data_plot_return = []
+
+    for (var i = 0; i < fdp.length; i++) {
+        let data_plot_dict = {}
+        anio = "202" + k
+        if (k > 9) {
+            k = 0
+            anio = "203" + k
+        }
+        k++
+        let temp = (fdp[i]*ener_facturada_equ[i]/(1-fdp[i]))/1000000
+        eep = temp* fe
+        data_plot_dict.Año = anio
+        data_plot_dict[name] = eep
+        data_plot_eep.push(data_plot_dict)
+    }
+    data_plot_return["Indicador emisiones equivalentes de las pérdidas de distribución"] = data_plot_eep
+    return data_plot_return
+}
+
 function PrepareDataTopsisDistribution(data) {
     //datos de db desde 2022 hasta 2030, no es necesario agregar año porque el sistem recorre hasta el año que necesita
     //Costo distribución ADD  [$/kWh] [base 2015]
@@ -3100,9 +3172,9 @@ function PrepareDataTopsisDistribution(data) {
             a_data.push(Object.values(array2)[1])
             name = Object.keys(array2)[1]
         }
-        let fdp_ = distributionIndicatorFPD(a_data)
-        let cep = distributionIndicatorsCEP(a_data, costo_dist, ener_facturada_equ, USD_promedio) //Costo equivalente a pérdidas ADD  en Millones de USD [base 2015]
-        let eep = distributionIndicatorsEEP(a_data, ener_facturada_equ) //Emisiones equivalentes de las pérdidas de distribución TCO2eq/año
+        let fdp_ = distributionIndicatorFPDToTopsis(a_data)
+        let cep = distributionIndicatorsCEPtoTopsis(a_data, costo_dist, ener_facturada_equ, USD_promedio) //Costo equivalente a pérdidas ADD  en Millones de USD [base 2015]
+        let eep = distributionIndicatorsEEPToTopsis(a_data, ener_facturada_equ) //Emisiones equivalentes de las pérdidas de distribución TCO2eq/año
         let values = DataTopsisDistribution(fdp_, cep, eep, name)
         data_topsis.push(values)
     }
@@ -3145,6 +3217,8 @@ function decentralizationAndDigitizationStrategies(sub_strategies, n, strategies
         }
         loss_factor_total.push(array_data)
         data_for_topsis_dist.push(const_loss_factor)
+        console.log("loss_factor_total ", loss_factor_total)
+        console.log("data_for_topsis_dist ", data_for_topsis_dist)
         createChartUpgrade(
             list_name,
             strategies_name,
@@ -3156,6 +3230,8 @@ function decentralizationAndDigitizationStrategies(sub_strategies, n, strategies
         )
     })
     average_loss_factor = promedioElemento(loss_factor_total);
+    //console.log("data_for_topsis_dist ", data_for_topsis_dist)
+    console.log("average_loss_factor ", average_loss_factor)
     //createGraphIndicatorDistribution(average_loss_factor)
     //PrepareDataTopsisDistribution(data_for_topsis_dist)
 }
@@ -3189,7 +3265,6 @@ function dataGraphStrategiesDistribution(strategies) {
 
 function updateChart(strategies_array) {
     let current_values = getCurrentValues()
-    console.log("current_values", current_values)
     let current_values_sliders = current_values[0]
     let current_values_text = current_values[1]
     strategies_const = filterStrategiesByIdValues(
@@ -3199,7 +3274,6 @@ function updateChart(strategies_array) {
     )
     let proccess = getProcessName()
     if (proccess == "generation") {
-        console.log("PRIMER ERROR ",strategies_const )
         plotDataStrategies(strategies_const)
     } else if (proccess == "distribution") {
         dataGraphStrategiesDistribution(strategies_const)
@@ -3271,6 +3345,8 @@ function editDataStrategy(strategies_const, id){
     .then(respuesta => respuesta.json())
     .then(json => {
         console.log(json);
+        all_data = [];
+        for_save_indicators = [];
     })
     .catch(error => {
         console.log(error);
@@ -3294,7 +3370,7 @@ function generateDataToSave(strategies_const){
             //console.log("strategies_const. all_data " ,all_data);
         }
     }
-    console.log("strategies_const. all_data 2" ,all_data);
+    //console.log("strategies_const. all_data 2" ,all_data);
     return all_data
 }
 
@@ -3321,6 +3397,8 @@ function saveDataStrategy(strategies_const){
     .then(respuesta => respuesta.json())
     .then(json => {
         console.log(json);
+        all_data = []
+        for_save_indicators = []
     })
     .catch(error => {
         console.log(error);
@@ -3386,7 +3464,7 @@ function set(){
     $("#adjust_sub_estrategies_prev").addClass("btn-danger")
 }
 
-function lanzarEdit(strategies_array) {
+function lanzarEdit(strategies_array_edit) {
     let button = document.getElementById("adjust_sub_estrategies_prev");
     button.addEventListener("click", set)
     //boton.setAttribute("disabled", "true");
@@ -3400,8 +3478,8 @@ function lanzarEdit(strategies_array) {
 
     ActiveSection("scenarios_3")
     var parent = document.getElementById("template_strategies").cloneNode(true)
-    parent.querySelector("#process").innerHTML = strategies_array.process
-    strategies_array.models.forEach((model) => {
+    parent.querySelector("#process").innerHTML = strategies_array_edit.process
+    strategies_array_edit.models.forEach((model) => {
         var model_html = loadModel(model, parent)
         model.strategies.forEach((strategy) => {
             model_html
@@ -3415,9 +3493,9 @@ function lanzarEdit(strategies_array) {
     document.getElementById("test-clone").innerHTML = ""
     document.getElementById("test-clone").appendChild(parent)
     removeSliders()
-    loadSliders(strategies_array)
-    loadInputsAux(strategies_array)
-    updateChart(strategies_array)
+    loadSliders(strategies_array_edit)
+    loadInputsAux(strategies_array_edit)
+    updateChart(strategies_array_edit)
 }
 
 function viewScenary(id, scenary_name, proccess, year) {
@@ -3449,10 +3527,11 @@ function viewScenary(id, scenary_name, proccess, year) {
                 }
                 return acc;
             }, {});
-            const_strategies = JSON.parse(JSON.stringify(strategies_to_load))
-            strategies_array = filterStrategiesByProcess(strategies_to_load)
-            strategies_to_show = filterStrategiesByIdValuesFromEdit(strategies_array, objeto_values, objeto_values_aux, year)
-            lanzarEdit(strategies_array)
+            const_strategies = JSON.parse(JSON.stringify(strategies_to_load_edit))
+            loadUnit(units)
+            let strategies_array_edit = filterStrategiesByProcess(strategies_to_load_edit)
+            strategies_to_show = filterStrategiesByIdValuesFromEdit(strategies_array_edit, objeto_values, objeto_values_aux, year)
+            lanzarEdit(strategies_array_edit)
         })
         .catch(error => console.error(error));
 }
