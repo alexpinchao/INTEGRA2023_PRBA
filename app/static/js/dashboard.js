@@ -1754,11 +1754,17 @@ function modifyName(name) {
 }
 
 function prepareDataTopsis(eficiency, iep, iec, name) {
+    console.log("---prepareDataTopsis---")
+    console.log("eficiency",eficiency)
     let parent_object = {}
     let name_plant = modifyName(name)
     let efi = Object.values(eficiency)[0].slice(-1)[0]
     let efi_last_value = Object.values(efi)[1]
     let efi_last_name = Object.keys(efi)[1]
+
+    console.log("efi",efi)
+    console.log("efi_last_value",efi_last_value)
+    console.log("efi_last_name",efi_last_name)
 
     let iep_last = Object.values(iep)[0].slice(-1)[0]
     let iep_las_value = Object.values(iep_last)[1]
@@ -1777,6 +1783,7 @@ function prepareDataTopsis(eficiency, iep, iec, name) {
             },
         ],
     })
+    console.log("data_topsis_return",data_topsis_return)
     return data_topsis_return
 }
 
@@ -1843,8 +1850,6 @@ function createTotalValueForSave(generacion,consumo){
     let iep = (sumCon / pib[n-1] ) /1000
     let iec = (sumConEmissions*fe_const )/pib[n-1]
     for_save_indicators.push(eficiency,iep,iec)
-    // let values = prepareDataTopsis(eficiency, iep, iec, name)
-    // data_topsis.push(values)
 }
 
 function createGraphIndicator(create_data_indicator_generation, create_data_indicator_consume) {
@@ -1876,6 +1881,10 @@ function createGraphIndicator(create_data_indicator_generation, create_data_indi
         let iep = generationIndicatorsIEP(data_consumo, pib, name)
         let iec = generationIndicatorsIEC(data_consumo, fe, pib, name)
         let values = prepareDataTopsis(eficiency, iep, iec, name)
+
+
+
+
         data_topsis.push(values)
     })
     console.log("data_topsis GEN", data_topsis)
@@ -3534,6 +3543,62 @@ function viewScenary(id, scenary_name, proccess, year) {
             lanzarEdit(strategies_array_edit)
         })
         .catch(error => console.error(error));
+}
+
+//comparate scenary
+function buscarObjetosPorIds(ids, arregloDeObjetos) {
+    return arregloDeObjetos.filter(objeto => ids.includes(objeto.id));
+}
+
+function prepareDataTopsisFromScenerios(data_table_init, arr_ids) {
+    console.log("---prepareDataTopsisFromScenerios---")
+    console.log("data_table_init",data_table_init)
+    console.log("arr_ids",arr_ids)
+
+    // data_table_init.forEach(element => {
+        
+    //     console.log(element)
+    // })
+    let ids = arr_ids.map( ids => parseInt(ids))
+    console.log("ids",ids)
+    let strategies = buscarObjetosPorIds(ids, data_table_init);
+    console.log("strategies",strategies)
+
+    let data_topsis_return =[]
+    let parent_object = {}
+    strategies.forEach(strategy => {
+        let data_topsis_ = Object.assign({}, parent_object, {
+            [strategy.strategy_name]: [
+                {
+                    ["economico"]: strategy.economic_indicator,
+                    ["energetico"]: strategy.energy_indicator,
+                    ["ambiental"]: strategy.environmental_indicator,
+                },
+            ],
+        })
+        data_topsis.push(data_topsis_)
+    })
+    //
+    // // let name_plant = modifyName(name)
+    // // let efi = Object.values(eficiency)[0].slice(-1)[0]
+    // // let efi_last_value = Object.values(efi)[1]
+    // // let efi_last_name = Object.keys(efi)[1]
+
+    // console.log("efi",efi)
+    // console.log("efi_last_value",efi_last_value)
+    // console.log("efi_last_name",efi_last_name)
+
+    // // let iep_last = Object.values(iep)[0].slice(-1)[0]
+    // // let iep_las_value = Object.values(iep_last)[1]
+    // // let iep_las_name = Object.keys(iep_last)[1]
+
+    // // let iec_last = Object.values(iec)[0].slice(-1)[0]
+    // // let iec_last_value = Object.values(iec_last)[1]
+    // // let iec_last_name = Object.keys(iec_last)[1]
+
+
+    console.log("data_topsis SAVE",data_topsis)
+    // return data_topsis_return
 }
 
 /* Desarrollo Nuevo */
