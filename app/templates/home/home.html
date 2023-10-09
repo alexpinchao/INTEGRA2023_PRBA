@@ -297,37 +297,38 @@
                     <div>
                         <div class="card">
                             <div class="card-body">
-                                <p>
-                                    <button type="button" class="btn btn-block w-25 p-1" data-bs-toggle="modal" data-bs-target="#modalNotification">
-                                        Citar herramienta
-                                    </button>
-                                </p>
+                                <button type="button" class="btn btn-block w-25 p-1" data-bs-toggle="modal" data-bs-target="#modalNotification">
+                                    Citar herramienta
+                                </button>
                                 <!-- Modal Content -->
                                 <div class="modal fade" id="modalNotification" tabindex="-1" role="dialog" aria-labelledby="modalTitleNotify" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <p class="modal-title" id="modalTitleNotify">Como citar Inteegra</p>
+                                                <p class="modal-title h4" id="modalTitleNotify">Inteegra</p>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="py-3 text-center">
-                                                    <svg class="icon icon-xl text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
-                                                    <h2 class="h4 modal-title my-3">Important message!</h2>
-                                                    <p id="cite-text">Do you know that you can assign status and relation to a company right in the visit list?</p>
+                                                    <i class="fa-solid fa-quote-left me-1"></i>
+                                                    <i class="fa-solid fa-quote-right ms-1"></i>
+                                                    <p class="mt-2" id="cite-text">Universidad Tecnológica de Pereira, Universidad del Valle. INTEEGRA: Herramienta para la gestión de indicadores de eficiencia energética en el sector eléctrico colombiano. 2023. http://integra.fernandoleiton.com/home</p>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-sm btn-primary" onclick="copy_to_clipboard()">Copiar al portapapeles <i class="fa-regular fa-clipboard mx-1"></i></button>
+                                                <button type="button" id="btn-clipboard" class="btn btn-sm btn-primary w-50" onclick="copy_to_clipboard()">Copiar al portapapeles <i class="fa-regular fa-clipboard mx-1"></i></button>
                                             </div>
                                             <script>
                                                 function copy_to_clipboard() {
-                                                  // Get the text field
-                                                  let copyText = document.getElementById("cite-text");
+                                                    setTimeout(function() {
+                                                        $("#btn-clipboard").html("Copiar al portapapeles <i class='fa-regular fa-clipboard mx-1'></i>").removeClass("btn-success");
+                                                        }, 1000);
+                                                      // Get the text field
+                                                      let copyText = document.getElementById("cite-text");
 
-                                                  // Copy the text inside the text field
-                                                  navigator.clipboard.writeText(copyText.innerText);
-
+                                                      // Copy the text inside the text field
+                                                      navigator.clipboard.writeText(copyText.innerText);
+                                                      $("#btn-clipboard").html("Copiado!<i class='fa-solid fa-check ms-2'></i>").addClass("btn-success");
                                                 }
                                                 </script>
                                         </div>

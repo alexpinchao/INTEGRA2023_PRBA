@@ -913,22 +913,17 @@ def functionTopsis(output, weiths):
 
 @dashboard.route("/guia_usuario")
 def guia_usuario():
-    print("enviar pdf")
+    print("send user guide")
     return send_from_directory("dashboard", "test.pdf")
 
 @dashboard.route("/edit_scenary/")
 def edit_scenary():
     # obtener el id de la URL
     id = request.args.get('id')
-    print(f"id xx: {id}")
-
+    print(f"id for edit: {id}")
     edit = app.db_object.get_data_table_strategies_variable_value(id)
-    print(f"este es sub: {edit}")
-    # hacer algo con el id, por ejemplo buscarlo en una base de datos
-    # enviar una respuesta en formato JSON
     return jsonify(
         edit
-        # tus datos de respuesta
         )
 
 @dashboard.route('/editData', methods=['GET', 'POST'])
@@ -937,7 +932,7 @@ def editData():
     all_data= request.form.get("all_data")
     data_indicators= request.form.get("data_indicators")
 
-    print(f"id:  {id} ,all_data: {all_data} , data_indicators: {data_indicators}")
+    print(f"id:  {id}, all_data: {all_data} ,data_indicators: {data_indicators}")
     resultado = app.db_object.update_strategy_with_id(id, all_data, data_indicators)
     if resultado:
         flash("Scenary add successfully")
@@ -1000,13 +995,7 @@ def analysis():
         topsis = functionTopsis(dataframe, weiths)
         return topsis
     else:
-        # data2 = [
-        #     {'id': 1, 'nombre': 'Juan', 'proceso': 1990, 'año': 1990},
-        #     {'id': 2, 'nombre': 'Pedro', 'proceso': 1990, 'año': 1995},
-        #     {'id': 3, 'nombre': 'Maria', 'proceso': 1990, 'año': 2000},
-        # ]
         data_table_init = app.db_object.get_data_table_strategies("alex")
-        #https://www.youtube.com/watch?v=IgCfZkR8wME
         strategies = app.db_object.get_strategies()
         description_strategies = app.db_object.get_description_strategies()
         data, translating_dict = app.db_object.get_distribution()
@@ -1124,14 +1113,3 @@ def main():
     }
 
     return render_template("module/main.html", **context)
-
-# @login_required
-# @dashboard.route("/table", methods=["GET", "POST"])
-# def table():
-#     data = [
-#         {'id': 1, 'nombre': 'Juan', 'proceso': 1990, 'año': 1990},
-#         {'id': 2, 'nombre': 'Pedro', 'proceso': 1990, 'año': 1995},
-#         {'id': 3, 'nombre': 'Maria', 'proceso': 1990, 'año': 2000},
-#     ]
-#     print(f"esta pasando por aqui o no")
-#     return render_template("module/table.html", data=data)

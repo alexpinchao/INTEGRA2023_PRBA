@@ -493,6 +493,27 @@ macros %} {% block head %} {{ super() }}
                                                         {% include 'module/table.html' %}
                                                     </div>
                                                 </div>
+                                                <div class="d-flex justify-content-end btn-progress-next">
+                                                    <a
+                                                            id="compare_scenarios"
+                                                            href="#scenarios_3"
+                                                            class="btn btn-sm btn-primary d-inline-flex align-items-center"
+                                                    >
+                                                        <svg
+                                                                class="icon icon-xs me-2"
+                                                                fill="currentColor"
+                                                                viewBox="0 0 24 24"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                        >
+                                                            <path
+                                                                    fill-rule="evenodd"
+                                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                                                                    clip-rule="evenodd"
+                                                            ></path>
+                                                        </svg>
+                                                        Comparar
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1381,7 +1402,7 @@ macros %} {% block head %} {{ super() }}
                 ],
             },
         }
-        var strategies_to_load = JSON.parse('{{ strategies_definition| tojson | safe }}')
+        var strategies_to_load_edit = JSON.parse('{{ strategies_definition| tojson | safe }}')
         let units = JSON.parse('{{units | tojson | safe}}')
     </script>
 
@@ -1596,7 +1617,7 @@ macros %} {% block head %} {{ super() }}
                     }
                 })
                 // prettier-ignore
-                // let strategies_to_load = JSON.parse('{{ strategies_definition| tojson | safe }}')
+                let strategies_to_load = JSON.parse('{{ strategies_definition| tojson | safe }}')
                 // prettier-ignore
                 // let units = JSON.parse('{{units | tojson | safe}}')
                 if (arr_ids.length === 0) {
@@ -1759,48 +1780,81 @@ macros %} {% block head %} {{ super() }}
         }
     </script>
 
-    <script>
-        function radar_chart() {
-            new Chart(document.getElementById("radar-chart"), {
-                type: "radar",
-                data: {
-                    labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-                    datasets: [
-                        {
-                            label: "1950",
-                            fill: true,
-                            backgroundColor: "rgba(179,181,198,0.2)",
-                            borderColor: "rgba(179,181,198,1)",
-                            pointBorderColor: "#fff",
-                            pointBackgroundColor: "rgba(179,181,198,1)",
-                            data: [8.77, 55.61, 21.69, 6.62, 6.82],
-                        },
-                        {
-                            label: "2050",
-                            fill: true,
-                            backgroundColor: "rgba(255,99,132,0.2)",
-                            borderColor: "rgba(255,99,132,1)",
-                            pointBorderColor: "#fff",
-                            pointBackgroundColor: "rgba(255,99,132,1)",
-                            pointBorderColor: "#fff",
-                            data: [25.48, 54.16, 7.61, 8.06, 4.45],
-                        },
-                    ],
-                },
-                options: {
-                    title: {
-                        display: true,
-                        text: "Gráfica de ejemplo 3",
-                    },
-                },
-            })
-        }
-    </script>
-
     <script type="text/javascript">
         var list_name = "generation"
         var variable_mathjax = true
         choice(list_name)
+
+        function validateComparison() {
+            $("#compare_scenarios").removeClass("btn-danger")
+            console.log("---- validateComparison ----")
+            let sub_strategie_id = ""
+            let arr_ids = []
+            $("#table_scenarios tbody tr").each(function (i, v) {
+                if ($(this).find(".form-check-input").is(":checked") == true) {
+                    sub_strategie_id = $(this).find(".form-check-input").attr("id")
+                    arr_ids.push(sub_strategie_id)
+                }
+            })
+            // prettier-ignore
+                    //let strategies_to_load = JSON.parse('{{ strategies_definition| tojson | safe }}')
+            // prettier-ignore
+            // let units = JSON.parse('{{units | tojson | safe}}')
+            if (arr_ids.length > 1) {
+                console.log("Puede pasar")
+                console.log("ids", arr_ids)
+                let data_table_init = JSON.parse('{{data_table_init | tojson | safe}}')
+                console.log("data_table_init", data_table_init)
+                ActiveSection("scenarios_5")
+                prepareDataTopsisFromScenerios(data_table_init, arr_ids)
+            } else {
+                            // ActiveSection("scenarios_3")
+                            // loadUnit(units)
+                // console.log("array", strategies_to_load)
+                console.log("necesita elegir dos o mas escenarios para poder comparar")
+                $("#compare_scenarios").addClass("btn-danger")
+                console.log("ids", arr_ids)
+                // console.log("units", units)
+                            //loadStrategies(strategies_to_load, arr_ids)
+            }
+        }
+
+        const button = document.getElementById("compare_scenarios")
+        button.addEventListener("click", validateComparison)
+
+
+        var table = document.getElementById("table_scenarios");
+        var checkboxes = table.getElementsByTagName("input");
+        console.log("checkboxes", checkboxes)
+
+        let count = 0
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].onchange = function() {
+                if (this.checked) {
+                    count++
+                    let name = this.getAttribute("name");
+                    for (var j = 0; j < checkboxes.length; j++){
+                        if (checkboxes[j].getAttribute("name")  !== name){
+                            checkboxes[j].disabled = true;
+                        } else {
+                            // checkboxes[j].disabled = true;
+                            // console.log("entro false ")
+                        }
+                    }
+                // Checkbox is checked..
+                console.log("checked", this.checked)
+                } else {
+                // Checkbox is not checked..
+                    count--
+                    if (count < 1){
+                        for (var k = 0; k < checkboxes.length; k++) {
+                        checkboxes[k].disabled = false;
+                        }
+                    }
+                    console.log("checked", this.checked)
+                }
+            };
+        }
     </script>
 
 {% endblock %}
