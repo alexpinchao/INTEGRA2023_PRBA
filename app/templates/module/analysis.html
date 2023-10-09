@@ -119,10 +119,10 @@ macros %} {% block head %} {{ super() }}
                                         <div class="card border-1 shadow card-effect">
                                             <div class="card-body position-relative">
                                                 {# TEMPORAL #}
-                                                <img class="image comming-soon top-0 end-0"
-                                                     src="{{ url_for('static',filename='images/proximamente.png') }}"
-                                                     height="84"
-                                                     width="104" alt="Próximamente logo.">
+{#                                                <img class="image comming-soon top-0 end-0"#}
+{#                                                     src="{{ url_for('static',filename='images/proximamente.png') }}"#}
+{#                                                     height="84"#}
+{#                                                     width="104" alt="Próximamente logo.">#}
                                                 {# TEMPORAL #}
                                                 <div class="row d-block d-xl-flex align-items-center">
                                                     <div
@@ -146,14 +146,14 @@ macros %} {% block head %} {{ super() }}
                                                             </svg>
                                                         </div>
                                                         <div class="d-sm-none">
-                                                            <h3 class="fw-extrabold mb-1">Resultados</h3>
-                                                            <h2 class="h5">del proyecto</h2>
+                                                            <h3 class="fw-extrabold mb-1">Caso de estudio</h3>
+                                                            <h2 class="h5">de estudio</h2>
                                                         </div>
                                                     </div>
                                                     <div class="col-12 col-xl-7 px-xl-0">
                                                         <div class="d-none d-sm-block">
-                                                            <h3 class="fw-extrabold mb-2">Resultados</h3>
-                                                            <h2 class="h5 text-gray-400 mb-0">del proyecto</h2>
+                                                            <h3 class="fw-extrabold mb-2">Caso</h3>
+                                                            <h2 class="h5 text-gray-400 mb-0">de estudio</h2>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -162,7 +162,7 @@ macros %} {% block head %} {{ super() }}
                                     </a>
                                 </div>
                                 {% set text_module2 = 'En el módulo de análisis se evaluarán las estrategias de eficiencia energética mediante criterios económicos, ambientales y energéticos, al ser proyectadas hacia los años de interés, permitiendo definir las estrategias más viables para el país.' %}
-                                {{ modals.render_modal('coming','analysis-2','Resultados de evaluación', text_module2) }}
+                                {{ modals.render_modal('coming','analysis-2','Caso de estudio', text_module2) }}
                             </div>
                         </div>
                     </div>
